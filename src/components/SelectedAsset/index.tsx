@@ -21,6 +21,7 @@ import ErrorMessage from "components/ErrorMessage";
 import { placeBid } from "redux/slices/profileSlice";
 import { RootStateOrAny, useSelector } from "react-redux";
 import WalletSelector from "components/WalletSelector";
+import BaseUrl from "config";
 
 export interface HeroProps {}
 
@@ -75,7 +76,7 @@ const SelectedAsset: FC<HeroProps> = ({}) => {
           lamports: selectedAsset.currentBid * LAMPORTS_PER_SOL, //Investing 1 SOL. Remember 1 Lamport = 10^-9 SOL.
         })
       );
-    } catch (error) {
+    } catch (error: any) {
       return toast.error(error.msg, {
         position: "top-right",
         autoClose: 5000,
@@ -143,7 +144,12 @@ const SelectedAsset: FC<HeroProps> = ({}) => {
         {selectedIndex == 0 ? (
           <AframeComp1 />
         ) : (
-          <AframeComp2 user={{ rooms: [] }} permitionFlag={true} />
+          <iframe 
+            src={BaseUrl + "frames/ownroom1"}
+            width={1032}
+            height={314}
+          ></iframe>
+          // <AframeComp2 user={{ rooms: [] }} permitionFlag={true} />
         )}
       </div>
       {selectedAsset && (

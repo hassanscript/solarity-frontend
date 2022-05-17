@@ -1,9 +1,11 @@
-import React, { FC } from "react";
+import React, { FC, useState, useEffect } from "react";
+import { useAppSelector } from "redux/hooks";
 import Image from "next/image";
 import AframeComp2 from "components/AframeComp2";
 import AframeComp6 from "components/AframeComp6";
 import Link from "next/link";
 import { User } from "modules/User/Hero";
+import BaseUrl from "config";
 export interface BannerProps {
   vrprofile: {
     featured: boolean;
@@ -20,11 +22,46 @@ export interface BannerProps {
 }
 
 const Banner: FC<BannerProps> = ({ vrprofile, user, vrdao, smallImage }) => {
+  const { activeRoomId } = useAppSelector(state => state.profile);
+  const [ permition, setPermition ] = useState(false);
+  const [room, setRoom] = useState<any>({});
+
+  useEffect(() => {
+    if(user != {} && !!user.rooms) {
+      var roomIndex = -1;
+      if(activeRoomId != "") {
+        roomIndex = user.rooms.findIndex((s: any) => s._id == activeRoomId);
+      } else {
+        roomIndex = user.rooms.findIndex((s: any) => s.active == true);
+      }
+      if(roomIndex == -1) {
+        setPermition(true)
+      } else {
+        setRoom(user.rooms[roomIndex]);
+      }
+    }
+  }, [activeRoomId])
+
+
+
   return (
     <div>
       {vrprofile && (
         <div className="relative w-full h-[400px] rounded-2xl -mt-5">
-          <AframeComp2 user={user} permitionFlag={false}/>
+          {/* <AframeComp2 user={user} permitionFlag={false}/> */}
+          { user.rooms && user.rooms.length != 0 && permition == false ? (
+            <iframe 
+              className="mb-2"
+              title="banner"
+              width={1000}
+              height={400}
+              src={BaseUrl + "super/room/" + room._id}
+            />
+          ): (
+            <div className="pt-20 text-center">
+              You don't have any active room. Buy a room in marketplace page and active a room in assets menu please.
+            </div>
+          )}
           {vrprofile.price && (
             <Link
               href={

@@ -103,7 +103,7 @@ export default function AframeComp2({user, permitionFlag}) {
         start_loading_screen_listeners(setLoaded);
       }
     }, 100);
-  }, [])
+  }, []);
 
   if((user.rooms && user.rooms.length != 0) || permitionFlag) {
     if (permition || permitionFlag) {
