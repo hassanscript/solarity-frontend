@@ -16,9 +16,8 @@ export const signMessage = async (
   let signature;
   if (type === "solana") {
     const messageToSign = new TextEncoder().encode(message);
-    let signatureEncoded: Uint8Array;
-    signatureEncoded = await provider.signMessage(messageToSign);
-    signature = base58.encode(signatureEncoded);
+    let signatureEncoded = await provider.signMessage(messageToSign);
+    signature = base58.encode(signatureEncoded.signature);
   } else {
     let web3 = new Web3(provider);
     signature = await web3.eth.personal.sign(message, walletAddress, "");
