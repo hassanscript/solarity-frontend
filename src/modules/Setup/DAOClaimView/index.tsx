@@ -14,11 +14,11 @@ type DAOCardProps = {
 
 const DAOCard: FC<DAOCardProps> = ({ name, imageLink }) => {
   return (
-    <div className="btn rounded-xl h-16 w-full">
-      <div className="flex items-center w-full">
+    <div className="btn h-16 w-full rounded-xl">
+      <div className="flex w-full items-center">
         <img src={imageLink} height="40" width="40" className="rounded-full" />
         <div className="w-full pl-5">
-          <p className="font-semibold text-sm text-left text-secondary capitalize">
+          <p className="text-left text-sm font-semibold capitalize text-secondary">
             {name}
           </p>
         </div>
@@ -48,7 +48,7 @@ const FindDAO = () => {
 
 const NoDaoMessage = () => {
   return (
-    <div className="alert alert-warning shadow-lg w-full">
+    <div className="alert alert-warning w-full shadow-lg">
       <span>You are not part of any DAOs</span>
     </div>
   );
@@ -56,7 +56,7 @@ const NoDaoMessage = () => {
 
 const LoadingMessage = () => {
   return (
-    <div className="alert alert-warning shadow-lg w-full">
+    <div className="alert alert-warning w-full shadow-lg">
       <span>Loading DAOs...</span>
     </div>
   );
@@ -64,22 +64,24 @@ const LoadingMessage = () => {
 
 const ErrorMessage = () => {
   return (
-    <div className="alert alert-error shadow-lg w-full">
+    <div className="alert alert-error w-full shadow-lg">
       <span>An error occurred while claiming the DAOs</span>
     </div>
   );
 };
 
 const DAOClaimView = () => {
+  // show this only if the user added a solana address
+
   const dispatch = useDispatch();
   const [loading, setLoading] = useState<Boolean>(false);
   const [error, setError] = useState<Boolean>(false);
 
   try {
     return (
-      <div className="flex flex-1 container justify-center pt-12">
-        <div className="flex-1 max-w-lg ">
-          <h3 className="text-3xl font-semibold pb-4">
+      <div className="container flex flex-1 justify-center pt-12">
+        <div className="max-w-lg flex-1 ">
+          <h3 className="pb-4 text-3xl font-semibold">
             DAOs you are already in:
           </h3>
           <NoDaoMessage />
@@ -115,8 +117,8 @@ const DAOClaimView = () => {
     );
   } catch (err) {
     return (
-      <div className="flex flex-1 container justify-center pt-20">
-        <div className="flex-1 max-w-lg ">
+      <div className="container flex flex-1 justify-center pt-20">
+        <div className="max-w-lg flex-1 ">
           <div className="alert alert-info shadow-lg">
             <span>Error loading the setup page</span>
           </div>

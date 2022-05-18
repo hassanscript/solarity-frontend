@@ -6,14 +6,20 @@ import { linkAccounts, unlinkAccounts } from "redux/slices/profileSlice";
 import { minifyAddress } from "utils";
 import WalletSelector from "components/WalletSelector";
 import { signMessage } from "utils/walletHelpers";
+import { LinkWrapper } from "./sharedComponents";
 
-const SolanaLink: FC = () => {
+const SolanaLink: FC<{
+  mini?: boolean;
+  hideLinkedAddress?: boolean;
+  disabled?: boolean;
+}> = ({ mini, hideLinkedAddress, disabled }) => {
   const { solanaAddress, _id: userId } = useSelector(
     (state: RootStateOrAny) => state.profile.data
   );
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
+  if (hideLinkedAddress && solanaAddress) return <></>;
 
   return (
     <>
@@ -44,10 +50,10 @@ const SolanaLink: FC = () => {
           );
         }}
       />
-      <div className="border border-brandblack rounded-3xl p-5 flex items-center space-x-4">
+      <LinkWrapper mini={mini}>
         {Boolean(solanaAddress) && (
           <button
-            className={`btn btn-primary bg-[#14F195] flex space-x-2 ${
+            className={`btn btn-primary flex space-x-2 bg-[#14F195] ${
               loading ? "loading" : ""
             }`}
             onClick={() => {
@@ -75,9 +81,9 @@ const SolanaLink: FC = () => {
         )}
         {!Boolean(solanaAddress) && (
           <a
-            className={`btn btn-primary bg-[#14F195] flex space-x-2 ${
+            className={`btn btn-primary flex space-x-2 bg-[#14F195] ${
               loading ? "loading" : ""
-            }`}
+            } ${disabled ? "btn-disabled" : ""}`}
             onClick={() => setShow(true)}
           >
             <Image
@@ -97,11 +103,9 @@ const SolanaLink: FC = () => {
             </span>
           </p>
         ) : (
-          <p className="text-gray-950">
-            You account is not linked with any solana address
-          </p>
+          <p className="text-gray-950">Link your account with solana</p>
         )}
-      </div>
+      </LinkWrapper>
     </>
   );
 };

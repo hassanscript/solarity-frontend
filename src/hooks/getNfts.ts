@@ -82,7 +82,6 @@ export const getNfts = (
     });
   };
 
-
   const getAllData = async () => {
     setLoading(true);
     setError(false);

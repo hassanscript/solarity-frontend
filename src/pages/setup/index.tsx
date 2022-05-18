@@ -1,7 +1,9 @@
 import { useEffect } from "react";
+import Layout from "components/Layout";
 import Setup from "modules/Setup";
 import { useRouter } from "next/router";
 import { RootStateOrAny, useSelector } from "react-redux";
+import { ToastContainer } from "react-toastify";
 
 const SetupPage = () => {
   const router = useRouter();
@@ -13,7 +15,7 @@ const SetupPage = () => {
     if (!logged || (logged && profileData.visible)) {
       router.push("/");
     }
-  }, [logged, profileData]);
+  }, [logged, profileData.visible]);
 
   if (!logged) return <div></div>;
 
