@@ -72,7 +72,7 @@ export function update_loading_screen() {
   }
 }
 //checks if model has loaded before building all of the dinamic content
-/*
+
 export function start_loading_screen_listeners(setLoaded) {
   var scene_wrapperEl = document.getElementById("scene_wrapper");
   var loading_screenEl = document.getElementById("loading_screen");
@@ -93,4 +93,3 @@ export function start_loading_screen_listeners(setLoaded) {
     });
   }
 }
-*/

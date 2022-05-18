@@ -24,7 +24,7 @@ import { models } from "data/experience";
 import VolumeUp from '../../components/Icons/VolumeUp';
 import VolumeOff from '../../components/Icons/VolumeOff';
 import NestedToolTip from 'components/NestedToolTip';
-import { freeObjectFromMemory } from '../../utils/clearObject';
+import freeObjectFromMemory from '../../utils/clearObject';
 
 const ChatModule = () => {
   const [mounted, setMounted] = useState(false)
