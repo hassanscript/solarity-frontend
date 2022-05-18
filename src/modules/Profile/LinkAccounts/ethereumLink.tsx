@@ -8,8 +8,13 @@ import { minifyAddress } from "utils";
 import WalletSelector from "components/WalletSelector";
 import Web3 from "web3";
 import { signMessage } from "utils/walletHelpers";
+import { LinkWrapper } from "./sharedComponents";
 
-const EthereumLink: FC = () => {
+const EthereumLink: FC<{
+  mini?: boolean;
+  hideLinkedAddress?: boolean;
+  disabled?: boolean;
+}> = ({ mini, disabled, hideLinkedAddress }) => {
   const { ethereumAddress, _id: userId } = useSelector(
     (state: RootStateOrAny) => state.profile.data
   );
@@ -17,6 +22,7 @@ const EthereumLink: FC = () => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
+  if (hideLinkedAddress && ethereumAddress) return <></>;
   return (
     <>
       <WalletSelector
@@ -46,10 +52,10 @@ const EthereumLink: FC = () => {
           );
         }}
       />
-      <div className="border border-brandblack rounded-3xl p-5 flex items-center space-x-4">
+      <LinkWrapper mini={mini}>
         {Boolean(ethereumAddress) && (
           <button
-            className={`btn btn-primary bg-[#c99d66] flex space-x-2 ${
+            className={`btn btn-primary flex space-x-2 bg-[#c99d66] ${
               loading ? "loading" : ""
             }`}
             onClick={() => {
@@ -77,9 +83,9 @@ const EthereumLink: FC = () => {
         )}
         {!Boolean(ethereumAddress) && (
           <a
-            className={`btn btn-primary bg-[#c99d66] flex space-x-2 ${
+            className={`btn btn-primary flex space-x-2 bg-[#c99d66] ${
               loading ? "loading" : ""
-            }`}
+            } ${disabled ? "btn-disabled" : ""}`}
             onClick={() => setShow(true)}
           >
             <Image
@@ -99,11 +105,9 @@ const EthereumLink: FC = () => {
             </span>
           </p>
         ) : (
-          <p className="text-gray-950">
-            You account is not linked with any ethereum address
-          </p>
+          <p className="text-gray-950">Link your account with Ethereum</p>
         )}
-      </div>
+      </LinkWrapper>
     </>
   );
 };

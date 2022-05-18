@@ -16,24 +16,33 @@ export function build_loading_screen() {
   var loading_bar_itemEL = document.createElement("div");
   loading_barEl.appendChild(loading_bar_itemEL);
   loading_bar_itemEL.classList.add("moving_item");
+  loading_bar_itemEL.setAttribute("id", "loading_bar_moving_item");
+
 }
 //updates loading screen based on models actually loaded
-function update_loading_screen(setLoaded) {
+export function update_loading_screen() {
+  models = document.querySelectorAll('[model-info]');
+  models_number = models.length;
+  console.log("updating")
   var scene_wrapperEl = document.getElementById("scene_wrapper");
   var loading_textEl = document.getElementById("loading_text");
   var loading_barEl = document.getElementById("loading_bar");
   var loading_screenEl = document.getElementById("loading_screen");
+  var loading_videoEl = document.getElementById("background_video");
+  var moving_itemEL = document.getElementById("loading_bar_moving_item");
+
+
   // var loading_videoEl = document.getElementById('background_video');
   setTimeout(function () {
     if (scene_wrapperEl) {
       scene_wrapperEl.removeAttribute("style");
     }
-    setLoaded(true);
-  }, 20000);
+    //setLoaded(true);
+  }, 10000);
   models_loaded++;
   if (models_loaded == 1) {
     //remove the old bar item when the first model is loaded
-    if (!!loading_barEl) loading_barEl.removeChild(loading_barEl.lastChild);
+    moving_itemEL.remove();
   }
   if (loading_textEl)
     loading_textEl.innerHTML =
@@ -56,21 +65,32 @@ function update_loading_screen(setLoaded) {
     models_loaded = 0;
     models = [];
     models_number = undefined;
-    setLoaded(true);
+    //setLoaded(true);
     if (!!scene_wrapperEl) scene_wrapperEl.removeAttribute("style");
     if (!!loading_screenEl) loading_screenEl.style.display = "none";
-    // loading_videoEl.remove();
+    loading_videoEl.remove();
   }
 }
 //checks if model has loaded before building all of the dinamic content
+/*
 export function start_loading_screen_listeners(setLoaded) {
-  // THREE.Cache.clear();
+  var scene_wrapperEl = document.getElementById("scene_wrapper");
+  var loading_screenEl = document.getElementById("loading_screen");
   models_loaded = 0;
   models = document.getElementsByClassName("model");
   models_number = models.length;
+  if(models_number == 0) {
+    models_loaded = 0;
+    models = [];
+    models_number = undefined;
+    setLoaded(true);
+    if (!!scene_wrapperEl) scene_wrapperEl.removeAttribute("style");
+    if (!!loading_screenEl) loading_screenEl.style.display = "none";
+  }
   for (var i = 0; i < models_number; i++) {
     models[i].addEventListener("model-loaded", () => {
       update_loading_screen(setLoaded);
     });
   }
 }
+*/

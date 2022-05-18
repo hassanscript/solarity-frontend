@@ -39,7 +39,8 @@ const WalletSelector: FC<{
       <Dialog
         onClose={onClose}
         as="div"
-        className="fixed inset-0 z-40 overflow-y-auto"
+        style={{ zIndex: "10000000" }}
+        className="fixed inset-0 overflow-y-auto"
       >
         <div className="min-h-screen px-4 text-center">
           <Transition.Child
@@ -68,14 +69,14 @@ const WalletSelector: FC<{
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <div className="inline-block w-full max-w-md p-6 px-10 my-8 overflow-hidden text-left align-middle transition-all transform shadow-xl bg-brandblack rounded-2xl">
+            <div className="my-8 inline-block w-full max-w-md transform overflow-hidden rounded-2xl bg-brandblack p-6 px-10 text-left align-middle shadow-xl transition-all">
               <Dialog.Title
                 as="h3"
-                className="text-2xl font-bold leading-6 text-center mb-3"
+                className="mb-3 text-center text-2xl font-bold leading-6"
               >
                 {title || "Wallets"}
               </Dialog.Title>
-              <p className="text-center text-sm mb-10">
+              <p className="mb-10 text-center text-sm">
                 {subtitle || "Please connect to a wallet from the list below"}
               </p>
               {WALLETS.filter((t) => {
@@ -90,7 +91,7 @@ const WalletSelector: FC<{
                       });
                     }}
                     key={id}
-                    className="flex mb-3 p-3 px-5 flex items-center hover:bg-secondary rounded-xl bg-gray-700 cursor-pointer"
+                    className="mb-3 flex flex cursor-pointer items-center rounded-xl bg-gray-700 p-3 px-5 hover:bg-secondary"
                   >
                     <p className="flex-1 text-lg capitalize">{label}</p>
                     <div>

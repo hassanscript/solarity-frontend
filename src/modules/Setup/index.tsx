@@ -1,22 +1,24 @@
 import React, { FC } from "react";
 import InfoView from "./InfoView";
+import LinkView from "./LinkView";
 import DAOClaimingView from "./DAOClaimView";
 import Logo from "../../assets/images/logo.png";
 import Image from "next/image";
 import bgImage from "../../assets/images/setup-page-bg.png";
 import hoverImages from "../../assets/images/setup-page-images.png";
 import ProfilePicView from "./ProfilePicView";
+import DAOClaimView from "./DAOClaimView";
 
 const Branding = () => {
   return (
     <div
-      className={`flex flex-1 container ms-center justify-center pt-20 z-50 bg-cover bg-center`}
+      className={`ms-center container z-50 flex flex-1 justify-center bg-cover bg-center pt-20`}
       style={{
         backgroundImage:
           "url(" + hoverImages.src + "), url(" + bgImage.src + ")",
       }}
     >
-      <div className="flex-1 max-w-lg ">
+      <div className="max-w-lg flex-1 ">
         <div className="flex flex-row items-center">
           <div>
             <Image src={Logo} alt="Logo" />
@@ -36,31 +38,57 @@ type SetupProps = {
     daoClaimed: boolean;
     infoAdded: boolean;
     profilePicUpdated: boolean;
+    accountsLinked: boolean;
   };
 };
 
+const BrandBox: FC<{}> = ({ children }) => {
+  return (
+    <div className="flex h-screen flex-row overflow-auto">
+      <Branding />
+      <div className="ms-center container z-50 flex flex-1 justify-center pt-20">
+        {children}
+      </div>
+    </div>
+  );
+};
+
 const Setup: FC<SetupProps> = ({
-  stepsCompleted: { daoClaimed, infoAdded, profilePicUpdated },
+  stepsCompleted: { daoClaimed, infoAdded, profilePicUpdated, accountsLinked },
 }) => {
-  const showInfoView = !infoAdded;
-  const showDaoView = !daoClaimed && infoAdded;
-  const showProfilePicView = !profilePicUpdated && infoAdded && daoClaimed;
-  if (showProfilePicView) {
+  if (!infoAdded) {
+    return (
+      <BrandBox>
+        <InfoView />
+      </BrandBox>
+    );
+  }
+
+  if (!accountsLinked) {
+    return (
+      <BrandBox>
+        <LinkView />
+      </BrandBox>
+    );
+  }
+
+  if (!profilePicUpdated) {
     return (
       <div className="h-screen overflow-auto">
         <ProfilePicView />
       </div>
     );
   }
-  return (
-    <div className="flex flex-row h-screen overflow-auto">
-      <Branding />
-      <div className="flex flex-1 container ms-center justify-center pt-20 z-50">
-        {showInfoView && <InfoView />}
-        {showDaoView && <DAOClaimingView />}
-      </div>
-    </div>
-  );
+
+  if (!daoClaimed) {
+    return (
+      <BrandBox>
+        <DAOClaimView />
+      </BrandBox>
+    );
+  }
+
+  return <></>;
 };
 
 export default Setup;

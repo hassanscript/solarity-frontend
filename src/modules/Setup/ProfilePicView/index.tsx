@@ -1,17 +1,25 @@
 import { Button } from "components/FormComponents";
-import { getNfts } from "hooks";
+import { getNfts } from "../../../hooks";
 import { NftCard } from "modules/User/Art";
 import { useState } from "react";
 import { FC } from "react";
-import { useDispatch } from "react-redux";
-import { setProfilePic } from "redux/slices/profileSlice";
+import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
+import { setProfilePic, setup } from "../../../redux/slices/profileSlice";
+import { showErrorToast } from "utils";
+
+interface NftSelectionProps {
+  type?: string;
+  contractAddress?: string;
+  tokenId?: string;
+  mintAddress?: string;
+}
 
 interface NftCardsProps {
   nfts: any[];
   loading: Boolean;
   error: Boolean;
-  selected: string | undefined;
-  onClick: (mintAddress: string) => void;
+  selected: NftSelectionProps | undefined;
+  onClick: (data: NftSelectionProps) => void;
 }
 
 const NftCards: FC<NftCardsProps> = ({
@@ -23,21 +31,21 @@ const NftCards: FC<NftCardsProps> = ({
 }) => {
   if (loading) {
     return (
-      <div className="alert alert-warning shadow-lg w-full">
+      <div className="alert alert-warning w-full shadow-lg">
         <span>Loading NFTs...</span>
       </div>
     );
   }
   if (error) {
     return (
-      <div className="alert alert-error shadow-lg w-full">
+      <div className="alert alert-error w-full shadow-lg">
         <span>Error While Loading NFTs</span>
       </div>
     );
   }
   if (nfts.length == 0) {
     return (
-      <div className="alert alert-info shadow-lg w-full">
+      <div className="alert alert-info w-full shadow-lg">
         <span>
           You don't own any NFTs so you will not be able to set your profile pic
         </span>
@@ -45,10 +53,18 @@ const NftCards: FC<NftCardsProps> = ({
     );
   }
   return (
-    <div className="gap-4 border border-brandblack rounded-3xl grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+    <div className="grid grid-cols-1 gap-4 rounded-3xl border border-brandblack  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       {nfts.map(
         (
-          { type, mintAddress: mint, name, uri, image, collectionName },
+          {
+            type,
+            mintAddress,
+            contractAddress,
+            tokenId,
+            name,
+            image,
+            collectionName,
+          },
           index
         ) => (
           <NftCard
@@ -57,8 +73,24 @@ const NftCards: FC<NftCardsProps> = ({
             type={type}
             name={name}
             key={index}
-            selected={mint == selected}
-            onClick={() => onClick(mint)}
+            selected={(() => {
+              if (!selected || !selected.type) return false;
+              if (selected.type === "Ethereum") {
+                return (
+                  selected.tokenId == tokenId &&
+                  selected.contractAddress == contractAddress
+                );
+              }
+              return selected.mintAddress == mintAddress;
+            })()}
+            onClick={() => {
+              onClick({
+                type,
+                mintAddress,
+                contractAddress,
+                tokenId,
+              });
+            }}
           />
         )
       )}
@@ -68,16 +100,22 @@ const NftCards: FC<NftCardsProps> = ({
 
 const ProfilePicView = () => {
   const dispatch = useDispatch();
-  const [nfts, nftLoading, nftError] = getNfts();
-  const [selected, setSelected] = useState<string>();
+
+  const { username, solanaAddress } = useSelector(
+    (state: RootStateOrAny) => state.profile.data
+  );
+
+  const [nfts, nftLoading, nftError] = getNfts(username, solanaAddress);
+  const [selected, setSelected] = useState<NftSelectionProps>({});
   const [loading, setLoading] = useState<Boolean>(false);
   const [error, setError] = useState<string | Boolean>(false);
+
   try {
     return (
       <div className="bg-brandblack">
-        <div className="flex flex-col h-screen w-screen container py-6 mx-auto">
+        <div className="container mx-auto flex h-screen w-screen flex-col py-6">
           <div className="flex w-full pb-5">
-            <h3 className="text-3xl font-semibold pb-4 w-full">
+            <h3 className="w-full pb-4 text-3xl font-semibold">
               Select a profile Pic
             </h3>
             <Button
@@ -89,12 +127,15 @@ const ProfilePicView = () => {
               onClick={() => {
                 setLoading(true);
                 dispatch(
-                  setProfilePic({
-                    data: { mint: selected },
+                  setup({
+                    data: {
+                      action: "profilePic",
+                      ...selected,
+                      imageNetwork: selected.type,
+                    },
                     successFunction: () => {},
                     errorFunction: (error) => {
-                      alert(error);
-                      setError(error);
+                      showErrorToast(error);
                     },
                     finalFunction: () => {
                       setLoading(false);
@@ -106,13 +147,13 @@ const ProfilePicView = () => {
               Next
             </Button>
           </div>
-          <div className="flex-1 w-full overflow-auto outline scrollbar-thin scrollbar-thumb-black border border-darkcharcoal rounded-3xl p-10">
+          <div className="outline w-full flex-1 overflow-auto rounded-3xl border border-darkcharcoal p-10 scrollbar-thin scrollbar-thumb-black">
             <NftCards
               nfts={nfts}
               loading={nftLoading}
               error={nftError}
               selected={selected}
-              onClick={(mintAddress) => !loading && setSelected(mintAddress)}
+              onClick={(nft) => setSelected(nft)}
             />
           </div>
         </div>
@@ -120,8 +161,8 @@ const ProfilePicView = () => {
     );
   } catch (err) {
     return (
-      <div className="flex flex-1 container justify-center pt-20">
-        <div className="flex-1 max-w-lg ">
+      <div className="container flex flex-1 justify-center pt-20">
+        <div className="max-w-lg flex-1 ">
           <div className="alert alert-info shadow-lg">
             <span>Error loading the profile image selector</span>
           </div>
