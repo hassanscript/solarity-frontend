@@ -59,7 +59,7 @@ const Banner: FC<BannerProps> = ({ vrprofile, user, vrdao, smallImage }) => {
             />
           ): (
             <div className="pt-20 text-center">
-              You don't have any active room. Buy a room in marketplace page and active a room in assets menu please.
+              {"You don't have any active room. Buy a room in marketplace page and active a room in assets menu please."}
             </div>
           )}
           {vrprofile.price && (

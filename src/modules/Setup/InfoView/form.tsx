@@ -12,7 +12,7 @@ import {
   FormikInput,
 } from "components/FormComponents";
 import { addInfo } from "redux/slices/profileSlice";
-import { ProfileFields } from "modules/Profile/UpdateInfoView";
+import ProfileFields from "modules/Profile/UpdateInfoView";
 
 export const Form = () => {
   const dispatch = useDispatch();
