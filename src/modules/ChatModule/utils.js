@@ -5,7 +5,7 @@ export function update_scrollbar(start_index, item_number, item_array, offset_st
     for (let item of item_array) {
         item.setAttribute('visible', "false");
     }
-    for (var i = 0; i < item_number && i < item_array.length; i++) {
+    for (let i = 0; i < item_number && i < item_array.length; i++) {
         item_array[i + start_index].setAttribute('visible', "true");
         item_array[i + start_index].setAttribute('position', { x: offset.x, y: offset.y, z: 0.01 });
         offset.x = offset.x + offset_delta.x;
