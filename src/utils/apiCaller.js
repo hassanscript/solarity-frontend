@@ -5,7 +5,7 @@ const urlBase =
     ? "http://localhost:3004/api"
     : "https://solarity-server.herokuapp.com/api";
 
-export const apiCaller = axios.create({
+const apiCaller = axios.create({
   baseURL: urlBase,
   headers: {
     "Content-Type": "application/json",
@@ -14,3 +14,5 @@ export const apiCaller = axios.create({
   },
   withCredentials: true,
 });
+
+export default apiCaller;

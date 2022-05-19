@@ -1,3 +1,4 @@
+import axios from "axios";
 const urlBase = "https://solarity.muhash.com/api";
 const apiCaller = axios.create({
     baseURL: urlBase,
@@ -6,18 +7,17 @@ const apiCaller = axios.create({
     },
 });
 //nft
-var nft_containerEl = document.getElementById('screen');
 var nft = { "floorPrice": "no data", "image": "assets/images/nft_placeholder.jpeg" };
 apiCaller
-    .get("/daos/solana_money_boys")
-    .then((data) => {
-        nft = data.data.collection;
-    })
-    .catch((err) => {
-        nft = { "floorPrice": "no data", "image": "assets/images/nft_placeholder.jpeg" };
-    });
+.get("/daos/solana_money_boys")
+.then((data) => {
+    nft = data.data.collection;
+})
+.catch((err) => {
+    nft = { "floorPrice": "no data", "image": "assets/images/nft_placeholder.jpeg" };
+});
 function build_nft() {
-
+    var nft_containerEl = document.getElementById('screen');
     var nft_item_amountEL = document.createElement('a-text');
     nft_containerEl.appendChild(nft_item_amountEL);
     nft_item_amountEL.setAttribute('value', nft.floorPrice);
@@ -40,11 +40,11 @@ function build_nft() {
 }
 
 //bank
-var bank_containerEl = document.getElementById('bank_screen');
 var bank = { "amount": "no data" };
 function build_bank() {
-
+    var bank_containerEl = document.getElementById('bank_screen');
     var bank_item_amountEL = document.createElement('a-text');
+
     bank_containerEl.appendChild(bank_item_amountEL);
     bank_item_amountEL.setAttribute('value', bank.amount);
     bank_item_amountEL.setAttribute('wrap-count', 20);

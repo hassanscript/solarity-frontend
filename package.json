@@ -34,7 +34,6 @@
     "aframe-blink-controls": "^0.3.0",
     "aframe-liquid-portal-shader": "^1.0.1",
     "aframe-react": "^4.4.0",
-    "axios": "^0.27.2",
     "bignumber.js": "^9.0.2",
     "bluebird": "^3.7.2",
     "bs58": "^5.0.0",
