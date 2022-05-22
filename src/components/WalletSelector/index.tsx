@@ -29,7 +29,11 @@ const WALLETS = [
 const WalletSelector: FC<{
   open: boolean;
   onClose: () => void;
-  onSelect: (address: string, type: string, provider: any) => void;
+  onSelect: (
+    address: string,
+    type: "ethereum" | "solana",
+    provider: any
+  ) => void;
   title?: string;
   subtitle?: string;
   type: "all" | "ethereum" | "solana";
