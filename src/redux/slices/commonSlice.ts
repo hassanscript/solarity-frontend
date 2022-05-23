@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  appLoading: false,
+  appLoading: true,
 };
 
 export const commonSlice = createSlice({
