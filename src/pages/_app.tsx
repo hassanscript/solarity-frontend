@@ -3,6 +3,7 @@ import type { AppProps } from "next/app";
 import dynamic from "next/dynamic";
 import { ConnectionProvider } from "@solana/wallet-adapter-react";
 import { ToastContainer } from "react-toastify";
+import AppLoader from "../components/AppLoader";
 
 // For redux
 import {
@@ -16,7 +17,7 @@ import store from "../redux/store";
 import "tailwindcss/tailwind.css";
 import "../styles/globals.css";
 import "../styles/App.css";
-import { checkSession } from "redux/slices/authSlice";
+import { checkSession } from "../redux/slices/authSlice";
 import { useRouter } from "next/router";
 
 // set custom RPC server endpoint for the final website
@@ -68,6 +69,7 @@ function ReduxWrapped({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
       <MyApp>
+        <AppLoader />
         <ToastContainer
           style={{ position: "fixed", zIndex: "100000000" }}
           position="top-right"
