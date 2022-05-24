@@ -8,11 +8,10 @@ import { useWebTRTC } from '../../utils/useWebTRTC';
 import { setMsg, setPeers } from '../../redux/slices/chatSlice';
 import ACTIONS from '../../config/actions';
 import styles from './chat.module.css';
-import { start_loading_screen_listeners, build_loading_screen } from './loading_screen'
+import { build_loading_screen } from './loading_screen'
 import { start_screens } from './screens'
-// import {start_screens} from './screens'
 import { choose_controls, pass_controls } from './utils'
-import { Chat, Join, Minus, UserPlus, Users } from 'components/Icons';
+import { Chat, Join, Minus} from 'components/Icons';
 import InviteFriendModal from "components/Modals/InviteFriendModal";
 import MicrophoneOn from '../../components/Icons/MicrophoneOn';
 import MicrophoneOff from '../../components/Icons/MicrophoneOff';
@@ -36,7 +35,6 @@ const ChatModule = () => {
   const [sendData, setSendData] = useState('');
   const [roomIndex, setRoomIndex] = useState(-1);
   const [intervalId, setIntervalId] = useState('');
-  const [gifIntervalId, setGifIntervalId] = useState('');
   const [volumes, setVolumes] = useState({});
   const [isMute, setMute] = useState(false);
   const [iniviteFriendModal, setIniviteFriendModal] = useState(false);
@@ -284,7 +282,7 @@ const ChatModule = () => {
         sortObjects: true;
         physicallyCorrectLights: true;
         maxCanvasWidth: 1920;
-        maxCanvasHeight: 1920;" shadow="autoUpdate: false" loading-screen="enabled:false" stats>
+        maxCanvasHeight: 1920;" shadow="autoUpdate: false" loading-screen="enabled:false">
             {/* assets management system */}
             <a-assets timeout="100000">
               <a-asset-item id="headd" src="/assets/models/hub/Avatar head LOW POLY.glb"></a-asset-item>
@@ -325,7 +323,6 @@ const ChatModule = () => {
               <img id="gif-img3" src="/assets/images/gif_img3.jpeg" />
               <img id="gif-img4" src="/assets/images/gif_img4.jpeg" />
 
-              <audio id="rap" src="/assets/audio/rap.mp3"></audio>
             </a-assets>
 
             {/* basic movement  */}
@@ -426,18 +423,18 @@ const ChatModule = () => {
             <a-plane position="-13.21 2.75 4.33" width="1.5" height="1.75" rotation="0 133.25 0"
               material="shader: standard;" color="#111122">
               <a-image width="1.5" height="1.75" position="0 0 0.01"
-                src="assets\images\ffc2b2a0-614a-4359-b164-68c5b9f4396d.jpg"></a-image>
+                src="/assets\images\ffc2b2a0-614a-4359-b164-68c5b9f4396d.jpg"></a-image>
             </a-plane>
             {/* tiny screen left */}
             <a-plane position="-13.22 2.75 -4.3" width="1.5" height="1.75" rotation="0 46.75 0"
               material="shader: standard;" color="#111122">
-              <a-image width="1.5" height="1.75" position="0 0 0.01" src="assets/images/media_FKNOb38VgAkOruy.jpg">
+              <a-image width="1.5" height="1.75" position="0 0 0.01" src="/assets/images/media_FKNOb38VgAkOruy.jpg">
               </a-image>
             </a-plane>
             {/* tiny screen center */}
             <a-plane position="-14.445 2.75 0" width="1.5" height="1.75" rotation="0 90 0" material="shader: standard;"
               color="#111122">
-              <a-image width="1.5" height="1.75" position="0 0 0.01" src="assets/images/download.png"></a-image>
+              <a-image width="1.5" height="1.75" position="0 0 0.01" src="/assets/images/download.png"></a-image>
             </a-plane>
             {/* portals */}
             <a-image width="1.3" height="1.9" class="clickable nocollision" simple-link="href: /experience"
@@ -582,8 +579,6 @@ const ChatModule = () => {
             dur: 5000000;
             easing: linear;
             loop:true" src="#sky-img"></a-sky>
-
-            <a-entity position="0 0 0" sound="src: #rap; autoplay: true; loop: true; positional: false"></a-entity>
           </a-scene>
           <div className='fixed top-[5vh] left-[30px] cursor-pointer' onClick={() => handelManualLeave()}>
             <div className='flex rounded-lg bg-brandblack px-4 py-2'>

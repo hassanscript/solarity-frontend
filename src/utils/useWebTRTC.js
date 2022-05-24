@@ -53,7 +53,13 @@ export const useWebTRTC = (roomId, user) => {
 
         return () => {
             // leaving room
-            localMediaStream.current.getTracks().forEach((track) => track.stop())
+            if(!!localMediaStream.current && localMediaStream.current != {}) {
+                try {
+                    localMediaStream.current.getTracks().forEach((track) => track.stop())
+                } catch(error) {
+                    console.error(error);
+                }
+            }
             // window.socket.emit(ACTIONS.LEAVE, { roomId, user })
         }
 

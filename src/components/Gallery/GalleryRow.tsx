@@ -22,7 +22,7 @@ const GalleryRowComponent: FC<GalleryProps> = ({
       <GalleryRowHeader title={title} detail={detail} />
       <div
         className={`grid ${
-          itemsPerRow ? "grid-cols-5" : "grid-cols-3"
+          itemsPerRow ? "grid-cols-5" : "grid-cols-4"
         } gap-3 mt-4`}
       >
         {items.map((item, index) => (

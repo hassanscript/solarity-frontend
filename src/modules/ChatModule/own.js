@@ -305,10 +305,10 @@ const OwnChatModule = () => {
         sortObjects: true;
         physicallyCorrectLights: true;
         maxCanvasWidth: 1920;
-        maxCanvasHeight: 1920;" shadow="autoUpdate: false" loading-screen="enabled:false" stats>
+        maxCanvasHeight: 1920;" shadow="autoUpdate: false" loading-screen="enabled:false">
             {/* assets management system */}
             <a-assets timeout="100000">
-              <a-asset-item id="room-gltf" src="/assets/models/own/Normal room optimized(3).glb"></a-asset-item>
+              <a-asset-item id="room-gltf" src="/assets/models/own/Normal room optimized.glb"></a-asset-item>
               <a-asset-item id="arcade-gltf" src="/assets/models/own/Arcade console.glb"></a-asset-item>
               <a-asset-item id="atm-gltf" src="/assets/models/own/ATM.glb"></a-asset-item>
               <a-asset-item id="chair-gltf" src="/assets/models/own/Chair.glb"></a-asset-item>
