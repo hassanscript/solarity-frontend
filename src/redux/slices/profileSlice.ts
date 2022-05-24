@@ -94,9 +94,8 @@ export const placeBid = createAsyncThunk(
       const {
         selectedAsset,
         selectedIndex,
-        transaction,
+        signed,
         connection,
-        provider,
       } = data;
 
       const {
@@ -111,10 +110,7 @@ export const placeBid = createAsyncThunk(
         return;
       }
       try {
-        transaction.feePayer = await provider.publicKey;
-        let blockhashObj = await connection.getRecentBlockhash();
-        transaction.recentBlockhash = await blockhashObj.blockhash;
-        await provider.signAndSendTransaction(transaction);
+        await connection.sendRawTransaction(signed.serialize())
       } catch (error: any) {
         errorFunction(error.message);
         return;

@@ -284,7 +284,7 @@ const ChatModule = () => {
         sortObjects: true;
         physicallyCorrectLights: true;
         maxCanvasWidth: 1920;
-        maxCanvasHeight: 1920;" shadow="autoUpdate: false" loading-screen="enabled:false" stats>
+        maxCanvasHeight: 1920;" shadow="autoUpdate: false" loading-screen="enabled:false">
             {/* assets management system */}
             <a-assets timeout="100000">
               <a-asset-item id="headd" src="/assets/models/hub/Avatar head LOW POLY.glb"></a-asset-item>
@@ -325,7 +325,7 @@ const ChatModule = () => {
               <img id="gif-img3" src="/assets/images/gif_img3.jpeg" />
               <img id="gif-img4" src="/assets/images/gif_img4.jpeg" />
 
-              <audio id="rap" src="/assets/audio/rap.mp3"></audio>
+              {/* <audio id="rap" src="/assets/audio/rap.mp3"></audio> */}
             </a-assets>
 
             {/* basic movement  */}
@@ -364,7 +364,7 @@ const ChatModule = () => {
             {/* ambient light  */}
             <a-entity light="type: ambient; intensity: 0; color:  #FFFFFF; shadowCameraVisible: false;"></a-entity>
             {/* table lights  */}
-            <a-entity light="type:point; color:  #FFFFFF; intensity: 3; distance: 10; decay: 1;" position="3 3 0">
+            {/* <a-entity light="type:point; color:  #FFFFFF; intensity: 3; distance: 10; decay: 1;" position="3 3 0">
             </a-entity>
             <a-entity light="type:point; color:  #FFFFFF; intensity: 3; distance: 10; castShadow: false; decay: 1"
               position="-2.5 3 4.6">
@@ -377,7 +377,7 @@ const ChatModule = () => {
             </a-entity>
             <a-entity light="type:point; color:  #FFFFFF; intensity: 3; distance: 10; castShadow: false; decay: 1"
               position="8.7 3 -4.6">
-            </a-entity>
+            </a-entity> */}
             {/* statue lights */}
             <a-entity light="type:spot; angle: 60; color:  #DDAAFF; intensity: 10; distance: 6; decay: 1;"
               rotation="-45 90 0" position="-5 5.5 0">
@@ -583,7 +583,7 @@ const ChatModule = () => {
             easing: linear;
             loop:true" src="#sky-img"></a-sky>
 
-            <a-entity position="0 0 0" sound="src: #rap; autoplay: true; loop: true; positional: false"></a-entity>
+            {/* <a-entity position="0 0 0" sound="src: #rap; autoplay: true; loop: true; positional: false"></a-entity> */}
           </a-scene>
           <div className='fixed top-[5vh] left-[30px] cursor-pointer' onClick={() => handelManualLeave()}>
             <div className='flex rounded-lg bg-brandblack px-4 py-2'>
