@@ -20,7 +20,7 @@ export function build_loading_screen() {
 
 }
 //updates loading screen based on models actually loaded
-export function update_loading_screen() {
+export function update_loading_screen(setLoaded) {
   models = document.querySelectorAll('[model-info]');
   models_number = models.length;
   console.log("updating")
@@ -37,7 +37,9 @@ export function update_loading_screen() {
     if (scene_wrapperEl) {
       scene_wrapperEl.removeAttribute("style");
     }
-    //setLoaded(true);
+    if(!!setLoaded) {
+      setLoaded(true);
+    }
   }, 10000);
   models_loaded++;
   if (models_loaded == 1) {
@@ -67,7 +69,11 @@ export function update_loading_screen() {
     models_loaded = 0;
     models = [];
     models_number = undefined;
-    //setLoaded(true);
+    console.log(setLoaded);
+    if(!!setLoaded) {
+      setLoaded(true);
+    }
+    window.moduleLoaded = true;
     if (!!scene_wrapperEl) scene_wrapperEl.removeAttribute("style");
     if (!!loading_screenEl) loading_screenEl.style.display = "none";
     loading_videoEl.remove();

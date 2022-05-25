@@ -193,27 +193,21 @@ const ChatModule = () => {
 
   var entity = document.querySelector('#player');
   useEffect(() => {
-    const loadInterval = setInterval(() => {
-      if (isLoaded || window.moduleLoaded) {
-        if (!!entity) {console.log(entity);alert();
-          entity.setAttribute('networked', 'template:#avatar-template;attachTemplateToLocal:false;');
-          window.NAF.schemas.add({
-            template: '#avatar-template',
-            components: [
-              'position',
-              'rotation',
-            ]
-          });
-          window.isReady1 = true;
-          setIntervalId(setInterval(updateVolume, 300));
-          clearInterval(loadInterval);
-        }
+    if (isLoaded) {
+      if (!!entity) {
+        // entity.setAttribute('networked', 'template:#avatar-template;attachTemplateToLocal:false;');
+        window.NAF.schemas.add({
+          template: '#avatar-template',
+          components: [
+            'position',
+            'rotation',
+          ]
+        });
+        window.isReady1 = true;
+        setIntervalId(setInterval(updateVolume, 300));
       }
-      setTimeout(() => {
-        clearInterval(loadInterval);
-      }, 10000);
-    }, 300);
-  }, [])
+    }
+  }, [isLoaded])
 
   const handelMuteBtnClick = () => {
     setMute((prev) => !prev);
@@ -284,12 +278,11 @@ const ChatModule = () => {
         </div>
         <div id="scene_wrapper" style={{ opacity: "0" }}>
           <a-scene renderer="antialias: true;
-            colorManagement: true;
-            sortObjects: true;
-            physicallyCorrectLights: true;
-            maxCanvasWidth: 1920;
-            maxCanvasHeight: 1920;" shadow="autoUpdate: false" loading-screen="enabled:false"
-          >
+        colorManagement: true;
+        sortObjects: true;
+        physicallyCorrectLights: true;
+        maxCanvasWidth: 1920;
+        maxCanvasHeight: 1920;" shadow="autoUpdate: false" loading-screen="enabled:false">
             {/* assets management system */}
             <a-assets timeout="100000">
               <a-asset-item id="headd" src="/assets/models/hub/Avatar head LOW POLY.glb"></a-asset-item>
@@ -330,6 +323,7 @@ const ChatModule = () => {
               <img id="gif-img3" src="/assets/images/gif_img3.jpeg" />
               <img id="gif-img4" src="/assets/images/gif_img4.jpeg" />
 
+              {/* <audio id="rap" src="/assets/audio/rap.mp3"></audio> */}
             </a-assets>
 
             {/* basic movement  */}
@@ -366,7 +360,7 @@ const ChatModule = () => {
             </a-entity>
             {/* lights  */}
             {/* ambient light  */}
-            {/* <a-entity light="type: ambient; intensity: 0; color:  #FFFFFF; shadowCameraVisible: false;"></a-entity> */}
+            <a-entity light="type: ambient; intensity: 0; color:  #FFFFFF; shadowCameraVisible: false;"></a-entity>
             {/* table lights  */}
             {/* <a-entity light="type:point; color:  #FFFFFF; intensity: 3; distance: 10; decay: 1;" position="3 3 0">
             </a-entity>
@@ -383,16 +377,16 @@ const ChatModule = () => {
               position="8.7 3 -4.6">
             </a-entity> */}
             {/* statue lights */}
-            {/* <a-entity light="type:spot; angle: 60; color:  #DDAAFF; intensity: 10; distance: 6; decay: 1;"
+            <a-entity light="type:spot; angle: 60; color:  #DDAAFF; intensity: 10; distance: 6; decay: 1;"
               rotation="-45 90 0" position="-5 5.5 0">
-            </a-entity> */}
+            </a-entity>
             {/* "ambient" lights */}
-            {/* <a-entity light="type:spot; angle: 90; color:  #DDAAFF; intensity: 10; distance: 50; decay: 1; "
+            <a-entity light="type:spot; angle: 90; color:  #DDAAFF; intensity: 10; distance: 50; decay: 1; "
               rotation="-90 0 0" position="14 5.5 0">
             </a-entity>
             <a-entity light="type:spot; angle: 90; color:  #DDAAFF; intensity: 10; distance: 50; decay: 1; "
               rotation="-90 0 0" position="-13 5.5 0">
-            </a-entity> */}
+            </a-entity>
 
             {/* big screen  */}
             <a-plane width="6.4" height="3.5" rotation="0 180 0" material="shader: standard;" position="3 2.4 7.4"
@@ -474,8 +468,8 @@ const ChatModule = () => {
             <a-gltf-model model-info class="model" src="#skeleton" position="0 0 0" scale="1 1 1"> </a-gltf-model>
             <a-gltf-model model-info class="model" src="#frontwall" position="0 0 0" scale="1 1 1"></a-gltf-model>
 
-            {/* <a-gltf-model model-info class="model" src="#headd" position="0 0 0" scale="1 1 1"></a-gltf-model>
-            <a-gltf-model model-info class="model" src="#chandelier" position="0 0 0" scale="1 1 1"></a-gltf-model> */}
+            <a-gltf-model model-info class="model" src="#headd" position="0 0 0" scale="1 1 1"></a-gltf-model>
+            <a-gltf-model model-info class="model" src="#chandelier" position="0 0 0" scale="1 1 1"></a-gltf-model>
 
 
             <a-gltf-model model-info class="model" src="#door" position="0 0 0" scale="1 1 1"></a-gltf-model>
@@ -484,7 +478,7 @@ const ChatModule = () => {
             <a-gltf-model model-info class="model" src="#frames" position="0 0 0" scale="1 1 1"></a-gltf-model>
 
 
-            {/* <a-gltf-model model-info class="model" src="#backdeco" position="0 0 0" scale="1 1 1"></a-gltf-model>
+            <a-gltf-model model-info class="model" src="#backdeco" position="0 0 0" scale="1 1 1"></a-gltf-model>
             <a-gltf-model model-info class="model" src="#pillars" position="0 0 0" scale="1 1 1"></a-gltf-model>
             <a-gltf-model model-info class="model" src="#relict" position="0 0 0" scale="1 1 1"></a-gltf-model>
             <a-gltf-model model-info class="model" src="#poker" position="0 0 0" scale="1 1 1"></a-gltf-model>
@@ -494,7 +488,7 @@ const ChatModule = () => {
             <a-gltf-model model-info class="model" src="#walldeco" position="0 0 0" scale="1 1 1"></a-gltf-model>
             <a-gltf-model model-info class="model" src="#text" position="0 0 0" scale="1 1 1"></a-gltf-model>
             <a-gltf-model model-info class="model" src="#spotlights" position="0 0 0" scale="1 1 1"></a-gltf-model>
-            <a-gltf-model model-info class="model" src="#decoration" position="0 0 0" scale="1 1 1"></a-gltf-model> */}
+            <a-gltf-model model-info class="model" src="#decoration" position="0 0 0" scale="1 1 1"></a-gltf-model>
 
             <a-gltf-model model-info class="model" src="#curvedwall" position="0 0 0" scale="1 1 1"></a-gltf-model>
             <a-gltf-model model-info class="model" src="#backwall" position="0 0 0" scale="1 1 1"></a-gltf-model>
@@ -507,7 +501,7 @@ const ChatModule = () => {
 
 
 
-            {/* <a-entity id="tableandchair" position="9 0 4.8">
+            <a-entity id="tableandchair" position="9 0 4.8">
               <a-gltf-model model-info class="model" src="#table1" position="0 0 0" scale="1 1 1"></a-gltf-model>
               <a-gltf-model seat="duration: 1; camera: #head; standUpPosition: 0 1.6 1"
                 model-info class="model clickable nocollision" src="#chair1" position="1 0 .96" scale="1 1 1"
@@ -569,13 +563,13 @@ const ChatModule = () => {
               <a-gltf-model seat="duration: 1; camera: #head; standUpPosition: 1 1.6 1"
                 model-info class="model clickable nocollision" src="#chair1" position=".96 0 -1" scale="1 1 1"
                 rotation="0 90 0"></a-gltf-model>
-            </a-entity> */}
+            </a-entity>
 
             {/* globe  */}
-            {/* <a-gltf-model id="globe" model-info class="model" src="#holo"
+            <a-gltf-model id="globe" model-info class="model" src="#holo"
               material="roughness: 70; metalness: 0; shader: standard"
               animation__spin="property: rotation; dur: 12000; loop: true; to: 0 360 0;" position="3 1.5 0">
-            </a-gltf-model> */}
+            </a-gltf-model>
 
             {/* nav-mesh: protecting us from running thru walls  */}
             <a-gltf-model id="navmesh" model-info class="model" src="#navmesh-gltf" visible="false">
@@ -586,6 +580,8 @@ const ChatModule = () => {
             dur: 5000000;
             easing: linear;
             loop:true" src="#sky-img"></a-sky>
+
+            {/* <a-entity position="0 0 0" sound="src: #rap; autoplay: true; loop: true; positional: false"></a-entity> */}
           </a-scene>
           <div className='fixed top-[5vh] left-[30px] cursor-pointer' onClick={() => handelManualLeave()}>
             <div className='flex rounded-lg bg-brandblack px-4 py-2'>

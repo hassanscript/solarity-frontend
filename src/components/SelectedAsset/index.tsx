@@ -10,6 +10,13 @@ import {
   clusterApiUrl,
 } from "@solana/web3.js";
 
+import {
+  createMint, 
+  mintTo, 
+  transfer,
+  TOKEN_PROGRAM_ID,
+} from "@solana/spl-token";
+
 import { toast } from "react-toastify";
 import { useAppSelector, useAppDispatch } from "redux/hooks";
 import { Button } from "components/FormComponents";
@@ -22,6 +29,8 @@ import { placeBid } from "redux/slices/profileSlice";
 import { RootStateOrAny, useSelector } from "react-redux";
 import WalletSelector from "components/WalletSelector";
 import BaseUrl from "config";
+import { getOrCreateAssociatedTokenAccount } from 'utils/getOrCreateAssociatedTokenAccount'
+import { createTransferInstruction } from 'utils/createTransferInstruction';
 
 export interface HeroProps {}
 
@@ -33,12 +42,11 @@ const SelectedAsset: FC<HeroProps> = ({}) => {
   const [loading, setLoading] = useState<Boolean>(false);
   const [showWallets, setShowWallets] = useState(false);
   const profile = useSelector((state: RootStateOrAny) => state.profile.data);
-  const solanaAddress = profile && profile.solanaAddress;
 
   const { selectedTagIndex, selectedIndex, assets } = useAppSelector(
     (state) => state.marketplace
   );
-  const connection = new Connection(clusterApiUrl("testnet"));
+  const connection = new Connection(clusterApiUrl("mainnet-beta"));
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -50,82 +58,150 @@ const SelectedAsset: FC<HeroProps> = ({}) => {
 
   const placeBidAction = async (provider: any) => {
     await provider.connect();
-    const { publicKey } = provider;
-    if (!solanaAddress || solanaAddress !== publicKey.toString()) {
-      return toast.error(
-        "Please connect/use the wallet with the registered address",
-        {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        }
-      );
-    }
-    let transaction;
+    const { publicKey, signTransaction } = provider;
+
+    // spl-token payment for buying room.
     try {
-      transaction = new Transaction().add(
-        SystemProgram.transfer({
-          fromPubkey: publicKey,
-          toPubkey: new PublicKey(
-            "6BnAzdBGmUdgcRaTaFGBvMAiAgC2cELiU5q12hBYb8YN"
-          ),
-          lamports: selectedAsset.currentBid * LAMPORTS_PER_SOL, //Investing 1 SOL. Remember 1 Lamport = 10^-9 SOL.
+      if(!process.env.WEBSITE_SOLANA_WALLET_ADDRESS || !process.env.SOLARITY_TOKEN_ADDRESS) {
+        return console.error('website solana wallet address or solarity_token_address is not set in environment.');
+      }
+      const toPublicKey = new PublicKey(process.env.WEBSITE_SOLANA_WALLET_ADDRESS)
+      const mint = new PublicKey(process.env.SOLARITY_TOKEN_ADDRESS)
+      
+      const fromTokenAccount = await getOrCreateAssociatedTokenAccount(
+        connection,
+        publicKey,
+        mint,
+        publicKey,
+        signTransaction
+      );
+
+      const toTokenAccount = await getOrCreateAssociatedTokenAccount(
+        connection,
+        publicKey,
+        mint,
+        toPublicKey,
+        signTransaction
+      );
+
+      const transaction1 = new Transaction().add(
+          createTransferInstruction(
+              fromTokenAccount.address, // source
+              toTokenAccount.address, // dest
+              publicKey,
+              selectedAsset.currentBid * LAMPORTS_PER_SOL,
+              [],
+              TOKEN_PROGRAM_ID
+          )
+      )
+      const blockHash = await connection.getRecentBlockhash()
+      transaction1.feePayer = await publicKey
+      transaction1.recentBlockhash = await blockHash.blockhash
+      const signed = await signTransaction(transaction1)
+      setLoadingButton(true);
+      dispatch(
+        placeBid({
+          data: {
+            selectedAsset,
+            selectedIndex,
+            signed,
+            connection,
+          },
+          successFunction: () => {
+            toast.success(
+              "You got a room successfully. You can create a room and also decorate a room with own nfts in the profile",
+              {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              }
+            );
+            setError(false);
+            setLoadingButton(false);
+          },
+          errorFunction: (err) => {
+            setError(true);
+            if (!!err) {
+              setErrorMessage(err);
+            }
+            setLoadingButton(false);
+          },
+          finalFunction: () => {
+            setLoading(false);
+            setLoadingButton(false);
+          },
         })
       );
     } catch (error: any) {
-      return toast.error(error.msg, {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+        console.error(error.message);
     }
-    setLoadingButton(true);
-    dispatch(
-      placeBid({
-        data: {
-          selectedAsset,
-          selectedIndex,
-          transaction,
-          connection,
-          provider,
-        },
-        successFunction: () => {
-          toast.success(
-            "You got a room successfully. You can create a room and also decorate a room with own nfts in the profile",
-            {
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            }
-          );
-          setError(false);
-          setLoadingButton(false);
-        },
-        errorFunction: (err) => {
-          setError(true);
-          if (!!err) {
-            setErrorMessage(err);
-          }
-          setLoadingButton(false);
-        },
-        finalFunction: () => {
-          setLoading(false);
-          setLoadingButton(false);
-        },
-      })
-    );
+
+    // return;
+    // let transaction;
+    // try {
+    //   transaction = new Transaction().add(
+    //     SystemProgram.transfer({
+    //       fromPubkey: publicKey,
+    //       toPubkey: new PublicKey(
+    //         "6BnAzdBGmUdgcRaTaFGBvMAiAgC2cELiU5q12hBYb8YN"
+    //       ),
+    //       lamports: selectedAsset.currentBid * LAMPORTS_PER_SOL, //Investing 1 SOL. Remember 1 Lamport = 10^-9 SOL.
+    //     })
+    //   );
+    // } catch (error: any) {
+    //   return toast.error(error.msg, {
+    //     position: "top-right",
+    //     autoClose: 5000,
+    //     hideProgressBar: false,
+    //     closeOnClick: true,
+    //     pauseOnHover: true,
+    //     draggable: true,
+    //     progress: undefined,
+    //   });
+    // }
+    // setLoadingButton(true);
+    // dispatch(
+    //   placeBid({
+    //     data: {
+    //       selectedAsset,
+    //       selectedIndex,
+    //       transaction,
+    //       connection,
+    //       provider,
+    //     },
+    //     successFunction: () => {
+    //       toast.success(
+    //         "You got a room successfully. You can create a room and also decorate a room with own nfts in the profile",
+    //         {
+    //           position: "top-right",
+    //           autoClose: 5000,
+    //           hideProgressBar: false,
+    //           closeOnClick: true,
+    //           pauseOnHover: true,
+    //           draggable: true,
+    //           progress: undefined,
+    //         }
+    //       );
+    //       setError(false);
+    //       setLoadingButton(false);
+    //     },
+    //     errorFunction: (err) => {
+    //       setError(true);
+    //       if (!!err) {
+    //         setErrorMessage(err);
+    //       }
+    //       setLoadingButton(false);
+    //     },
+    //     finalFunction: () => {
+    //       setLoading(false);
+    //       setLoadingButton(false);
+    //     },
+    //   })
+    // );
   };
 
   return (

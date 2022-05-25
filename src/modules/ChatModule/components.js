@@ -220,6 +220,8 @@ AFRAME.registerComponent("model-info", {
     init: function () {
         let el = this.el;
         console.log("aaaa")
-        el.addEventListener('model-loaded', update_loading_screen);
+        el.addEventListener('model-loaded', () => {
+            update_loading_screen(null);
+          });
     }
 })
