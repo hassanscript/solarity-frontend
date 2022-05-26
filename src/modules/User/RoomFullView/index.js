@@ -53,7 +53,7 @@ export default function RoomFullView({user}) {
       if(sceneEl && loading_textEl  && loading_barEl  &&  loading_screenEl) {
         clearInterval(clearHandle);
         build_loading_screen();
-        start_loading_screen_listeners(setLoaded);
+        start_loading_screen_listeners();
       }
     }, 100);
   }, [])

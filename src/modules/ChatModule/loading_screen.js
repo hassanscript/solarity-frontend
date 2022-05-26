@@ -36,7 +36,7 @@ export function update_loading_screen() {
     if (scene_wrapperEl) {
       scene_wrapperEl.removeAttribute("style");
     }
-    //setLoaded(true);
+    window.modelLoaded = true;
   }, 10000);
   models_loaded++;
   if (models_loaded == 1) {
@@ -64,21 +64,18 @@ export function update_loading_screen() {
     models_loaded = 0;
     models = [];
     models_number = undefined;
-    //setLoaded(true);
+    window.modelLoaded = true;
     if (!!scene_wrapperEl) scene_wrapperEl.removeAttribute("style");
     if (!!loading_screenEl) loading_screenEl.style.display = "none";
     loading_videoEl.remove();
   }
 }
 //checks if model has loaded before building all of the dinamic content
-export function start_loading_screen_listeners(setLoaded) {
-  // THREE.Cache.clear();
+export function start_loading_screen_listeners() {
   models_loaded = 0;
   models = document.getElementsByClassName("model");
   models_number = models.length;
   for (var i = 0; i < models_number; i++) {
-    models[i].addEventListener("model-loaded", () => {
-      update_loading_screen(setLoaded);
-    });
+    models[i].addEventListener("model-loaded", update_loading_screen);
   }
 }

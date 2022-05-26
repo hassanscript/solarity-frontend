@@ -144,6 +144,7 @@ const ChatModule = () => {
       var loading_barEl = document.getElementById('loading_bar');
       if (sceneEl && loading_textEl && loading_barEl && loading_screenEl) {
         build_loading_screen();
+        start_loading_screen_listeners();
         sceneEl.addEventListener('loaded', start_scene);
       }
       clearInterval(clearLoading);
@@ -198,21 +199,28 @@ const ChatModule = () => {
 
   var entity = document.querySelector('#player');
   useEffect(() => {
-    if (isLoaded) {
-      if (!!entity) {
-        // entity.setAttribute('networked', 'template:#avatar-template;attachTemplateToLocal:false;');
-        window.NAF.schemas.add({
-          template: '#avatar-template',
-          components: [
-            'position',
-            'rotation',
-          ]
-        });
-        window.isReady1 = true;
-        setIntervalId(setInterval(updateVolume, 300));
+    const loadInterval = setInterval(() => {
+      if (isLoaded || window.modelLoaded) {
+        if (!!entity) {
+          // entity.setAttribute('networked', 'template:#avatar-template;attachTemplateToLocal:false;');
+          window.NAF.schemas.add({
+            template: '#avatar-template',
+            components: [
+              'position',
+              'rotation',
+            ]
+          });
+          window.isReady1 = true;
+          setIntervalId(setInterval(updateVolume, 300));
+          window.modelLoaded = false;
+          clearInterval(loadInterval);
+        }
       }
-    }
-  }, [isLoaded])
+      setTimeout(() => {
+        clearInterval(loadInterval);
+      }, 10000);
+    }, 300);
+  }, [])
 
   const handelMuteBtnClick = () => {
     setMute((prev) => !prev);
@@ -410,18 +418,18 @@ const ChatModule = () => {
             <a-plane position="-13.21 2.75 4.33" width="1.5" height="1.75" rotation="0 133.25 0"
               material="shader: standard;" color="#111122">
               <a-image width="1.5" height="1.75" position="0 0 0.01"
-                src="assets\images\ffc2b2a0-614a-4359-b164-68c5b9f4396d.jpg"></a-image>
+                src="/assets/images/ffc2b2a0-614a-4359-b164-68c5b9f4396d.jpg"></a-image>
             </a-plane>
             {/* tiny screen left */}
             <a-plane position="-13.22 2.75 -4.3" width="1.5" height="1.75" rotation="0 46.75 0"
               material="shader: standard;" color="#111122">
-              <a-image width="1.5" height="1.75" position="0 0 0.01" src="assets/images/media_FKNOb38VgAkOruy.jpg">
+              <a-image width="1.5" height="1.75" position="0 0 0.01" src="/assets/images/media_FKNOb38VgAkOruy.jpg">
               </a-image>
             </a-plane>
             {/* tiny screen center */}
             <a-plane position="-14.445 2.75 0" width="1.5" height="1.75" rotation="0 90 0" material="shader: standard;"
               color="#111122">
-              <a-image width="1.5" height="1.75" position="0 0 0.01" src="assets/images/download.png"></a-image>
+              <a-image width="1.5" height="1.75" position="0 0 0.01" src="/assets/images/download.png"></a-image>
             </a-plane>
             {/* portals */}
             <a-image width="1.3" height="1.9" class="clickable nocollision" simple-link="href: /experience"

@@ -140,7 +140,7 @@ useEffect(() => {
     var loading_barEl = document.getElementById('loading_bar');
     if(sceneEl && loading_textEl  && loading_barEl  &&  loading_screenEl) {
         build_loading_screen();
-        start_loading_screen_listeners(setLoaded);
+        start_loading_screen_listeners();
         sceneEl.addEventListener('loaded', start_scene);
     }
     clearInterval(clearLoading);
@@ -195,21 +195,28 @@ useEffect(() => {
 
   var entity = document.querySelector('#player');
   useEffect(() => {
-    if(isLoaded) {
-      if(!!entity) {
-        // entity.setAttribute('networked', 'template:#avatar-template;attachTemplateToLocal:false;');
-        window.NAF.schemas.add({
-          template: '#avatar-template',
-          components: [
-            'position',
-            'rotation',
-          ]
-        });
-        window.isReady1 = true;
-        setIntervalId(setInterval(updateVolume, 300));
+    const loadInterval = setInterval(() => {
+      if (isLoaded || window.modelLoaded) {
+        if (!!entity) {
+          // entity.setAttribute('networked', 'template:#avatar-template;attachTemplateToLocal:false;');
+          window.NAF.schemas.add({
+            template: '#avatar-template',
+            components: [
+              'position',
+              'rotation',
+            ]
+          });
+          window.isReady1 = true;
+          setIntervalId(setInterval(updateVolume, 300));
+          window.modelLoaded = false;
+          clearInterval(loadInterval);
+        }
       }
-    }
-  }, [isLoaded])
+      setTimeout(() => {
+        clearInterval(loadInterval);
+      }, 10000);
+    }, 300);
+  }, [])
 
   const handelMuteBtnClick = () => {
     setMute((prev) => !prev);
