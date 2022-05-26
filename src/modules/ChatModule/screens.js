@@ -7,23 +7,10 @@ const apiCaller = axios.create({
     "Content-Type": "application/json",
   },
 });
-var twitter_array;
-apiCaller
-  .get("/test/tweets/SolanaMoneyBoys")
-  .then((data) => {
-    twitter_array = data.data.data;
-  })
-  .catch((err) => {
-    twitter_array = [
-      { created_at: "no data", full_text: "no data" },
-      { created_at: "no data", full_text: "no data" },
-      { created_at: "no data", full_text: "no data" },
-      { created_at: "no data", full_text: "no data" },
-      { created_at: "no data", full_text: "no data" },
-      { created_at: "no data", full_text: "no data" },
-    ];
-  });
+
+
 //twitter
+var twitter_array;
 const TWITTER_TO_DISPLAY = 4;
 var twitter_start_index = 0;
 var twitter_itemEL_array = [];
@@ -149,17 +136,6 @@ function build_twitter_listeners() {
 
 //nft
 var nft;
-apiCaller
-  .get("/daos/solana_money_boys")
-  .then((data) => {
-    nft = data.data.dao;
-  })
-  .catch((err) => {
-    nft = {
-      floorPrice: "no data",
-      image: "assets/images/nft_placeholder.jpeg",
-    };
-  });
 function build_nft() {
   var nft_containerEl = document.getElementById("nft");
   var nft_item_amountEL = document.createElement("a-text");
@@ -182,7 +158,7 @@ function build_nft() {
   build_nft_listeners();
 }
 
-function build_nft_listeners() {}
+function build_nft_listeners() { }
 
 var gif_img_index = 0;
 var gif_img_array = ["#gif-img1", "#gif-img2", "#gif-img3", "#gif-img4"];
@@ -195,8 +171,41 @@ function startGif() {
 }
 
 export function start_screens() {
-  build_twitter();
-  build_nft();
+
+  //get and start tweets
+  apiCaller
+    .get("/test/tweets/SolanaMoneyBoys")
+    .then((data) => {
+      twitter_array = data.data.data;
+      //build twitter only after get success
+      build_twitter();
+    })
+    .catch((err) => {
+      twitter_array = [
+        { created_at: "no data", full_text: "no data" },
+        { created_at: "no data", full_text: "no data" },
+        { created_at: "no data", full_text: "no data" },
+        { created_at: "no data", full_text: "no data" },
+        { created_at: "no data", full_text: "no data" },
+        { created_at: "no data", full_text: "no data" },
+      ];
+    });
+  
+  //get and start nft
+  apiCaller
+    .get("/daos/solana_money_boys")
+    .then((data) => {
+      nft = data.data.dao;
+      //build nft only after get success
+      build_nft();
+    })
+    .catch((err) => {
+      nft = {
+        floorPrice: "no data",
+        image: "/assets/images/nft_placeholder.jpeg",
+      };
+    });
+
   return window.setInterval(function () {
     startGif();
   }, 500);

@@ -410,18 +410,18 @@ const ChatModule = () => {
             <a-plane position="-13.21 2.75 4.33" width="1.5" height="1.75" rotation="0 133.25 0"
               material="shader: standard;" color="#111122">
               <a-image width="1.5" height="1.75" position="0 0 0.01"
-                src="assets\images\ffc2b2a0-614a-4359-b164-68c5b9f4396d.jpg"></a-image>
+                src="/assets/images/ffc2b2a0-614a-4359-b164-68c5b9f4396d.jpg"></a-image>
             </a-plane>
             {/* tiny screen left */}
             <a-plane position="-13.22 2.75 -4.3" width="1.5" height="1.75" rotation="0 46.75 0"
               material="shader: standard;" color="#111122">
-              <a-image width="1.5" height="1.75" position="0 0 0.01" src="assets/images/media_FKNOb38VgAkOruy.jpg">
+              <a-image width="1.5" height="1.75" position="0 0 0.01" src="/assets/images/media_FKNOb38VgAkOruy.jpg">
               </a-image>
             </a-plane>
             {/* tiny screen center */}
             <a-plane position="-14.445 2.75 0" width="1.5" height="1.75" rotation="0 90 0" material="shader: standard;"
               color="#111122">
-              <a-image width="1.5" height="1.75" position="0 0 0.01" src="assets/images/download.png"></a-image>
+              <a-image width="1.5" height="1.75" position="0 0 0.01" src="/assets/images/download.png"></a-image>
             </a-plane>
             {/* portals */}
             <a-image width="1.3" height="1.9" class="clickable nocollision" simple-link="href: /experience"
