@@ -467,64 +467,64 @@ const ChatModule = () => {
 
             <a-entity id="tableandchair" position="9 0 4.8">
               <a-gltf-model model-info class="model" src="#table1" position="0 0 0" scale="1 1 1"></a-gltf-model>
-              <a-gltf-model seat="duration: 1; camera: #head; standUpPosition: 0 1.6 1"
+              <a-gltf-model seat="duration: 1; camera: #player; standUpPosition: 0 1.6 1"
                 model-info class="model clickable nocollision" src="#chair1" position="1 0 .96" scale="1 1 1"
                 rotation="0 -135 0"></a-gltf-model>
-              <a-gltf-model seat="duration: 1; camera: #head; standUpPosition: 0 1.6 -1"
+              <a-gltf-model seat="duration: 1; camera: #player; standUpPosition: 0 1.6 -1"
                 model-info class="model clickable nocollision" src="#chair1" position="-.96 0 -1" scale="1 1 1"
                 rotation="0 45 0;"></a-gltf-model>
-              <a-gltf-model seat="duration: 1; camera: #head; standUpPosition: -1 1.6 0"
+              <a-gltf-model seat="duration: 1; camera: #player; standUpPosition: -1 1.6 0"
                 model-info class="model clickable nocollision" src="#chair1" position="-.96 0 1" scale="1 1 1"
                 rotation="0 135 0"></a-gltf-model>
-              <a-gltf-model seat="duration: 1; camera: #head; standUpPosition: 1 1.6 1"
+              <a-gltf-model seat="duration: 1; camera: #player; standUpPosition: 1 1.6 1"
                 model-info class="model clickable nocollision" src="#chair1" position=".96 0 -1" scale="1 1 1"
                 rotation="0 -45 0"></a-gltf-model>
             </a-entity>
 
             <a-entity id="tableandchair" position="9 0 -4.8">
               <a-gltf-model model-info class="model" src="#table1" position="0 0 0" scale="1 1 1"></a-gltf-model>
-              <a-gltf-model seat="duration: 1; camera: #head; standUpPosition: 0 1.6 1"
+              <a-gltf-model seat="duration: 1; camera: #player; standUpPosition: 0 1.6 1"
                 model-info class="model clickable nocollision" src="#chair1" position="1 0 .96" scale="1 1 1"
                 rotation="0 -135 0"></a-gltf-model>
-              <a-gltf-model seat="duration: 1; camera: #head; standUpPosition: 0 1.6 -1"
+              <a-gltf-model seat="duration: 1; camera: #player; standUpPosition: 0 1.6 -1"
                 model-info class="model clickable nocollision" src="#chair1" position="-.96 0 -1" scale="1 1 1"
                 rotation="0 45 0;"></a-gltf-model>
-              <a-gltf-model seat="duration: 1; camera: #head; standUpPosition: -1 1.6 0"
+              <a-gltf-model seat="duration: 1; camera: #player; standUpPosition: -1 1.6 0"
                 model-info class="model clickable nocollision" src="#chair1" position="-.96 0 1" scale="1 1 1"
                 rotation="0 135 0"></a-gltf-model>
-              <a-gltf-model seat="duration: 1; camera: #head; standUpPosition: 1 1.6 1"
+              <a-gltf-model seat="duration: 1; camera: #player; standUpPosition: 1 1.6 1"
                 model-info class="model clickable nocollision" src="#chair1" position=".96 0 -1" scale="1 1 1"
                 rotation="0 -45 0"></a-gltf-model>
             </a-entity>
 
             <a-entity id="tableandchair" position="-3 0 -4.8">
               <a-gltf-model model-info class="model" src="#table1" position="0 0 0" scale="1 1 1"></a-gltf-model>
-              <a-gltf-model seat="duration: 1; camera: #head; standUpPosition: 0 1.6 1"
+              <a-gltf-model seat="duration: 1; camera: #player; standUpPosition: 0 1.6 1"
                 model-info class="model clickable nocollision" src="#chair1" position="1 0 .96" scale="1 1 1"
                 rotation="0 -135 0"></a-gltf-model>
-              <a-gltf-model seat="duration: 1; camera: #head; standUpPosition: 0 1.6 -1"
+              <a-gltf-model seat="duration: 1; camera: #player; standUpPosition: 0 1.6 -1"
                 model-info class="model clickable nocollision" src="#chair1" position="-.96 0 -1" scale="1 1 1"
                 rotation="0 45 0;"></a-gltf-model>
-              <a-gltf-model seat="duration: 1; camera: #head; standUpPosition: -1 1.6 0"
+              <a-gltf-model seat="duration: 1; camera: #player; standUpPosition: -1 1.6 0"
                 model-info class="model clickable nocollision" src="#chair1" position="-.96 0 1" scale="1 1 1"
                 rotation="0 135 0"></a-gltf-model>
-              <a-gltf-model seat="duration: 1; camera: #head; standUpPosition: 1 1.6 1"
+              <a-gltf-model seat="duration: 1; camera: #player; standUpPosition: 1 1.6 1"
                 model-info class="model clickable nocollision" src="#chair1" position=".96 0 -1" scale="1 1 1"
                 rotation="0 -45 0"></a-gltf-model>
             </a-entity>
 
             <a-entity id="tableandchair" position="-3 0 4.8">
               <a-gltf-model model-info class="model" src="#table1" position="0 0 0" scale="1 1 1"></a-gltf-model>
-              <a-gltf-model seat="duration: 1; camera: #head; standUpPosition: 0 1.6 1"
+              <a-gltf-model seat="duration: 1; camera: #player; standUpPosition: 0 1.6 1"
                 model-info class="model clickable nocollision" src="#chair1" position="1 0 .96" scale="1 1 1"
                 rotation="0 -135 0"></a-gltf-model>
-              <a-gltf-model seat="duration: 1; camera: #head; standUpPosition: 0 1.6 -1"
+              <a-gltf-model seat="duration: 1; camera: #player; standUpPosition: 0 1.6 -1"
                 model-info class="model clickable nocollision" src="#chair1" position="-.96 0 -1" scale="1 1 1"
                 rotation="0 45 0;"></a-gltf-model>
-              <a-gltf-model seat="duration: 1; camera: #head; standUpPosition: -1 1.6 0"
+              <a-gltf-model seat="duration: 1; camera: #player; standUpPosition: -1 1.6 0"
                 model-info class="model clickable nocollision" src="#chair1" position="-.96 0 1" scale="1 1 1"
                 rotation="0 135 0"></a-gltf-model>
-              <a-gltf-model seat="duration: 1; camera: #head; standUpPosition: 1 1.6 1"
+              <a-gltf-model seat="duration: 1; camera: #player; standUpPosition: 1 1.6 1"
                 model-info class="model clickable nocollision" src="#chair1" position=".96 0 -1" scale="1 1 1"
                 rotation="0 -45 0"></a-gltf-model>
             </a-entity>
