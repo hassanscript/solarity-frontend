@@ -72,16 +72,18 @@ const BigRoom: FC<BigRoomType> = ({ scene, content }) => {
           </div>
         ): (<></>)}
       </div>
-      <JoinRoomModal 
-        open={joinModalOpen} 
-        onClose={handleJoinModalToggle} 
-        roomName={selectedRoom.roomName}
-        type={selectedRoom.type}
-        roomNo={selectedRoom.roomNo}
-        person={""}
-        creator={selectedRoom.name}
-        speakers={selectedRoom.speakers}
-      />
+      {selectedRoom && (
+        <JoinRoomModal 
+          open={joinModalOpen} 
+          onClose={handleJoinModalToggle} 
+          roomName={selectedRoom.roomName}
+          type={selectedRoom.type}
+          roomNo={selectedRoom.roomNo}
+          person={""}
+          creator={selectedRoom.name}
+          speakers={selectedRoom.speakers}
+        />
+      )}
     </div>
   );
 };

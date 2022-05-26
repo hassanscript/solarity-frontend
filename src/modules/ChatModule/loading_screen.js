@@ -41,7 +41,9 @@ export function update_loading_screen() {
   models_loaded++;
   if (models_loaded == 1) {
     //remove the old bar item when the first model is loaded
-    moving_itemEL.remove();
+    if(!!moving_itemEL) {
+      moving_itemEL.remove();
+    }
   }
   if (loading_textEl)
     loading_textEl.innerHTML =

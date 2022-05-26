@@ -229,11 +229,11 @@ useEffect(() => {
     }
   }
 
-  var entity = document.querySelector('#player');
   useEffect(() => {
-    const loadInterval = setInterval(() => {console.log(window.modelLoaded);
+    const loadInterval = setInterval(() => {
       if (isLoaded || window.modelLoaded) {
-        if (!!entity) {alert();
+        var entity = document.querySelector('#player');
+        if (!!entity) {
           // entity.setAttribute('networked', 'template:#avatar-template;attachTemplateToLocal:false;');
           window.NAF.schemas.add({
             template: '#avatar-template',
@@ -327,13 +327,13 @@ useEffect(() => {
               room: blocks;
               debug: true;">
                 <a-assets timeout="100000">
-                    <a-asset-item id="room-gltf" src="/assets/models/Normal room optimized.glb"></a-asset-item>
-                    <a-asset-item id="arcade-gltf" src="/assets/models/Arcade console.glb"></a-asset-item>
-                    <a-asset-item id="atm-gltf" src="/assets/models/ATM.glb"></a-asset-item>
-                    <a-asset-item id="chair-gltf" src="/assets/models/Chair.glb"></a-asset-item>
+                    <a-asset-item id="room-gltf" src="/assets/models/own/Normal room optimized.glb"></a-asset-item>
+                    <a-asset-item id="arcade-gltf" src="/assets/models/own/Arcade console.glb"></a-asset-item>
+                    <a-asset-item id="atm-gltf" src="/assets/models/own/ATM.glb"></a-asset-item>
+                    <a-asset-item id="chair-gltf" src="/assets/models/own/Chair.glb"></a-asset-item>
 
-                    <a-asset-item id="vr-gltf" src="/assets/models/VR.glb"></a-asset-item>
-                    <a-asset-item id="navmesh-gltf" src="/assets/models/navmesh.gltf"></a-asset-item>
+                    <a-asset-item id="vr-gltf" src="/assets/models/own/VR.glb"></a-asset-item>
+                    <a-asset-item id="navmesh-gltf" src="/assets/models/own/navmesh.gltf"></a-asset-item>
                     <a-asset-item id="raccoon-obj" src={models[modelIndex].modelUrl}></a-asset-item>
 
                     <img id="hub-img" src="/assets/images/hub.png" />
@@ -353,9 +353,8 @@ useEffect(() => {
 
                 </a-assets>
 
-                <a-entity id="player" position="0 1.6 0" wasd-controls="acceleration: 20;" look-controls="pointerLockEnabled: true; reverseMouseDrag: false" networked="template:#avatar-template;attachTemplateToLocal:false;">
-                  <a-entity simple-navmesh-constraint="navmesh:#navmesh;fall:0.5;height:1.65;" id="head" 
-                            camera="fov: 70; active: true" >
+                <a-entity id="player" position="0 1.65 0" wasd-controls="acceleration: 20;" look-controls="pointerLockEnabled: true; reverseMouseDrag: false" simple-navmesh-constraint="navmesh:#navmesh;fall:0.5;height:1.65;" networked="template:#avatar-template;attachTemplateToLocal:true;">
+                  <a-entity rotation = "0 0 0" id="head" camera="fov: 70; active: true" >
                       <a-entity id="cursor" class="mouseOnly" cursor="" raycaster="far: 10; objects: .clickable"
                                 material="color: white; shader: flat" position="0 0 -0.3"
                                 geometry="primitive: sphere; radius: 0.001">
@@ -391,8 +390,8 @@ useEffect(() => {
                 <a-gltf-model shadow="cast: true; receive: true" class="model clickable nocollision" src="#vr-gltf"
                               simple-link="href: ../solarity-build-v-3/dist/index.html" position="0.4 1 -2.6" scale="1 1 1">
                 </a-gltf-model>
-                {/* <a-entity id="navmesh" class="" gltf-model="#navmesh-gltf" visible="false" position="0 0 0">
-                </a-entity> */}
+                <a-gltf-model id="navmesh" model-info class="model" src="#navmesh-gltf" visible="false">
+                </a-gltf-model>
 
                 <a-entity position="0 2 0" rotation="0 0 0"
                           light="type: point; intensity:  5; distance: 10; decay: 1; color:  #FFFFFF; cast-shadow: false; shadowCameraVisible: false;">
