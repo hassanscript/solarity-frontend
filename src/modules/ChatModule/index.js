@@ -285,7 +285,7 @@ const ChatModule = () => {
           </div>
         </div>
         <div id="scene_wrapper" style={{ opacity: "0" }}>
-          <a-scene 
+          <a-scene
             renderer="antialias: true;
               colorManagement: true;
               sortObjects: true;
@@ -327,8 +327,8 @@ const ChatModule = () => {
               />
             </a-assets>
 
-            <a-entity id="player" position="0 1.6 0" wasd-controls="acceleration: 20;" look-controls="pointerLockEnabled: true; reverseMouseDrag: false" networked="template:#avatar-template;attachTemplateToLocal:false;">
-              <a-entity  position="0 1.65 0" simple-navmesh-constraint="navmesh:#navmesh;fall: 5;height:1.65;" id="head"
+            <a-entity rotation = "0 0 0" id="player" networked="template:#avatar-template;attachTemplateToLocal:false;">
+              <a-entity position="0 1.65 0" wasd-controls="acceleration: 20;" look-controls="pointerLockEnabled: true; reverseMouseDrag: false" simple-navmesh-constraint="navmesh:#navmesh;fall: 5;height:1.65;" id="head"
                 camera="fov: 70; active: true" >
                 <a-entity id="cursor" class="mouseOnly" cursor="" raycaster="far: 10; objects: .clickable"
                   material="color: white; shader: flat" position="0 0 -0.3"
@@ -535,7 +535,7 @@ const ChatModule = () => {
 
             {/* nav-mesh: protecting us from running thru walls */}
             <a-gltf-model id="navmesh" model-info class="model" src="#navmesh-gltf" visible="false">
-            </a-gltf-model> 
+            </a-gltf-model>
 
             <a-sky animation="property: rotation;
             to: -360 360 -360;
