@@ -231,9 +231,9 @@ useEffect(() => {
 
   var entity = document.querySelector('#player');
   useEffect(() => {
-    const loadInterval = setInterval(() => {
+    const loadInterval = setInterval(() => {console.log(window.modelLoaded);
       if (isLoaded || window.modelLoaded) {
-        if (!!entity) {
+        if (!!entity) {alert();
           // entity.setAttribute('networked', 'template:#avatar-template;attachTemplateToLocal:false;');
           window.NAF.schemas.add({
             template: '#avatar-template',

@@ -44,7 +44,6 @@ export const useWebTRTC = (roomId, user) => {
                             localAudioElement.srcObject = localMediaStream.current;
                         }
                     });
-                    
                     window.socket.emit(ACTIONS.JOIN, { roomId, user: {name: user.name, roomName: roomName, modelIndex: modelIndex} });
                 });
                 clearInterval(clearIts);
@@ -53,7 +52,11 @@ export const useWebTRTC = (roomId, user) => {
 
         return () => {
             // leaving room
-            localMediaStream.current.getTracks().forEach((track) => track.stop())
+            try {
+                localMediaStream.current.getTracks().forEach((track) => track.stop())
+            } catch (error) {
+                console.error(error);
+            }
             // window.socket.emit(ACTIONS.LEAVE, { roomId, user })
         }
 

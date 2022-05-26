@@ -197,10 +197,10 @@ const ChatModule = () => {
     }
   }
 
-  var entity = document.querySelector('#player');
   useEffect(() => {
     const loadInterval = setInterval(() => {
       if (isLoaded || window.modelLoaded) {
+        var entity = document.querySelector('#player');
         if (!!entity) {
           // entity.setAttribute('networked', 'template:#avatar-template;attachTemplateToLocal:false;');
           window.NAF.schemas.add({
@@ -285,7 +285,8 @@ const ChatModule = () => {
           </div>
         </div>
         <div id="scene_wrapper" style={{ opacity: "0" }}>
-          <a-scene renderer="antialias: true;
+          <a-scene 
+            renderer="antialias: true;
               colorManagement: true;
               sortObjects: true;
               physicallyCorrectLights: true;
@@ -293,7 +294,8 @@ const ChatModule = () => {
               maxCanvasHeight: 1920;"
             networked-scene="
               room: blocks;
-              debug: true;">
+              debug: true;"
+          >
             <a-assets timeout="100000">
               <a-asset-item id="headd" src="/assets/models/hub/Avatar head LOW POLY.glb"></a-asset-item>
               <a-asset-item id="holo" src="/assets/models/hub/Hologram_sphere.glb"></a-asset-item>
@@ -325,8 +327,8 @@ const ChatModule = () => {
               />
             </a-assets>
 
-            <a-entity id="player" networked="template:#avatar-template;attachTemplateToLocal:false;">
-              <a-entity  position="0 1.65 0" wasd-controls="acceleration: 20;" look-controls="pointerLockEnabled: true; reverseMouseDrag: false"  simple-navmesh-constraint="navmesh:#navmesh;fall: 5;height:1.65;" id="head"
+            <a-entity id="player" position="0 1.6 0" wasd-controls="acceleration: 20;" look-controls="pointerLockEnabled: true; reverseMouseDrag: false" networked="template:#avatar-template;attachTemplateToLocal:false;">
+              <a-entity  position="0 1.65 0" simple-navmesh-constraint="navmesh:#navmesh;fall: 5;height:1.65;" id="head"
                 camera="fov: 70; active: true" >
                 <a-entity id="cursor" class="mouseOnly" cursor="" raycaster="far: 10; objects: .clickable"
                   material="color: white; shader: flat" position="0 0 -0.3"
