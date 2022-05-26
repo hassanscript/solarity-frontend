@@ -1,3 +1,5 @@
+import { update_loading_screen } from './loading_screen'
+
 //a link cmponent to make aframe elements linkable in another page
 AFRAME.registerComponent('simple-link', {
     schema: {
@@ -10,32 +12,13 @@ AFRAME.registerComponent('simple-link', {
         });
     }
 });
-
-AFRAME.registerComponent('cursor-listener1', {
-    schema: {
-        picno: { default: 0 },
-    },
-    init: function () {
-        this.el.addEventListener('click', (e) => {
-            console.log(this.attrValue.picno + ': click')
-        });
-        this.el.addEventListener('mouseenter', (e) => {
-            document.querySelector('#cursor').setAttribute('material', 'color', 'red');
-            console.log(this.attrValue.picno + ': enter');
-        });
-        this.el.addEventListener('mouseleave', (e) => {
-            console.log(this.attrValue.picno + ': leave');
-            document.querySelector('#cursor').setAttribute('material', 'color', 'white');
-        });
-    }
-});
 //sit down component
 AFRAME.registerComponent('seat', {
     schema: {
         state: { type: 'string', default: 'standing' },
         camera: { type: 'selector' },
         height: { type: 'number', default: 1 },
-        standUpPosition: { type: 'vec3', default: {x: 1, y: 1.65, z: 1} },
+        standUpPosition: { type: 'vec3', default: { x: 1, y: 1.65, z: 1 } },
         duration: { type: 'number' }
     },
     //using events ensures that event handlers properly clean themselves up when the entity or scene is paused, or the component is detached.
@@ -231,3 +214,9 @@ AFRAME.registerComponent('simple-navmesh-constraint', {
         }
     }())
 });
+AFRAME.registerComponent("model-info", {
+    init: function () {
+        let el = this.el;
+        el.addEventListener('model-loaded', update_loading_screen);
+    }
+})
