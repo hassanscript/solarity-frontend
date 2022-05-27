@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { FC, useEffect, useState } from "react";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import { linkAccounts, unlinkAccounts } from "redux/slices/profileSlice";
+import { LinkWrapper } from "./sharedComponents";
 
 const discordLinkGenerator = (currentUrl: string) => {
   const baseUrl = "https://discord.com/api/oauth2/authorize";
@@ -11,14 +12,18 @@ const discordLinkGenerator = (currentUrl: string) => {
     client_id: "963209278146117632",
     redirect_uri: currentUrl,
     response_type: "code",
-    scope: "identify connections guilds guilds.members.read dm_channels.read",
+    scope: "identify connections",
   };
 
   const urlParams = new URLSearchParams(params);
   return baseUrl + "?" + urlParams.toString();
 };
 
-const DiscordLink: FC<{ resetUrl: Function }> = ({ resetUrl }) => {
+const DiscordLink: FC<{
+  resetUrl: Function;
+  mini?: boolean;
+  disabled?: boolean;
+}> = ({ resetUrl, mini, disabled }) => {
   const { discordConnected, discordUsername } = useSelector(
     (state: RootStateOrAny) => state.profile.data
   );
@@ -29,7 +34,6 @@ const DiscordLink: FC<{ resetUrl: Function }> = ({ resetUrl }) => {
     query: { link, code },
     asPath,
   } = router;
-  console.log(code);
   const appUrl = (() => {
     let url = new URL(window.location.origin + asPath);
     let params = new URLSearchParams(url.search);
@@ -60,10 +64,10 @@ const DiscordLink: FC<{ resetUrl: Function }> = ({ resetUrl }) => {
     }
   }, [code, link]);
   return (
-    <div className="border border-brandblack rounded-3xl p-5 flex items-center space-x-4">
+    <LinkWrapper mini={mini}>
       {discordConnected && (
         <button
-          className={`btn btn-primary bg-[#6a0dad] flex space-x-2 ${
+          className={`btn btn-primary flex space-x-2 bg-[#6a0dad] ${
             loading ? "loading" : ""
           }`}
           onClick={() => {
@@ -88,9 +92,9 @@ const DiscordLink: FC<{ resetUrl: Function }> = ({ resetUrl }) => {
       )}
       {!discordConnected && (
         <a
-          className={`btn btn-primary bg-[#6a0dad] flex space-x-2 ${
+          className={`btn btn-primary flex space-x-2 bg-[#6a0dad] ${
             loading ? "loading" : ""
-          }`}
+          } ${disabled ? "btn-disabled" : ""}`}
           href={discordConnectionLink}
         >
           <Image src={discordLogo} height="25" width="25" objectFit="contain" />
@@ -103,11 +107,9 @@ const DiscordLink: FC<{ resetUrl: Function }> = ({ resetUrl }) => {
           <span className="font-bold text-green-500	">{discordUsername}</span>
         </p>
       ) : (
-        <p className="text-gray-950">
-          You account is not linked with any discord account
-        </p>
+        <p className="text-gray-950">Link your account with Discord</p>
       )}
-    </div>
+    </LinkWrapper>
   );
 };
 

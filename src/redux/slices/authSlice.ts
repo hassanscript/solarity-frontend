@@ -1,11 +1,9 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import base58 from "bs58";
-import ACTIONS from "config/actions";
-import { apiCaller } from "utils/fetcher";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { apiCaller } from "../../utils/fetcher";
 import { setProfile } from "./profileSlice";
-import socket from "utils/socket-client";
-import Web3 from "web3";
-import { signMessage } from "utils/walletHelpers";
+import { startLoadingApp, stopLoadingApp } from "./commonSlice";
+import socket from "../../utils/socket-client";
+import { signMessage } from "../../utils/walletHelpers";
 
 export interface CounterState {
   roomName: string;
@@ -22,11 +20,14 @@ type loginProps = {
   publicKey: any;
   walletType: "solana" | "ethereum";
   provider: any;
+  onFinally?: () => void;
 };
 
 export const login = createAsyncThunk(
   "auth/login",
   async ({ publicKey, walletType, provider }: loginProps, { dispatch }) => {
+    let response = false;
+    dispatch(startLoadingApp());
     try {
       const {
         data: { nonce },
@@ -50,10 +51,10 @@ export const login = createAsyncThunk(
         signature,
       });
       dispatch(setProfile(profile));
-      return true;
-    } catch (err) {
-      return false;
-    }
+      response = true;
+    } catch (err) {}
+    dispatch(stopLoadingApp());
+    return response;
   }
 );
 
@@ -69,16 +70,18 @@ export const logout = createAsyncThunk("auth/logout", async (_) => {
 export const checkSession = createAsyncThunk(
   "auth/checkSession",
   async (_, { dispatch }) => {
+    let response = false;
+    dispatch(startLoadingApp());
     try {
-      if (!window.socket) {
-        window.socket = socket();
+      if (!("socket" in window)) {
+        window["socket"] = socket();
       }
       const { data } = await apiCaller.get("/auth/check");
       dispatch(setProfile(data.profile));
-      return true;
-    } catch {
-      return false;
-    }
+      response = true;
+    } catch {}
+    dispatch(stopLoadingApp());
+    return response;
   }
 );
 
