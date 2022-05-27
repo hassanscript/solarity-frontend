@@ -1,29 +1,28 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Formik } from "formik";
-import { useRouter } from "next/router";
 import * as yup from "yup";
-import {
-  Container,
-  Button,
-  Input,
-  Stack,
-  Error,
-  FormikInput,
-} from "components/FormComponents";
+import { Container, Button, Stack, Error } from "components/FormComponents";
 import { addInfo } from "redux/slices/profileSlice";
 import { ProfileFields } from "modules/Profile/UpdateInfoView";
+import { setup } from "../../../redux/slices/profileSlice";
+import { showErrorToast } from "utils";
+
+const infoFormSchema = yup.object({
+  username: yup.string().required(),
+  bio: yup.string(),
+});
 
 export const Form = () => {
   const dispatch = useDispatch();
-  const router = useRouter();
-  const [topLevelError, setTopLevelError] = useState("");
+  const [usernameStatusCheck, setUsernameStatusCheck] = useState<
+    false | true | null
+  >(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const initialValues = {
     username: "",
-    twitterUsername: "",
-    discordHandle: "",
-    githubUsername: "",
+    bio: "",
   };
 
   return (
@@ -33,16 +32,15 @@ export const Form = () => {
       validateOnChange={false}
       validateOnBlur={false}
       validationSchema={infoFormSchema}
-      onSubmit={(data, { setSubmitting, resetForm }) => {
+      onSubmit={(data, { setSubmitting }) => {
         setSubmitting(true);
+        setErrorMessage("");
         dispatch(
-          addInfo({
-            data,
-            successFunction: () => {
-              setTopLevelError("");
-            },
+          setup({
+            data: { action: "info", ...data },
+            successFunction: () => {},
             errorFunction: (errorMessage: string) => {
-              setTopLevelError(errorMessage);
+              showErrorToast(errorMessage);
             },
             finalFunction: () => {
               setSubmitting(false);
@@ -60,7 +58,6 @@ export const Form = () => {
         resetForm,
         handleSubmit,
         setFieldError,
-        setStatus,
       }) => {
         const sharedProps = {
           onChange: handleChange,
@@ -68,27 +65,31 @@ export const Form = () => {
           disabled: loading,
           values,
           errors,
+          loading,
         };
         return (
           <Container onSubmit={handleSubmit}>
             <Stack spacing={2}>
               <ProfileFields
+                setUsernameStatusCheck={setUsernameStatusCheck}
+                usernameStatusCheck={usernameStatusCheck}
                 sharedProps={sharedProps}
                 setFieldError={setFieldError}
-                setStatus={setStatus}
-                ignoreBio={true}
               />
               <Error
-                className="mt-5"
-                onClick={() => setTopLevelError("")}
-                show={Boolean(topLevelError)}
-                description={topLevelError}
+                description={errorMessage}
+                title={"Error on submitting info"}
+                show={Boolean(errorMessage)}
+                onClick={() => setErrorMessage("")}
               />
-              <Stack direction="row" spacing={3} className="pt-5 ml-auto">
+              <Stack direction="row" spacing={3} className="ml-auto pt-5">
                 <Button
                   variant="accent"
                   outline
-                  onClick={resetForm}
+                  onClick={() => {
+                    resetForm();
+                    setUsernameStatusCheck(false);
+                  }}
                   disabled={loading}
                 >
                   Reset
@@ -98,6 +99,7 @@ export const Form = () => {
                   variant="secondary"
                   loading={loading}
                   disableOnLoading
+                  disabled={usernameStatusCheck != true}
                 >
                   Next
                 </Button>
@@ -109,18 +111,3 @@ export const Form = () => {
     </Formik>
   );
 };
-
-const infoFormSchema = yup.object({
-  username: yup.string().required(),
-  twitterUsername: yup.string().required(),
-  githubUsername: yup.string().required(),
-  discordHandle: yup.string().required(),
-});
-
-//             {error && (
-//               <div className="pt-4">
-//                 <div className="alert alert-error shadow-lg">
-//                   <span>{error}</span>
-//                 </div>
-//               </div>
-//             )}

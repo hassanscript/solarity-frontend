@@ -14,6 +14,35 @@ const initialState = {
   activeRoomId: "",
 };
 
+export const setup = createAsyncThunk(
+  "profile/setup",
+  async ({
+    data,
+    successFunction,
+    errorFunction,
+    finalFunction,
+  }: {
+    data: Object;
+    successFunction: () => void;
+    errorFunction: (error: string) => void;
+    finalFunction: () => void;
+  }) => {
+    let returnValue = null;
+    try {
+      const {
+        data: { profile },
+      } = await apiCaller.post("/profile/setup", data);
+      successFunction();
+      returnValue = profile;
+    } catch (err) {
+      errorFunction(getErrorMessage(err));
+      returnValue = false;
+    }
+    finalFunction();
+    return returnValue;
+  }
+);
+
 export const addInfo = createAsyncThunk(
   "profile/addInfo",
   async ({
@@ -31,7 +60,10 @@ export const addInfo = createAsyncThunk(
     try {
       const {
         data: { profile },
-      } = await apiCaller.post("/profile/setup/info", data);
+      } = await apiCaller.post("/profile/setup/info", {
+        action: "info",
+        ...data,
+      });
       successFunction();
       returnValue = profile;
     } catch (err) {
@@ -61,8 +93,9 @@ export const placeBid = createAsyncThunk(
       const {
         selectedAsset,
         selectedIndex,
-        signed,
+        transaction,
         connection,
+        provider,
       } = data;
 
       const {
@@ -77,7 +110,10 @@ export const placeBid = createAsyncThunk(
         return;
       }
       try {
-        await connection.sendRawTransaction(signed.serialize())
+        transaction.feePayer = await provider.publicKey;
+        let blockhashObj = await connection.getRecentBlockhash();
+        transaction.recentBlockhash = await blockhashObj.blockhash;
+        await provider.signAndSendTransaction(transaction);
       } catch (error: any) {
         errorFunction(error.message);
         return;
@@ -298,6 +334,11 @@ export const profileSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(setup.fulfilled, (state, action) => {
+      if (action.payload) {
+        profileSlice.caseReducers.setProfile(state, action);
+      }
+    });
     builder.addCase(addInfo.fulfilled, (state, action) => {
       if (action.payload) {
         profileSlice.caseReducers.setProfile(state, action);

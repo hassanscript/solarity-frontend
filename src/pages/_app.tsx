@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import type { AppProps } from "next/app";
 import dynamic from "next/dynamic";
 import { ConnectionProvider } from "@solana/wallet-adapter-react";
+import { ToastContainer } from "react-toastify";
 
 // For redux
 import {
@@ -50,7 +51,7 @@ function MyApp({ children }: any) {
     if (currentRoute === "/profile" && !logged && !checkingSession) {
       router.push("/");
     }
-  }, [logged, profileData, checkingSession]);
+  }, [logged, profileData, checkSession, profileData.visible]);
 
   useEffect(() => {
     dispatch(checkSession());
@@ -67,6 +68,19 @@ function ReduxWrapped({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
       <MyApp>
+        <ToastContainer
+          style={{ position: "fixed", zIndex: "100000000" }}
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        />
         <Component {...pageProps} />
       </MyApp>
     </Provider>

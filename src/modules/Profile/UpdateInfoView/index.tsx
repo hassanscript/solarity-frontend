@@ -20,25 +20,22 @@ import { toast } from "react-toastify";
 const UsernameInput: FC<{
   sharedProps: any;
   setFieldError: Function;
-  setLoading: (loading: boolean) => void;
-}> = ({ sharedProps, setFieldError, setLoading }) => {
-  const [status, setStatus] = useState<1 | 2 | 3>(1);
-
+  status: true | false | null;
+  setStatus: (status: true | false | null) => void;
+}> = ({ sharedProps, setFieldError, status, setStatus }) => {
   const checkUsernameAvailability = () => {
+    setStatus(null);
     const { username } = sharedProps.values;
     apiCaller
       .get(`profile/usernameAvailability/${username}`)
       .then(() => {
-        setStatus(1);
+        setStatus(true);
         setFieldError("username", undefined);
       })
       .catch((err) => {
         const message = getErrorMessage(err);
         setFieldError("username", message);
-        setStatus(3);
-      })
-      .finally(() => {
-        setLoading(false);
+        setStatus(false);
       });
   };
 
@@ -47,28 +44,53 @@ const UsernameInput: FC<{
       name="username"
       {...sharedProps}
       onChange={(e) => {
-        setLoading(true);
-        setStatus(2);
+        setStatus(null);
         sharedProps.onChange(e);
       }}
       onStopTypingInterval={800}
       onStopTyping={checkUsernameAvailability}
       absoluteElement={
         <div className="absolute top-[50%] right-4 translate-y-[-50%]">
-          {status == 1 && <AiFillCheckCircle color="green" />}
-          {status == 2 && (
+          {status === true && <AiFillCheckCircle color="green" />}
+          {status === null && (
             <AiOutlineLoading3Quarters className="animate-spin" />
           )}
-          {status == 3 && <AiFillCloseCircle color="red" />}
+          {status === false && <AiFillCloseCircle color="red" />}
         </div>
       }
     />
   );
 };
 
+export const ProfileFields: FC<{
+  sharedProps: any;
+  setFieldError: any;
+  usernameStatusCheck: false | true | null;
+  setUsernameStatusCheck: (status: false | true | null) => void;
+}> = ({
+  sharedProps,
+  setFieldError,
+  usernameStatusCheck,
+  setUsernameStatusCheck,
+}) => {
+  return (
+    <>
+      <UsernameInput
+        sharedProps={sharedProps}
+        setFieldError={setFieldError}
+        status={usernameStatusCheck}
+        setStatus={setUsernameStatusCheck}
+      />
+      <FormikTextArea name="bio" {...sharedProps} />
+    </>
+  );
+};
+
 const Form = () => {
   const dispatch = useDispatch();
-  1;
+  const [usernameStatusCheck, setUsernameStatusCheck] = useState<
+    false | true | null
+  >(false);
   const profileData = useSelector(
     (state: RootStateOrAny) => state.profile.data
   );
@@ -125,15 +147,13 @@ const Form = () => {
         return (
           <Container onSubmit={handleSubmit}>
             <Stack spacing={3}>
-              <UsernameInput
+              <ProfileFields
                 sharedProps={sharedProps}
                 setFieldError={setFieldError}
-                setLoading={(loading) => {
-                  setStatus(loading ? "checkingUsername" : undefined);
-                }}
+                setUsernameStatusCheck={setUsernameStatusCheck}
+                usernameStatusCheck={usernameStatusCheck}
               />
-              <FormikTextArea name="bio" {...sharedProps} />
-              <Stack direction="row" spacing={3} className="pt-5 ml-auto">
+              <Stack direction="row" spacing={3} className="ml-auto pt-5">
                 <Button
                   type="submit"
                   variant="secondary"
@@ -155,7 +175,7 @@ const Form = () => {
 const UpdateInfoView = () => {
   return (
     <div>
-      <h3 className="font-bold text-2xl pb-5">Update Profile</h3>
+      <h3 className="pb-5 text-2xl font-bold">Update Profile</h3>
       <Form />
     </div>
   );
