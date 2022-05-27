@@ -1,14 +1,12 @@
-import React, { useState } from "react";
-import Image from "next/image";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
-
-import placeholder from "assets/images/placeholder/avatar.png";
-
+import placeholder from "../../assets/images/placeholder/avatar.png";
 import { useSelector, RootStateOrAny, useDispatch } from "react-redux";
 import { login } from "redux/slices/authSlice";
+import { startLoadingApp, stopLoadingApp } from "redux/slices/commonSlice";
 import WalletSelector from "components/WalletSelector";
 
-const ButtonWallet = () => {
+const WalletButton = () => {
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
 
@@ -37,7 +35,7 @@ const ButtonWallet = () => {
           }}
         />
         <button
-          className="gap-3 font-normal normal-case btn rounded-3xl btn-secondary"
+          className="btn btn-secondary gap-3 rounded-3xl font-normal normal-case"
           onClick={() => setShow(true)}
         >
           <div>Login With Wallet</div>
@@ -48,9 +46,9 @@ const ButtonWallet = () => {
 
   return (
     <Link href={`/${profileData.username}`} passHref>
-      <a className="gap-3 pr-1 font-normal normal-case btn rounded-3xl btn-secondary ">
+      <a className="btn btn-secondary gap-3 rounded-3xl pr-1 font-normal normal-case ">
         <span>{profileData.shortPublicAddress}</span>
-        <div className="w-[1px]  h-2/3 bg-[#5153F0]" />
+        <div className="h-2/3  w-[1px] bg-[#5153F0]" />
         <img
           height="34"
           width="34"
@@ -64,4 +62,4 @@ const ButtonWallet = () => {
   );
 };
 
-export default ButtonWallet;
+export default WalletButton;
