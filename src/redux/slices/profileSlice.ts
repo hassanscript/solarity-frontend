@@ -6,6 +6,7 @@ import socket from "utils/socket-client";
 import { sendAndConfirmTransaction, PublicKey } from "@solana/web3.js";
 import { connectWallet } from "utils/walletHelpers";
 import { connect } from "socket.io-client";
+import { extractError } from "../../utils";
 
 const initialState = {
   data: {},
@@ -272,7 +273,7 @@ export const linkAccounts = createAsyncThunk(
       returnValue = profile;
       showSuccessToast("Account successfully linked");
     } catch (err) {
-      showErrorToast("Account was unable to be linked");
+      showErrorToast(extractError(err));
       returnValue = false;
     }
     finalFunction();
@@ -297,7 +298,7 @@ export const unlinkAccounts = createAsyncThunk(
       returnValue = profile;
       showSuccessToast("Account successfully unlinked");
     } catch (err) {
-      showErrorToast("Account was unable to be unlinked");
+      showErrorToast(extractError(err));
       returnValue = false;
     }
     finalFunction();

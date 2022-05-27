@@ -4,9 +4,9 @@ import { Loader } from "components/Loader";
 
 const CoinBalances: FC<{ data: any[] }> = ({ data }) => {
   return (
-    <div className="bg-brandblack rounded-3xl divide-y divide-gray-800 space-y-2">
-      {data.map(({ image, balance, title, symbol, usdValue }, index) => (
-        <div className="px-3 flex justify-center items-start pt-3 first:pt-0" key={index}>
+    <div className="space-y-2 divide-y divide-gray-800 rounded-3xl bg-brandblack">
+      {data.map(({ image, balance, title, symbol, usdValue }) => (
+        <div className="flex items-start justify-center px-3 pt-3 first:pt-0">
           <img
             src={image}
             height="40px"
@@ -31,7 +31,7 @@ const BalanceViewWrapper: FC<{ children: React.ReactElement }> = ({
   children,
 }) => {
   return (
-    <div className="p-4 bg-brandblack rounded-3xl">
+    <div className="rounded-3xl bg-brandblack p-4">
       <>{children}</>
     </div>
   );
