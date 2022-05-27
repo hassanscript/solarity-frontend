@@ -5,8 +5,8 @@ import { Loader } from "components/Loader";
 const CoinBalances: FC<{ data: any[] }> = ({ data }) => {
   return (
     <div className="bg-brandblack rounded-3xl divide-y divide-gray-800 space-y-2">
-      {data.map(({ image, balance, title, symbol, usdValue }) => (
-        <div className="px-3 flex justify-center items-start pt-3 first:pt-0">
+      {data.map(({ image, balance, title, symbol, usdValue }, index) => (
+        <div className="px-3 flex justify-center items-start pt-3 first:pt-0" key={index}>
           <img
             src={image}
             height="40px"

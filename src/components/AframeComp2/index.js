@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useAppSelector } from "redux/hooks";
 import { start_loading_screen_listeners, build_loading_screen } from "modules/ChatModule/loading_screen";
+import {choose_controls, pass_controls} from 'modules/ChatModule/utils'
 import styles from 'modules/ChatModule/chat.module.css';
 import freeObjectFromMemory from "utils/clearObject";
 
@@ -37,6 +38,7 @@ export default function AframeComp2({user, permitionFlag}) {
     require("aframe/dist/aframe-master.js");
     require('aframe-liquid-portal-shader');
     require('aframe-blink-controls');
+    require('modules/ChatModule/components');
     if(user != {} && !!user.rooms) {
       var roomIndex = -1;
       if(activeRoomId != "") {
@@ -98,12 +100,19 @@ export default function AframeComp2({user, permitionFlag}) {
       var loading_textEl = document.getElementById('loading_text');
       var loading_barEl = document.getElementById('loading_bar');
       if(sceneEl && loading_textEl  && loading_barEl  &&  loading_screenEl) {
-        clearInterval(clearHandle);
         build_loading_screen();
         start_loading_screen_listeners();
+        sceneEl.addEventListener('loaded', start_scene);
+        clearInterval(clearHandle);
       }
-    }, 100);
+    }, 300);
   }, []);
+
+  const start_scene = () => {
+    // setGifIntervalId(start_screens())
+    choose_controls();
+    pass_controls();
+  }
 
   if((user.rooms && user.rooms.length != 0) || permitionFlag) {
     if (permition || permitionFlag) {
@@ -130,16 +139,15 @@ export default function AframeComp2({user, permitionFlag}) {
               maxCanvasHeight: 1920;" 
               id="scene_wrapper" 
               style={{opacity: 0, position: "absolute", top: "0px", zIndex: 0}}
-              loading-screen="enabled:false" 
             >
                   <a-assets timeout="100000">
-                      <a-asset-item id="room-gltf" src="/assets/models/Normal room optimized.glb"></a-asset-item>
-                      <a-asset-item id="arcade-gltf" src="/assets/models/Arcade console.glb"></a-asset-item>
-                      <a-asset-item id="atm-gltf" src="/assets/models/ATM.glb"></a-asset-item>
-                      <a-asset-item id="chair-gltf" src="/assets/models/Chair.glb"></a-asset-item>
+                      <a-asset-item id="room-gltf" src="/assets/models/own/Normal room optimized.glb"></a-asset-item>
+                      <a-asset-item id="arcade-gltf" src="/assets/models/own/Arcade console.glb"></a-asset-item>
+                      <a-asset-item id="atm-gltf" src="/assets/models/own/ATM.glb"></a-asset-item>
+                      <a-asset-item id="chair-gltf" src="/assets/models/own/Chair.glb"></a-asset-item>
 
-                      <a-asset-item id="vr-gltf" src="/assets/models/VR.glb"></a-asset-item>
-                      <a-asset-item id="navmesh-gltf" src="/assets/models/navmesh.gltf"></a-asset-item>
+                      <a-asset-item id="vr-gltf" src="/assets/models/own/VR.glb"></a-asset-item>
+                      <a-asset-item id="navmesh-gltf" src="/assets/models/own/navmesh.gltf"></a-asset-item>
 
                       <img id="hub-img" src="/assets/images/hub.png" />
                       <img id="sky-img" src="/assets/images/sky.jpg"/>
@@ -180,19 +188,19 @@ export default function AframeComp2({user, permitionFlag}) {
                               line="color: lawngreen; opacity: 0.5" visible="true"></a-entity>
                 </a-entity>
 
-                <a-gltf-model shadow="cast: true; receive: true" class="model" src="#room-gltf" position="0 0 0"
+                <a-gltf-model shadow="cast: true; receive: true"  model-info class="model" src="#room-gltf" position="0 0 0"
                               scale="1 1 1"></a-gltf-model>
-                <a-gltf-model shadow="cast: true; receive: true" class="model" src="#arcade-gltf" position="0 0 0"
+                <a-gltf-model shadow="cast: true; receive: true"  model-info class="model" src="#arcade-gltf" position="0 0 0"
                               scale="1 1 1"></a-gltf-model>
-                <a-gltf-model shadow="cast: true; receive: true" class="model" src="#atm-gltf" position="0 0 0"
+                <a-gltf-model shadow="cast: true; receive: true"  model-info class="model" src="#atm-gltf" position="0 0 0"
                               scale="1 1 1"></a-gltf-model>
-                <a-gltf-model shadow="cast: true; receive: true" class="model" src="#chair-gltf" position="0 0 0"
+                <a-gltf-model shadow="cast: true; receive: true"  model-info class="model" src="#chair-gltf" position="0 0 0"
                               scale="1 1 1"></a-gltf-model>
-                <a-gltf-model shadow="cast: true; receive: true" class="model clickable nocollision" src="#vr-gltf"
+                <a-gltf-model shadow="cast: true; receive: true"  model-info class="model clickable nocollision" src="#vr-gltf"
                               simple-link="href: ../solarity-build-v-3/dist/index.html" position="0.4 1 -2.6" scale="1 1 1">
                 </a-gltf-model>
-                <a-entity id="navmesh" class="" gltf-model="#navmesh-gltf" visible="false" position="0 0 0">
-                </a-entity>
+                <a-gltf-model id="navmesh" model-info class="model" src="#navmesh-gltf" visible="false">
+                </a-gltf-model>
 
                 <a-entity position="0 2 0" rotation="0 0 0"
                           light="type: point; intensity:  5; distance: 10; decay: 1; color:  #FFFFFF; cast-shadow: false; shadowCameraVisible: false;">

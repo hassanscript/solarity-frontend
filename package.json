@@ -37,6 +37,7 @@
     "bignumber.js": "^9.0.2",
     "bluebird": "^3.7.2",
     "bs58": "^5.0.0",
+    "buffer-layout": "^1.2.2",
     "classnames": "^2.3.1",
     "connected-next-router": "^4.1.0",
     "daisyui": "^1.16.2",

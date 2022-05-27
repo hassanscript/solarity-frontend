@@ -202,7 +202,6 @@ const ChatModule = () => {
       if (isLoaded || window.modelLoaded) {
         var entity = document.querySelector('#player');
         if (!!entity) {
-          // entity.setAttribute('networked', 'template:#avatar-template;attachTemplateToLocal:false;');
           window.NAF.schemas.add({
             template: '#avatar-template',
             components: [
@@ -327,14 +326,27 @@ const ChatModule = () => {
               />
             </a-assets>
 
-            <a-entity position="0 1.65 0" look-controls="pointerLockEnabled: true; reverseMouseDrag: false"
-            simple-navmesh-constraint="navmesh:#navmesh;fall: 5;height:1.65;" id="player" wasd-controls="acceleration: 20;"
-            networked="template:#avatar-template;attachTemplateToLocal:true;">
-              <a-entity rotation = "0 0 0" id="head"
-                camera="fov: 70; active: true" >
-                <a-entity id="cursor" class="mouseOnly" cursor="" raycaster="far: 10; objects: .clickable"
-                  material="color: white; shader: flat" position="0 0 -0.3"
-                  geometry="primitive: sphere; radius: 0.001">
+            <a-entity 
+              id="player"
+              position="0 1.65 0" 
+              look-controls="pointerLockEnabled: true; reverseMouseDrag: false"
+              simple-navmesh-constraint="navmesh:#navmesh;fall: 5;height:1.65;" wasd-controls="acceleration: 20;"
+              networked="template:#avatar-template;attachTemplateToLocal:true;"
+            >
+              <a-entity 
+                id="head" 
+                rotation = "0 0 0"
+                camera="fov: 70; active: true"
+              >
+                <a-entity 
+                  id="cursor" 
+                  class="mouseOnly" 
+                  cursor="" 
+                  raycaster="far: 10; objects: .clickable"
+                  material="color: white; shader: flat" 
+                  position="0 0 -0.3"
+                  geometry="primitive: sphere; radius: 0.001"
+                >
                 </a-entity>
               </a-entity>
               <a-entity id="leftHand" class="leftController controllerOnly"

@@ -29,7 +29,7 @@ export const GALLERY: Gallery = {
           collection: "Solana Money Boys",
           imageUrl: "/images/placeholder/marketplace/gallery/boh1.png",
           description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nisi,eget quisque pharetra, nisl. Nisl a proin a commodo libero purusduis. Leo, condimentum viverra mattis feugiat egestas est at nec.Praesent vitae fames feugiat diam mauris. Fringilla posuere quamenim id urna. Arcu, ut magna cursus pharetra semper a.",
-          currentBid: 0.01,
+          currentBid: 50,
           endingIn: "12h  43m  27s",
         },
         {
@@ -38,7 +38,7 @@ export const GALLERY: Gallery = {
           collection: "Solana Money Boys",
           imageUrl: "/images/placeholder/marketplace/gallery/boh2.jpg",
           description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nisi,eget quisque pharetra, nisl. Nisl a proin a commodo libero purusduis. Leo, condimentum viverra mattis feugiat egestas est at nec.Praesent vitae fames feugiat diam mauris. Fringilla posuere quamenim id urna. Arcu, ut magna cursus pharetra semper a.",
-          currentBid: 0.02,
+          currentBid: 50,
           endingIn: "12h  43m  27s",
         },
         {
@@ -47,7 +47,7 @@ export const GALLERY: Gallery = {
           collection: "Solana Money Boys",
           imageUrl: "/images/placeholder/marketplace/gallery/boh3.png",
           description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nisi,eget quisque pharetra, nisl. Nisl a proin a commodo libero purusduis. Leo, condimentum viverra mattis feugiat egestas est at nec.Praesent vitae fames feugiat diam mauris. Fringilla posuere quamenim id urna. Arcu, ut magna cursus pharetra semper a.",
-          currentBid: 0.01,
+          currentBid: 50,
           endingIn: "12h  43m  27s",
         },
       ],

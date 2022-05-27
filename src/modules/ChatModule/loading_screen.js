@@ -62,6 +62,7 @@ export function update_loading_screen() {
     loading_bar_itemEL.style.flexGrow = 1;
     loading_bar_itemEL.style.opacity = 0.6;
   }
+  console.log('count', models_loaded, 'all: ',  models_number);
   if (models_loaded == models_number) {
     models_loaded = 0;
     models = [];
@@ -69,14 +70,16 @@ export function update_loading_screen() {
     window.modelLoaded = true;
     if (!!scene_wrapperEl) scene_wrapperEl.removeAttribute("style");
     if (!!loading_screenEl) loading_screenEl.style.display = "none";
-    loading_videoEl.remove();
+    if(!!loading_videoEl) {
+      loading_videoEl.remove();
+    }
   }
 }
 //checks if model has loaded before building all of the dinamic content
 export function start_loading_screen_listeners() {
   models_loaded = 0;
   models = document.getElementsByClassName("model");
-  models_number = models.length;
+  models_number = models.length;console.log('models_number', models_number);
   for (var i = 0; i < models_number; i++) {
     models[i].addEventListener("model-loaded", update_loading_screen);
   }
