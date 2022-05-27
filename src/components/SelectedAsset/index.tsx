@@ -43,7 +43,7 @@ const SelectedAsset: FC<HeroProps> = ({}) => {
   const { selectedTagIndex, selectedIndex, assets } = useAppSelector(
     (state) => state.marketplace
   );
-  const connection = new Connection(clusterApiUrl("testnet"));
+  const connection = new Connection(clusterApiUrl("mainnet-beta"));
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -70,7 +70,6 @@ const SelectedAsset: FC<HeroProps> = ({}) => {
         publicKey,
         signTransaction
       );
-      console.log("end");return;
       const toTokenAccount = await getOrCreateAssociatedTokenAccount(
         connection,
         publicKey,
