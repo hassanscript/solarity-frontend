@@ -28,7 +28,7 @@ const GalleryItemComponent: FC<GalleryItemProps> = ({
 }) => {
   const dispatch = useDispatch();
   const handlePlaceBidToggle = () => {
-    if(roomNo != undefined && roomNo <= 1 && tagIndex != undefined && tagIndex == 0) {
+    if(roomNo != undefined && roomNo <= 2 && tagIndex != undefined && tagIndex == 0) {
       dispatch(setAsset({tagIndex, roomNo}));
     } else {
       toast.error(title + " isn't ready now.", {
@@ -100,7 +100,7 @@ const GalleryItemComponent: FC<GalleryItemProps> = ({
                 className="flex" 
                 onClick={handlePlaceBidToggle}
               >
-                <Bid /> Place a Bid
+                <Bid /> See in detail
               </div>
             )}
           </button>
@@ -118,7 +118,7 @@ const GalleryItemComponent: FC<GalleryItemProps> = ({
         {type === "bid" && (
           <>
             <div className="flex flex-col">
-              <span className="text-xs text-gray-950">Current bid</span>
+              <span className="text-xs text-gray-950">Price</span>
               <div className="flex items-center gap-2">
                 <div className="h-[16px] w-[16px]">
                   <Image
@@ -130,7 +130,7 @@ const GalleryItemComponent: FC<GalleryItemProps> = ({
                 </div>
 
                 <span className="mt-2 text-xs text-white">
-                  {currentBid} SOL
+                  {currentBid} Verse
                 </span>
               </div>
             </div>
@@ -204,7 +204,7 @@ const GalleryItemComponent: FC<GalleryItemProps> = ({
                 />
               </div>
 
-              <span className="mt-1 text-xs text-white ">{currentBid} SOL</span>
+              <span className="mt-1 text-xs text-white ">{currentBid} Verse</span>
             </div>
           </div>
         )}

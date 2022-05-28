@@ -94,7 +94,7 @@ const SelectedAsset: FC<HeroProps> = ({}) => {
       const blockHash = await connection.getRecentBlockhash()
       transaction1.feePayer = await publicKey
       transaction1.recentBlockhash = await blockHash.blockhash
-      const signed = await signTransaction(transaction1)
+      const signed = await signTransaction(transaction1);
       setLoadingButton(true);
       dispatch(
         placeBid({
@@ -216,14 +216,25 @@ const SelectedAsset: FC<HeroProps> = ({}) => {
       <div className="relative w-full h-[314px] rounded-2xl -mt-5">
         {selectedIndex == 0 ? (
           <iframe 
-          src={BaseUrl + "frames/ownroom1"}
-          width={1032}
-          height={314}
-        ></iframe>
+            src={BaseUrl + "frames/ownroom0"}
+            width={1032}
+            height={314}
+          ></iframe>
         // <AframeComp2 user={{ rooms: [] }} permitionFlag={true} />
-        ) : (
-          <AframeComp1 />
-        )}
+        ) : selectedIndex == 1 ? (
+          <iframe 
+            src={BaseUrl + "frames/ownroom1"}
+            width={1032}
+            height={314}
+          ></iframe>
+          ): (
+            <iframe 
+              src={BaseUrl + "frames/ownroom2"}
+              width={1032}
+              height={314}
+            ></iframe>
+          )
+        }
       </div>
       {selectedAsset && (
         <div className="flex justify-between my-6">

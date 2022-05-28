@@ -12,7 +12,7 @@ const Marketplace = () => {
   };
   return (
     <div className="flex flex-col pb-14">
-      <div className="flex justify-between">
+      {/* <div className="flex justify-between">
         <TagsCollection onChange={handleTagChange} tags={TAGS} />
         <div className="flex items-center gap-3">
           <span className="text-sm">Filters</span>
@@ -31,7 +31,7 @@ const Marketplace = () => {
             </Popover.Panel>
           </Popover>
         </div>
-      </div>
+      </div> */}
       <Gallery rows={GALLERY.rows} />
     </div>
   );
