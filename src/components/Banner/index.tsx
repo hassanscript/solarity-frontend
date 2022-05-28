@@ -22,44 +22,44 @@ export interface BannerProps {
 }
 
 const Banner: FC<BannerProps> = ({ vrprofile, user, vrdao, smallImage }) => {
-  const { activeRoomId } = useAppSelector(state => state.profile);
-  const [ permition, setPermition ] = useState(false);
+  const { activeRoomId } = useAppSelector((state) => state.profile);
+  const [permition, setPermition] = useState(false);
   const [room, setRoom] = useState<any>({});
 
   useEffect(() => {
-    if(user != {} && !!user.rooms) {
+    if (user != {} && !!user.rooms) {
       var roomIndex = -1;
-      if(activeRoomId != "") {
+      if (activeRoomId != "") {
         roomIndex = user.rooms.findIndex((s: any) => s._id == activeRoomId);
       } else {
         roomIndex = user.rooms.findIndex((s: any) => s.active == true);
       }
-      if(roomIndex == -1) {
-        setPermition(true)
+      if (roomIndex == -1) {
+        setPermition(true);
       } else {
         setRoom(user.rooms[roomIndex]);
       }
     }
-  }, [activeRoomId])
-
-
+  }, [activeRoomId]);
 
   return (
     <div>
       {vrprofile && (
-        <div className="relative w-full h-[400px] rounded-2xl -mt-5">
+        <div className="relative -mt-5 h-[400px] w-full rounded-2xl">
           {/* <AframeComp2 user={user} permitionFlag={false}/> */}
-          { user.rooms && user.rooms.length != 0 && permition == false ? (
-            <iframe 
+          {user.rooms && user.rooms.length != 0 && permition == false ? (
+            <iframe
               className="mb-2"
               title="banner"
               width={1000}
               height={400}
               src={BaseUrl + "super/room/" + room._id}
             />
-          ): (
+          ) : (
             <div className="pt-20 text-center">
-              You don't have any active room. Buy a room in marketplace page and active a room in assets menu please.
+              {
+                "You don't have any active room. Buy a room in marketplace page and active a room in assets menu please."
+              }
             </div>
           )}
           {vrprofile.price && (
@@ -68,7 +68,7 @@ const Banner: FC<BannerProps> = ({ vrprofile, user, vrdao, smallImage }) => {
                 "https://solarityvr.github.io/money-boy-hub/room/room.html?controls=mouse"
               }
             >
-              <button className="absolute text-sm font-bold bg-white rounded-full btn top-2 right-2 text-secondary">
+              <button className="btn absolute top-2 right-2 rounded-full bg-white text-sm font-bold text-secondary">
                 Play
               </button>
             </Link>
@@ -76,7 +76,7 @@ const Banner: FC<BannerProps> = ({ vrprofile, user, vrdao, smallImage }) => {
         </div>
       )}
       {vrdao && (
-        <div className="relative w-full h-[400px] rounded-2xl -mt-5">
+        <div className="relative -mt-5 h-[400px] w-full rounded-2xl">
           <AframeComp6 />
           {/* </iframe> */}
           {vrdao.price && (
@@ -85,7 +85,7 @@ const Banner: FC<BannerProps> = ({ vrprofile, user, vrdao, smallImage }) => {
                 "https://solarityvr.github.io/money-boy-hub/hub/hub.html?controls=mouse"
               }
             >
-              <button className="absolute text-sm font-bold bg-white rounded-full btn top-2 right-2 text-secondary">
+              <button className="btn absolute top-2 right-2 rounded-full bg-white text-sm font-bold text-secondary">
                 Play
               </button>
             </Link>
@@ -93,7 +93,7 @@ const Banner: FC<BannerProps> = ({ vrprofile, user, vrdao, smallImage }) => {
         </div>
       )}
       <div className="flex justify-center ">
-        <div className="h-[201px] w-[201px] rounded-full relative -mt-28">
+        <div className="relative -mt-28 h-[201px] w-[201px] rounded-full">
           <img
             className="rounded-full"
             style={{ border: "5px solid white" }}
