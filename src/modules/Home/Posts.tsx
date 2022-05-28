@@ -59,7 +59,7 @@ const Posts: FC<IProps> = ({ accountType, user, dao }) => {
                   <p>{t}</p>
                 ))}
               {media && media.length > 0 && (
-                <img className="pt-2 rounded-3xl" src={media[0].media_url} />
+                <img className="rounded-3xl pt-2" src={media[0].media_url} />
               )}
             </div>
           ),
@@ -110,7 +110,7 @@ const Posts: FC<IProps> = ({ accountType, user, dao }) => {
             action = "listed";
             break;
           case "buyNow":
-            action = buyer == publicAddress ? "bought" : "sold";
+            action = buyer == solanaAddress ? "bought" : "sold";
             break;
           default:
             break;

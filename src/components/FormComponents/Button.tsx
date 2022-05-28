@@ -37,13 +37,14 @@ export const Button: FC<ButtonProps> = ({
   onClick = () => {},
 }) => {
   className += ` rounded-full btn px-6 btn-${variant} btn-${size} ${
-    loading && "loading"
+    loading ? "loading" : ""
   }
-  ${outline && "btn-outline"}
-  ${wide && "btn-wide"}
+  ${outline ? "btn-outline" : ""}
+  ${wide ? "btn-wide" : ""}
   ${
-    (disabled || (disableOnLoading && loading)) &&
-    "btn-disabled bg-gray-800 border-none cursor-not-allowed"
+    disabled || (disableOnLoading && loading)
+      ? "btn-disabled bg-gray-800 border-none cursor-not-allowed"
+      : ""
   }`;
   const button = (
     <button type={type} className={className} onClick={onClick}>

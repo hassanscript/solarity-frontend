@@ -4,14 +4,27 @@ import TwitterLink from "./twitterLink";
 import EthereumLink from "./ethereumLink";
 import SolanaLink from "./solanaLink";
 
-const LinkAccounts: FC<{ resetUrl: Function }> = ({ resetUrl }) => {
+const LinkAccounts: FC<{
+  resetUrl: Function;
+  mini?: boolean;
+  hideLinkedAddress?: boolean;
+  disabled?: boolean;
+}> = ({ resetUrl, mini, hideLinkedAddress, disabled }) => {
   return (
     <div className="space-y-4">
-      <h3 className="font-bold text-2xl pb-5">Link Accounts</h3>
-      <SolanaLink />
-      <EthereumLink />
-      <DiscordLink resetUrl={resetUrl} />
-      <TwitterLink resetUrl={resetUrl} />
+      {!mini && <h3 className="pb-5 text-2xl font-bold">Link Accounts</h3>}
+      <SolanaLink
+        disabled={disabled}
+        mini={Boolean(mini)}
+        hideLinkedAddress={hideLinkedAddress}
+      />
+      <EthereumLink
+        disabled={disabled}
+        mini={Boolean(mini)}
+        hideLinkedAddress={hideLinkedAddress}
+      />
+      <DiscordLink disabled={disabled} mini={mini} resetUrl={resetUrl} />
+      <TwitterLink disabled={disabled} mini={mini} resetUrl={resetUrl} />
     </div>
   );
 };

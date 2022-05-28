@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { FC, useEffect, useState } from "react";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import { linkAccounts, unlinkAccounts } from "redux/slices/profileSlice";
+import { LinkWrapper } from "./sharedComponents";
 
 const twitterLinkGenerator = (currentUrl: string) => {
   const baseUrl = "https://twitter.com/i/oauth2/authorize";
@@ -20,7 +21,11 @@ const twitterLinkGenerator = (currentUrl: string) => {
   return baseUrl + "?" + urlParams.toString();
 };
 
-const twitterLink: FC<{ resetUrl: Function }> = ({ resetUrl }) => {
+const twitterLink: FC<{
+  resetUrl: Function;
+  mini?: boolean;
+  disabled?: boolean;
+}> = ({ resetUrl, disabled, mini }) => {
   const { twitterConnected, twitterUsername } = useSelector(
     (state: RootStateOrAny) => state.profile.data
   );
@@ -60,10 +65,10 @@ const twitterLink: FC<{ resetUrl: Function }> = ({ resetUrl }) => {
   }, [code, link]);
 
   return (
-    <div className="border border-brandblack rounded-3xl p-5 flex items-center space-x-4">
+    <LinkWrapper mini={mini}>
       {twitterConnected && (
         <button
-          className={`btn btn-primary bg-[#1DA1F2] flex space-x-2 ${
+          className={`btn btn-primary flex space-x-2 bg-[#1DA1F2] ${
             loading ? "loading" : ""
           }`}
           onClick={() => {
@@ -88,9 +93,9 @@ const twitterLink: FC<{ resetUrl: Function }> = ({ resetUrl }) => {
       )}
       {!twitterConnected && (
         <a
-          className={`btn btn-primary bg-[#1DA1F2] flex space-x-2 ${
+          className={`btn btn-primary flex space-x-2 bg-[#1DA1F2] ${
             loading ? "loading" : ""
-          }`}
+          } ${disabled ? "btn-disabled" : ""}`}
           href={twitterConnectionLink}
         >
           <Image src={twitterLogo} height="25" width="25" objectFit="contain" />
@@ -103,11 +108,9 @@ const twitterLink: FC<{ resetUrl: Function }> = ({ resetUrl }) => {
           <span className="font-bold text-green-500	">{twitterUsername}</span>
         </p>
       ) : (
-        <p className="text-gray-950">
-          You account is not linked with any twitter account
-        </p>
+        <p className="text-gray-950">Link your account with twitter</p>
       )}
-    </div>
+    </LinkWrapper>
   );
 };
 
