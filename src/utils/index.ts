@@ -53,3 +53,13 @@ export const getNftDetails = async (mintAddress: string) => {
     return false;
   }
 };
+
+export const extractError = (
+  err: any
+): string | { message: string; details: any } => {
+  let message = "Something went wrong on the server";
+  try {
+    message = err.response.data.message;
+  } catch {}
+  return message;
+};
