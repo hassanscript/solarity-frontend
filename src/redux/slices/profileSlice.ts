@@ -109,12 +109,12 @@ export const placeBid = createAsyncThunk(
         errorFunction("This room is already available.");
         return;
       }
-      try {
-        await connection.sendRawTransaction(signed.serialize())
-      } catch (error: any) {
-        errorFunction(error.message);
-        return;
-      }
+      // try {
+      //   await connection.sendRawTransaction(signed.serialize())
+      // } catch (error: any) {
+      //   errorFunction(error.message);
+      //   return;
+      // }
 
       const {
         data: { profile },
