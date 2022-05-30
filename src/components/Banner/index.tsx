@@ -48,13 +48,14 @@ const Banner: FC<BannerProps> = ({ vrprofile, user, vrdao, smallImage }) => {
         <div className="relative -mt-5 h-[400px] w-full rounded-2xl">
           {/* <AframeComp2 user={user} permitionFlag={false}/> */}
           {user.rooms && user.rooms.length != 0 && permition == false ? (
+            
             <iframe
-              className="mb-2"
+              className="mb-2 w-full"
               title="banner"
-              width={1000}
               height={400}
-              src={BaseUrl + "super/room/" + room._id}
+              src={BaseUrl + "super/room" + room.roomNo + "/" + room._id}
             />
+
           ) : (
             <div className="pt-20 text-center">
               {

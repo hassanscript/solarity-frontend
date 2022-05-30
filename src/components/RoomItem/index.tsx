@@ -45,7 +45,7 @@ const RoomItem = ({
                 />
             </div>
             <div className="flex justify-center">
-                <Link href={`/${username}/room/${room._id}`} passHref>
+                <Link href={`/${username}/room${room.roomNo}/${room._id}`} passHref>
                     <a  target="_blank" className="hover:text-secondary text-sm cursor-pointer mt-2">View Room</a>
                 </Link>
             </div>

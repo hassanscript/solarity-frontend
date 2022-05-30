@@ -14,6 +14,9 @@ const OwnRooms = ({ rooms }: { rooms: any[] }) => {
             setActiveIndex(rooms[roomIndex].roomNo);
             setActiveId(rooms[roomIndex]._id);
         }
+        rooms.sort((a: any, b: any) => {
+            return a.roomNo - b.roomNo;
+        })
     }, [rooms])
 
     const editRoom = () => {
