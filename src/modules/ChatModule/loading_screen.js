@@ -33,10 +33,15 @@ export function update_loading_screen() {
 
   // var loading_videoEl = document.getElementById('background_video');
   setTimeout(function () {
-    if (scene_wrapperEl) {
-      scene_wrapperEl.removeAttribute("style");
-    }
+    models_loaded = 0;
+    models = [];
+    models_number = undefined;
     window.modelLoaded = true;
+    if (!!scene_wrapperEl) scene_wrapperEl.removeAttribute("style");
+    if (!!loading_screenEl) loading_screenEl.style.display = "none";
+    if(!!loading_videoEl) {
+      loading_videoEl.remove();
+    }
   }, 10000);
   models_loaded++;
   if (models_loaded == 1) {
