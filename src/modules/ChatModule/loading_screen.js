@@ -62,7 +62,7 @@ export function update_loading_screen() {
     loading_bar_itemEL.style.flexGrow = 1;
     loading_bar_itemEL.style.opacity = 0.6;
   }
-  console.log('count', models_loaded, 'all: ',  models_number);
+  
   if (models_loaded == models_number) {
     models_loaded = 0;
     models = [];

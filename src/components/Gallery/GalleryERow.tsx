@@ -16,7 +16,7 @@ const GalleryERow = () => {
           type={false}
           roomNo={0} 
           title={"Hub"}
-          imageUrl={"/assets/images/rooms/room1.png"}
+          imageUrl={"/assets/images/rooms/hub.jpg"}
           currentBid={"0"}
         />
         <GalleryItemE 

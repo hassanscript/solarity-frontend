@@ -24,6 +24,7 @@ import VolumeUp from '../../components/Icons/VolumeUp';
 import VolumeOff from '../../components/Icons/VolumeOff';
 import NestedToolTip from 'components/NestedToolTip';
 import freeObjectFromMemory from 'utils/clearObject';
+
 const OwnThirdChatModule = () => {
   const [mounted, setMounted] = useState(false)
   const { roomName, userName, modelIndex, msgs, peers, rooms } = useAppSelector(state => state.chat);
@@ -42,45 +43,9 @@ const OwnThirdChatModule = () => {
   const [isChatPanel, setChatPanel] = useState(true);
   const [isUserPanel, setUserPanel] = useState(true);
   const [userlist, setUserlist] = useState([]);
-  const [ roomInfo, setRoomInfo ] = useState({});
-
-  const assets = [
-    {
-      pos: "-2.25 1.65 -2.93",
-      rot: "0 0 0",
-    },
-    {
-      pos: "-2.97 1.84 -1.7",
-      rot: "0 90 0",
-    },
-    {
-      pos: "-2.97 2.15 0.49",
-      rot: "0 90 0",
-    },
-    {
-      pos: "-2.97 2.15 1.92",
-      rot: "0 90 0",
-    },
-    {
-      pos: "2.97 2.33 2.15",
-      rot: "180 90 180",
-    },
-  ];
-  
   const toggleChatPanel = () => {
     setChatPanel(!isChatPanel);
   }
-
-  useEffect(async () => {
-    if(!!rooms && rooms.length != 0 && rooms[roomIndex]) {
-        const {
-            data: { roomInfoData },
-        } = await apiCaller.get(`/users/getRoomInfo/${rooms[roomIndex].name}/${rooms[roomIndex].roomNo}`);
-        if(roomInfoData) {
-            setRoomInfo(roomInfoData);
-        }
-    }
-  }, [rooms, roomIndex]);
 
   useEffect(() => {
     setRoomIndex(rooms.findIndex(s => s.roomId == rid))
@@ -177,8 +142,8 @@ useEffect(() => {
         build_loading_screen();
         start_loading_screen_listeners();
         sceneEl.addEventListener('loaded', start_scene);
-        clearInterval(clearLoading);
     }
+    clearInterval(clearLoading);
   }, 300);
 }, [])
   
@@ -229,7 +194,7 @@ useEffect(() => {
   }
 
   useEffect(() => {
-    const loadInterval = setInterval(() => {console.log(window.modelLoaded);
+    const loadInterval = setInterval(() => {
       if (isLoaded || window.modelLoaded) {
         var entity = document.querySelector('#player');
         if (!!entity) {
@@ -298,24 +263,25 @@ useEffect(() => {
   const handleInviteFriendToggle = () => {
     setIniviteFriendModal(!iniviteFriendModal);
   }
+
   if (mounted && models && models[modelIndex] && models[modelIndex].modelUrl) {
-    return (
-      <div>
-        <video className={styles.background_video} id="background_video" autoPlay loop muted>
-            <source src="/assets/video/loading_video.mp4" type="video/mp4"/>
-        </video>
-        <div id="loading_screen" className={styles.loading_screen}>
-            <div id="loading_text" className={styles.loading_text}>
-            </div>
-            <div id="loading_bar" className={styles.loading_bar}>
-            </div>
-            <div id="loading_label" className={styles.loading_label}>
-                POWERED BY SOLARITY
-                <img id="loading_logo" className={styles.loading_logo} src="/assets/images/loading_logo.png" alt="loadig_logo"/>
-            </div>
-        </div>
-        <div id="scene_wrapper" style={{opacity: "0"}}>
-            <a-scene renderer="antialias: true;
+      return (
+        <div>
+          <video className={styles.background_video} id="background_video" autoPlay loop muted>
+              <source src="/assets/video/loading_video.mp4" type="video/mp4"/>
+          </video>
+          <div id="loading_screen" className={styles.loading_screen}>
+              <div id="loading_text" className={styles.loading_text}>
+              </div>
+              <div id="loading_bar" className={styles.loading_bar}>
+              </div>
+              <div id="loading_label" className={styles.loading_label}>
+                  POWERED BY SOLARITY
+                  <img id="loading_logo" className={styles.loading_logo} src="/assets/images/loading_logo.png" alt="loadig_logo"/>
+              </div>
+          </div>
+          <div id="scene_wrapper" style={{opacity: "0"}}>
+          <a-scene renderer="antialias: true;
             colorManagement: true;
             sortObjects: true;
             physicallyCorrectLights: true;
@@ -327,7 +293,7 @@ useEffect(() => {
               <a-assets timeout="100000">
 
               <a-asset-item id="room3-gltf" src="/assets/models/own_third/room.glb"></a-asset-item>
-                <a-asset-item id="navmesh-gltf" src="/assets/models/own_third/navmesh.gltf"></a-asset-item>
+                <a-asset-item id="navmesh-gltf" src={models[modelIndex].modelUrl}></a-asset-item>
                 <a-asset-item id="raccoon-obj" src={models[modelIndex].modelUrl}></a-asset-item>
 
                 <img id="hub-img" src="/assets/images/hub.png"/>
@@ -346,7 +312,8 @@ useEffect(() => {
                 id="player"
                 position="0 1.65 0" 
                 look-controls="pointerLockEnabled: true; reverseMouseDrag: false"
-                simple-navmesh-constraint="navmesh:#navmesh;fall: 5;height:1.65;" wasd-controls="acceleration: 20;"
+                simple-navmesh-constraint="navmesh:#navmesh;fall: 5;height:1.65;" 
+                wasd-controls="acceleration: 20;"
                 networked="template:#avatar-template;attachTemplateToLocal:true;"
               >
                 <a-entity 
@@ -424,156 +391,156 @@ useEffect(() => {
                 </a-plane>
               ))} */}
               <a-sky src="#sky-img"></a-sky>
-        </a-scene>
-        <div className='fixed top-[5vh] left-[30px] cursor-pointer' onClick={() => handelManualLeave()}>
-            <div className='flex rounded-lg bg-brandblack px-4 py-2'>
-              <img src="/images/arrow-left.png" className='mt-1' style={{marginTop: '7px', height: "15px"}} width={15} height={15} alt="back" srcSet="" />
-              <span className='ml-3'>All Rooms</span>
-            </div>
-        </div>
+            </a-scene>
+          <div className='fixed top-[5vh] left-[30px] cursor-pointer' onClick={() => handelManualLeave()}>
+              <div className='flex rounded-lg bg-brandblack px-4 py-2'>
+                <img src="/images/arrow-left.png" className='mt-1' style={{marginTop: '7px', height: "15px"}} width={15} height={15} alt="back" srcSet="" />
+                <span className='ml-3'>All Rooms</span>
+              </div>
+          </div>
 
-        <div className={"fixed top-[20vh] left-[30px] w-[250px] transition-opacity " + (isUserPanel ? 'opacity-100': 'opacity-0')}>
-            <div className='rounded-lg bg-brandblack px-4 py-2 w-full h-full'>
-            <div className='text-lg mb-4 flex justify-between pt-4'>
-                <div>User List</div>
-                <div className='cursor-pointer pt-[3px]' onClick={toggleUserPanel}><Minus /></div>
-              </div>
-              <div className='list overflow-auto h-[55vh]'>
-                <ul className='no-underline'>
-                  {!!rooms && rooms.length != 0 && roomIndex != -1 && !!rooms[roomIndex] && rooms[roomIndex].clients && clients.map((ele, index) => (
-                    <li className={'border-b border-gray-700 py-2 px-1 flex justify-between '+ (ele.name == userName ? 'hidden': '')} key={index}>
-                      <div className='flex'>
-                        <img src={getAvatarImg(ele.name)} className="rounded-full mr-3" width={40} height={40}/>
-                        <span className='text-white' key={index}>{ele.name}</span>
-                      </div>
-                      <div className='pt-3 cursor-pointer' onClick={() => toggleVolume(ele.name)}>
-                        <audio
-                          volume="0"
-                          autoPlay
-                          ref={(instance) => (provideRef(instance, ele.name))}
-                        />
-                        {
-                          !!volumes[ele.name] ? (
-                            <VolumeOff />
-                          ) : (
-                            <VolumeUp />
-                          )
-                        }
-                      </div>
-                    </li>
+          <div className={"fixed top-[20vh] left-[30px] w-[250px] transition-opacity " + (isUserPanel ? 'opacity-100': 'opacity-0')}>
+              <div className='rounded-lg bg-brandblack px-4 py-2 w-full h-full'>
+              <div className='text-lg mb-4 flex justify-between pt-4'>
+                  <div>User List</div>
+                  <div className='cursor-pointer pt-[3px]' onClick={toggleUserPanel}><Minus /></div>
+                </div>
+                <div className='list overflow-auto h-[55vh]'>
+                  <ul className='no-underline'>
+                    {!!rooms && rooms.length != 0 && roomIndex != -1 && !!rooms[roomIndex] && rooms[roomIndex].clients && clients.map((ele, index) => (
+                      <li className={'border-b border-gray-700 py-2 px-1 flex justify-between '+ (ele.name == userName ? 'hidden': '')} key={index}>
+                        <div className='flex'>
+                          <img src={getAvatarImg(ele.name)} className="rounded-full mr-3" width={40} height={40}/>
+                          <span className='text-white' key={index}>{ele.name}</span>
+                        </div>
+                        <div className='pt-3 cursor-pointer' onClick={() => toggleVolume(ele.name)}>
+                          <audio
+                            volume="0"
+                            autoPlay
+                            ref={(instance) => (provideRef(instance, ele.name))}
+                          />
+                          {
+                            !!volumes[ele.name] ? (
+                              <VolumeOff />
+                            ) : (
+                              <VolumeUp />
+                            )
+                          }
+                        </div>
+                      </li>
+                    ))}
+                    {userlist && userlist.map((user, index) => (
+                      <li className={'border-b border-gray-700 py-2 px-1 pl-5 flex justify-between '+ (user.username == userName ? 'hidden': '')} key={(!!clients ? clients.length: 0) + index}>
+                        <div className='flex'>
+                          <span className='text-white'>{user.username}</span>
+                        </div>
+                        <div className='flex'>
+                          <span className='text-white'>{!user.state ? 'idle': user.state}</span>
+                        </div>
+                        <div className='pt-1 cursor-pointer'>
+                          {!user.state ? (
+                            <button className="rounded-full" onClick={() => inviteFriend(user.username)}>
+                              <Join />
+                            </button>
+                          ): (
+                            <div className="flex" >
+                              <NestedToolTip link={process.env.NODE_ENV === "development" ? "http://localhost:3000/" + 'experience/invitation/' + user.link : "https://solarity-web-git-master-hassan-sk.vercel.app/" + 'experience/invitation/' + user.link}/>
+                            </div>
+                          )}
+                        </div>
+                      </li>
                   ))}
-                  {userlist && userlist.map((user, index) => (
-                    <li className={'border-b border-gray-700 py-2 px-1 pl-5 flex justify-between '+ (user.username == userName ? 'hidden': '')} key={(!!clients ? clients.length: 0) + index}>
-                      <div className='flex'>
-                        <span className='text-white'>{user.username}</span>
-                      </div>
-                      <div className='flex'>
-                        <span className='text-white'>{!user.state ? 'idle': user.state}</span>
-                      </div>
-                      <div className='pt-1 cursor-pointer'>
-                        {!user.state ? (
-                          <button className="rounded-full" onClick={() => inviteFriend(user.username)}>
-                            <Join />
-                          </button>
-                        ): (
-                          <div className="flex" >
-                            <NestedToolTip link={process.env.NODE_ENV === "development" ? "http://localhost:3000/" + 'experience/invitation/' + user.link : "https://solarity-web-git-master-hassan-sk.vercel.app/" + 'experience/invitation/' + user.link}/>
-                          </div>
-                        )}
-                      </div>
-                    </li>
-                ))}
-                </ul>
+                  </ul>
+                </div>
               </div>
-            </div>
-        </div>
-  
-        <div className='fixed flex bottom-[5vh] left-[30px] rounded-lg bg-brandblack px-4 py-2'>
-          <div className='p-2 border border-gray-600 rounded-lg mx-1 cursor-pointer hover:border-gray-400' onClick={() => handelMuteBtnClick()}>
-            <audio
-              id="player-audio"
-              autoPlay
-              ref={(instance) => (provideRef(instance, name))}
-            />
-            {
-              isMute ? (
-                <MicrophoneOn />  
-              ) : (
-                <MicrophoneOff />
-              )
-            }
           </div>
-          <div className='p-2 border border-gray-600 rounded-lg mx-1 cursor-pointer hover:border-gray-400' onClick={toggleChatPanel}>
-            {
-              isChatPanel ? (
-              <Chat />
-              ) : (
-              <ChatOutline />
-              )
-            }
-          </div>
-          <div className='p-2 border border-gray-600 rounded-lg mx-1 cursor-pointer hover:border-gray-400' onClick={toggleUserPanel}>
-            {
-              isUserPanel ? (
-              <UserList />
-              ) : (
-              <UserListOutline />
-              )
-            }
-          </div>
-          <div className='p-2 border border-gray-600 rounded-lg mx-1 cursor-pointer hover:border-gray-400' onClick={() => handelManualLeave()}>
-            <Back />
-          </div>
-        </div>
-        <div className={"fixed top-[5vh] h-[90vh] max-h-[90vh] right-[30px] min-w-[300px] bg-brandblack rounded-lg w-1/4 transition-opacity " + (isChatPanel ? 'opacity-100': 'opacity-0')}>
-          <div className='w-full p-[30px] h-full flex flex-col gap-2'>
-            <div className='text-lg mb-4 flex justify-between'>
-              <div>Room Chat</div>
-              <div className='cursor-pointer pt-[3px]' onClick={toggleChatPanel}><Minus /></div>
-            </div>
-            <div className='ui-chat overflow-auto h-full'>
+    
+          <div className='fixed flex bottom-[5vh] left-[30px] rounded-lg bg-brandblack px-4 py-2'>
+            <div className='p-2 border border-gray-600 rounded-lg mx-1 cursor-pointer hover:border-gray-400' onClick={() => handelMuteBtnClick()}>
+              <audio
+                id="player-audio"
+                autoPlay
+                ref={(instance) => (provideRef(instance, name))}
+              />
               {
-                msgs && Array.from(msgs).map((ele, ind) => {
-                  return (
-                    <div className='flex flex-row py-1' key={ind}>
-                      <div className='rounded-full mr-5 mt-1 flex-shrink-0'>
-                        <img src={getAvatarImg(ele.user)} className="rounded-full border border-gary-900" alt="" width={40} height={40} />
-                      </div>
-                      <div>
-                        <h3 className='text-secondary'>{ele && ele.user}</h3>  
-                        <p className='text-sm font-light'>{ele && ele.msg}</p>
-                      </div>
-                    </div>
-                  )
-                })
+                isMute ? (
+                  <MicrophoneOn />  
+                ) : (
+                  <MicrophoneOff />
+                )
               }
             </div>
-            <div className='flex'>
-              <input
-                type="text"
-                className="w-[80%] py-2 pl-6 text-[15px] font-light text-white border-transparent border rounded-md bg-primary focus:outline-none focus:border-gray-500 focus:border focus:text-white placeholder:text-gray-950Í"
-                value={sendData}
-                onKeyDown={handleKeyDown}
-                onChange={(e) => setSendData(e.target.value)}
-                placeholder="Input a message please."
-                />
-              <button label="" style={{marginLeft: "20px"}} onClick={sendMsg} >send</button>
+            <div className='p-2 border border-gray-600 rounded-lg mx-1 cursor-pointer hover:border-gray-400' onClick={toggleChatPanel}>
+              {
+                isChatPanel ? (
+                <Chat />
+                ) : (
+                <ChatOutline />
+                )
+              }
+            </div>
+            <div className='p-2 border border-gray-600 rounded-lg mx-1 cursor-pointer hover:border-gray-400' onClick={toggleUserPanel}>
+              {
+                isUserPanel ? (
+                <UserList />
+                ) : (
+                <UserListOutline />
+                )
+              }
+            </div>
+            <div className='p-2 border border-gray-600 rounded-lg mx-1 cursor-pointer hover:border-gray-400' onClick={() => handelManualLeave()}>
+              <Back />
+            </div>
+          </div>
+          <div className={"fixed top-[5vh] h-[90vh] max-h-[90vh] right-[30px] min-w-[300px] bg-brandblack rounded-lg w-1/4 transition-opacity " + (isChatPanel ? 'opacity-100': 'opacity-0')}>
+            <div className='w-full p-[30px] h-full flex flex-col gap-2'>
+              <div className='text-lg mb-4 flex justify-between'>
+                <div>Room Chat</div>
+                <div className='cursor-pointer pt-[3px]' onClick={toggleChatPanel}><Minus /></div>
+              </div>
+              <div className='ui-chat overflow-auto h-full'>
+                {
+                  msgs && Array.from(msgs).map((ele, ind) => {
+                    return (
+                      <div className='flex flex-row py-1' key={ind}>
+                        <div className='rounded-full mr-5 mt-1 flex-shrink-0'>
+                          <img src={getAvatarImg(ele.user)} className="rounded-full border border-gary-900" alt="" width={40} height={40} />
+                        </div>
+                        <div>
+                          <h3 className='text-secondary'>{ele && ele.user}</h3>  
+                          <p className='text-sm font-light'>{ele && ele.msg}</p>
+                        </div>
+                      </div>
+                    )
+                  })
+                }
+              </div>
+              <div className='flex'>
+                <input
+                  type="text"
+                  className="w-[80%] py-2 pl-6 text-[15px] font-light text-white border-transparent border rounded-md bg-primary focus:outline-none focus:border-gray-500 focus:border focus:text-white placeholder:text-gray-950Í"
+                  value={sendData}
+                  onKeyDown={handleKeyDown}
+                  onChange={(e) => setSendData(e.target.value)}
+                  placeholder="Input a message please."
+                  />
+                <button label="" style={{marginLeft: "20px"}} onClick={sendMsg} >send</button>
+              </div>
             </div>
           </div>
         </div>
+        <InviteFriendModal 
+          open={iniviteFriendModal}
+          onClose={handleInviteFriendToggle}
+        />
       </div>
-      <InviteFriendModal 
-        open={iniviteFriendModal}
-        onClose={handleInviteFriendToggle}
-      />
+    );
+  }
+  return (
+    <div id="loading_screen">
+        ...Load
     </div>
-  );
-}
-return (
-  <div id="loading_screen">
-      ...Load
-  </div>
-)
+  )
 };
 
 export default OwnThirdChatModule;

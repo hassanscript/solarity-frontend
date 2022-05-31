@@ -306,7 +306,7 @@ const ChatModule = () => {
 
               <a-asset-item id="raccoon-obj" src={models[modelIndex].modelUrl}></a-asset-item>
 
-              <img id="try-img" src="/assets/images/japan.png" />
+              {/* <img id="try-img" src="/assets/images/japan.png" /> */}
               <img id="tweet-img" src="/assets/images/tweet.jpg" />
               <img id="sky-img" src="/assets/images/sky.jpg" />
 
@@ -330,7 +330,8 @@ const ChatModule = () => {
               id="player"
               position="0 1.65 0" 
               look-controls="pointerLockEnabled: true; reverseMouseDrag: false"
-              simple-navmesh-constraint="navmesh:#navmesh;fall: 5;height:1.65;" wasd-controls="acceleration: 20;"
+              simple-navmesh-constraint="navmesh:#navmesh;fall: 5;height:1.65;" 
+              wasd-controls="acceleration: 20;"
               networked="template:#avatar-template;attachTemplateToLocal:true;"
             >
               <a-entity 
