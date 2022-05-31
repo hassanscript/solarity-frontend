@@ -94,8 +94,8 @@ export const placeBid = createAsyncThunk(
       const {
         selectedAsset,
         selectedIndex,
-        signed,
-        connection,
+        // signed,
+        // connection,
       } = data;
 
       const {

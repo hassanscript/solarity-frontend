@@ -5,6 +5,7 @@ import AframeComp2 from "components/AframeComp2";
 import AframeComp6 from "components/AframeComp6";
 import Link from "next/link";
 import { User } from "modules/User/Hero";
+import LockedRoom from "components/Banner/LockedRoom";
 import BaseUrl from "config";
 export interface BannerProps {
   vrprofile: {
@@ -57,11 +58,11 @@ const Banner: FC<BannerProps> = ({ vrprofile, user, vrdao, smallImage }) => {
             />
 
           ) : (
-            <div className="w-full h-[400px] rounded-2xl">
-              {/* <img src="" alt="" /> */}
+            <div className="w-full h-[400px] rounded-2xl relative" style={{background: "rgba(255, 255, 255, 0.2)"}}>
+              <LockedRoom />
             </div>
           )}
-          {vrprofile.price && (
+          {/* {vrprofile.price && (
             <Link
               href={
                 "https://solarityvr.github.io/money-boy-hub/room/room.html?controls=mouse"
@@ -71,7 +72,7 @@ const Banner: FC<BannerProps> = ({ vrprofile, user, vrdao, smallImage }) => {
                 Play
               </button>
             </Link>
-          )}
+          )} */}
         </div>
       )}
       {vrdao && (

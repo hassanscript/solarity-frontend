@@ -91,18 +91,18 @@ const SelectedAsset: FC<HeroProps> = ({}) => {
               TOKEN_PROGRAM_ID
           )
       )
-      const blockHash = await connection.getRecentBlockhash()
-      transaction1.feePayer = await publicKey
-      transaction1.recentBlockhash = await blockHash.blockhash
-      const signed = await signTransaction(transaction1);
+      // const blockHash = await connection.getRecentBlockhash()
+      // transaction1.feePayer = await publicKey
+      // transaction1.recentBlockhash = await blockHash.blockhash
+      // const signed = await signTransaction(transaction1);
       setLoadingButton(true);
       dispatch(
         placeBid({
           data: {
             selectedAsset,
             selectedIndex,
-            signed,
-            connection,
+            // signed,
+            // connection,
           },
           successFunction: () => {
             toast.success(
