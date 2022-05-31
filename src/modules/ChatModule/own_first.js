@@ -333,7 +333,7 @@ useEffect(() => {
                   <a-asset-item id="chair-gltf" src="/assets/models/own/Chair.glb"></a-asset-item>
 
                   <a-asset-item id="vr-gltf" src="/assets/models/own/VR.glb"></a-asset-item>
-                  <a-asset-item id="navmesh-gltf" src="/assets/models/navmesh.gltf"></a-asset-item>
+                  <a-asset-item id="navmesh-gltf" src="/assets/models/own/navmesh.gltf"></a-asset-item>
                   <a-asset-item id="raccoon-obj" src={models[modelIndex].modelUrl}></a-asset-item>
 
                   <img id="hub-img" src="/assets/images/hub.png" />
