@@ -23,6 +23,7 @@ export function build_loading_screen() {
 export function update_loading_screen() {
   models = document.querySelectorAll('[model-info]');
   models_number = models.length;
+  console.log(models)
   var scene_wrapperEl = document.getElementById("scene_wrapper");
   var loading_textEl = document.getElementById("loading_text");
   var loading_barEl = document.getElementById("loading_bar");
@@ -39,6 +40,7 @@ export function update_loading_screen() {
     window.modelLoaded = true;
   }, 10000);
   models_loaded++;
+  console.log(models_loaded)
   if (models_loaded == 1) {
     //remove the old bar item when the first model is loaded
     if(!!moving_itemEL) {
@@ -76,6 +78,7 @@ export function update_loading_screen() {
   }
 }
 //checks if model has loaded before building all of the dinamic content
+/*
 export function start_loading_screen_listeners() {
   models_loaded = 0;
   models = document.getElementsByClassName("model");
@@ -84,3 +87,4 @@ export function start_loading_screen_listeners() {
     models[i].addEventListener("model-loaded", update_loading_screen);
   }
 }
+*/

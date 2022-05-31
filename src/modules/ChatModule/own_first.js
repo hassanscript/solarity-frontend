@@ -8,7 +8,7 @@ import { useWebTRTC } from '../../utils/useWebTRTC';
 import { setMsg, setPeers } from '../../redux/slices/chatSlice';
 import ACTIONS from '../../config/actions';
 import styles from './chat.module.css';
-import {start_loading_screen_listeners, build_loading_screen} from './loading_screen'
+import { build_loading_screen} from './loading_screen'
 // import {start_screens} from './screens'
 import {choose_controls, pass_controls} from './utils'
 import { Chat, Join, Minus, UserPlus, Users } from 'components/Icons';
@@ -176,7 +176,6 @@ useEffect(() => {
     var loading_barEl = document.getElementById('loading_bar');
     if(sceneEl && loading_textEl  && loading_barEl  &&  loading_screenEl) {
         build_loading_screen();
-        start_loading_screen_listeners();
         sceneEl.addEventListener('loaded', start_scene);
         clearInterval(clearLoading);
     }
