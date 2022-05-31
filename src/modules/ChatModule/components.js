@@ -217,6 +217,7 @@ AFRAME.registerComponent('simple-navmesh-constraint', {
 AFRAME.registerComponent("model-info", {
     init: function () {
         let el = this.el;
+        console.log("loaded", el);
         el.addEventListener('model-loaded', update_loading_screen);
     }
 })

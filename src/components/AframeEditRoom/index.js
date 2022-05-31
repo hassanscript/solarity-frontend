@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
 import { RootStateOrAny, useSelector } from "react-redux";
-import { start_loading_screen_listeners, build_loading_screen } from "modules/ChatModule/loading_screen";
+import { build_loading_screen } from "modules/ChatModule/loading_screen";
 import {choose_controls, pass_controls} from 'modules/ChatModule/utils'
 import styles from 'modules/ChatModule/chat.module.css';
 
@@ -134,7 +134,6 @@ export default function AframeEditRoom({
       var loading_barEl = document.getElementById('loading_bar');
       if(sceneEl && loading_textEl  && loading_barEl  &&  loading_screenEl) {
         build_loading_screen();
-        start_loading_screen_listeners();
         sceneEl.addEventListener('loaded', start_scene);
         clearInterval(clearHandle);
       }
