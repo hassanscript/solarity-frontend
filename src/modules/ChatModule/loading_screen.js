@@ -45,7 +45,7 @@ export function update_loading_screen() {
     }
   }, 10000);
   models_loaded++;
-  console.log(models_loaded)
+  console.log(models_loaded, models_number)
   if (models_loaded == 1) {
     //remove the old bar item when the first model is loaded
     if(!!moving_itemEL) {

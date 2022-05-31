@@ -141,7 +141,7 @@ export default function Index({user, permitionFlag}) {
             >
                   <a-assets timeout="100000">
                   <a-asset-item id="room2-gltf" src="/assets/models/own_second/Thomas virtual temple v2.glb"></a-asset-item>
-                  <a-asset-item id="navmesh-gltf" src="/assets/models/navmesh.gltf"></a-asset-item>
+                  <a-asset-item id="navmesh-gltf" src="/assets/models/own_second/navmesh.gltf"></a-asset-item>
 
                   <img id="hub-img" src="/assets/images/hub.png"/>
                   <img id="sky-img" src="/assets/images/sky.jpg"/>

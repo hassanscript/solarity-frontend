@@ -1,9 +1,9 @@
-import OwnFirstChatModule from "modules/ChatModule/own_first";
+import OwnThirdChatModule from "modules/ChatModule/own_third";
 
 const OwnRoom = () => {
 
   return (
-      <OwnFirstChatModule />
+      <OwnThirdChatModule />
   );
 };
 

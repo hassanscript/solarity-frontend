@@ -90,12 +90,12 @@ export default function RoomFullView({user}) {
             id="scene_wrapper" 
             style={{opacity: 0, position: "absolute", top: "0px", zIndex: 0}}
         >
-                <a-assets timeout="100000">
-                  <a-asset-item id="room2-gltf" src="/assets/models/own_second/Thomas virtual temple v2.glb"></a-asset-item>
-                  <a-asset-item id="navmesh-gltf" src="/assets/models/navmesh.gltf"></a-asset-item>
+            <a-assets timeout="100000">
+              <a-asset-item id="room2-gltf" src="/assets/models/own_second/Thomas virtual temple v2.glb"></a-asset-item>
+              <a-asset-item id="navmesh-gltf" src="/assets/models/own_second/navmesh.gltf"></a-asset-item>
 
-                  <img id="hub-img" src="/assets/images/hub.png"/>
-                  <img id="sky-img" src="/assets/images/sky.jpg"/>
+              <img id="hub-img" src="/assets/images/hub.png"/>
+              <img id="sky-img" src="/assets/images/sky.jpg"/>
 
             </a-assets>
 
