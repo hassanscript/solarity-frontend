@@ -293,7 +293,7 @@ useEffect(() => {
               <a-assets timeout="100000">
 
               <a-asset-item id="room3-gltf" src="/assets/models/own_third/room.glb"></a-asset-item>
-                <a-asset-item id="navmesh-gltf" src={models[modelIndex].modelUrl}></a-asset-item>
+                <a-asset-item id="navmesh-gltf" src="/assets/models/own_third/navmesh.glb"></a-asset-item>
                 <a-asset-item id="raccoon-obj" src={models[modelIndex].modelUrl}></a-asset-item>
 
                 <img id="hub-img" src="/assets/images/hub.png"/>
