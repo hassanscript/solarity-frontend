@@ -63,34 +63,34 @@ const SelectedAsset: FC<HeroProps> = ({}) => {
       }
       const toPublicKey = new PublicKey(process.env.WEBSITE_SOLANA_WALLET_ADDRESS)
       const mint = new PublicKey(process.env.SOLARITY_TOKEN_ADDRESS)
-      const fromTokenAccount = await getOrCreateAssociatedTokenAccount(
-        connection,
-        publicKey,
-        mint,
-        publicKey,
-        signTransaction
-      );
-      const toTokenAccount = await getOrCreateAssociatedTokenAccount(
-        connection,
-        publicKey,
-        mint,
-        toPublicKey,
-        signTransaction
-      );
+      // const fromTokenAccount = await getOrCreateAssociatedTokenAccount(
+      //   connection,
+      //   publicKey,
+      //   mint,
+      //   publicKey,
+      //   signTransaction
+      // );
+      // const toTokenAccount = await getOrCreateAssociatedTokenAccount(
+      //   connection,
+      //   publicKey,
+      //   mint,
+      //   toPublicKey,
+      //   signTransaction
+      // );
       if(!selectedAsset) {
         console.error('selectedAsset is not defined.');
         return;
       }
-      const transaction1 = new Transaction().add(
-          createTransferInstruction(
-              fromTokenAccount.address, // source
-              toTokenAccount.address, // dest
-              publicKey,
-              selectedAsset.currentBid * LAMPORTS_PER_SOL,
-              [],
-              TOKEN_PROGRAM_ID
-          )
-      )
+      // const transaction1 = new Transaction().add(
+      //     createTransferInstruction(
+      //         fromTokenAccount.address, // source
+      //         toTokenAccount.address, // dest
+      //         publicKey,
+      //         selectedAsset.currentBid * LAMPORTS_PER_SOL,
+      //         [],
+      //         TOKEN_PROGRAM_ID
+      //     )
+      // )
       // const blockHash = await connection.getRecentBlockhash()
       // transaction1.feePayer = await publicKey
       // transaction1.recentBlockhash = await blockHash.blockhash
