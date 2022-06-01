@@ -31,11 +31,11 @@ const CoinBalances: FC<{ data: any[] }> = ({ data }) => {
     await provider.connect();
     const { publicKey, signTransaction } = provider;
     try {
-      if(!process.env.WEBSITE_SOLANA_WALLET_ADDRESS || !process.env.SOLARITY_TOKEN_ADDRESS) {
+      if(!process.env.NEXT_PUBLIC_WEBSITE_SOLANA_WALLET_ADDRESS || !process.env.NEXT_PUBLIC_SOLARITY_TOKEN_ADDRESS) {
         return console.error('website solana wallet address or solarity_token_address is not set in environment.');
       }
-      const toPublicKey = new PublicKey(process.env.WEBSITE_SOLANA_WALLET_ADDRESS)
-      const mint = new PublicKey(process.env.SOLARITY_TOKEN_ADDRESS)
+      const toPublicKey = new PublicKey(process.env.NEXT_PUBLIC_WEBSITE_SOLANA_WALLET_ADDRESS)
+      const mint = new PublicKey(process.env.NEXT_PUBLIC_SOLARITY_TOKEN_ADDRESS)
       const fromTokenAccount = await getOrCreateAssociatedTokenAccount(
         connection,
         publicKey,
@@ -110,40 +110,42 @@ const CoinBalances: FC<{ data: any[] }> = ({ data }) => {
           getReward(provider);
         }}
       />
-      <div className="space-y-2 divide-y divide-gray-800 rounded-3xl bg-brandblack">
-        {data.map(({ image, balance, title, symbol, usdValue }) => (
-          <div className="flex items-start justify-center px-3 pt-3 first:pt-0">
-            <img
-              src={image}
-              className="rounded-full"
-              height="40px"
-              width="40px"
-            />
-            <div className="flex-1 pl-3">
-              <p className="text-xs text-gray-950">{title} Balance</p>
-              <div>
-                <span className="text-2xl font-bold">{balance}</span>
-                <span className="text-sm font-bold"> {symbol}</span>
-              </div>
-              <p className="text-sm text-success">~ {usdValue} USD</p>
-            </div>
-            <div className="flex-2 pl-3">
-              <div className="relative">
-                <div className="pt-2">
-                  <DoubleIcon />
+      <div className="flex justify-between">
+        <div className="space-y-2 divide-y divide-gray-800 rounded-3xl bg-brandblack">  
+          {data.map(({ image, balance, title, symbol, usdValue }) => (
+            <div className="flex items-start justify-center px-3 pt-3 first:pt-0">
+              <img
+                src={image}
+                className="rounded-full"
+                height="40px"
+                width="40px"
+              />
+              <div className="flex-1 pl-3">
+                <p className="text-xs text-gray-950">{title} Balance</p>
+                <div>
+                  <span className="text-2xl font-bold">{balance}</span>
+                  <span className="text-sm font-bold"> {symbol}</span>
                 </div>
-                <span className="animate-ping absolute -bottom-7 inline-flex z-0 h-5 w-5 rounded-full bg-white opacity-75"></span>
-                <img 
-                  src="/assets/images/reward.png" 
-                  className="z-10 absolute cursor-pointer"
-                  onClick={() => setShowWallets(true)} 
-                  alt="reward"
-                  title="reward: 100 Verse tokens" 
-                />
+                <p className="text-sm text-success">~ {usdValue} USD</p>
               </div>
             </div>
+          ))}
+        </div>
+      <div className="flex-2 pl-3 pr-5">
+        <div className="relative">
+          <div className="pt-2">
+            <DoubleIcon />
           </div>
-        ))}
+          <span className="animate-ping absolute -bottom-7 inline-flex z-0 h-5 w-5 rounded-full bg-white opacity-75"></span>
+          <img 
+            src="/assets/images/reward.png" 
+            className="z-10 absolute cursor-pointer"
+            onClick={() => setShowWallets(true)} 
+            alt="reward"
+            title="reward: 100 Verse tokens" 
+          />
+        </div>
+      </div>
       </div>
     </>
   );
