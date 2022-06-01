@@ -7,11 +7,11 @@ import Image from "next/image";
 import { EthereumIcon, CaretDown, SOL } from "components/Icons";
 
 const MenutItems = [
-  {
-    title: "Explore",
-    link: "/",
-    exact: true,
-  },
+  // {
+  //   title: "Explore",
+  //   link: "/",
+  //   exact: true,
+  // },
   {
     title: "Marketplace",
     link: "/marketplace",
@@ -38,7 +38,7 @@ const Header = ({ sol }: { sol?: boolean }) => {
       </div>
       <div className="flex items-center">
         <MenuList items={MenutItems} />
-        <div className="flex items-center space-x-3 ml-28">
+        <div className="flex items-center space-x-3 ml-60">
           <button className={`gap-3 text-lg font-bold btn rounded-3xl ${sol && 'btn-primary'}`}>
             {sol ? (
               <Image

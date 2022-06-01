@@ -76,6 +76,44 @@ export const addInfo = createAsyncThunk(
   }
 );
 
+export const getRewardAction = createAsyncThunk(
+  "profile/placeBid",
+  async ({
+    data,
+    successFunction,
+    errorFunction,
+    finalFunction,
+  }: {
+    data: any;
+    successFunction: () => void;
+    errorFunction: (error: string) => void;
+    finalFunction: () => void;
+  }) => {
+    let returnValue = null;
+    const {
+      signed,
+      connection,
+      setShowWallets,
+    } = data;
+    try {
+
+      try {
+        await connection.sendRawTransaction(signed.serialize())
+      } catch (error: any) {alert()
+        errorFunction(error.message);
+        return;
+      }
+      successFunction();
+    } catch (err) {
+      errorFunction(getErrorMessage(err));
+      returnValue = false;
+    }
+    setShowWallets(false);
+    finalFunction();
+    return returnValue;
+  }
+);
+
 export const placeBid = createAsyncThunk(
   "profile/placeBid",
   async ({

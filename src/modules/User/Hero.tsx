@@ -98,7 +98,7 @@ const Hero: FC<HeroProps> = ({ user }) => {
         user={user}
         smallImage={profile.profileImageLink || placeholder.src}
       />
-      <div className="flex justify-end">
+      <div className="flex w-full">
         {logged &&
           (self ? (
             <Link className="" href="/profile">

@@ -38,7 +38,6 @@ const SelectedAsset: FC<HeroProps> = ({}) => {
   const [loading, setLoading] = useState<Boolean>(false);
   const [showWallets, setShowWallets] = useState(false);
   const profile = useSelector((state: RootStateOrAny) => state.profile.data);
-  const solanaAddress = profile && profile.solanaAddress;
 
   const { selectedTagIndex, selectedIndex, assets } = useAppSelector(
     (state) => state.marketplace
