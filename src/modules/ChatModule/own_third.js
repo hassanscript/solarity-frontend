@@ -309,7 +309,7 @@ useEffect(() => {
 
               <a-entity 
                 id="player"
-                position="-5 1.65 0" 
+                position="0 1.65 20" 
                 look-controls="pointerLockEnabled: true; reverseMouseDrag: false"
                 simple-navmesh-constraint="navmesh:#navmesh;fall: 5;height:1.65;" 
                 wasd-controls="acceleration: 20;"
