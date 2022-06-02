@@ -16,6 +16,7 @@ const BigRoom: FC<BigRoomType> = ({ scene, content }) => {
   
   if(!!rooms && rooms.length !=0 && selectedIndex != -1) {
     selectedRoom = rooms[selectedIndex];
+    console.log(selectedRoom);
   }
 
   const handleJoinModalToggle = () => {

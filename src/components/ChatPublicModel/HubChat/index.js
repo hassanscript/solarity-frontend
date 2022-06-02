@@ -1,4 +1,4 @@
-const HubChat = () => {
+const HubChat = ({ modelURL, name }) => {
   return (
     <a-scene
       renderer="antialias: true;
@@ -20,7 +20,7 @@ const HubChat = () => {
 
         <a-asset-item id="navmesh-gltf" src="/assets/models/hub/navmesh4.gltf"></a-asset-item>
 
-        <a-asset-item id="raccoon-obj" src={models[modelIndex].modelUrl}></a-asset-item>
+        <a-asset-item id="raccoon-obj" src={modelURL}></a-asset-item>
 
         {/* <img id="try-img" src="/assets/images/japan.png" /> */}
         <img id="tweet-img" src="/assets/images/tweet.jpg" />
@@ -37,7 +37,10 @@ const HubChat = () => {
         <template
           id="avatar-template"
           dangerouslySetInnerHTML={{
-            __html: '<a-gltf-model src="#raccoon-obj"></a-gltf-model>'
+            __html: '<a-entity>' +
+            '<a-entity class="nametag" text="value: ' + name + '; align:center;" position="0 1 0" rotation="0 180 0" scale="8 8 8"></a-entity>' +
+            '<a-gltf-model class = "model" rotation="0 180 0" src="#raccoon-obj"></a-gltf-model>' +
+            '</a-entity>'
           }}
         />
       </a-assets>

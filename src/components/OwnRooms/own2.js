@@ -150,7 +150,7 @@ export default function Index({user, permitionFlag}) {
 
                 <a-entity id="player">
                     <a-entity simple-navmesh-constraint="navmesh:#navmesh;fall:0.5;height:1.65;" id="head"
-                              camera="fov: 70; active: true" position="0 1.65 0" wasd-controls="acceleration: 20;"
+                              camera="fov: 70; active: true" position="0 1.65 20" wasd-controls="acceleration: 20;"
                               look-controls="pointerLockEnabled: true; reverseMouseDrag: false">
                         <a-entity id="cursor" class="mouseOnly" cursor="mousedown: true;" raycaster="far: 10; objects: .clickable"
                                   material="color: white; shader: flat" position="0 0 -0.3"

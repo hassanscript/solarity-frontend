@@ -10,7 +10,7 @@ interface IProps {
 
 const MenuList: FC<IProps> = ({ items }) => {
   return (
-    <div className="space-x-10">
+    <div className="space-x-10 ml-[12vh] pt-3">
       {items.map(({ title, link,exact }) => (
         <Link
           href={link}

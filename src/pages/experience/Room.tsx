@@ -1,8 +1,8 @@
-import HubChatModule from "modules/ChatModule";
+import ChatModule from "modules/ChatModule";
 
 const GalleryRoom = () => {
   return (
-      <HubChatModule />
+      <ChatModule />
   );
 };
 

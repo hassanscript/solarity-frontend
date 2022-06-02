@@ -1,4 +1,4 @@
-const OwnFirst = ( roomInfo ) => {
+const OwnFirst = ({ roomInfo, modelURL, name }) => {
   const assets = [
     {
       pos: "-2.25 1.65 -2.93",
@@ -40,7 +40,7 @@ const OwnFirst = ( roomInfo ) => {
 
           <a-asset-item id="vr-gltf" src="/assets/models/own/VR.glb"></a-asset-item>
           <a-asset-item id="navmesh-gltf" src="/assets/models/own/navmesh.gltf"></a-asset-item>
-          <a-asset-item id="raccoon-obj" src={models[modelIndex].modelUrl}></a-asset-item>
+          <a-asset-item id="raccoon-obj" src={modelURL}></a-asset-item>
 
           <img id="hub-img" src="/assets/images/hub.png" />
           <img id="sky-img" src="/assets/images/sky.jpg"/>
@@ -53,7 +53,10 @@ const OwnFirst = ( roomInfo ) => {
           <template 
               id="avatar-template"
               dangerouslySetInnerHTML={{
-                  __html: '<a-gltf-model src="#raccoon-obj"></a-gltf-model>'
+                __html: '<a-entity>' +
+                '<a-entity class="nametag" text="value: ' + name + '; align:center;" position="0 1 0" rotation="0 180 0" scale="8 8 8"></a-entity>' +
+                '<a-gltf-model class = "model" rotation="0 180 0" src="#raccoon-obj"></a-gltf-model>' +
+                '</a-entity>'
               }}
           />
 

@@ -119,8 +119,10 @@ const SelectedAsset: FC<HeroProps> = ({}) => {
             );
             setError(false);
             setLoadingButton(false);
+            setShowWallets(false);
           },
           errorFunction: (err) => {
+            setShowWallets(false);
             setError(true);
             if (!!err) {
               setErrorMessage(err);
@@ -128,6 +130,7 @@ const SelectedAsset: FC<HeroProps> = ({}) => {
             setLoadingButton(false);
           },
           finalFunction: () => {
+            setShowWallets(false);
             setLoading(false);
             setLoadingButton(false);
           },
@@ -256,12 +259,12 @@ const SelectedAsset: FC<HeroProps> = ({}) => {
               </div>
               <div className="flex mt-1">
                 <span className="text-xs text-gray-950 mt-1">
-                  Current bid:&nbsp;&nbsp;&nbsp;
+                  Price:&nbsp;&nbsp;&nbsp;
                 </span>
                 <div className="flex">
                   <div className="h-[16px] w-[16px]">
                     <Image
-                      src="/images/icons/sol.png"
+                      src="/images/icons/verse-token.png"
                       alt="sol-icon"
                       height={16}
                       width={16}
@@ -273,14 +276,14 @@ const SelectedAsset: FC<HeroProps> = ({}) => {
                   </span>
                 </div>
               </div>
-              <div className="flex mt-2">
+              {/* <div className="flex mt-2">
                 <span className="text-xs text-gray-950">
                   Ending in:&nbsp;&nbsp;
                 </span>
                 <span className="text-xs text-white">
                   {selectedAsset.endingIn}
                 </span>
-              </div>
+              </div> */}
               {error && <ErrorMessage errorMessage={errorMessage} />}
             </span>
           </div>

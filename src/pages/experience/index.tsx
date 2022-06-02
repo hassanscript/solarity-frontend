@@ -45,11 +45,11 @@ const Index = () => {
 
       window.socket.on(ACTIONS.ROOM_READY, (data: any) => {
         if(data.type == false && data.roomNo == 0) {
-          router.push(`experience/hubRoom?rid=${data.roomId}`, 'experience/hubRoom');
+          router.push(`experience/Room?rid=${data.roomId}&roomType=0&no=0`, 'experience/Room');
         } else if(data.type == false && data.roomNo == 1) {
-          router.push(`experience/galleryRoom?rid=${data.roomId}`, 'experience/galleryRoom');
+          router.push(`experience/Room?rid=${data.roomId}&roomType=1&no=0`, 'experience/Room');
         } else if(data.type == true) {
-          router.push(`experience/ownRoom?rid=${data.roomId}&no=${data.roomNo + 1}`, 'experience/ownRoom');
+          router.push(`experience/Room?rid=${data.roomId}&roomType=2&no=${data.roomNo + 1}`, 'experience/Room');
         }
       })
       window.socket.emit(ACTIONS.DUPLICATION_INVITATION, () => {

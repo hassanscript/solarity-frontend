@@ -41,8 +41,18 @@ const ChatModule = () => {
   const [userlist, setUserlist] = useState([]);
   const [ roomInfo, setRoomInfo ] = useState({});
 
+  const toggleChatPanel = () => {
+    setChatPanel(!isChatPanel);
+  }
+
+  useEffect(() => {
+    setRoomIndex(rooms.findIndex(s => s.roomId == rid))
+  }, [rooms]);
+
+  
   useEffect(async () => {
-    if(!!rooms && rooms.length != 0 && rooms[roomIndex]) {
+    console.log(roomIndex, rooms, rooms[roomIndex])
+    if(!!rooms && rooms.length != 0 && rooms[roomIndex] && !!rooms[roomIndex].name) {
         const {
             data: { roomInfoData },
         } = await apiCaller.get(`/users/getRoomInfo/${rooms[roomIndex].name}/${rooms[roomIndex].roomNo}`);
@@ -51,14 +61,6 @@ const ChatModule = () => {
         }
     }
   }, [rooms, roomIndex]);
-
-  const toggleChatPanel = () => {
-    setChatPanel(!isChatPanel);
-  }
-
-  useEffect(() => {
-    setRoomIndex(rooms.findIndex(s => s.roomId == rid))
-  }, [rooms]);
 
   useEffect(() => {
     function init() {
@@ -214,6 +216,15 @@ const ChatModule = () => {
             components: [
               'position',
               'rotation',
+              {
+                selector: '.nametag',
+                component: 'text',
+                property: 'value'
+              },
+              {
+                selector: '.model',
+                component: 'src',
+              }
             ]
           });
           window.isReady1 = true;
@@ -293,13 +304,16 @@ const ChatModule = () => {
         <div id="scene_wrapper" style={{ opacity: "0" }}>
           {roomType > 1 ? (
             <ChatPrivateModel 
-              modelURL={models[modelIndex].modelUrl} 
               modelNo={no}
+              roomInfo={roomInfo}
+              modelURL={models[modelIndex].modelUrl}
+              name={userName} 
             />
             ): (
             <ChatPublicModel 
-              type={roomType}
+              roomType={roomType}
               modelURL={models[modelIndex].modelUrl}
+              name={userName}
             />
           )}
           <div className='fixed top-[5vh] left-[30px] cursor-pointer' onClick={() => handelManualLeave()}>
