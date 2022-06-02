@@ -109,8 +109,14 @@ AFRAME.registerComponent('seat', {
             });
             if (distance >= new THREE.Vector3(data.standUpPosition.x, 0, data.standUpPosition.z).length()) {
                 data.state = "standing";
-                data.camera.setAttribute("simple-navmesh-constraint", this.simpleNavmeshConstraintBk);
-                data.camera.setAttribute("wasd-controls", this.wasdControlsBk);
+                
+                /* to improve*/
+                //data.camera.setAttribute("simple-navmesh-constraint", this.simpleNavmeshConstraintBk);
+                //data.camera.setAttribute("wasd-controls", this.wasdControlsBk);
+
+                /*make the player able to move again*/
+                data.camera.setAttribute("simple-navmesh-constraint", "navmesh:#navmesh;fall: 5;height:1.65;");
+                data.camera.setAttribute("wasd-controls", "acceleration: 20;");
                 return;
             }
 
@@ -217,7 +223,6 @@ AFRAME.registerComponent('simple-navmesh-constraint', {
 AFRAME.registerComponent("model-info", {
     init: function () {
         let el = this.el;
-        console.log("loaded", el);
         el.addEventListener('model-loaded', update_loading_screen);
     }
 })
