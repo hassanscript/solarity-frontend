@@ -296,7 +296,7 @@ useEffect(() => {
                 <a-asset-item id="raccoon-obj" src={models[modelIndex].modelUrl}></a-asset-item>
 
                 <img id="hub-img" src="/assets/images/hub.png"/>
-                <img id="sky-img" src="/assets/images/sky.jpg"/>
+                <img id="sky-img" src="/assets/images/japan.png"/>
 
                 <template 
                     id="avatar-template"

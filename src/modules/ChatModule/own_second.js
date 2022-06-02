@@ -409,16 +409,6 @@ useEffect(() => {
 
                 </a-plane>
 
-                {/*4*/}
-                <a-plane class="frame" position="-2.705 1.882 -2.887" width="1.7" height="1.7" rotation="0 0 0" material="shader:standard;" color="#111122">
-                </a-plane>
-                {/* 5*/}
-                <a-plane class="frame" position="-0.04 1.882 -2.887" width="1.7" height="1.7" rotation="0 0 0" material="shader:standard;" color="#111122">
-                </a-plane>
-                {/* 6*/}
-                <a-plane class="frame" position="2.614 1.890 -2.887" width="1.7" height="1.7" rotation="0 0 0" material="shader:standard;" color="#111122">
-                </a-plane>
-
 
                 {/* 7*/}
                 <a-plane class="frame" position="4.753 1.889 -1.560" width=".880" height="1.370" rotation="0 -90 0" material="shader:standard;" color="#111122">
