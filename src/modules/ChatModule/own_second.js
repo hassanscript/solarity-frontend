@@ -396,6 +396,32 @@ useEffect(() => {
                 <a-gltf-model id="navmesh" model-info class="model" src="#navmesh-gltf" visible="false">
                 </a-gltf-model>
 
+                {/* frames */}
+
+                {/*1 */}
+                <a-plane class="frame" position="-4.85 1.876 1.726" width=".880" height="1.370" rotation="0 90 0" material="shader:standard;" color="#111122">
+                </a-plane>
+                {/* 2*/}
+                <a-plane class="frame" position="-4.85 1.876 0.088" width=".880" height="1.370" rotation="0 90 0" material="shader:standard;" color="#111122">
+                </a-plane>
+                {/* 3*/}
+                <a-plane class="frame" position="-4.85 1.876 -1.587" width=".880" height="1.370" rotation="0 90 0" material="shader:standard;" color="#111122">
+
+                </a-plane>
+
+
+                {/* 7*/}
+                <a-plane class="frame" position="4.753 1.889 -1.560" width=".880" height="1.370" rotation="0 -90 0" material="shader:standard;" color="#111122">
+
+                </a-plane>
+                {/* 8*/}
+                <a-plane class="frame" position="4.753 1.889 0.079" width=".880" height="1.370" rotation="0 -90 0" material="shader:standard;" color="#111122">
+                </a-plane>
+                {/*9*/}
+                <a-plane class="frame" position="4.753 1.889 1.730" width=".880" height="1.370" rotation="0 -90 0" material="shader:standard;" color="#111122">
+                </a-plane>
+
+
                 {/* {assets.map((asset, index) => (
                   <a-plane
                     key={index}
