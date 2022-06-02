@@ -80,11 +80,11 @@ const JoinRoomModal: FC<any> = ({
       }
 
       if(type == false && roomNo == 0) {
-        router.push(`/experience/hubRoom?rid=${rooms[selectedIndex].roomId}`);
+        router.push(`/experience/hubRoom?rid=${rooms[selectedIndex].roomId}`, 'experience/hubRoom');
       } else if(type == false && roomNo == 1) {
-        router.push(`/experience/galleryRoom?rid=${rooms[selectedIndex].roomId}`);
+        router.push(`/experience/galleryRoom?rid=${rooms[selectedIndex].roomId}`, 'experience/galleryRoom');
       } else if(type == true) {
-        router.push(`/experience/ownRoom?rid=${rooms[selectedIndex].roomId}`);
+        router.push(`/experience/ownRoom?rid=${rooms[selectedIndex].roomId}&no=${rooms[selectedIndex].roomNo + 1}`, 'experience/ownRoom');
       }
     }
   }

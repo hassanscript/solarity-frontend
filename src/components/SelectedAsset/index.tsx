@@ -38,7 +38,6 @@ const SelectedAsset: FC<HeroProps> = ({}) => {
   const [loading, setLoading] = useState<Boolean>(false);
   const [showWallets, setShowWallets] = useState(false);
   const profile = useSelector((state: RootStateOrAny) => state.profile.data);
-  const solanaAddress = profile && profile.solanaAddress;
 
   const { selectedTagIndex, selectedIndex, assets } = useAppSelector(
     (state) => state.marketplace
@@ -58,11 +57,12 @@ const SelectedAsset: FC<HeroProps> = ({}) => {
     const { publicKey, signTransaction } = provider;
     // spl-token payment for buying room.
     try {
-      if(!process.env.WEBSITE_SOLANA_WALLET_ADDRESS || !process.env.SOLARITY_TOKEN_ADDRESS) {
+      console.log(process.env.NEXT_PUBLIC_WEBSITE_SOLANA_WALLET_ADDRESS, process.env.NEXT_PUBLIC_SOLARITY_TOKEN_ADDRESS);
+      if(!process.env.NEXT_PUBLIC_WEBSITE_SOLANA_WALLET_ADDRESS || !process.env.NEXT_PUBLIC_SOLARITY_TOKEN_ADDRESS) {
         return console.error('website solana wallet address or solarity_token_address is not set in environment.');
       }
-      const toPublicKey = new PublicKey(process.env.WEBSITE_SOLANA_WALLET_ADDRESS)
-      const mint = new PublicKey(process.env.SOLARITY_TOKEN_ADDRESS)
+      const toPublicKey = new PublicKey(process.env.NEXT_PUBLIC_WEBSITE_SOLANA_WALLET_ADDRESS)
+      const mint = new PublicKey(process.env.NEXT_PUBLIC_SOLARITY_TOKEN_ADDRESS)
       // const fromTokenAccount = await getOrCreateAssociatedTokenAccount(
       //   connection,
       //   publicKey,
