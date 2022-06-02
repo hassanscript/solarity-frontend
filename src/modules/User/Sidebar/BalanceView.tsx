@@ -131,7 +131,7 @@ const CoinBalances: FC<{ data: any[] }> = ({ data }) => {
             </div>
           ))}
         </div>
-      <div className="flex-2 pl-3 pr-5">
+      {/* <div className="flex-2 pl-3 pr-5">
         <div className="relative">
           <div className="pt-2">
             <DoubleIcon />
@@ -145,7 +145,7 @@ const CoinBalances: FC<{ data: any[] }> = ({ data }) => {
             title="reward: 100 Verse tokens" 
           />
         </div>
-      </div>
+      </div> */}
       </div>
     </>
   );

@@ -1,7 +1,6 @@
 import HubChatModule from "modules/ChatModule";
 
 const GalleryRoom = () => {
-
   return (
       <HubChatModule />
   );
