@@ -23,7 +23,6 @@ export function build_loading_screen() {
 export function update_loading_screen() {
   models = document.querySelectorAll('[model-info]');
   models_number = models.length;
-  console.log(models)
   var scene_wrapperEl = document.getElementById("scene_wrapper");
   var loading_textEl = document.getElementById("loading_text");
   var loading_barEl = document.getElementById("loading_bar");
@@ -45,7 +44,6 @@ export function update_loading_screen() {
     }
   }, 10000);
   models_loaded++;
-  console.log(models_loaded, models_number)
   if (models_loaded == 1) {
     //remove the old bar item when the first model is loaded
     if(!!moving_itemEL) {
