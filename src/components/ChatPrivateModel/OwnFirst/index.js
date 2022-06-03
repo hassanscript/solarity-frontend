@@ -67,7 +67,7 @@ const OwnFirst = ({ roomInfo, modelURL, name }) => {
           position="0 1.65 0" 
           look-controls="pointerLockEnabled: true; reverseMouseDrag: false"
           simple-navmesh-constraint="navmesh:#navmesh;fall: 5;height:1.65;" wasd-controls="acceleration: 20;"
-          networked="template:#avatar-template;attachTemplateToLocal:true;"
+          networked="template:#avatar-template;attachTemplateToLocal:false;"
         >
           <a-entity 
             id="head" 

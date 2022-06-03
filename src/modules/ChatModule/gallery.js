@@ -320,7 +320,7 @@ const GalleryChatModule = () => {
               look-controls="pointerLockEnabled: true; reverseMouseDrag: false"
               wasd-controls="acceleration: 20;"
               simple-navmesh-constraint="navmesh:#navmesh;fall: 5;height:1.65;"
-              networked="template:#avatar-template;attachTemplateToLocal:true;"
+              networked="template:#avatar-template;attachTemplateToLocal:false;"
             >
               <a-entity
                 id="head"

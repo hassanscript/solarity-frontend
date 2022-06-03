@@ -1,4 +1,31 @@
 const OwnSecond = ({ roomInfo, modelURL, name }) => {
+  const assets = [
+    {
+      pos: "-4.85 1.876 1.726",
+      rot: "0 90 0",
+    },
+    {
+      pos: "-4.85 1.876 0.088",
+      rot: "0 90 0",
+    },
+    {
+      pos: "-4.85 1.876 -1.587",
+      rot: "0 90 0",
+    },
+    {
+      pos: "4.753 1.889 -1.560",
+      rot: "0 -90 0",
+    },
+    {
+      pos: "4.753 1.889 0.079",
+      rot: "0 -90 0",
+    },
+    {
+      pos: "4.753 1.889 1.730",
+      rot: "0 -90 0",
+    },
+  ];
+  
   return (
     <a-scene renderer="antialias: true;
     colorManagement: true;
@@ -85,37 +112,13 @@ const OwnSecond = ({ roomInfo, modelURL, name }) => {
       </a-gltf-model>
 
       {/* frames */}
-
-      {/*1 */}
-      <a-plane class="frame" position="-4.85 1.876 1.726" width=".880" height="1.370" rotation="0 90 0" material="shader:standard;" color="#111122">
-      </a-plane>
-      {/* 2*/}
-      <a-plane class="frame" position="-4.85 1.876 0.088" width=".880" height="1.370" rotation="0 90 0" material="shader:standard;" color="#111122">
-      </a-plane>
-      {/* 3*/}
-      <a-plane class="frame" position="-4.85 1.876 -1.587" width=".880" height="1.370" rotation="0 90 0" material="shader:standard;" color="#111122">
-
-      </a-plane>
-
-
-      {/* 7*/}
-      <a-plane class="frame" position="4.753 1.889 -1.560" width=".880" height="1.370" rotation="0 -90 0" material="shader:standard;" color="#111122">
-
-      </a-plane>
-      {/* 8*/}
-      <a-plane class="frame" position="4.753 1.889 0.079" width=".880" height="1.370" rotation="0 -90 0" material="shader:standard;" color="#111122">
-      </a-plane>
-      {/*9*/}
-      <a-plane class="frame" position="4.753 1.889 1.730" width=".880" height="1.370" rotation="0 -90 0" material="shader:standard;" color="#111122">
-      </a-plane>
-
-      {/* {assets.map((asset, index) => (
+      {assets.map((asset, index) => (
         <a-plane
           key={index}
           class={`frame picno${index + 1}`}
           position={asset.pos}
-          width="1.1"
-          height="1.1"
+          width=".880"
+          height="1.370"
           rotation={asset.rot}
           material="shader:standard;"
           color="#111122"
@@ -127,8 +130,8 @@ const OwnSecond = ({ roomInfo, modelURL, name }) => {
                   <a-image
                     src={nft.link}
                     key={index1}
-                    width="1.1"
-                    height="1.1"
+                    width=".880"
+                    height="1.370"
                     position=""
                     material=""
                     geometry=""
@@ -136,7 +139,7 @@ const OwnSecond = ({ roomInfo, modelURL, name }) => {
                 );
             })}
         </a-plane>
-      ))} */}
+      ))}
       <a-sky src="#sky-img"></a-sky>
     </a-scene>
   );
