@@ -13,6 +13,7 @@ const initialState = {
   nfts: [],
   nftsLoaded: false,
   activeRoomId: "",
+  activeRoomNo: -1
 };
 
 export const setup = createAsyncThunk(

@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import VolumeUp from '../../components/Icons/VolumeUp';
 import VolumeOff from '../../components/Icons/VolumeOff';
 import NestedToolTip from 'components/NestedToolTip';
@@ -33,13 +33,30 @@ const UserPanel: FC<UserPanelProps> = ({
     inviteFriend,
     getAvatarImg,
 }) => {
+    const [ roomId, setRoomId ] = useState("");
+
+    useEffect(() => {
+        if(!!rooms[roomIndex] && !!rooms[roomIndex]._id) {
+            setRoomId(rooms[roomIndex]._id)
+        }
+    }, [rooms[roomIndex]])
 
     return (
         <div className={"fixed top-[20vh] left-[30px] w-[250px] transition-opacity " + (isUserPanel ? 'opacity-100' : 'opacity-0')}>
             <div className='rounded-lg bg-brandblack px-4 py-2 w-full h-full'>
                 <div className='text-lg mb-4 flex justify-between pt-4'>
                     <div>User List</div>
-                    <div className='cursor-pointer pt-[3px]' onClick={() => toggleUserPanel()}><Minus /></div>
+                    <div className="flex">
+                        <div className="flex" >
+                            <NestedToolTip link={process.env.NODE_ENV === "development" ? "http://localhost:3000/" + 'experience/invitation/' + roomId : "https://solarity-web-git-master-hassan-sk.vercel.app/" + 'experience/invitation/' + roomId} />
+                        </div>
+                        <div 
+                            className='cursor-pointer pt-[3px]' 
+                            onClick={() => toggleUserPanel()}
+                        >
+                            <Minus />
+                        </div>
+                    </div>
                 </div>
                 <div className='list overflow-auto h-[55vh]'>
                     <ul className='no-underline'>
@@ -76,11 +93,11 @@ const UserPanel: FC<UserPanelProps> = ({
                             <div className='pt-1 cursor-pointer'>
                             {!user.state ? (
                                 <button className="rounded-full" onClick={() => inviteFriend(user.username)}>
-                                <Join />
+                                    <Join />
                                 </button>
                             ) : (
                                 <div className="flex" >
-                                <NestedToolTip link={process.env.NODE_ENV === "development" ? "http://localhost:3000/" + 'experience/invitation/' + user.link : "https://solarity-web-git-master-hassan-sk.vercel.app/" + 'experience/invitation/' + user.link} />
+                                    <NestedToolTip link={process.env.NODE_ENV === "development" ? "http://localhost:3000/" + 'experience/invitation/' + user.link : "https://solarity-web-git-master-hassan-sk.vercel.app/" + 'experience/invitation/' + user.link} />
                                 </div>
                             )}
                             </div>
