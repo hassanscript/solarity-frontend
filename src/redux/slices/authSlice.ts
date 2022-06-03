@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { apiCaller } from "../../utils/fetcher";
 import { setProfile } from "./profileSlice";
 import { startLoadingApp, stopLoadingApp } from "./commonSlice";

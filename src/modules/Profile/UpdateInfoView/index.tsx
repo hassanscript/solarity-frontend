@@ -23,9 +23,19 @@ const UsernameInput: FC<{
   status: true | false | null;
   setStatus: (status: true | false | null) => void;
 }> = ({ sharedProps, setFieldError, status, setStatus }) => {
+  const { username } = sharedProps.values;
+  const [checkAllowed, setCheckAllowed] = useState(false);
+
   const checkUsernameAvailability = () => {
+    if (!checkAllowed) {
+      if (username) {
+        return setStatus(true);
+      }
+    }
     setStatus(null);
-    const { username } = sharedProps.values;
+    if (!username && username !== 0) {
+      return setStatus(null);
+    }
     apiCaller
       .get(`profile/usernameAvailability/${username}`)
       .then(() => {
@@ -45,6 +55,13 @@ const UsernameInput: FC<{
       {...sharedProps}
       onChange={(e) => {
         setStatus(null);
+        if (!checkAllowed) {
+          setCheckAllowed(true);
+        }
+        try {
+          e.target.value = e.target.value.toLowerCase();
+          e.target.value = e.target.value.replace(" ", "");
+        } catch {}
         sharedProps.onChange(e);
       }}
       onStopTypingInterval={800}
@@ -52,7 +69,7 @@ const UsernameInput: FC<{
       absoluteElement={
         <div className="absolute top-[50%] right-4 translate-y-[-50%]">
           {status === true && <AiFillCheckCircle color="green" />}
-          {status === null && (
+          {status === null && username && username.length > 0 && (
             <AiOutlineLoading3Quarters className="animate-spin" />
           )}
           {status === false && <AiFillCloseCircle color="red" />}
@@ -90,7 +107,7 @@ const Form = () => {
   const dispatch = useDispatch();
   const [usernameStatusCheck, setUsernameStatusCheck] = useState<
     false | true | null
-  >(false);
+  >(null);
   const profileData = useSelector(
     (state: RootStateOrAny) => state.profile.data
   );
@@ -158,7 +175,9 @@ const Form = () => {
                   type="submit"
                   variant="secondary"
                   loading={loading}
-                  disabled={status === "checkingUsername"}
+                  disabled={
+                    usernameStatusCheck == null || usernameStatusCheck == false
+                  }
                   disableOnLoading
                 >
                   Update

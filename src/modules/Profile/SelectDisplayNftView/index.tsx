@@ -1,5 +1,5 @@
-import { Button, Input, Stack } from "components/FormComponents";
-import React, { useEffect, useState } from "react";
+import { Button, Stack } from "components/FormComponents";
+import React, { useState } from "react";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import AframeEditRoom from "components/AframeEditRoom";
 import { getNfts } from "hooks";
@@ -16,32 +16,30 @@ const SelectDisplayNftView = () => {
     profileData.username,
     profileData.solanaAddress
   );
-  const [loading, setLoading] = useState<Boolean>(false);
   const [selected, setSelected] = useState<string>();
   const [imageUrl, setImageUrl] = useState<string>();
-  const [error, setError] = useState<string | Boolean>(false);
   const [picNo, setPicNo] = useState<string>("0");
   const [chooseFlag, setChooseFlag] = useState<string | Boolean>(false);
   const [room_id, setRoom_id] = useState("");
   const router = useRouter();
 
-  if (loading) {
+  if (nftLoading) {
     return (
-      <div className="alert alert-warning shadow-lg w-full">
+      <div className="alert alert-warning w-full shadow-lg">
         <span>Loading NFTs...</span>
       </div>
     );
   }
-  if (error) {
+  if (nftError) {
     return (
-      <div className="alert alert-error shadow-lg w-full">
+      <div className="alert alert-error w-full shadow-lg">
         <span>Error While Loading NFTs</span>
       </div>
     );
   }
   if (nfts.length == 0) {
     return (
-      <div className="alert alert-info shadow-lg w-full">
+      <div className="alert alert-info w-full shadow-lg">
         <span>
           You don't own any NFTs so you will not be able to buy a room
         </span>
@@ -75,11 +73,11 @@ const SelectDisplayNftView = () => {
 
   return (
     <div>
-      <span className="font-bold text-2xl">
+      <span className="text-2xl font-bold">
         Select NFTs to Display in Room.
       </span>
       <Stack spacing={3}>
-        <div className="relative w-full h-[250px] rounded-2xl mt-4">
+        <div className="relative mt-4 h-[250px] w-full rounded-2xl">
           <AframeEditRoom
             chooseFlag={chooseFlag}
             setChooseFlag={setChooseFlag}
@@ -90,7 +88,7 @@ const SelectDisplayNftView = () => {
           />
         </div>
         <div className="p-2">
-          <div className="h-[110px] rounded-xl border border-brandblack flex flex-wrap items-center overflow-x-auto scrollbar-thin scrollbar-thumb-black scrollbar-track-white">
+          <div className="flex h-[110px] flex-wrap items-center overflow-x-auto rounded-xl border border-brandblack scrollbar-thin scrollbar-thumb-black scrollbar-track-white">
             {nfts.map(({ mintAddress: mint, name, uri }, index) => (
               <NftCardSelect
                 uri={uri}

@@ -4,6 +4,7 @@ import connectWallet from "./connectWallet";
 import metamask from "assets/images/wallets/metamask.png";
 import phantom from "assets/images/wallets/phantom.png";
 import solflare from "assets/images/wallets/solflare.png";
+import { MdOutlineClose as CloseIcon } from "react-icons/md";
 
 const WALLETS = [
   {
@@ -37,14 +38,28 @@ const WalletSelector: FC<{
   title?: string;
   subtitle?: string;
   type: "all" | "ethereum" | "solana";
-}> = ({ open, onClose, onSelect, title, subtitle, type }) => {
+  darkBackground?: boolean;
+}> = ({ open, onClose, onSelect, title, subtitle, type, darkBackground }) => {
   return (
-    <Transition appear show={open} as={Fragment}>
+    <Transition
+      appear={open}
+      show={open}
+      as={Fragment}
+      enter="transition ease-out duration-300"
+      enterFrom="transform opacity-0 scale-95"
+      enterTo="transform opacity-100 scale-100"
+      leave="transition ease-out duration-100"
+      leaveFrom="transform opacity-100 scale-100"
+      leaveTo="transform opacity-0 scale-95"
+    >
       <Dialog
+        onClick={onClose}
         onClose={onClose}
         as="div"
         style={{ zIndex: "10000000" }}
-        className="fixed inset-0 overflow-y-auto"
+        className={`fixed inset-0 overflow-y-auto ${
+          darkBackground ? "bg-black/70" : ""
+        }`}
       >
         <div className="min-h-screen px-4 text-center">
           <Transition.Child
@@ -52,6 +67,11 @@ const WalletSelector: FC<{
             leaveTo="opacity-0 scale-95"
           >
             <div className="my-8 inline-block w-full max-w-md transform overflow-hidden rounded-2xl bg-brandblack p-6 px-10 text-left align-middle shadow-xl transition-all">
+              <div className="absolute top-3 right-5">
+                <a onClick={onClose}>
+                  <CloseIcon fontSize="30" className="cursor-pointer" />
+                </a>
+              </div>
               <Dialog.Title
                 as="h3"
                 className="mb-3 text-center text-2xl font-bold leading-6"
