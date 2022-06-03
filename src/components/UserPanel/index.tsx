@@ -36,8 +36,8 @@ const UserPanel: FC<UserPanelProps> = ({
     const [ roomId, setRoomId ] = useState("");
 
     useEffect(() => {
-        if(!!rooms[roomIndex] && !!rooms[roomIndex]._id) {
-            setRoomId(rooms[roomIndex]._id)
+        if(!!rooms[roomIndex] && !!rooms[roomIndex].invitationHash) {
+            setRoomId(rooms[roomIndex].invitationHash)
         }
     }, [rooms[roomIndex]])
 

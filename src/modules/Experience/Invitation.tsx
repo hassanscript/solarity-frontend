@@ -1,19 +1,8 @@
 import { apiCaller } from "utils/fetcher";
 
 export type InvitationPageProps = {
-  invitation: InvitationType;
+  roomInfo: any;
   success: Boolean;
-};
-
-export type InvitationType = {
-  name: String;
-  invitor: String;
-  roomId?: String;
-  type: Boolean;
-  roomNo: Number;
-  roomName?: String;
-  link?: String;
-  state?: Boolean;
 };
 
 export const getServerSideProps = async (context: any) => {
@@ -21,10 +10,10 @@ export const getServerSideProps = async (context: any) => {
 
   try {
     const {
-      data: { invitation },
+      data: { roomInfo },
     } = await apiCaller.get(`/users/getLinkInfo/${link}`);
-
-    return { props: { invitation, success: true } };
+    console.log(roomInfo);
+    return { props: { roomInfo, success: true } };
   } catch (err) {
     return { props: { success: false } };
   }

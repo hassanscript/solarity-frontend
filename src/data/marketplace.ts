@@ -21,7 +21,7 @@ export const HERO_DATA: HeroProps = {
 export const GALLERY: Gallery = {
   rows: [
     {
-      title: "Raising Verses",
+      title: "Rooms",
       items: [
         {
           roomNo: 0,
@@ -58,7 +58,7 @@ export const GALLERY: Gallery = {
 export const GALLERYE: Gallery = {
   rows: [
     {
-      title: "Raising Verses",
+      title: "Rooms",
       items: [
         {
           roomNo: 0,

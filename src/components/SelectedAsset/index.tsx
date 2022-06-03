@@ -245,9 +245,9 @@ const SelectedAsset: FC<HeroProps> = ({}) => {
             <span className="text-[15px] text-secondary">
               {selectedAsset.title}
             </span>
-            <span className="mt-3 text-sm text-gray-950">
+            {/* <span className="mt-3 text-sm text-gray-950">
               {selectedAsset.description}
-            </span>
+            </span> */}
             <span>
               <div className="flex">
                 <div className="mt-[7px]">
