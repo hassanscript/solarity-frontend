@@ -2,18 +2,23 @@ import { useEffect } from "react";
 import Layout from "components/Layout";
 import Setup from "modules/Setup";
 import { useRouter } from "next/router";
-import { RootStateOrAny, useSelector } from "react-redux";
+import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
+import { startLoadingApp, stopLoadingApp } from "redux/slices/commonSlice";
 
 const SetupPage = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const { logged, profileData } = useSelector((state: RootStateOrAny) => ({
     profileData: state.profile.data,
     logged: state.auth.logged,
   }));
   useEffect(() => {
+    dispatch(startLoadingApp());
     if (!logged || (logged && profileData.visible)) {
       router.push("/");
+    } else {
+      dispatch(stopLoadingApp());
     }
   }, [logged, profileData.visible]);
 

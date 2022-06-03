@@ -13,8 +13,8 @@ type Props = {
 export const WalletCard: FC<Props> = ({
     handleJoinModalToggle,
 }) => {
-    const { setVisible } = useWalletModal();
     const dispatch = useDispatch();
+    const { setVisible } = useWalletModal();
     const { wallet, connect, connecting, publicKey, signMessage } = useWallet();
     const { logged, profileData } = useSelector((state: RootStateOrAny) => ({
         logged: state.auth.logged,
@@ -45,6 +45,7 @@ export const WalletCard: FC<Props> = ({
 
     return (
         <div className="mx-7 md:max-w-[370px] sm:w-[calc(100%-72px)] xs:w-[calc(100%-72px)] bg-brandblack rounded-3xl p-[50px] mb-4">
+
             <h2 className="text-center tracking-widest mb-10 p-2">Playing after you login.</h2>
             <div className="flex justify-center">
                 <Image src="/images/wallets.png" width={318} height={218}/>

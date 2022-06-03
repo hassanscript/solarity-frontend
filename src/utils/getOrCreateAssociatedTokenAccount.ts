@@ -22,7 +22,7 @@ export async function getOrCreateAssociatedTokenAccount(
         allowOwnerOffCurve,
         programId,
         associatedTokenProgramId
-    )
+    );
 
     // This is the optimal logic, considering TX fee, client-side computation, RPC roundtrips and guaranteed idempotent.
     // Sadly we can't do this atomically.
@@ -68,8 +68,8 @@ export async function getOrCreateAssociatedTokenAccount(
         }
     }
     
-    if (!account.mint.toBuffer().equals(mint.toBuffer())) throw Error('TokenInvalidMintError')
-    if (!account.owner.toBuffer().equals(owner.toBuffer())) throw new Error('TokenInvalidOwnerError')
+    // if (!!account.mint && !account.mint.toBuffer().equals(mint.toBuffer())) throw Error('TokenInvalidMintError')
+    // if (!!!account.owner && !account.owner.toBuffer().equals(owner.toBuffer())) throw new Error('TokenInvalidOwnerError')
 
     return account
 }

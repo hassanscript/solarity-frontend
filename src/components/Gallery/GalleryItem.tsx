@@ -28,7 +28,7 @@ const GalleryItemComponent: FC<GalleryItemProps> = ({
 }) => {
   const dispatch = useDispatch();
   const handlePlaceBidToggle = () => {
-    if(roomNo != undefined && roomNo <= 1 && tagIndex != undefined && tagIndex == 0) {
+    if(roomNo != undefined && roomNo <= 2 && tagIndex != undefined && tagIndex == 0) {
       dispatch(setAsset({tagIndex, roomNo}));
     } else {
       toast.error(title + " isn't ready now.", {
@@ -100,29 +100,29 @@ const GalleryItemComponent: FC<GalleryItemProps> = ({
                 className="flex" 
                 onClick={handlePlaceBidToggle}
               >
-                <Bid /> Place a Bid
+                <Bid /> See in detail
               </div>
             )}
           </button>
         </div>
 
         <span className="px-2 text-xs">{title}</span>
-        <div className="flex items-center gap-2 px-2">
-          <span className="text-[10px] text-secondary ">{collection}</span>
-          <div className="mb-1">
+        <div className="flex items-center gap-1 px-2">
+          <div className="mb-1 pt-1">
             <TickCircle />
           </div>
+          <span className="text-[10px] text-secondary ">{collection}</span>
         </div>
       </div>
       <div className="flex justify-between p-2 transition-all ease-in border rounded-b-3xl group-hover:border group-hover:border-brandblack border-base-100 ">
         {type === "bid" && (
           <>
             <div className="flex flex-col">
-              <span className="text-xs text-gray-950">Current bid</span>
+              <span className="text-xs text-gray-950">Price</span>
               <div className="flex items-center gap-2">
                 <div className="h-[16px] w-[16px]">
                   <Image
-                    src="/images/icons/sol.png"
+                    src="/images/icons/verse-token.png"
                     alt="sol-icon"
                     height={32}
                     width={32}
@@ -130,13 +130,12 @@ const GalleryItemComponent: FC<GalleryItemProps> = ({
                 </div>
 
                 <span className="mt-2 text-xs text-white">
-                  {currentBid} SOL
+                  {currentBid} Verse
                 </span>
               </div>
             </div>
             <div className="flex flex-col">
-              <span className="text-xs text-gray-950">Ending in</span>
-              <span className="mt-2 text-xs text-white">{endingIn}</span>
+              {/* <span className="mt-2 text-xs text-white">{endingIn}</span> */}
             </div>
           </>
         )}
@@ -204,7 +203,7 @@ const GalleryItemComponent: FC<GalleryItemProps> = ({
                 />
               </div>
 
-              <span className="mt-1 text-xs text-white ">{currentBid} SOL</span>
+              <span className="mt-1 text-xs text-white ">{currentBid} Verse</span>
             </div>
           </div>
         )}

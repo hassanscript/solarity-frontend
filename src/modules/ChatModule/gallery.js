@@ -8,9 +8,9 @@ import { useWebTRTC } from '../../utils/useWebTRTC';
 import { setMsg, setPeers } from '../../redux/slices/chatSlice';
 import ACTIONS from '../../config/actions';
 import styles from './chat.module.css';
-import { build_loading_screen, update_loading_screen } from './loading_screen'
+import { build_loadingScreen } from './loadingScreen'
 // import {start_screens} from './screens'
-import { choose_controls, pass_controls } from './utils'
+import { chooseControls, passControls } from './utils'
 import { Chat, Join, Minus, UserPlus, Users } from 'components/Icons';
 import InviteFriendModal from "components/Modals/InviteFriendModal";
 import MicrophoneOn from '../../components/Icons/MicrophoneOn';
@@ -134,11 +134,11 @@ const GalleryChatModule = () => {
   useEffect(() => {
     var clearLoading = setInterval(() => {
       var sceneEl = document.querySelector('a-scene');
-      var loading_screenEl = document.getElementById('loading_screen');
-      var loading_textEl = document.getElementById('loading_text');
-      var loading_barEl = document.getElementById('loading_bar');
-      if (sceneEl && loading_textEl && loading_barEl && loading_screenEl) {
-        build_loading_screen();
+      var loadingScreenEl = document.getElementById('loadingScreen');
+      var loadingTextEl = document.getElementById('loadingText');
+      var loadingBarEl = document.getElementById('loadingBar');
+      if (sceneEl && loadingTextEl && loadingBarEl && loadingScreenEl) {
+        build_loadingScreen();
         sceneEl.addEventListener('loaded', start_scene);
       }
       clearInterval(clearLoading);
@@ -147,8 +147,8 @@ const GalleryChatModule = () => {
 
   const start_scene = () => {
     // setGifIntervalId(start_screens())
-    choose_controls();
-    pass_controls();
+    chooseControls();
+    passControls();
   }
 
   const updateVolume = () => {
@@ -191,23 +191,38 @@ const GalleryChatModule = () => {
     }
   }
 
-  var entity = document.querySelector('#player');
   useEffect(() => {
-    if (isLoaded) {
-      if (!!entity) {
-        // entity.setAttribute('networked', 'template:#avatar-template;attachTemplateToLocal:false;');
-        window.NAF.schemas.add({
-          template: '#avatar-template',
-          components: [
-            'position',
-            'rotation',
-          ]
-        });
-        window.isReady1 = true;
-        setIntervalId(setInterval(updateVolume, 300));
+    const loadInterval = setInterval(() => {
+      if (isLoaded || window.modelLoaded) {
+        var entity = document.querySelector('#player');
+        if (!!entity) {
+          window.NAF.schemas.add({
+            template: '#avatar-template',
+            components: [
+              'position',
+              'rotation',
+              {
+                selector: '.nametag',
+                component: 'text',
+                property: 'value'
+              },
+              {
+                selector: '.model',
+                component: 'src',
+              }
+            ]
+          });
+          window.isReady1 = true;
+          setIntervalId(setInterval(updateVolume, 300));
+          window.modelLoaded = false;
+          clearInterval(loadInterval);
+        }
       }
-    }
-  }, [isLoaded])
+      setTimeout(() => {
+        clearInterval(loadInterval);
+      }, 10000);
+    }, 300);
+  }, [])
 
   const handelMuteBtnClick = () => {
     setMute((prev) => !prev);
@@ -227,7 +242,18 @@ const GalleryChatModule = () => {
   const handelManualLeave = () => {
     clearInterval(intervalId);
     // clearInterval(gifIntervalId);
+
+    var objectsToDelete = [];
+    var items = document.querySelectorAll('.model');
+    for (var iIndex = 0; iIndex < items.length; iIndex++) {
+      objectsToDelete.push(items[iIndex]);
+    }
+    for (var i = 0; i < objectsToDelete.length; i++) {
+      freeObjectFromMemory(objectsToDelete[i].object3D, objectsToDelete[i]);
+    }
+
     window.isReady1 = false;
+    window.modelLoaded = false;
     window.positions = {};
     window.myPosition = {};
     window.socket.emit(ACTIONS.LEAVE, { roomId: rid, user: { name: userName } });
@@ -251,60 +277,66 @@ const GalleryChatModule = () => {
         <video className={styles.background_video} id="background_video" autoPlay loop muted>
           <source src="/assets/video/loading_video.mp4" type="video/mp4" />
         </video>
-        <div id="loading_screen" className={styles.loading_screen}>
-          <div id="loading_text" className={styles.loading_text}>
+        <div id="loadingScreen" className={styles.loadingScreen}>
+          <div id="loadingText" className={styles.loadingText}>
           </div>
-          <div id="loading_bar" className={styles.loading_bar}>
+          <div id="loadingBar" className={styles.loadingBar}>
           </div>
           <div id="loading_label" className={styles.loading_label}>
             POWERED BY SOLARITY
             <img id="loading_logo" className={styles.loading_logo} src="/assets/images/loading_logo.png" alt="loadig_logo" />
           </div>
         </div>
-
-
-
-        <div id="scene_wrapper" style={{ opacity: "0" }}>
+        <div id="sceneWrapper" style={{ opacity: "0" }}>
           <a-scene renderer="antialias: true;
-        colorManagement: true;
-        sortObjects: true;
-        physicallyCorrectLights: true;
-        maxCanvasWidth: 1920;
-        maxCanvasHeight: 1920;" shadow="autoUpdate: false" loading-screen="enabled:false" stats>
-            {/* assets management system */}
+              colorManagement: true;
+              sortObjects: true;
+              physicallyCorrectLights: true;
+              maxCanvasWidth: 1920;
+              maxCanvasHeight: 1920;"
+            networked-scene="
+              room: blocks;
+              debug: true;">
             <a-assets timeout="100000">
               <a-asset-item id="gallery-gltf" src="/assets/models/gallery/Gallery room.glb"></a-asset-item>
-              <a-asset-item id="navmesh-gltf" src="\assets\models\gallery\navmesh.gltf"></a-asset-item>
-              <img id="hub-img" src="/assets/images/hub.png" />
-              <img id="sky-img" src="/assets/images/sky.jpg" />
-
-              {/*<audio id="jazz" src="assets/audio/jazz.mp3"></audio>*/}
-              <template
-                id="avatar-template"
+              <a-asset-item id="raccoon-obj" src={models[modelIndex].modelUrl}></a-asset-item>
+              <a-asset-item id="navmesh-gltf" src="/assets/models/gallery/navmesh.gltf"></a-asset-item>
+              <img id="hub-img" src="/assets/images/hub.png" alt="hub" />
+              <img id="sky-img" src="/assets/images/sky.jpg" alt="sky" />
+              <template id="avatar-template"
                 dangerouslySetInnerHTML={{
-                  __html: '<a-gltf-model src="#raccoon-obj"></a-gltf-model>'
-                }}
-              />
+                  __html:
+                    '<a-entity>' +
+                    '<a-entity class="nametag" text="value: Hello World; align:center;" position="0 1 0" rotation="0 180 0" scale="8 8 8"></a-entity>' +
+                    '<a-gltf-model class = "model" rotation="0 180 0" src="#raccoon-obj"></a-gltf-model>' +
+                    '</a-entity>'
+                }} />
             </a-assets>
 
-            {/* models*/}
-            <a-gltf-model shadow="cast: true; receive: true" model-info class="model" src="#gallery-gltf" position="0 0 0"
-              scale="1 1 1"></a-gltf-model>
-            {/* nav-mesh: protecting us from running thru walls  */}
-            <a-gltf-model id="navmesh" model-info class="model" visible="false" src="#navmesh-gltf" position="0 0 0"
-              scale="1 1 1"></a-gltf-model>
-
-            {/* camera */}
-            <a-entity id="player">
-              <a-entity simple-navmesh-constraint="navmesh:#navmesh;fall:0.5;height:1.65;" id="head"
-                camera="fov: 70; active: true" position="0 1.65 0" wasd-controls="acceleration: 20;"
-                look-controls="pointerLockEnabled: true; reverseMouseDrag: false">
-                <a-entity id="cursor" class="mouseOnly" cursor="mousedown: true;" raycaster="far: 10; objects: .clickable"
-                  material="color: white; shader: flat" position="0 0 -0.3"
-                  geometry="primitive: sphere; radius: 0.001">
+            <a-entity
+              id="player"
+              position="0 1.65 0"
+              look-controls="pointerLockEnabled: true; reverseMouseDrag: false"
+              wasd-controls="acceleration: 20;"
+              simple-navmesh-constraint="navmesh:#navmesh;fall: 5;height:1.65;"
+              networked="template:#avatar-template;attachTemplateToLocal:false;"
+            >
+              <a-entity
+                id="head"
+                rotation="0 0 0"
+                camera="fov: 70; active: true"
+              >
+                <a-entity
+                  id="cursor"
+                  class="mouseOnly"
+                  cursor=""
+                  raycaster="far: 10; objects: .clickable"
+                  material="color: white; shader: flat"
+                  position="0 0 -0.3"
+                  geometry="primitive: sphere; radius: 0.001"
+                >
                 </a-entity>
               </a-entity>
-              {/* Left Controller   */}
               <a-entity id="leftHand" class="leftController controllerOnly"
                 hand-controls="hand: left; handModelStyle: lowPoly; color: #15ACCF"
                 laser-controls="hand: left" vive-controls="hand: left" oculus-touch-controls="hand: left"
@@ -314,7 +346,6 @@ const GalleryChatModule = () => {
                 generic-tracked-controller-controls="hand: left" raycaster="far: 0; objects: .leftclickable;"
                 blink-controls="cameraRig: #player; teleportOrigin: #camera; button: trigger; curveShootingSpeed: 10; collisionEntities: .collision; landingMaxAngle: 10"
                 visible="true"></a-entity>
-              {/* Right Controller  */}
               <a-entity id="rightHand" class="rightController controllerOnly"
                 hand-controls="hand: right; handModelStyle: lowPoly; color: #15ACCF"
                 laser-controls="hand: right" vive-controls="hand: right" oculus-touch-controls="hand: right"
@@ -325,6 +356,10 @@ const GalleryChatModule = () => {
                 raycaster="showLine: true; far: 10; interval: 0; objects: .clickable, a-link;"
                 line="color: lawngreen; opacity: 0.5" visible="true"></a-entity>
             </a-entity>
+            <a-gltf-model shadow="cast: true; receive: true" model-info class="model" src="#gallery-gltf" position="0 0 0"
+              scale="1 1 1"></a-gltf-model>
+            <a-gltf-model id="navmesh" model-info class="model" src="#navmesh-gltf" visible="false">
+            </a-gltf-model>
 
             {/* lights  */}
             <a-entity position="-2.425 5 24.32" rotation="-90 0 0"
@@ -379,13 +414,10 @@ const GalleryChatModule = () => {
             </a-entity>
             <a-entity position="0 4 -26.5" rotation="-90 0 0"
               light="type: point; intensity:  0.5; distance: 20; decay: 0; color:  #FFFFFF; shadowCameraVisible: false;">
-
             </a-entity>
             <a-entity position="0 4 26.5" rotation="-90 0 0"
               light="type: point; intensity:  0.5; distance: 20; decay: 0; color:  #FFFFFF; shadowCameraVisible: false;">
-
             </a-entity>
-            {/* portals */}
             <a-image width="2.3" height="2.9" class="clickable nocollision" simple-link="href: ../hub/hub.html"
               src="#hub-img" position="6.35 1.6 0" rotation="0 -90 0" material=" shader: liquid-portal">
               <a-box color="white" width="2.5" position="0 -1.5 0" height="0.1" depth="0.1"></a-box>
@@ -538,11 +570,11 @@ const GalleryChatModule = () => {
           open={iniviteFriendModal}
           onClose={handleInviteFriendToggle}
         />
-      </div>
+      </div >
     );
   }
   return (
-    <div id="loading_screen">
+    <div id="loadingScreen">
       ...Load
     </div>
   )

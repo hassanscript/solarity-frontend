@@ -21,7 +21,7 @@ import {
   setRoomIndex
 } from "../../../redux/slices/chatSlice";
 
-const ProfileIndex: FC<InvitationPageProps> = ({ invitation, success }) => {
+const ProfileIndex: FC<InvitationPageProps> = ({ roomInfo, success }) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const { rooms } = useAppSelector(state => state.chat);
@@ -32,7 +32,7 @@ const ProfileIndex: FC<InvitationPageProps> = ({ invitation, success }) => {
       setJoinModalOpen(!joinModalOpen)
     }
   }
-  if (!success || invitation.state) return <NoInvitationView />;
+  if (!success || !roomInfo ) return <NoInvitationView />;
   useEffect(() => {
     // When a user click f5 key, it helps to forget a user's name.
     if (localStorage.getItem("name")) {
@@ -40,40 +40,40 @@ const ProfileIndex: FC<InvitationPageProps> = ({ invitation, success }) => {
     }
 
     // This part is main for socket.
-    if (!window.socket) {
+    if (!(window as any).socket) {
       return;
     }
-    if (!window.listen) {
-      window.socket.on(ACTIONS.ADD_PEER, (data: any) => {
+    if (!(window as any).listen) {
+      (window as any).socket.on(ACTIONS.ADD_PEER, (data: any) => {
         dispatch(addPeer(data));
       });
-      window.socket.on(ACTIONS.SEND_MSG, (data: any) => {
+      (window as any).socket.on(ACTIONS.SEND_MSG, (data: any) => {
         dispatch(addMsg(data));
       });
-      window.socket.on(ACTIONS.REMOVE_PEER, (data: any) => {
+      (window as any).socket.on(ACTIONS.REMOVE_PEER, (data: any) => {
         dispatch(removePeer(data));
       });
 
-      window.socket.on(ACTIONS.ROOM_LIST, (data: any) => {
+      (window as any).socket.on(ACTIONS.ROOM_LIST, (data: any) => {
         dispatch(setRooms(data.rooms));
       });
 
-      window.socket.on(ACTIONS.CREATE_ROOM, (data: any) => {
+      (window as any).socket.on(ACTIONS.CREATE_ROOM, (data: any) => {
         dispatch(setMsg(data.msgs));
       });
 
-      window.socket.on(ACTIONS.ROOM_READY, (data: any) => {
+      (window as any).socket.on(ACTIONS.ROOM_READY, (data: any) => {
         router.push(`experience/room?rid=${data.roomId}`);
       });
-      window.listen = true;
+      (window as any).listen = true;
     }
 
-    window.socket.emit(ACTIONS.ROOM_LIST, {});
+    (window as any).socket.emit(ACTIONS.ROOM_LIST, {});
   }, []);
 
   useEffect(() => {
     if(rooms && rooms.length != 0) {
-      const roomIndex = rooms.findIndex((s: any) => s.roomId == invitation.roomId);
+      const roomIndex = rooms.findIndex((s: any) => s.roomId == roomInfo.roomId);
       if(roomIndex != -1) {
         setSelectedRoomIndex(roomIndex);
         dispatch(setRoomIndex(roomIndex));
@@ -82,14 +82,14 @@ const ProfileIndex: FC<InvitationPageProps> = ({ invitation, success }) => {
   }, [rooms]);
 
   const deny = () => {
-    if (!!window.socket) {
-      window.socket.emit(ACTIONS.ACEEPT_INVITATION, {
-        roomId: invitation.roomId,
-        username: invitation.name,
-        guestname: '',
-        type: false,
-      });
-    }
+    // if (!!(window as any).socket) {
+    //   (window as any).socket.emit(ACTIONS.ACEEPT_INVITATION, {
+    //     roomId: roomInfo.roomId,
+    //     username: roomInfo.name,
+    //     guestname: '',
+    //     type: false,
+    //   });
+    // }
     router.push("/");
   };
 
@@ -102,7 +102,7 @@ const ProfileIndex: FC<InvitationPageProps> = ({ invitation, success }) => {
       <div className="flex justify-center mb-10">
         <p>
           Please join a room which was created by 
-          <span className="text-secondary"> @{(rooms && rooms.length != 0 && rooms[selectedRoomIndex] != undefined) ? rooms[selectedRoomIndex].name : ""}</span>
+          <span className="text-secondary uppercase"> @{(rooms && rooms.length != 0 && rooms[selectedRoomIndex] != undefined) ? rooms[selectedRoomIndex].name : ""}</span>
         </p>
       </div>
       <div className="md:flex md:justify-center w-full">
@@ -112,11 +112,11 @@ const ProfileIndex: FC<InvitationPageProps> = ({ invitation, success }) => {
       <JoinRoomModal 
         open={joinModalOpen} 
         onClose={handleJoinModalToggle} 
-        roomName={invitation.roomName}
-        type={invitation.type}
-        roomNo={invitation.roomNo}
+        roomName={roomInfo.roomName}
+        type={roomInfo.type}
+        roomNo={roomInfo.roomNo}
         creator={(rooms && rooms.length != 0 && rooms[selectedRoomIndex] != undefined) ? rooms[selectedRoomIndex].name : ""}
-        person={invitation.name}
+        person={roomInfo.name}
         speakers={(rooms && rooms.length != 0 && rooms[selectedRoomIndex] != undefined) ? rooms[selectedRoomIndex].speakers : []}
       />
     </div>

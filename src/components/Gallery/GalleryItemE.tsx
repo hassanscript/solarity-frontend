@@ -29,6 +29,18 @@ const GalleryItemComponent: FC<GalleryItemEProps> = ({
   }));
 
   const handleCreateModalToggle = () => {
+    if(!profileData.username) {
+      toast.warning('Please login to continue a game', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return;
+    }
     setCreateModalOpen(!createModalOpen);
   };
 

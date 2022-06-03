@@ -6,7 +6,7 @@ const  ErrorMessage: FC<any> = ({
     errorMessage: String;
 }) => {
     return (
-        <div className="alert alert-error shadow-lg w-full">
+        <div className="alert alert-error shadow-lg w-full mt-2">
             <span>{errorMessage}</span>
         </div>
     );

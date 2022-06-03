@@ -13,6 +13,7 @@ const initialState = {
   nfts: [],
   nftsLoaded: false,
   activeRoomId: "",
+  activeRoomNo: -1
 };
 
 export const setup = createAsyncThunk(
@@ -76,6 +77,44 @@ export const addInfo = createAsyncThunk(
   }
 );
 
+export const getRewardAction = createAsyncThunk(
+  "profile/placeBid",
+  async ({
+    data,
+    successFunction,
+    errorFunction,
+    finalFunction,
+  }: {
+    data: any;
+    successFunction: () => void;
+    errorFunction: (error: string) => void;
+    finalFunction: () => void;
+  }) => {
+    let returnValue = null;
+    const {
+      signed,
+      connection,
+      setShowWallets,
+    } = data;
+    try {
+
+      try {
+        await connection.sendRawTransaction(signed.serialize())
+      } catch (error: any) {alert()
+        errorFunction(error.message);
+        return;
+      }
+      successFunction();
+    } catch (err) {
+      errorFunction(getErrorMessage(err));
+      returnValue = false;
+    }
+    setShowWallets(false);
+    finalFunction();
+    return returnValue;
+  }
+);
+
 export const placeBid = createAsyncThunk(
   "profile/placeBid",
   async ({
@@ -94,8 +133,8 @@ export const placeBid = createAsyncThunk(
       const {
         selectedAsset,
         selectedIndex,
-        signed,
-        connection,
+        // signed,
+        // connection,
       } = data;
 
       const {
@@ -109,12 +148,12 @@ export const placeBid = createAsyncThunk(
         errorFunction("This room is already available.");
         return;
       }
-      try {
-        await connection.sendRawTransaction(signed.serialize())
-      } catch (error: any) {
-        errorFunction(error.message);
-        return;
-      }
+      // try {
+      //   await connection.sendRawTransaction(signed.serialize())
+      // } catch (error: any) {
+      //   errorFunction(error.message);
+      //   return;
+      // }
 
       const {
         data: { profile },
@@ -326,8 +365,9 @@ export const profileSlice = createSlice({
       });
     },
     loadNFTs() {},
-    setActiveRoomNo(state, action: PayloadAction<any>) {
-      state.activeRoomId = action.payload;
+    setActiveRoomNo(state: any, action: PayloadAction<any>) {
+      state.activeRoomId = action.payload.activeRoomId;
+      state.activeRoomNo = action.payload.activeRoomNo;
     },
   },
   extraReducers: (builder) => {

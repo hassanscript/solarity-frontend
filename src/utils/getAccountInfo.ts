@@ -13,7 +13,7 @@ export async function getAccountInfo(
     commitment?: Commitment,
     programId = TOKEN_PROGRAM_ID
 ) {
-    const info = await connection.getAccountInfo(address, commitment)
+    const info = await connection.getAccountInfo(address, commitment);
     if (!info) throw new Error('TokenAccountNotFoundError')
     if (!info.owner.equals(programId)) throw new Error('TokenInvalidAccountOwnerError')
     if (info.data.length != AccountLayout.span) throw new Error('TokenInvalidAccountSizeError')
