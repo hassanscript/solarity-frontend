@@ -21,7 +21,7 @@ const index = ({
         <div className="col-span-5 flex items-center gap-12">
           <span className="flex mt-2 ml-4 text-xs font-semibold text-white">
             {!!speakers && speakers.map((speaker, index) => {
-              if(index < 15) {
+              if(index < 10) {
                 return (
                   <div
                     className="-ml-4"

@@ -13,16 +13,16 @@ export const MENU_LINKS = (username: string) => [
     link: `/${username}/art`,
     exact: true,
   },
-  {
-    title: "Pay Roll",
-    link: `/${username}/payout`,
-    exact: true,
-  },
-  {
-    title: "Staking",
-    link: `/${username}/group`,
-    exact: true,
-  },
+  // {
+  //   title: "Pay Roll",
+  //   link: `/${username}/payout`,
+  //   exact: true,
+  // },
+  // {
+  //   title: "Staking",
+  //   link: `/${username}/group`,
+  //   exact: true,
+  // },
   {
     title: "Assets",
     link: `/${username}/assets`,

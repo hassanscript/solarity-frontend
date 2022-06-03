@@ -30,7 +30,7 @@ export async function getOrCreateAssociatedTokenAccount(
     try {
         account = await getAccountInfo(connection, associatedToken, commitment, programId);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {console.log(error);return;
+    } catch (error: any) {
         // TokenAccountNotFoundError can be possible if the associated address has already received some lamports,
         // becoming a system account. Assuming program derived addressing is safe, this is the only case for the
         // TokenInvalidAccountOwnerError in this code path.
@@ -68,8 +68,8 @@ export async function getOrCreateAssociatedTokenAccount(
         }
     }
     
-    if (!account.mint.toBuffer().equals(mint.toBuffer())) throw Error('TokenInvalidMintError')
-    if (!account.owner.toBuffer().equals(owner.toBuffer())) throw new Error('TokenInvalidOwnerError')
+    // if (!!account.mint && !account.mint.toBuffer().equals(mint.toBuffer())) throw Error('TokenInvalidMintError')
+    // if (!!!account.owner && !account.owner.toBuffer().equals(owner.toBuffer())) throw new Error('TokenInvalidOwnerError')
 
     return account
 }

@@ -10,7 +10,7 @@ import { HERO_DATA } from "data/marketplace";
 const Index = () => {
   return (
     <Layout
-      rightSidebar={<RightSidebar />}
+      // rightSidebar={<RightSidebar />}
       heroContent={<SelectedAsset />}
     >
       <MarketPlace />

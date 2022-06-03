@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useAppSelector } from "redux/hooks";
-import { start_loading_screen_listeners, build_loading_screen } from "modules/ChatModule/loading_screen";
-import {choose_controls, pass_controls} from 'modules/ChatModule/utils'
+import { build_loadingScreen } from "modules/ChatModule/loadingScreen";
+import {chooseControls, passControls} from 'modules/ChatModule/utils'
 import styles from 'modules/ChatModule/chat.module.css';
 import freeObjectFromMemory from "utils/clearObject";
 
@@ -96,12 +96,11 @@ export default function AframeComp2({user, permitionFlag}) {
   useEffect(() => {
     var clearHandle = setInterval(() => {
       var sceneEl = document.querySelector('a-scene');
-      var loading_screenEl = document.getElementById('loading_screen');
-      var loading_textEl = document.getElementById('loading_text');
-      var loading_barEl = document.getElementById('loading_bar');
-      if(sceneEl && loading_textEl  && loading_barEl  &&  loading_screenEl) {
-        build_loading_screen();
-        start_loading_screen_listeners();
+      var loadingScreenEl = document.getElementById('loadingScreen');
+      var loadingTextEl = document.getElementById('loadingText');
+      var loadingBarEl = document.getElementById('loadingBar');
+      if(sceneEl && loadingTextEl  && loadingBarEl  &&  loadingScreenEl) {
+        build_loadingScreen();
         sceneEl.addEventListener('loaded', start_scene);
         clearInterval(clearHandle);
       }
@@ -110,8 +109,8 @@ export default function AframeComp2({user, permitionFlag}) {
 
   const start_scene = () => {
     // setGifIntervalId(start_screens())
-    choose_controls();
-    pass_controls();
+    chooseControls();
+    passControls();
   }
 
   if((user.rooms && user.rooms.length != 0) || permitionFlag) {
@@ -119,10 +118,10 @@ export default function AframeComp2({user, permitionFlag}) {
       if (mounted) {
         return (
           <>
-            <div id="loading_screen" className={styles.loading_screen_profile}>
-                <div id="loading_text" className={styles.loading_text}>
+            <div id="loadingScreen" className={styles.loadingScreen_profile}>
+                <div id="loadingText" className={styles.loadingText}>
                 </div>
-                <div id="loading_bar" className={styles.loading_bar_profile}>
+                <div id="loadingBar" className={styles.loadingBar_profile}>
                 </div>
                 <div id="loading_label" className={styles.loading_label}>
                     POWERED BY SOLARITY
@@ -137,7 +136,7 @@ export default function AframeComp2({user, permitionFlag}) {
               physicallyCorrectLights: true;
               maxCanvasWidth: 1920;
               maxCanvasHeight: 1920;" 
-              id="scene_wrapper" 
+              id="sceneWrapper" 
               style={{opacity: 0, position: "absolute", top: "0px", zIndex: 0}}
             >
                   <a-assets timeout="100000">

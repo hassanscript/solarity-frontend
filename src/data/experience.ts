@@ -21,10 +21,10 @@ export const BIG_ROOM: BigRoomType = {
 export const models: any[] = [
   {
     imageUrl: "/images/placeholder/marketplace/gallery/SolGods.jpg",
-    modelUrl: "/resource/models/remy.glb",
+    modelUrl: "/resource/models/avatar1.glb",
     name: 'SolGods',
-    position: "0 2 -20",
-    rotation: "0 0 0",
+    position: "0 0 -10",
+    rotation: "-10 0 0",
     scale: "5 5 5",
   }
 ]

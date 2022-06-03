@@ -5,6 +5,7 @@ import AframeComp2 from "components/AframeComp2";
 import AframeComp6 from "components/AframeComp6";
 import Link from "next/link";
 import { User } from "modules/User/Hero";
+import LockedRoom from "components/Banner/LockedRoom";
 import BaseUrl from "config";
 export interface BannerProps {
   vrprofile: {
@@ -48,21 +49,20 @@ const Banner: FC<BannerProps> = ({ vrprofile, user, vrdao, smallImage }) => {
         <div className="relative -mt-5 h-[400px] w-full rounded-2xl">
           {/* <AframeComp2 user={user} permitionFlag={false}/> */}
           {user.rooms && user.rooms.length != 0 && permition == false ? (
+            
             <iframe
-              className="mb-2"
+              className="mb-2 w-full"
               title="banner"
-              width={1000}
               height={400}
-              src={BaseUrl + "super/room/" + room._id}
+              src={BaseUrl + "super/room" + room.roomNo + "/" + room._id}
             />
+
           ) : (
-            <div className="pt-20 text-center">
-              {
-                "You don't have any active room. Buy a room in marketplace page and active a room in assets menu please."
-              }
+            <div className="w-full h-[400px] rounded-2xl relative" style={{background: "rgba(255, 255, 255, 0.2)"}}>
+              <LockedRoom />
             </div>
           )}
-          {vrprofile.price && (
+          {/* {vrprofile.price && (
             <Link
               href={
                 "https://solarityvr.github.io/money-boy-hub/room/room.html?controls=mouse"
@@ -72,7 +72,7 @@ const Banner: FC<BannerProps> = ({ vrprofile, user, vrdao, smallImage }) => {
                 Play
               </button>
             </Link>
-          )}
+          )} */}
         </div>
       )}
       {vrdao && (

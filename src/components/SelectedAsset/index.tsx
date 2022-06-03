@@ -38,12 +38,11 @@ const SelectedAsset: FC<HeroProps> = ({}) => {
   const [loading, setLoading] = useState<Boolean>(false);
   const [showWallets, setShowWallets] = useState(false);
   const profile = useSelector((state: RootStateOrAny) => state.profile.data);
-  const solanaAddress = profile && profile.solanaAddress;
 
   const { selectedTagIndex, selectedIndex, assets } = useAppSelector(
     (state) => state.marketplace
   );
-  const connection = new Connection(clusterApiUrl("testnet"));
+  const connection = new Connection(clusterApiUrl("mainnet-beta"));
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -58,52 +57,52 @@ const SelectedAsset: FC<HeroProps> = ({}) => {
     const { publicKey, signTransaction } = provider;
     // spl-token payment for buying room.
     try {
-      if(!process.env.WEBSITE_SOLANA_WALLET_ADDRESS || !process.env.SOLARITY_TOKEN_ADDRESS) {
+      console.log(process.env.NEXT_PUBLIC_WEBSITE_SOLANA_WALLET_ADDRESS, process.env.NEXT_PUBLIC_SOLARITY_TOKEN_ADDRESS);
+      if(!process.env.NEXT_PUBLIC_WEBSITE_SOLANA_WALLET_ADDRESS || !process.env.NEXT_PUBLIC_SOLARITY_TOKEN_ADDRESS) {
         return console.error('website solana wallet address or solarity_token_address is not set in environment.');
       }
-      const toPublicKey = new PublicKey(process.env.WEBSITE_SOLANA_WALLET_ADDRESS)
-      const mint = new PublicKey(process.env.SOLARITY_TOKEN_ADDRESS)
-      const fromTokenAccount = await getOrCreateAssociatedTokenAccount(
-        connection,
-        publicKey,
-        mint,
-        publicKey,
-        signTransaction
-      );
-      console.log("end");return;
-      const toTokenAccount = await getOrCreateAssociatedTokenAccount(
-        connection,
-        publicKey,
-        mint,
-        toPublicKey,
-        signTransaction
-      );
+      const toPublicKey = new PublicKey(process.env.NEXT_PUBLIC_WEBSITE_SOLANA_WALLET_ADDRESS)
+      const mint = new PublicKey(process.env.NEXT_PUBLIC_SOLARITY_TOKEN_ADDRESS)
+      // const fromTokenAccount = await getOrCreateAssociatedTokenAccount(
+      //   connection,
+      //   publicKey,
+      //   mint,
+      //   publicKey,
+      //   signTransaction
+      // );
+      // const toTokenAccount = await getOrCreateAssociatedTokenAccount(
+      //   connection,
+      //   publicKey,
+      //   mint,
+      //   toPublicKey,
+      //   signTransaction
+      // );
       if(!selectedAsset) {
         console.error('selectedAsset is not defined.');
         return;
       }
-      const transaction1 = new Transaction().add(
-          createTransferInstruction(
-              fromTokenAccount.address, // source
-              toTokenAccount.address, // dest
-              publicKey,
-              selectedAsset.currentBid * LAMPORTS_PER_SOL,
-              [],
-              TOKEN_PROGRAM_ID
-          )
-      )
-      const blockHash = await connection.getRecentBlockhash()
-      transaction1.feePayer = await publicKey
-      transaction1.recentBlockhash = await blockHash.blockhash
-      const signed = await signTransaction(transaction1)
+      // const transaction1 = new Transaction().add(
+      //     createTransferInstruction(
+      //         fromTokenAccount.address, // source
+      //         toTokenAccount.address, // dest
+      //         publicKey,
+      //         selectedAsset.currentBid * LAMPORTS_PER_SOL,
+      //         [],
+      //         TOKEN_PROGRAM_ID
+      //     )
+      // )
+      // const blockHash = await connection.getRecentBlockhash()
+      // transaction1.feePayer = await publicKey
+      // transaction1.recentBlockhash = await blockHash.blockhash
+      // const signed = await signTransaction(transaction1);
       setLoadingButton(true);
       dispatch(
         placeBid({
           data: {
             selectedAsset,
             selectedIndex,
-            signed,
-            connection,
+            // signed,
+            // connection,
           },
           successFunction: () => {
             toast.success(
@@ -120,8 +119,10 @@ const SelectedAsset: FC<HeroProps> = ({}) => {
             );
             setError(false);
             setLoadingButton(false);
+            setShowWallets(false);
           },
           errorFunction: (err) => {
+            setShowWallets(false);
             setError(true);
             if (!!err) {
               setErrorMessage(err);
@@ -129,6 +130,7 @@ const SelectedAsset: FC<HeroProps> = ({}) => {
             setLoadingButton(false);
           },
           finalFunction: () => {
+            setShowWallets(false);
             setLoading(false);
             setLoadingButton(false);
           },
@@ -217,14 +219,25 @@ const SelectedAsset: FC<HeroProps> = ({}) => {
       <div className="relative w-full h-[314px] rounded-2xl -mt-5">
         {selectedIndex == 0 ? (
           <iframe 
-          src={BaseUrl + "frames/ownroom1"}
-          width={1032}
-          height={314}
-        ></iframe>
+            src={BaseUrl + "/frames/ownroom0"}
+            width={1032}
+            height={314}
+          ></iframe>
         // <AframeComp2 user={{ rooms: [] }} permitionFlag={true} />
-        ) : (
-          <AframeComp1 />
-        )}
+        ) : selectedIndex == 1 ? (
+          <iframe 
+            src={BaseUrl + "/frames/ownroom1"}
+            width={1032}
+            height={314}
+          ></iframe>
+          ): (
+            <iframe 
+              src={BaseUrl + "/frames/ownroom2"}
+              width={1032}
+              height={314}
+            ></iframe>
+          )
+        }
       </div>
       {selectedAsset && (
         <div className="flex justify-between my-6">
@@ -232,9 +245,9 @@ const SelectedAsset: FC<HeroProps> = ({}) => {
             <span className="text-[15px] text-secondary">
               {selectedAsset.title}
             </span>
-            <span className="mt-3 text-sm text-gray-950">
+            {/* <span className="mt-3 text-sm text-gray-950">
               {selectedAsset.description}
-            </span>
+            </span> */}
             <span>
               <div className="flex">
                 <div className="mt-[7px]">
@@ -246,12 +259,12 @@ const SelectedAsset: FC<HeroProps> = ({}) => {
               </div>
               <div className="flex mt-1">
                 <span className="text-xs text-gray-950 mt-1">
-                  Current bid:&nbsp;&nbsp;&nbsp;
+                  Price:&nbsp;&nbsp;&nbsp;
                 </span>
                 <div className="flex">
                   <div className="h-[16px] w-[16px]">
                     <Image
-                      src="/images/icons/sol.png"
+                      src="/images/icons/verse-token.png"
                       alt="sol-icon"
                       height={16}
                       width={16}
@@ -263,14 +276,14 @@ const SelectedAsset: FC<HeroProps> = ({}) => {
                   </span>
                 </div>
               </div>
-              <div className="flex mt-2">
+              {/* <div className="flex mt-2">
                 <span className="text-xs text-gray-950">
                   Ending in:&nbsp;&nbsp;
                 </span>
                 <span className="text-xs text-white">
                   {selectedAsset.endingIn}
                 </span>
-              </div>
+              </div> */}
               {error && <ErrorMessage errorMessage={errorMessage} />}
             </span>
           </div>

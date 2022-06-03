@@ -1,7 +1,8 @@
 import { Button, Stack } from "components/FormComponents";
 import React, { useState } from "react";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
-import AframeEditRoom from "components/AframeEditRoom";
+import FirstEditRoom from "components/EditRoom/FirstEditRoom";
+import SecondEditRoom from "components/EditRoom/SecondEditRoom";
 import { getNfts } from "hooks";
 import { NftCardSelect } from "modules/User/NftCardSelect";
 import { updateNftCard } from "redux/slices/profileSlice";
@@ -9,8 +10,10 @@ import { useRouter } from "next/router";
 
 const SelectDisplayNftView = () => {
   const dispatch = useDispatch();
-  const { profileData } = useSelector((state: RootStateOrAny) => ({
+  const { profileData, activeRoomId, activeRoomNo } = useSelector((state: RootStateOrAny) => ({
     profileData: state.profile.data,
+    activeRoomId: state.profile.activeRoomId,
+    activeRoomNo: state.profile.activeRoomNo,
   }));
   const [nfts, nftLoading, nftError] = getNfts(
     profileData.username,
@@ -70,6 +73,30 @@ const SelectDisplayNftView = () => {
   const toAssets = () => {
     router.push(`/${profileData.username}/assets`);
   };
+  let editRoomData;
+  if(activeRoomNo == 0) {
+    editRoomData = (
+      <FirstEditRoom
+        chooseFlag={chooseFlag}
+        setChooseFlag={setChooseFlag}
+        picNo={picNo}
+        setPicNo={setPicNo}
+        setRoom_id={setRoom_id}
+        imageUrl={imageUrl}
+      />
+    );
+  } else if (activeRoomNo == 1) {
+    editRoomData = (<SecondEditRoom
+      chooseFlag={chooseFlag}
+      setChooseFlag={setChooseFlag}
+      picNo={picNo}
+      setPicNo={setPicNo}
+      setRoom_id={setRoom_id}
+      imageUrl={imageUrl}
+    />)
+  } else {
+
+  }
 
   return (
     <div>
@@ -77,6 +104,7 @@ const SelectDisplayNftView = () => {
         Select NFTs to Display in Room.
       </span>
       <Stack spacing={3}>
+<<<<<<< HEAD
         <div className="relative mt-4 h-[250px] w-full rounded-2xl">
           <AframeEditRoom
             chooseFlag={chooseFlag}
@@ -86,6 +114,10 @@ const SelectDisplayNftView = () => {
             setRoom_id={setRoom_id}
             imageUrl={imageUrl}
           />
+=======
+        <div className="relative w-full h-[250px] rounded-2xl mt-4">
+          {editRoomData}
+>>>>>>> 39c8168a94ae37642485de340254b5ce0d2851e5
         </div>
         <div className="p-2">
           <div className="flex h-[110px] flex-wrap items-center overflow-x-auto rounded-xl border border-brandblack scrollbar-thin scrollbar-thumb-black scrollbar-track-white">

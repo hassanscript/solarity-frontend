@@ -1,9 +1,9 @@
-import AframeComp2 from "components/AframeComp2";
+import OwnRoomSecond from "components/OwnRooms/own1";
 
 const Index = () => {
   return (
     <div className="h-[100vh]">
-      <AframeComp2 user={{ rooms: [] }} permitionFlag={true}/>
+      <OwnRoomSecond user={{ rooms: [] }} permitionFlag={true}/>
     </div>
   );
 }
