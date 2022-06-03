@@ -1,4 +1,5 @@
 import React, { FC, useState, useEffect } from "react";
+import Image from "next/image";
 import { toast } from 'react-toastify';
 import RoomScene from 'components/BigRoom/RoomScene';
 import LiveRooms from "components/LiveRooms";
@@ -18,7 +19,7 @@ const BigRoom: FC<BigRoomType> = ({ scene, content }) => {
     selectedRoom = rooms[selectedIndex];
     console.log(selectedRoom);
   }
-
+  
   const handleJoinModalToggle = () => {
     if(selectedIndex != -1){
       setJoinModalOpen(!joinModalOpen)
@@ -55,13 +56,23 @@ const BigRoom: FC<BigRoomType> = ({ scene, content }) => {
             <div className="flex flex-col max-w-4xl ">
               <span className="text-[15px] text-secondary">{selectedRoom.roomName}</span>
               <span className="mt-3 text-sm text-gray-950">
-                {selectedRoom.roomName}
+                creator: {selectedRoom.name}
               </span>
             </div>
             <div>
-              <div>
+              <div className="flex ml-4">
                 {!!selectedRoom.speakers && selectedRoom.speakers.map((speaker: string, index: any) => (
-                  <img key={index} src="/images/icons/sol.png" alt={speaker} width="25" height="25" />
+                  <div
+                    className="-ml-4"
+                    key={index}
+                  >
+                    <Image
+                      src="/images/icons/sol.png"
+                      alt={speaker}
+                      height={32}
+                      width={32}
+                    />
+                  </div>
                 ))}
               </div>
               { !!selectedRoom.roomName ? (

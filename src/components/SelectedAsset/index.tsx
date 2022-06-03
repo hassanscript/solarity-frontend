@@ -219,20 +219,20 @@ const SelectedAsset: FC<HeroProps> = ({}) => {
       <div className="relative w-full h-[314px] rounded-2xl -mt-5">
         {selectedIndex == 0 ? (
           <iframe 
-            src={BaseUrl + "frames/ownroom0"}
+            src={BaseUrl + "/frames/ownroom0"}
             width={1032}
             height={314}
           ></iframe>
         // <AframeComp2 user={{ rooms: [] }} permitionFlag={true} />
         ) : selectedIndex == 1 ? (
           <iframe 
-            src={BaseUrl + "frames/ownroom1"}
+            src={BaseUrl + "/frames/ownroom1"}
             width={1032}
             height={314}
           ></iframe>
           ): (
             <iframe 
-              src={BaseUrl + "frames/ownroom2"}
+              src={BaseUrl + "/frames/ownroom2"}
               width={1032}
               height={314}
             ></iframe>
