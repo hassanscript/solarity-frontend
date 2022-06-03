@@ -122,8 +122,8 @@ export default function SecondEditRoom({
       var frame_imageEL = document.createElement("a-image");
       frameEl.appendChild(frame_imageEL);
       frame_imageEL.setAttribute("src", imageUrl);
-      frame_imageEL.setAttribute("width", 1.1);
-      frame_imageEL.setAttribute("height", 1.1);
+      frame_imageEL.setAttribute("width", .880);
+      frame_imageEL.setAttribute("height", 1.370);
       frame_imageEL.setAttribute("position", { x: 0, y: 0, z: 0.01 });
       setChooseFlag(false);
       setPicNo("0");
@@ -152,6 +152,7 @@ export default function SecondEditRoom({
 
   if (permition) {
     if (mounted) {
+      console.log(roomlist)
       return (
         <>
           <div id="loading_screen" className={styles.loading_screen_profile}>
