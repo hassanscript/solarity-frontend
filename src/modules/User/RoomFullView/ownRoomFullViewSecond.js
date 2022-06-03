@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { build_loading_screen } from "modules/ChatModule/loading_screen";
+import { build_loadingScreen } from "modules/ChatModule/loadingScreen";
 import {chooseControls, passControls} from 'modules/ChatModule/utils'
 import styles from 'modules/ChatModule/chat.module.css';
 import { useRouter } from "next/router";
@@ -53,11 +53,11 @@ export default function RoomFullView({user}) {
   useEffect(() => {
     var clearHandle = setInterval(() => {
       var sceneEl = document.querySelector('a-scene');
-      var loading_screenEl = document.getElementById('loading_screen');
-      var loading_textEl = document.getElementById('loading_text');
-      var loading_barEl = document.getElementById('loading_bar');
-      if(sceneEl && loading_textEl  && loading_barEl  &&  loading_screenEl) {
-        build_loading_screen();
+      var loadingScreenEl = document.getElementById('loadingScreen');
+      var loadingTextEl = document.getElementById('loadingText');
+      var loadingBarEl = document.getElementById('loadingBar');
+      if(sceneEl && loadingTextEl  && loadingBarEl  &&  loadingScreenEl) {
+        build_loadingScreen();
         sceneEl.addEventListener('loaded', start_scene);
         clearInterval(clearHandle);
       }
@@ -73,10 +73,10 @@ export default function RoomFullView({user}) {
   if (mounted) {
     return (
         <div className="h-[100vh]">
-          <div id="loading_screen" className={styles.loading_screen_profile}>
-            <div id="loading_text" className={styles.loading_text}>
+          <div id="loadingScreen" className={styles.loadingScreen_profile}>
+            <div id="loadingText" className={styles.loadingText}>
             </div>
-            <div id="loading_bar" className={styles.loading_bar_profile}>
+            <div id="loadingBar" className={styles.loadingBar_profile}>
             </div>
             <div id="loading_label" className={styles.loading_label}>
                 POWERED BY SOLARITY
@@ -91,7 +91,7 @@ export default function RoomFullView({user}) {
             physicallyCorrectLights: true;
             maxCanvasWidth: 1920;
             maxCanvasHeight: 1920;" 
-            id="scene_wrapper" 
+            id="sceneWrapper" 
             style={{opacity: 0, position: "absolute", top: "0px", zIndex: 0}}
         >
             <a-assets timeout="100000">

@@ -1,4 +1,4 @@
-import { update_loading_screen } from './loading_screen'
+import { update_loadingScreen } from './loadingScreen'
 
 //a link cmponent to make aframe elements linkable in another page
 AFRAME.registerComponent('simple-link', {
@@ -223,6 +223,6 @@ AFRAME.registerComponent('simple-navmesh-constraint', {
 AFRAME.registerComponent("model-info", {
     init: function () {
         let el = this.el;
-        el.addEventListener('model-loaded', update_loading_screen);
+        el.addEventListener('model-loaded', update_loadingScreen);
     }
 })

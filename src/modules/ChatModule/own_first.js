@@ -8,7 +8,7 @@ import { useWebTRTC } from '../../utils/useWebTRTC';
 import { setMsg, setPeers } from '../../redux/slices/chatSlice';
 import ACTIONS from '../../config/actions';
 import styles from './chat.module.css';
-import { build_loading_screen} from './loading_screen'
+import { build_loadingScreen} from './loadingScreen'
 // import {start_screens} from './screens'
 import {chooseControls, passControls} from './utils'
 import { Chat, Join, Minus, UserPlus, Users } from 'components/Icons';
@@ -171,11 +171,11 @@ const OwnChatModule = () => {
 useEffect(() => {
   var clearLoading = setInterval(() => {
     var sceneEl = document.querySelector('a-scene');
-    var loading_screenEl = document.getElementById('loading_screen');
-    var loading_textEl = document.getElementById('loading_text');
-    var loading_barEl = document.getElementById('loading_bar');
-    if(sceneEl && loading_textEl  && loading_barEl  &&  loading_screenEl) {
-        build_loading_screen();
+    var loadingScreenEl = document.getElementById('loadingScreen');
+    var loadingTextEl = document.getElementById('loadingText');
+    var loadingBarEl = document.getElementById('loadingBar');
+    if(sceneEl && loadingTextEl  && loadingBarEl  &&  loadingScreenEl) {
+        build_loadingScreen();
         sceneEl.addEventListener('loaded', start_scene);
         clearInterval(clearLoading);
     }
@@ -305,17 +305,17 @@ useEffect(() => {
           <video className={styles.background_video} id="background_video" autoPlay loop muted>
               <source src="/assets/video/loading_video.mp4" type="video/mp4"/>
           </video>
-          <div id="loading_screen" className={styles.loading_screen}>
-              <div id="loading_text" className={styles.loading_text}>
+          <div id="loadingScreen" className={styles.loadingScreen}>
+              <div id="loadingText" className={styles.loadingText}>
               </div>
-              <div id="loading_bar" className={styles.loading_bar}>
+              <div id="loadingBar" className={styles.loadingBar}>
               </div>
               <div id="loading_label" className={styles.loading_label}>
                   POWERED BY SOLARITY
                   <img id="loading_logo" className={styles.loading_logo} src="/assets/images/loading_logo.png" alt="loadig_logo"/>
               </div>
           </div>
-          <div id="scene_wrapper" style={{opacity: "0"}}>
+          <div id="sceneWrapper" style={{opacity: "0"}}>
               
           <div className='fixed top-[5vh] left-[30px] cursor-pointer' onClick={() => handelManualLeave()}>
               <div className='flex rounded-lg bg-brandblack px-4 py-2'>
@@ -462,7 +462,7 @@ useEffect(() => {
     );
   }
   return (
-    <div id="loading_screen">
+    <div id="loadingScreen">
         ...Load
     </div>
   )

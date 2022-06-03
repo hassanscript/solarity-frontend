@@ -17,7 +17,7 @@
     bottom: 0;
 }
 
-.loading_screen_profile {
+.loadingScreen_profile {
     padding-top: 30%;
     height: 100%;
     width: 100%;
@@ -29,7 +29,7 @@
     z-index: 1;
 }
 
-.loading_screen {
+.loadingScreen {
     padding-top: 30%;
     height: 100%;
     width: 100%;
@@ -40,7 +40,7 @@
     position: fixed;
 }
 
-.loading_text {
+.loadingText {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -53,7 +53,7 @@
     text-shadow: 0px 0px 20px #AA88FF;
 }
 
-.loading_bar {
+.loadingBar {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -66,7 +66,7 @@
     box-shadow: 0px 0px 20px #AA88FF;
 }
 
-.loading_bar_profile {
+.loadingBar_profile {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -79,7 +79,7 @@
     border: 1px solid white;
 }
 
-.loading_bar .stacking_item {
+.loadingBar .stacking_item {
     display: inline-block;
     height: 14px;
     background-color: #AA88FF;
@@ -89,7 +89,7 @@
     opacity: 0.6;
 }
 
-.loading_bar .moving_item {
+.loadingBar .moving_item {
     position: absolute;
     display: flexbox;
     height: 14px;
@@ -178,7 +178,7 @@
         transform: translate(50%, -50%);
     }
 
-    .loading_screen {
+    .loadingScreen {
         padding-top: 80%;
     }
     .background-video {

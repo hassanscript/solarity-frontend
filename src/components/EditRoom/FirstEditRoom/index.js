@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
 import { RootStateOrAny, useSelector } from "react-redux";
-import { build_loading_screen } from "modules/ChatModule/loading_screen";
+import { build_loadingScreen } from "modules/ChatModule/loadingScreen";
 import {chooseControls, passControls} from 'modules/ChatModule/utils'
 import styles from 'modules/ChatModule/chat.module.css';
 
@@ -129,11 +129,11 @@ export default function FirstEditRoom({
   useEffect(() => {
     var clearHandle = setInterval(() => {
       var sceneEl = document.querySelector('a-scene');
-      var loading_screenEl = document.getElementById('loading_screen');
-      var loading_textEl = document.getElementById('loading_text');
-      var loading_barEl = document.getElementById('loading_bar');
-      if(sceneEl && loading_textEl  && loading_barEl  &&  loading_screenEl) {
-        build_loading_screen();
+      var loadingScreenEl = document.getElementById('loadingScreen');
+      var loadingTextEl = document.getElementById('loadingText');
+      var loadingBarEl = document.getElementById('loadingBar');
+      if(sceneEl && loadingTextEl  && loadingBarEl  &&  loadingScreenEl) {
+        build_loadingScreen();
         sceneEl.addEventListener('loaded', start_scene);
         clearInterval(clearHandle);
       }
@@ -150,10 +150,10 @@ export default function FirstEditRoom({
     if (mounted) {
       return (
         <>
-          <div id="loading_screen" className={styles.loading_screen_profile}>
-              <div id="loading_text" className={styles.loading_text}>
+          <div id="loadingScreen" className={styles.loadingScreen_profile}>
+              <div id="loadingText" className={styles.loadingText}>
               </div>
-              <div id="loading_bar" className={styles.loading_bar_profile}>
+              <div id="loadingBar" className={styles.loadingBar_profile}>
               </div>
               <div id="loading_label" className={styles.loading_label}>
                   POWERED BY SOLARITY
@@ -168,7 +168,7 @@ export default function FirstEditRoom({
               physicallyCorrectLights: true;
               maxCanvasWidth: 1920;
               maxCanvasHeight: 1920;" 
-              id="scene_wrapper" 
+              id="sceneWrapper" 
               style={{opacity: 0}}
               loading-screen="enabled:false" 
             >
