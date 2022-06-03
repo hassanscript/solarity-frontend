@@ -364,8 +364,9 @@ export const profileSlice = createSlice({
       });
     },
     loadNFTs() {},
-    setActiveRoomNo(state, action: PayloadAction<any>) {
-      state.activeRoomId = action.payload;
+    setActiveRoomNo(state: any, action: PayloadAction<any>) {
+      state.activeRoomId = action.payload.activeRoomId;
+      state.activeRoomNo = action.payload.activeRoomNo;
     },
   },
   extraReducers: (builder) => {

@@ -46,24 +46,28 @@ const OwnSecondChatModule = () => {
 
   const assets = [
     {
-      pos: "-2.25 1.65 -2.93",
-      rot: "0 0 0",
-    },
-    {
-      pos: "-2.97 1.84 -1.7",
+      pos: "-4.85 1.876 1.726",
       rot: "0 90 0",
     },
     {
-      pos: "-2.97 2.15 0.49",
+      pos: "-4.85 1.876 0.088",
       rot: "0 90 0",
     },
     {
-      pos: "-2.97 2.15 1.92",
+      pos: "-4.85 1.876 -1.587",
       rot: "0 90 0",
     },
     {
-      pos: "2.97 2.33 2.15",
-      rot: "180 90 180",
+      pos: "4.753 1.889 -1.560",
+      rot: "0 -90 0",
+    },
+    {
+      pos: "4.753 1.889 0.079",
+      rot: "0 -90 0",
+    },
+    {
+      pos: "4.753 1.889 1.730",
+      rot: "0 -90 0",
     },
   ];
   
@@ -397,38 +401,13 @@ useEffect(() => {
                 </a-gltf-model>
 
                 {/* frames */}
-
-                {/*1 */}
-                <a-plane class="frame" position="-4.85 1.876 1.726" width=".880" height="1.370" rotation="0 90 0" material="shader:standard;" color="#111122">
-                </a-plane>
-                {/* 2*/}
-                <a-plane class="frame" position="-4.85 1.876 0.088" width=".880" height="1.370" rotation="0 90 0" material="shader:standard;" color="#111122">
-                </a-plane>
-                {/* 3*/}
-                <a-plane class="frame" position="-4.85 1.876 -1.587" width=".880" height="1.370" rotation="0 90 0" material="shader:standard;" color="#111122">
-
-                </a-plane>
-
-
-                {/* 7*/}
-                <a-plane class="frame" position="4.753 1.889 -1.560" width=".880" height="1.370" rotation="0 -90 0" material="shader:standard;" color="#111122">
-
-                </a-plane>
-                {/* 8*/}
-                <a-plane class="frame" position="4.753 1.889 0.079" width=".880" height="1.370" rotation="0 -90 0" material="shader:standard;" color="#111122">
-                </a-plane>
-                {/*9*/}
-                <a-plane class="frame" position="4.753 1.889 1.730" width=".880" height="1.370" rotation="0 -90 0" material="shader:standard;" color="#111122">
-                </a-plane>
-
-
-                {/* {assets.map((asset, index) => (
+                {assets.map((asset, index) => (
                   <a-plane
                     key={index}
                     class={`frame picno${index + 1}`}
                     position={asset.pos}
-                    width="1.1"
-                    height="1.1"
+                    width=".880"
+                    height="1.370"
                     rotation={asset.rot}
                     material="shader:standard;"
                     color="#111122"
@@ -440,8 +419,8 @@ useEffect(() => {
                             <a-image
                               src={nft.link}
                               key={index1}
-                              width="1.1"
-                              height="1.1"
+                              width=".880"
+                              height="1.370"
                               position=""
                               material=""
                               geometry=""
@@ -449,7 +428,7 @@ useEffect(() => {
                           );
                       })}
                   </a-plane>
-                ))} */}
+                ))}
                 <a-sky src="#sky-img"></a-sky>
           </a-scene>
           <div className='fixed top-[5vh] left-[30px] cursor-pointer' onClick={() => handelManualLeave()}>

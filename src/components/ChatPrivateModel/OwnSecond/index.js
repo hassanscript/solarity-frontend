@@ -36,7 +36,7 @@ const OwnSecond = ({ roomInfo, modelURL, name }) => {
         look-controls="pointerLockEnabled: true; reverseMouseDrag: false"
         simple-navmesh-constraint="navmesh:#navmesh;fall: 5;height:1.65;" 
         wasd-controls="acceleration: 20;"
-        networked="template:#avatar-template;attachTemplateToLocal:true;"
+        networked="template:#avatar-template;attachTemplateToLocal:false;"
       >
         <a-entity 
           id="head" 
@@ -83,6 +83,31 @@ const OwnSecond = ({ roomInfo, modelURL, name }) => {
       <a-gltf-model shadow="cast: true; receive: true" model-info class="model" src="#room2-gltf" position="0 0 0" scale="1 1 1"></a-gltf-model>
       <a-gltf-model id="navmesh" model-info class="model" src="#navmesh-gltf" visible="false">
       </a-gltf-model>
+
+      {/* frames */}
+
+      {/*1 */}
+      <a-plane class="frame" position="-4.85 1.876 1.726" width=".880" height="1.370" rotation="0 90 0" material="shader:standard;" color="#111122">
+      </a-plane>
+      {/* 2*/}
+      <a-plane class="frame" position="-4.85 1.876 0.088" width=".880" height="1.370" rotation="0 90 0" material="shader:standard;" color="#111122">
+      </a-plane>
+      {/* 3*/}
+      <a-plane class="frame" position="-4.85 1.876 -1.587" width=".880" height="1.370" rotation="0 90 0" material="shader:standard;" color="#111122">
+
+      </a-plane>
+
+
+      {/* 7*/}
+      <a-plane class="frame" position="4.753 1.889 -1.560" width=".880" height="1.370" rotation="0 -90 0" material="shader:standard;" color="#111122">
+
+      </a-plane>
+      {/* 8*/}
+      <a-plane class="frame" position="4.753 1.889 0.079" width=".880" height="1.370" rotation="0 -90 0" material="shader:standard;" color="#111122">
+      </a-plane>
+      {/*9*/}
+      <a-plane class="frame" position="4.753 1.889 1.730" width=".880" height="1.370" rotation="0 -90 0" material="shader:standard;" color="#111122">
+      </a-plane>
 
       {/* {assets.map((asset, index) => (
         <a-plane

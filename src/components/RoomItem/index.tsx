@@ -25,7 +25,7 @@ const RoomItem = ({
     const setActive = async () => {
         setActiveIndex(room.roomNo)
         setActiveId(room._id);
-        dispatch(setActiveRoomNo(room._id));
+        dispatch(setActiveRoomNo({activeRoomId: room._id, activeRoomNo: room.roomNo}));
         await apiCaller.post(`/profile/setActiveRoom`, {
             roomNo: room.roomNo,
         });

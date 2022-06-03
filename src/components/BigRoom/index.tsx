@@ -17,9 +17,8 @@ const BigRoom: FC<BigRoomType> = ({ scene, content }) => {
   
   if(!!rooms && rooms.length !=0 && selectedIndex != -1) {
     selectedRoom = rooms[selectedIndex];
-    console.log(selectedRoom);
   }
-  
+
   const handleJoinModalToggle = () => {
     if(selectedIndex != -1){
       setJoinModalOpen(!joinModalOpen)
@@ -51,7 +50,7 @@ const BigRoom: FC<BigRoomType> = ({ scene, content }) => {
           <RoomScene data={scene.bgImage} />
         </div>
 
-        {content && selectedRoom ? (
+        {content && selectedRoom.roomName ? (
           <div className="flex justify-between my-6">
             <div className="flex flex-col max-w-4xl ">
               <span className="text-[15px] text-secondary">{selectedRoom.roomName}</span>

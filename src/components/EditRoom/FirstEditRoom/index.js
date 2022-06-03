@@ -4,7 +4,7 @@ import { build_loading_screen } from "modules/ChatModule/loading_screen";
 import {choose_controls, pass_controls} from 'modules/ChatModule/utils'
 import styles from 'modules/ChatModule/chat.module.css';
 
-export default function AframeEditRoom({
+export default function FirstEditRoom({
   picNo,
   setPicNo,
   chooseFlag,
@@ -241,37 +241,6 @@ export default function AframeEditRoom({
                       light="type: spot; intensity:  0.2; distance:0.6; penumbra: 0.5; decay: 1; color:  #FFFFFF; cast-shadow: true; shadow-map-height: 1024; shadow-map-width: 1024; shadowCameraVisible: false;">
             </a-entity>
             <a-entity light="type: ambient; intensity: 0.2; color:  #FFFFFF; shadowCameraVisible: false;"></a-entity>
-            {assets.map((asset, index) => (
-              <a-plane
-                key={index}
-                class={`frame picno${index + 1} clickable`}
-                cursor-listen={`picno: ${index + 1}`}
-                position={asset.pos}
-                width="1.1"
-                height="1.1"
-                rotation={asset.rot}
-                material="shader:standard;"
-                color="#111122"
-              >
-                {roomlist &&
-                  !!roomlist[0] &&
-                  !!roomlist[0].nftStates &&
-                  roomlist[0].nftStates.map((nft, index1) => {
-                    if (index + 1 == nft.no)
-                      return (
-                        <a-image
-                          src={nft.link}
-                          key={index1}
-                          width="1.1"
-                          height="1.1"
-                          position=""
-                          material=""
-                          geometry=""
-                        ></a-image>
-                      );
-                  })}
-              </a-plane>
-            ))}
             {assets.map((asset, index) => (
               <a-plane
                 key={index}

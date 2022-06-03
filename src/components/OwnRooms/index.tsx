@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import { useAppDispatch } from "redux/hooks";
 import Image from "next/image";
 import RoomItem from "components/RoomItem";
+import { setActiveRoomNo } from "redux/slices/profileSlice";
 
 const OwnRooms = ({ rooms }: { rooms: any[] }) => {
     const [activeIndex, setActiveIndex] = useState(-1);
     const [activeId, setActiveId] = useState("");
     const router = useRouter();
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
         const roomIndex = rooms.findIndex(s => s.active == true);
         if(roomIndex > -1) {
             setActiveIndex(rooms[roomIndex].roomNo);
             setActiveId(rooms[roomIndex]._id);
+            dispatch(setActiveRoomNo({activeRoomId: rooms[roomIndex]._id, activeRoomNo: rooms[roomIndex].roomNo}))
         }
         rooms.sort((a: any, b: any) => {
             return a.roomNo - b.roomNo;

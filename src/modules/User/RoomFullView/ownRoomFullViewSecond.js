@@ -12,24 +12,28 @@ export default function RoomFullView({user}) {
   const [room, setRoom] = useState({});
   const assets = [
     {
-      pos: "-2.25 1.65 -2.93",
-      rot: "0 0 0",
-    },
-    {
-      pos: "-2.97 1.84 -1.7",
+      pos: "-4.85 1.876 1.726",
       rot: "0 90 0",
     },
     {
-      pos: "-2.97 2.15 0.49",
+      pos: "-4.85 1.876 0.088",
       rot: "0 90 0",
     },
     {
-      pos: "-2.97 2.15 1.92",
+      pos: "-4.85 1.876 -1.587",
       rot: "0 90 0",
     },
     {
-      pos: "2.97 2.33 2.15",
-      rot: "180 90 180",
+      pos: "4.753 1.889 -1.560",
+      rot: "0 -90 0",
+    },
+    {
+      pos: "4.753 1.889 0.079",
+      rot: "0 -90 0",
+    },
+    {
+      pos: "4.753 1.889 1.730",
+      rot: "0 -90 0",
     },
   ];
   useEffect(() => {
@@ -138,13 +142,13 @@ export default function RoomFullView({user}) {
             <a-gltf-model id="navmesh" model-info class="model" src="#navmesh-gltf" visible="false">
             </a-gltf-model>
 
-            {/* {assets.map((asset, index) => (
+            {assets.map((asset, index) => (
                 <a-plane
                 key={index}
                 class={`frame picno${index + 1}`}
                 position={asset.pos}
-                width="1.1"
-                height="1.1"
+                width=".880"
+                height="1.370"
                 rotation={asset.rot}
                 material="shader:standard;"
                 color="#111122"
@@ -157,8 +161,8 @@ export default function RoomFullView({user}) {
                         <a-image
                             src={nft.link}
                             key={index1}
-                            width="1.1"
-                            height="1.1"
+                            width=".880"
+                            height="1.370"
                             position=""
                             material=""
                             geometry=""
@@ -166,7 +170,7 @@ export default function RoomFullView({user}) {
                         );
                     })}
                 </a-plane>
-            ))} */}
+            ))}
             <a-sky src="#sky-img"></a-sky>
           </a-scene>
       </div>
