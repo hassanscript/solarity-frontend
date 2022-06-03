@@ -9,9 +9,9 @@ import { setMsg, setPeers } from '../../redux/slices/chatSlice';
 import ACTIONS from '../../config/actions';
 import styles from './chat.module.css';
 import { build_loading_screen } from './loading_screen'
-import { start_screens } from './screens'
+import { startHub } from './hubUtils'
 // import {start_screens} from './screens'
-import { choose_controls, pass_controls } from './utils'
+import { chooseControls, passControls } from './utils'
 import InviteFriendModal from "components/Modals/InviteFriendModal";
 import { models } from "data/experience";
 import freeObjectFromMemory from '../../utils/clearObject';
@@ -39,7 +39,7 @@ const ChatModule = () => {
   const [isChatPanel, setChatPanel] = useState(true);
   const [isUserPanel, setUserPanel] = useState(true);
   const [userlist, setUserlist] = useState([]);
-  const [ roomInfo, setRoomInfo ] = useState({});
+  const [roomInfo, setRoomInfo] = useState({});
 
   const toggleChatPanel = () => {
     setChatPanel(!isChatPanel);
@@ -49,16 +49,16 @@ const ChatModule = () => {
     setRoomIndex(rooms.findIndex(s => s.roomId == rid))
   }, [rooms]);
 
-  
+
   useEffect(async () => {
     console.log(roomIndex, rooms, rooms[roomIndex])
-    if(!!rooms && rooms.length != 0 && rooms[roomIndex] && !!rooms[roomIndex].name) {
-        const {
-            data: { roomInfoData },
-        } = await apiCaller.get(`/users/getRoomInfo/${rooms[roomIndex].name}/${rooms[roomIndex].roomNo}`);
-        if(roomInfoData) {
-            setRoomInfo(roomInfoData);
-        }
+    if (!!rooms && rooms.length != 0 && rooms[roomIndex] && !!rooms[roomIndex].name) {
+      const {
+        data: { roomInfoData },
+      } = await apiCaller.get(`/users/getRoomInfo/${rooms[roomIndex].name}/${rooms[roomIndex].roomNo}`);
+      if (roomInfoData) {
+        setRoomInfo(roomInfoData);
+      }
     }
   }, [rooms, roomIndex]);
 
@@ -102,7 +102,7 @@ const ChatModule = () => {
                 // if (guestIndex == -1) {
                 //   userFilter.push(users[index]);
                 // }
-              // } else {
+                // } else {
                 userFilter.push(users[index]);
               }
             } else {
@@ -161,9 +161,10 @@ const ChatModule = () => {
   }, [])
 
   const start_scene = () => {
-    start_screens();
-    choose_controls();
-    pass_controls();
+    if (roomType == 0)
+      startHub();
+    chooseControls();
+    passControls();
   }
 
   const updateVolume = () => {
@@ -303,14 +304,14 @@ const ChatModule = () => {
         </div>
         <div id="scene_wrapper" style={{ opacity: "0" }}>
           {roomType > 1 ? (
-            <ChatPrivateModel 
+            <ChatPrivateModel
               modelNo={no}
               roomInfo={roomInfo}
               modelURL={models[modelIndex].modelUrl}
-              name={userName} 
+              name={userName}
             />
-            ): (
-            <ChatPublicModel 
+          ) : (
+            <ChatPublicModel
               roomType={roomType}
               modelURL={models[modelIndex].modelUrl}
               name={userName}
@@ -322,7 +323,7 @@ const ChatModule = () => {
               <span className='ml-3'>All Rooms</span>
             </div>
           </div>
-          <UserPanel 
+          <UserPanel
             isUserPanel={isUserPanel}
             rooms={rooms}
             roomIndex={roomIndex}
@@ -336,7 +337,7 @@ const ChatModule = () => {
             inviteFriend={inviteFriend}
             getAvatarImg={getAvatarImg}
           />
-          <ChatToolbar 
+          <ChatToolbar
             isMute={isMute}
             isUserPanel={isUserPanel}
             isChatPanel={isChatPanel}
@@ -354,7 +355,7 @@ const ChatModule = () => {
             getAvatarImg={getAvatarImg}
             handleKeyDown={handleKeyDown}
             setSendData={setSendData}
-            sendMsg={sendMsg} 
+            sendMsg={sendMsg}
           />
         </div>
         <InviteFriendModal

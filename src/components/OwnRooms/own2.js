@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useAppSelector } from "redux/hooks";
 import { build_loading_screen } from "modules/ChatModule/loading_screen";
-import {choose_controls, pass_controls} from 'modules/ChatModule/utils'
+import {chooseControls, passControls} from 'modules/ChatModule/utils'
 import styles from 'modules/ChatModule/chat.module.css';
 import freeObjectFromMemory from "utils/clearObject";
 
@@ -109,8 +109,8 @@ export default function Index({user, permitionFlag}) {
 
   const start_scene = () => {
     // setGifIntervalId(start_screens())
-    choose_controls();
-    pass_controls();
+    chooseControls();
+    passControls();
   }
 
   if((user.rooms && user.rooms.length != 0) || permitionFlag) {

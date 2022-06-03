@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from "react";
 import { RootStateOrAny, useSelector } from "react-redux";
 import { build_loading_screen } from "modules/ChatModule/loading_screen";
-import {choose_controls, pass_controls} from 'modules/ChatModule/utils'
+import {chooseControls, passControls} from 'modules/ChatModule/utils'
 import styles from 'modules/ChatModule/chat.module.css';
 
 export default function FirstEditRoom({
@@ -142,8 +142,8 @@ export default function FirstEditRoom({
 
   const start_scene = () => {
     // setGifIntervalId(start_screens())
-    choose_controls();
-    pass_controls();
+    chooseControls();
+    passControls();
   }
 
   if (permition) {

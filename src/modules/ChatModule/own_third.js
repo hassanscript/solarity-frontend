@@ -10,7 +10,7 @@ import ACTIONS from '../../config/actions';
 import styles from './chat.module.css';
 import { build_loading_screen} from './loading_screen'
 // import {start_screens} from './screens'
-import {choose_controls, pass_controls} from './utils'
+import {chooseControls, passControls} from './utils'
 import { Chat, Join, Minus, UserPlus, Users } from 'components/Icons';
 import InviteFriendModal from "components/Modals/InviteFriendModal";
 import MicrophoneOn from '../../components/Icons/MicrophoneOn';
@@ -148,8 +148,8 @@ useEffect(() => {
   
   const start_scene = () => {
       // setGifIntervalId(start_screens())
-      choose_controls();
-      pass_controls();
+      chooseControls();
+      passControls();
   }
 
   const updateVolume = () => {

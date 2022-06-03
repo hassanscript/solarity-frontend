@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { build_loading_screen } from "modules/ChatModule/loading_screen";
-import {choose_controls, pass_controls} from 'modules/ChatModule/utils'
+import {chooseControls, passControls} from 'modules/ChatModule/utils'
 import styles from 'modules/ChatModule/chat.module.css';
 import { useRouter } from "next/router";
 
@@ -66,8 +66,8 @@ export default function RoomFullView({user}) {
 
   const start_scene = () => {
     // setGifIntervalId(start_screens())
-    choose_controls();
-    pass_controls();
+    chooseControls();
+    passControls();
   }
 
   if (mounted) {

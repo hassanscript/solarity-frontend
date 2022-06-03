@@ -121,7 +121,7 @@ const HubChat = ({ modelURL, name }) => {
       {/* big screen  */}
       <a-plane width="6.4" height="3.5" rotation="0 180 0" material="shader: standard;" position="3 2.4 7.4"
         color="#111122">
-        <a-image id="big_screen_img" src="#try-img" rotation="0 -180 0" width="6.4" height="3.5"
+        <a-image id="bigScreenImg" src="#try-img" rotation="0 -180 0" width="6.4" height="3.5"
           position="0 0 0.01"></a-image>
       </a-plane>
 
@@ -140,12 +140,12 @@ const HubChat = ({ modelURL, name }) => {
         <a-text align="center" rotation="0 0 0" width="2.9" value="LATEST TWEETS" position="0 1.6 0.01"
           x-offset="0.05" wrap-count="30" color="#CC22FF"></a-text>
         {/* arrows  */}
-        <a-plane text="value: up; wrap-count: 6; align: center" width=".15" height=".15" id="scroll_twitter_up"
+        <a-plane text="value: up; wrap-count: 6; align: center" width=".15" height=".15" id="scrollTwitterUp"
           class="clickable nocollision" material="shader: flat;" color="#44AABB"
           position="1.35 -1.35 0.02">
         </a-plane>
         <a-plane text="value: down; wrap-count: 6; align: center" width=".15" height=".15"
-          id="scroll_twitter_down" class="clickable nocollision" material="shader: flat;" color="#44AABB"
+          id="scrollTwitterDown" class="clickable nocollision" material="shader: flat;" color="#44AABB"
           position="1.35 -1.55 0.02">
         </a-plane>
       </a-plane>
