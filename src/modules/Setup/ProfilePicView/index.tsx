@@ -1,4 +1,4 @@
-import { Button } from "components/FormComponents";
+import { Button, Stack } from "../../../components/FormComponents";
 import { getNfts } from "../../../hooks";
 import { NftCard } from "modules/User/Art";
 import { useState } from "react";
@@ -108,7 +108,6 @@ const ProfilePicView = () => {
   const [nfts, nftLoading, nftError] = getNfts(username, solanaAddress);
   const [selected, setSelected] = useState<NftSelectionProps>({});
   const [loading, setLoading] = useState<Boolean>(false);
-  const [error, setError] = useState<string | Boolean>(false);
 
   try {
     return (
@@ -118,34 +117,64 @@ const ProfilePicView = () => {
             <h3 className="w-full pb-4 text-3xl font-semibold">
               Select a profile Pic
             </h3>
-            <Button
-              wrap={false}
-              disabled={!Boolean(selected) || nftLoading}
-              outline={!Boolean(selected) || nftLoading}
-              disableOnLoading
-              loading={loading}
-              onClick={() => {
-                setLoading(true);
-                dispatch(
-                  setup({
-                    data: {
-                      action: "profilePic",
-                      ...selected,
-                      imageNetwork: selected.type,
-                    },
-                    successFunction: () => {},
-                    errorFunction: (error) => {
-                      showErrorToast(error);
-                    },
-                    finalFunction: () => {
-                      setLoading(false);
-                    },
-                  })
-                );
-              }}
-            >
-              Next
-            </Button>
+            <Stack direction="row">
+              <Button
+                variant="info"
+                wrap={false}
+                disabled={!Boolean(selected) || nftLoading}
+                outline={!Boolean(selected) || nftLoading}
+                disableOnLoading
+                loading={loading}
+                onClick={() => {
+                  setLoading(true);
+                  dispatch(
+                    setup({
+                      data: {
+                        action: "profilePic",
+                        skipImage: true,
+                      },
+                      successFunction: () => {},
+                      errorFunction: (error) => {
+                        showErrorToast(error);
+                      },
+                      finalFunction: () => {
+                        setLoading(false);
+                      },
+                    })
+                  );
+                }}
+              >
+                SKIP
+              </Button>
+              <Button
+                wrap={false}
+                disabled={!Boolean(selected) || nftLoading}
+                outline={!Boolean(selected) || nftLoading}
+                disableOnLoading
+                loading={loading}
+                onClick={() => {
+                  setLoading(true);
+                  dispatch(
+                    setup({
+                      data: {
+                        action: "profilePic",
+                        ...selected,
+                        imageNetwork: selected.type,
+                      },
+                      successFunction: () => {},
+                      errorFunction: (error) => {
+                        showErrorToast(error);
+                      },
+                      finalFunction: () => {
+                        setLoading(false);
+                      },
+                    })
+                  );
+                }}
+              >
+                Next
+              </Button>
+            </Stack>
           </div>
           <div className="outline w-full flex-1 overflow-auto rounded-3xl border border-darkcharcoal p-10 scrollbar-thin scrollbar-thumb-black">
             <NftCards
