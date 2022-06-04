@@ -19,6 +19,7 @@ const WalletButton = () => {
     return (
       <>
         <WalletSelector
+          darkBackground
           type="all"
           title="Login with Wallet"
           subtitle="Select a wallet from the list below"

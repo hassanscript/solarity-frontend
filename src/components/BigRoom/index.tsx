@@ -1,4 +1,5 @@
 import React, { FC, useState, useEffect } from "react";
+import Image from "next/image";
 import { toast } from 'react-toastify';
 import RoomScene from 'components/BigRoom/RoomScene';
 import LiveRooms from "components/LiveRooms";
@@ -10,13 +11,27 @@ import { BigRoomType } from "modal/experience";
 import ACTIONS from '../../config/actions';
 
 const BigRoom: FC<BigRoomType> = ({ scene, content }) => {
-  const  [joinModalOpen,setJoinModalOpen] = useState(false)
   const { rooms, selectedIndex } = useAppSelector(state => state.chat);
-  var selectedRoom: any = {};
-  
-  if(!!rooms && rooms.length !=0 && selectedIndex != -1) {
-    selectedRoom = rooms[selectedIndex];
-  }
+
+  const  [ joinModalOpen,setJoinModalOpen ] = useState(false)
+  const [ selectedImageUrl, setSelectedImageUrl ] = useState(scene.bgImage);
+  const [ selectedRoom, setSelectedRoom ] = useState<any>({});
+  const publicUrls = ["/assets/images/rooms/hub.jpg", "/assets/images/rooms/gallery.png"]
+  useEffect(() => {
+    if(!!rooms && rooms.length !=0 && selectedIndex != -1) {
+      setSelectedRoom(rooms[selectedIndex]);
+    }
+  }, [rooms, selectedIndex]);
+
+  useEffect(() => {
+    if(selectedRoom.type != undefined) {
+      if(selectedRoom.type == false) {
+        setSelectedImageUrl(publicUrls[selectedRoom.roomNo]);
+      } else {
+        setSelectedImageUrl(selectedRoom.imageUrl);
+      }
+    }
+  }, [selectedRoom]);
 
   const handleJoinModalToggle = () => {
     if(selectedIndex != -1){
@@ -45,22 +60,34 @@ const BigRoom: FC<BigRoomType> = ({ scene, content }) => {
         <LiveRooms rows={rooms} />
       </div>
       <div className="col-span-2" >
-        <div className="relative w-full h-[314px] min-h-[314px  ] rounded-3xl -mt-5">
-          <RoomScene data={scene.bgImage} />
-        </div>
+        {selectedImageUrl && (
+          <div className="relative w-full h-[314px] min-h-[314px  ] rounded-3xl -mt-5">
+            <RoomScene data={selectedImageUrl} />
+          </div>
+        )}
 
-        {content && selectedRoom ? (
+        {selectedRoom && content && selectedRoom.roomName ? (
           <div className="flex justify-between my-6">
             <div className="flex flex-col max-w-4xl ">
               <span className="text-[15px] text-secondary">{selectedRoom.roomName}</span>
               <span className="mt-3 text-sm text-gray-950">
-                {selectedRoom.roomName}
+                creator: {selectedRoom.name}
               </span>
             </div>
             <div>
-              <div>
+              <div className="flex ml-4">
                 {!!selectedRoom.speakers && selectedRoom.speakers.map((speaker: string, index: any) => (
-                  <img key={index} src="/images/icons/sol.png" alt={speaker} width="25" height="25" />
+                  <div
+                    className="-ml-4"
+                    key={index}
+                  >
+                    <Image
+                      src="/images/icons/sol.png"
+                      alt={speaker}
+                      height={32}
+                      width={32}
+                    />
+                  </div>
                 ))}
               </div>
               { !!selectedRoom.roomName ? (
@@ -72,16 +99,18 @@ const BigRoom: FC<BigRoomType> = ({ scene, content }) => {
           </div>
         ): (<></>)}
       </div>
-      <JoinRoomModal 
-        open={joinModalOpen} 
-        onClose={handleJoinModalToggle} 
-        roomName={selectedRoom.roomName}
-        type={selectedRoom.type}
-        roomNo={selectedRoom.roomNo}
-        person={""}
-        creator={selectedRoom.name}
-        speakers={selectedRoom.speakers}
-      />
+      {selectedRoom && (
+        <JoinRoomModal 
+          open={joinModalOpen} 
+          onClose={handleJoinModalToggle} 
+          roomName={selectedRoom.roomName}
+          type={selectedRoom.type}
+          roomNo={selectedRoom.roomNo}
+          person={""}
+          creator={selectedRoom.name}
+          speakers={selectedRoom.speakers}
+        />
+      )}
     </div>
   );
 };

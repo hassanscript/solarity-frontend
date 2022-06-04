@@ -2,7 +2,6 @@ import Image from "next/image";
 import React, { FC, useEffect, useState } from "react";
 
 import {
-  SystemProgram,
   Transaction,
   LAMPORTS_PER_SOL,
   PublicKey,
@@ -11,9 +10,6 @@ import {
 } from "@solana/web3.js";
 
 import {
-  createMint, 
-  mintTo, 
-  transfer,
   TOKEN_PROGRAM_ID,
 } from "@solana/spl-token";
 
@@ -122,8 +118,10 @@ const SelectedAsset: FC<HeroProps> = ({}) => {
             );
             setError(false);
             setLoadingButton(false);
+            setShowWallets(false);
           },
           errorFunction: (err) => {
+            setShowWallets(false);
             setError(true);
             if (!!err) {
               setErrorMessage(err);
@@ -131,6 +129,7 @@ const SelectedAsset: FC<HeroProps> = ({}) => {
             setLoadingButton(false);
           },
           finalFunction: () => {
+            setShowWallets(false);
             setLoading(false);
             setLoadingButton(false);
           },
@@ -218,15 +217,26 @@ const SelectedAsset: FC<HeroProps> = ({}) => {
       />
       <div className="relative w-full h-[314px] rounded-2xl -mt-5">
         {selectedIndex == 0 ? (
-          <AframeComp1 />
-        ) : (
           <iframe 
-            src={BaseUrl + "frames/ownroom1"}
+            src={BaseUrl + "/frames/ownroom0"}
             width={1032}
             height={314}
           ></iframe>
-          // <AframeComp2 user={{ rooms: [] }} permitionFlag={true} />
-        )}
+        // <AframeComp2 user={{ rooms: [] }} permitionFlag={true} />
+        ) : selectedIndex == 1 ? (
+          <iframe 
+            src={BaseUrl + "/frames/ownroom1"}
+            width={1032}
+            height={314}
+          ></iframe>
+          ): (
+            <iframe 
+              src={BaseUrl + "/frames/ownroom2"}
+              width={1032}
+              height={314}
+            ></iframe>
+          )
+        }
       </div>
       {selectedAsset && (
         <div className="flex justify-between my-6">
@@ -234,9 +244,9 @@ const SelectedAsset: FC<HeroProps> = ({}) => {
             <span className="text-[15px] text-secondary">
               {selectedAsset.title}
             </span>
-            <span className="mt-3 text-sm text-gray-950">
+            {/* <span className="mt-3 text-sm text-gray-950">
               {selectedAsset.description}
-            </span>
+            </span> */}
             <span>
               <div className="flex">
                 <div className="mt-[7px]">
@@ -248,12 +258,12 @@ const SelectedAsset: FC<HeroProps> = ({}) => {
               </div>
               <div className="flex mt-1">
                 <span className="text-xs text-gray-950 mt-1">
-                  Current bid:&nbsp;&nbsp;&nbsp;
+                  Price:&nbsp;&nbsp;&nbsp;
                 </span>
                 <div className="flex">
                   <div className="h-[16px] w-[16px]">
                     <Image
-                      src="/images/icons/sol.png"
+                      src="/images/icons/verse-token.png"
                       alt="sol-icon"
                       height={16}
                       width={16}
@@ -261,18 +271,18 @@ const SelectedAsset: FC<HeroProps> = ({}) => {
                   </div>
 
                   <span className="text-xs text-white mt-[3px]">
-                    &nbsp;&nbsp;{selectedAsset.currentBid} SOL
+                    &nbsp;&nbsp;{selectedAsset.currentBid} Verse
                   </span>
                 </div>
               </div>
-              <div className="flex mt-2">
+              {/* <div className="flex mt-2">
                 <span className="text-xs text-gray-950">
                   Ending in:&nbsp;&nbsp;
                 </span>
                 <span className="text-xs text-white">
                   {selectedAsset.endingIn}
                 </span>
-              </div>
+              </div> */}
               {error && <ErrorMessage errorMessage={errorMessage} />}
             </span>
           </div>

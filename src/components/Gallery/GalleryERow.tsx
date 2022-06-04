@@ -5,7 +5,17 @@ import GalleryItemE from "components/Gallery/GalleryItemE";
 import HubItem from "components/HubItem";
 
 const GalleryERow = () => {
-  const { rooms } = useAppSelector(state => state.profile.data);
+  var { rooms } = useAppSelector(state => state.profile.data);
+  var [ sortedRooms, setSortedRooms ] = useState<any[]>([]);
+  useEffect(() => {
+    if(!!rooms && rooms.length != 0) {
+      var tmpRooms = [...rooms];
+      tmpRooms.sort((a: any, b: any) => {
+          return a.roomNo - b.roomNo;
+      })
+      setSortedRooms(tmpRooms);
+    }
+  }, [rooms])
 
   return (
     <div className="flex flex-col">
@@ -16,7 +26,7 @@ const GalleryERow = () => {
           type={false}
           roomNo={0} 
           title={"Hub"}
-          imageUrl={"/assets/images/rooms/room1.png"}
+          imageUrl={"/assets/images/rooms/hub.jpg"}
           currentBid={"0"}
         />
         <GalleryItemE 
@@ -28,7 +38,7 @@ const GalleryERow = () => {
           currentBid={"0"}
         />
         {
-          rooms && rooms.length != 0 && rooms.map((room: any, index: number) => (
+          sortedRooms && sortedRooms.length != 0 && sortedRooms.map((room: any, index: number) => (
             <GalleryItemE key={index + 2} type={true} {...room} />
           ))
         }

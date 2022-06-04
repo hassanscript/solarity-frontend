@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import { ConnectionProvider } from "@solana/wallet-adapter-react";
 import { ToastContainer } from "react-toastify";
 import AppLoader from "../components/AppLoader";
+import "react-toastify/dist/ReactToastify.css";
 
 // For redux
 import {
@@ -19,6 +20,8 @@ import "../styles/globals.css";
 import "../styles/App.css";
 import { checkSession } from "../redux/slices/authSlice";
 import { useRouter } from "next/router";
+import { startLoadingApp } from "redux/slices/commonSlice";
+import { stopLoadingApp } from "../redux/slices/commonSlice";
 
 // set custom RPC server endpoint for the final website
 // const endpoint = "https://explorer-api.devnet.solana.com";
@@ -44,15 +47,20 @@ function MyApp({ children }: any) {
     })
   );
 
+  // load on not visibile!!!
   useEffect(() => {
     const currentRoute = router.pathname;
     if (logged && !profileData.visible) {
+      dispatch(startLoadingApp());
       router.push("/setup");
+      return;
     }
     if (currentRoute === "/profile" && !logged && !checkingSession) {
       router.push("/");
+      return;
     }
-  }, [logged, profileData, checkSession, profileData.visible]);
+    dispatch(stopLoadingApp());
+  }, [logged, profileData.visible]);
 
   useEffect(() => {
     dispatch(checkSession());

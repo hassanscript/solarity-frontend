@@ -21,31 +21,31 @@ export const HERO_DATA: HeroProps = {
 export const GALLERY: Gallery = {
   rows: [
     {
-      title: "Raising Verses",
+      title: "Rooms",
       items: [
         {
           roomNo: 0,
-          title: "MoneyVerse #4141",
+          title: "Money Room",
           collection: "Solana Money Boys",
-          imageUrl: "/images/placeholder/marketplace/gallery/boh1.png",
+          imageUrl: "/images/placeholder/marketplace/rooms/0.jpg",
           description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nisi,eget quisque pharetra, nisl. Nisl a proin a commodo libero purusduis. Leo, condimentum viverra mattis feugiat egestas est at nec.Praesent vitae fames feugiat diam mauris. Fringilla posuere quamenim id urna. Arcu, ut magna cursus pharetra semper a.",
           currentBid: 50,
           endingIn: "12h  43m  27s",
         },
         {
           roomNo: 1,
-          title: "DeVerse #1633",
-          collection: "Solana Money Boys",
-          imageUrl: "/images/placeholder/marketplace/gallery/boh2.jpg",
+          title: "SolGods Room",
+          collection: "SolGods",
+          imageUrl: "/images/placeholder/marketplace/rooms/1.png",
           description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nisi,eget quisque pharetra, nisl. Nisl a proin a commodo libero purusduis. Leo, condimentum viverra mattis feugiat egestas est at nec.Praesent vitae fames feugiat diam mauris. Fringilla posuere quamenim id urna. Arcu, ut magna cursus pharetra semper a.",
           currentBid: 50,
           endingIn: "12h  43m  27s",
         },
         {
           roomNo: 2,
-          title: "MonkeVerse #1094",
-          collection: "Solana Money Boys",
-          imageUrl: "/images/placeholder/marketplace/gallery/boh3.png",
+          title: "Solarity Gallery",
+          collection: "Solarity",
+          imageUrl: "/images/placeholder/marketplace/rooms/2.jpg",
           description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nisi,eget quisque pharetra, nisl. Nisl a proin a commodo libero purusduis. Leo, condimentum viverra mattis feugiat egestas est at nec.Praesent vitae fames feugiat diam mauris. Fringilla posuere quamenim id urna. Arcu, ut magna cursus pharetra semper a.",
           currentBid: 50,
           endingIn: "12h  43m  27s",
@@ -154,7 +154,7 @@ export const GALLERY: Gallery = {
 export const GALLERYE: Gallery = {
   rows: [
     {
-      title: "Raising Verses",
+      title: "Rooms",
       items: [
         {
           roomNo: 0,

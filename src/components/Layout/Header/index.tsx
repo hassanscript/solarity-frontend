@@ -7,11 +7,11 @@ import Image from "next/image";
 import { EthereumIcon, CaretDown, SOL } from "components/Icons";
 
 const MenutItems = [
-  {
-    title: "Explore",
-    link: "/",
-    exact: true,
-  },
+  // {
+  //   title: "Explore",
+  //   link: "/",
+  //   exact: true,
+  // },
   {
     title: "Marketplace",
     link: "/marketplace",
@@ -20,14 +20,14 @@ const MenutItems = [
     title: "Experience",
     link: "/experience",
   },
-  {
-    title: "DAOs",
-    link: "/daos",
-  },
-  {
-    title: "Launchpad",
-    link: "/launchpad",
-  },
+  // {
+  //   title: "DAOs",
+  //   link: "/daos",
+  // },
+  // {
+  //   title: "Launchpad",
+  //   link: "/launchpad",
+  // },
 ];
 
 const Header = ({ sol }: { sol?: boolean }) => {
@@ -36,9 +36,9 @@ const Header = ({ sol }: { sol?: boolean }) => {
       <div className="py-3">
         <Logo />
       </div>
-      <div className="flex items-center">
+      <div className="flex justify-between w-full">
         <MenuList items={MenutItems} />
-        <div className="flex items-center space-x-3 ml-28">
+        <div className="flex items-center space-x-3 ml-0">
           <button className={`gap-3 text-lg font-bold btn rounded-3xl ${sol && 'btn-primary'}`}>
             {sol ? (
               <Image

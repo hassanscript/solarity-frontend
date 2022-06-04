@@ -3,6 +3,7 @@ import { useStateWithCalllback } from './useStateWithCalllback';
 import { useAppSelector, useAppDispatch } from "../redux/hooks";
 import ACTIONS from '../config/actions';
 import freeice from 'freeice';
+import { toast } from 'react-toastify';
 
 export const useWebTRTC = (roomId, user) => {
     const [clients, setclients] = useStateWithCalllback([]);
@@ -30,9 +31,23 @@ export const useWebTRTC = (roomId, user) => {
     // capture media
     useEffect(() => {
         const startCapture = async () => {
-            localMediaStream.current = await navigator.mediaDevices.getUserMedia({
-                audio: true
-            });
+            try {
+                localMediaStream.current = await navigator.mediaDevices.getUserMedia({
+                    audio: true
+                });
+            } catch (error) {
+                localMediaStream.current = undefined;
+                toast.error("there is no microphone device, you need to allow to use it", {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+                return;
+            }
         }
         var clearIts = setInterval(() => {
             if(window.isReady1 != undefined && window.isReady1) {
@@ -41,10 +56,11 @@ export const useWebTRTC = (roomId, user) => {
                         const localAudioElement = audioElements.current[user.name];
                         if (localAudioElement) {
                             localAudioElement.volume = 0;
-                            localAudioElement.srcObject = localMediaStream.current;
+                            if(!!localMediaStream.current && localMediaStream.current != {}) {
+                                localAudioElement.srcObject = localMediaStream.current;
+                            }
                         }
                     });
-                    
                     window.socket.emit(ACTIONS.JOIN, { roomId, user: {name: user.name, roomName: roomName, modelIndex: modelIndex} });
                 });
                 clearInterval(clearIts);
@@ -53,12 +69,12 @@ export const useWebTRTC = (roomId, user) => {
 
         return () => {
             // leaving room
-            if(!!localMediaStream.current && localMediaStream.current != {}) {
-                try {
+            try {
+                if(!!localMediaStream.current && localMediaStream.current != {}) {
                     localMediaStream.current.getTracks().forEach((track) => track.stop())
-                } catch(error) {
-                    console.error(error);
                 }
+            } catch (error) {
+                console.error(error);
             }
             // window.socket.emit(ACTIONS.LEAVE, { roomId, user })
         }
@@ -109,9 +125,11 @@ export const useWebTRTC = (roomId, user) => {
                 });
             };
             // add local track to remmote connections
-            localMediaStream.current.getTracks().forEach(track => {
-                connections.current[peerId].addTrack(track, localMediaStream.current);
-            });
+            if(!!localMediaStream.current && localMediaStream.current != {}) {console.log('1111111111: ', localMediaStream.current, localMediaStream.current != {});
+                localMediaStream.current.getTracks().forEach(track => {
+                    connections.current[peerId].addTrack(track, localMediaStream.current);
+                });
+            }
 
             // check is need to create offers
             if (createOffer) {
@@ -242,7 +260,7 @@ export const useWebTRTC = (roomId, user) => {
     const handelMute = (isMute, name) => {
         let settled = false;
         let interVel = setInterval(() => {
-            if (!!localMediaStream.current && localMediaStream.current.getTracks) {
+            if (!!localMediaStream.current && localMediaStream.current != {} && localMediaStream.current.getTracks) {
                 localMediaStream.current.getTracks()[0].enabled = !isMute;
                 if (isMute) {
                     window.socket.emit(ACTIONS.MUTE, { roomId, name });

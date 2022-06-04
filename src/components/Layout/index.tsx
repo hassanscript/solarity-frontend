@@ -1,9 +1,6 @@
 import React, { FC } from "react";
 import Header from "components/Layout/Header";
 import Sidebar from "components/Layout/Sidebar";
-import Hot from "components/Widget/Hot";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 interface Props {
   children: React.ReactNode;
