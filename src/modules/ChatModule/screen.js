@@ -63,7 +63,7 @@ function build_nft_listeners() {
 function build_bank_listeners() {
 
 }
-function start_screen() {
+export function start_screen() {
     build_nft();
     build_bank();
 }

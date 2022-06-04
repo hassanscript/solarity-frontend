@@ -12,6 +12,6 @@ function build_frames() {
         frame_count++;
     }
 }
-function start_frames(){
+export function start_frames(){
     build_frames();
 }

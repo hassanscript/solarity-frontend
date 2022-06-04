@@ -33,10 +33,11 @@ export function update_loadingScreen() {
 
   // var loading_videoEl = document.getElementById('background_video');
   setTimeout(function () {
+    if(modelsLoaded != 0)
+      localStorage.setItem('modelLoaded', "true");
     modelsLoaded = 0;
     models = [];
     modelsNumber = undefined;
-    window.modelLoaded = true;
     if (!!sceneWrapperEl) sceneWrapperEl.removeAttribute("style");
     if (!!loadingScreenEl) loadingScreenEl.style.display = "none";
     if(!!loading_videoEl) {
@@ -72,7 +73,7 @@ export function update_loadingScreen() {
     modelsLoaded = 0;
     models = [];
     modelsNumber = undefined;
-    window.modelLoaded = true;
+    localStorage.setItem('modelLoaded', "true");
     if (!!sceneWrapperEl) sceneWrapperEl.removeAttribute("style");
     if (!!loadingScreenEl) loadingScreenEl.style.display = "none";
     if(!!loading_videoEl) {

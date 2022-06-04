@@ -55,54 +55,53 @@ const SelectedAsset: FC<HeroProps> = ({}) => {
   const placeBidAction = async (provider: any) => {
     await provider.connect();
     const { publicKey, signTransaction } = provider;
+
     // spl-token payment for buying room.
     try {
-      console.log(process.env.NEXT_PUBLIC_WEBSITE_SOLANA_WALLET_ADDRESS, process.env.NEXT_PUBLIC_SOLARITY_TOKEN_ADDRESS);
       if(!process.env.NEXT_PUBLIC_WEBSITE_SOLANA_WALLET_ADDRESS || !process.env.NEXT_PUBLIC_SOLARITY_TOKEN_ADDRESS) {
         return console.error('website solana wallet address or solarity_token_address is not set in environment.');
       }
       const toPublicKey = new PublicKey(process.env.NEXT_PUBLIC_WEBSITE_SOLANA_WALLET_ADDRESS)
       const mint = new PublicKey(process.env.NEXT_PUBLIC_SOLARITY_TOKEN_ADDRESS)
-      // const fromTokenAccount = await getOrCreateAssociatedTokenAccount(
-      //   connection,
-      //   publicKey,
-      //   mint,
-      //   publicKey,
-      //   signTransaction
-      // );
-      // const toTokenAccount = await getOrCreateAssociatedTokenAccount(
-      //   connection,
-      //   publicKey,
-      //   mint,
-      //   toPublicKey,
-      //   signTransaction
-      // );
-      if(!selectedAsset) {
-        console.error('selectedAsset is not defined.');
-        return;
-      }
-      // const transaction1 = new Transaction().add(
-      //     createTransferInstruction(
-      //         fromTokenAccount.address, // source
-      //         toTokenAccount.address, // dest
-      //         publicKey,
-      //         selectedAsset.currentBid * LAMPORTS_PER_SOL,
-      //         [],
-      //         TOKEN_PROGRAM_ID
-      //     )
-      // )
-      // const blockHash = await connection.getRecentBlockhash()
-      // transaction1.feePayer = await publicKey
-      // transaction1.recentBlockhash = await blockHash.blockhash
-      // const signed = await signTransaction(transaction1);
+      
+      const fromTokenAccount = await getOrCreateAssociatedTokenAccount(
+        connection,
+        publicKey,
+        mint,
+        publicKey,
+        signTransaction
+      );
+
+      const toTokenAccount = await getOrCreateAssociatedTokenAccount(
+        connection,
+        publicKey,
+        mint,
+        toPublicKey,
+        signTransaction
+      );
+
+      const transaction1 = new Transaction().add(
+          createTransferInstruction(
+              fromTokenAccount.address, // source
+              toTokenAccount.address, // dest
+              publicKey,
+              selectedAsset.currentBid * LAMPORTS_PER_SOL,
+              [],
+              TOKEN_PROGRAM_ID
+          )
+      )
+      const blockHash = await connection.getRecentBlockhash()
+      transaction1.feePayer = await publicKey
+      transaction1.recentBlockhash = await blockHash.blockhash
+      const signed = await signTransaction(transaction1)
       setLoadingButton(true);
       dispatch(
         placeBid({
           data: {
             selectedAsset,
             selectedIndex,
-            // signed,
-            // connection,
+            signed,
+            connection,
           },
           successFunction: () => {
             toast.success(

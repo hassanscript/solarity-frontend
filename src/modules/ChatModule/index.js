@@ -24,14 +24,14 @@ import ChatPrivateModel from "components/ChatPrivateModel";
 const ChatModule = () => {
   const [mounted, setMounted] = useState(false)
   const { roomName, userName, modelIndex, msgs, peers, rooms } = useAppSelector(state => state.chat);
+  const { data } = useAppSelector(state => state.profile);
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { rid, roomType, no } = router.query;
-  const { clients, provideRef, handelMute } = useWebTRTC(rid, { name: userName });
+  const { clients, provideRef, handelMute } = useWebTRTC(rid, { name: userName, profileImageLink: data ? data.profileImageLink: "" });
   const [sendData, setSendData] = useState('');
   const [roomIndex, setRoomIndex] = useState(-1);
   const [intervalId, setIntervalId] = useState('');
-  const [gifIntervalId, setGifIntervalId] = useState('');
   const [volumes, setVolumes] = useState({});
   const [isMute, setMute] = useState(false);
   const [iniviteFriendModal, setIniviteFriendModal] = useState(false);
@@ -209,7 +209,7 @@ const ChatModule = () => {
 
   useEffect(() => {
     const loadInterval = setInterval(() => {
-      if (isLoaded || window.modelLoaded) {
+      if (isLoaded || localStorage.getItem('modelLoaded') == "true") {
         var entity = document.querySelector('#player');
         if (!!entity) {
           window.NAF.schemas.add({
@@ -228,9 +228,9 @@ const ChatModule = () => {
               }
             ]
           });
+          localStorage.setItem('modelLoaded', "false");
           window.isReady1 = true;
           setIntervalId(setInterval(updateVolume, 300));
-          window.modelLoaded = false;
           clearInterval(loadInterval);
         }
       }
@@ -251,20 +251,13 @@ const ChatModule = () => {
   }
 
   const sendMsg = () => {
-    window.socket.emit('send-msg', { roomId: rid, data: sendData });
+    window.socket.emit('send-msg', { roomId: rid, data: {sendData, avatarUrl: data ? data.profileImageLink: ""} });
     setSendData('');
   }
 
   const handelManualLeave = () => {
     clearInterval(intervalId);
     // clearInterval(gifIntervalId);
-    window.isReady1 = false;
-    window.positions = {};
-    window.myPosition = {};
-    window.socket.emit(ACTIONS.LEAVE, { roomId: rid, user: { name: userName } });
-    dispatch(setMsg([]));
-    dispatch(setPeers([]));
-    router.push('/experience');
 
     var objectsToDelete = [];
     var items = document.querySelectorAll('.model');
@@ -274,7 +267,9 @@ const ChatModule = () => {
     var scene = document.querySelector('scene');
     objectsToDelete.push(scene);
     for (var i = 0; i < objectsToDelete.length; i++) {
-      freeObjectFromMemory(objectsToDelete[i].object3D, objectsToDelete[i]);
+      if(!!objectsToDelete[i]) {
+        freeObjectFromMemory(objectsToDelete[i].object3D, objectsToDelete[i]);
+      }
     }
 
     window.isReady1 = false;
