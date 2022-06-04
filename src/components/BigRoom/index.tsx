@@ -81,9 +81,10 @@ const BigRoom: FC<BigRoomType> = ({ scene, content }) => {
                     className="-ml-4"
                     key={index}
                   >
-                    <Image
-                      src="/images/icons/sol.png"
+                    <img
+                      src={selectedRoom.avatars[index] ? selectedRoom.avatars[index]: "/images/placeholder/avatars/avatar.png"}
                       alt={speaker}
+                      className="rounded-full border border-gray-400"
                       height={32}
                       width={32}
                     />
@@ -91,7 +92,7 @@ const BigRoom: FC<BigRoomType> = ({ scene, content }) => {
                 ))}
               </div>
               { !!selectedRoom.roomName ? (
-                  <button className="btn btn-secondary rounded-3xl" onClick={handleJoinModalToggle}>
+                  <button className="btn btn-secondary rounded-3xl mt-1" onClick={handleJoinModalToggle}>
                     {content.buttonText}
                   </button>
               ) : (<></>)}

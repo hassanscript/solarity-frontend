@@ -50,15 +50,6 @@ export const GALLERY: Gallery = {
           currentBid: 50,
           endingIn: "12h  43m  27s",
         },
-        {
-          roomNo: 3,
-          title: "SolGodVerse #1094",
-          collection: "Solana Money Boys",
-          imageUrl: "/images/placeholder/marketplace/gallery/tuma.jpg",
-          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nisi,eget quisque pharetra, nisl. Nisl a proin a commodo libero purusduis. Leo, condimentum viverra mattis feugiat egestas est at nec.Praesent vitae fames feugiat diam mauris. Fringilla posuere quamenim id urna. Arcu, ut magna cursus pharetra semper a.",
-          currentBid: 50,
-          endingIn: "12h  43m  27s",
-        },
       ],
     },
     // {

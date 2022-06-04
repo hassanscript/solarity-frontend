@@ -5,10 +5,10 @@ export interface CounterState {
   roomName: string;
   userName: string;
   modelIndex: string;
-  socket: any;
-  peers: any;
-  rooms: any;
-  msgs: any;
+  socket: any[];
+  peers: any[];
+  rooms: any[];
+  msgs: any[];
   selectedIndex: number;
 }
 

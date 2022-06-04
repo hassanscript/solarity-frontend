@@ -44,7 +44,7 @@ const CreateRoomModal: FC<any> = ({
       });
       return;
     }
-    dispatch(createRoom({title, type, roomNo, roomName, userName: profileData.username, modelIndex}));
+    dispatch(createRoom({title, type, roomNo, roomName, userName: profileData.username, modelIndex, avatarUrl: profileData.profileImageLink || ""}));
     onClose();
   };
 

@@ -63,7 +63,7 @@ const UserPanel: FC<UserPanelProps> = ({
                         {!!rooms && rooms.length != 0 && roomIndex != -1 && !!rooms[roomIndex] && rooms[roomIndex].clients && clients.map((ele, index) => (
                         <li className={'border-b border-gray-700 py-2 px-1 flex justify-between ' + (ele.name == userName ? 'hidden' : '')} key={index}>
                             <div className='flex'>
-                            <img src={getAvatarImg(ele.name)} className="rounded-full mr-3" width={40} height={40} />
+                            <img src={ele.avatarUrl ? ele.avatarUrl: "/images/placeholder/avatars/avatar.png"} className="rounded-full border border-gray-400 mr-3" width={40} height={40} />
                             <span className='text-white' key={index}>{ele.name}</span>
                             </div>
                             <div className='pt-3 cursor-pointer' onClick={() => toggleVolume(ele.name)}>

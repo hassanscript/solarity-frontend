@@ -24,11 +24,11 @@ import ChatPrivateModel from "components/ChatPrivateModel";
 const ChatModule = () => {
   const [mounted, setMounted] = useState(false)
   const { roomName, userName, modelIndex, msgs, peers, rooms } = useAppSelector(state => state.chat);
-  const { profileImageLink } = useAppSelector(state => state.profile.data.profileImageLink);
+  const { data } = useAppSelector(state => state.profile);
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { rid, roomType, no } = router.query;
-  const { clients, provideRef, handelMute } = useWebTRTC(rid, { name: userName, profileImageLink });
+  const { clients, provideRef, handelMute } = useWebTRTC(rid, { name: userName, profileImageLink: data ? data.profileImageLink: "" });
   const [sendData, setSendData] = useState('');
   const [roomIndex, setRoomIndex] = useState(-1);
   const [intervalId, setIntervalId] = useState('');
@@ -251,7 +251,7 @@ const ChatModule = () => {
   }
 
   const sendMsg = () => {
-    window.socket.emit('send-msg', { roomId: rid, data: sendData });
+    window.socket.emit('send-msg', { roomId: rid, data: {sendData, avatarUrl: data ? data.profileImageLink: ""} });
     setSendData('');
   }
 

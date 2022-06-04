@@ -58,11 +58,11 @@ const SelectedAsset: FC<HeroProps> = ({}) => {
 
     // spl-token payment for buying room.
     try {
-      if(!process.env.WEBSITE_SOLANA_WALLET_ADDRESS || !process.env.SOLARITY_TOKEN_ADDRESS) {
+      if(!process.env.NEXT_PUBLIC_WEBSITE_SOLANA_WALLET_ADDRESS || !process.env.NEXT_PUBLIC_SOLARITY_TOKEN_ADDRESS) {
         return console.error('website solana wallet address or solarity_token_address is not set in environment.');
       }
-      const toPublicKey = new PublicKey(process.env.WEBSITE_SOLANA_WALLET_ADDRESS)
-      const mint = new PublicKey(process.env.SOLARITY_TOKEN_ADDRESS)
+      const toPublicKey = new PublicKey(process.env.NEXT_PUBLIC_WEBSITE_SOLANA_WALLET_ADDRESS)
+      const mint = new PublicKey(process.env.NEXT_PUBLIC_SOLARITY_TOKEN_ADDRESS)
       
       const fromTokenAccount = await getOrCreateAssociatedTokenAccount(
         connection,

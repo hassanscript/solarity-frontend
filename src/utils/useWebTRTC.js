@@ -61,7 +61,7 @@ export const useWebTRTC = (roomId, user) => {
                             }
                         }
                     });
-                    window.socket.emit(ACTIONS.JOIN, { roomId, user: {name: user.name, roomName: roomName, modelIndex: modelIndex} });
+                    window.socket.emit(ACTIONS.JOIN, { roomId, user: {name: user.name, roomName: roomName, modelIndex: modelIndex, avatarUrl: user.profileImageLink != "" ? user.profileImageLink: ""} });
                 });
                 clearInterval(clearIts);
             }
