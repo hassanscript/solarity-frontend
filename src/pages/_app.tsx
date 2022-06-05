@@ -50,8 +50,7 @@ function MyApp({ children }: any) {
   // load on not visibile!!!
   useEffect(() => {
     const currentRoute = router.pathname;
-    if (logged && !profileData.visible) {
-      dispatch(startLoadingApp());
+    if (currentRoute !== "/setup" && logged && !profileData.visible) {
       router.push("/setup");
       return;
     }
