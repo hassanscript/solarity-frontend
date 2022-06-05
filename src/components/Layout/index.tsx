@@ -19,7 +19,7 @@ const Index: FC<Props> = ({ children, rightSidebar, heroContent }) => {
 
       <main className="mx-auto mt-24 grid max-w-7xl grid-cols-6 grid-rows-1 gap-2 px-5">
         <Sidebar />
-        <div className="mt-4 sticky top-28 grid grid-cols-5 gap-1 sm:col-span-7 lg:col-span-5">
+        <div className="mt-4 grid grid-cols-5 gap-1 sm:col-span-7 lg:col-span-5">
           {heroContent && <div className="col-span-5 mt-4">{heroContent}</div>}
           <div
             className={`${rightSidebar ? "col-span-3" : "col-span-5"} mt-4`}

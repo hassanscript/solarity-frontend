@@ -155,6 +155,8 @@ const CoinBalances: FC<{ data: any[] }> = ({ data }) => {
   );
 };
 
+//test
+
 const BalanceViewWrapper: FC<{ children: React.ReactElement }> = ({
   children,
 }) => {

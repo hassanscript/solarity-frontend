@@ -36,7 +36,7 @@ const ChatPanel: FC<ChatPanelProps> = ({
                         return (
                         <div className='flex flex-row py-1' key={ind}>
                             <div className='rounded-full mr-5 mt-1 flex-shrink-0'>
-                            <img src={getAvatarImg(ele.user)} className="rounded-full border border-gary-900" alt="" width={40} height={40} />
+                            <img src={ele.avatarUrl ? ele.avatarUrl: "/images/placeholder/avatars/avatar.png"} className="rounded-full border border-gray-400" alt="" width={40} height={40} />
                             </div>
                             <div>
                             <h3 className='text-secondary'>{ele && ele.user}</h3>

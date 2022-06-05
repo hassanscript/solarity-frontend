@@ -23,7 +23,6 @@ import { models } from "data/experience";
 import VolumeUp from '../../components/Icons/VolumeUp';
 import VolumeOff from '../../components/Icons/VolumeOff';
 import NestedToolTip from 'components/NestedToolTip';
-import freeObjectFromMemory from 'utils/clearObject';
 
 const GalleryChatModule = () => {
   const [mounted, setMounted] = useState(false)
@@ -127,9 +126,9 @@ const GalleryChatModule = () => {
     require('aframe-liquid-portal-shader');
     require('aframe-blink-controls');
     require('./components');
+    require('./utils');
     setMounted(true)
     require('multiuser-aframe');
-    THREE.Cache.enabled = false;
   }, [])
 
   useEffect(() => {
@@ -362,6 +361,7 @@ const GalleryChatModule = () => {
             <a-gltf-model id="navmesh" model-info class="model" src="#navmesh-gltf" visible="false">
             </a-gltf-model>
 
+            {/* lights  */}
             <a-entity position="-2.425 5 24.32" rotation="-90 0 0"
               light="type: spot; angle: 70; intensity:  1; distance: 10; decay: 1; color:  #FFFFFF; shadowCameraVisible: false;">
             </a-entity>
@@ -407,6 +407,7 @@ const GalleryChatModule = () => {
               light="type: spot; angle: 70; intensity:  1; distance: 10; decay: 1; color:  #FFFFFF; shadowCameraVisible: false;">
             </a-entity>
 
+            {/* ambient light  */}
             <a-entity light="type: ambient; intensity: 0.4; color:  #FFFFFF; shadowCameraVisible: false;"></a-entity>
             <a-entity position="0 4 0" rotation="-90 0 0"
               light="type: point; intensity:  0.5; distance: 50; decay: 0; color:  #FFFFFF; cast-shadow: false; shadowCameraVisible: false;">
@@ -425,6 +426,8 @@ const GalleryChatModule = () => {
               <a-box color="white" width="0.1" position="-1.2 0 0" height="2.9" depth="0.1"></a-box>
             </a-image>
             <a-sky src="#sky-img"></a-sky>
+            {/*<a-entity position="0 0 0" sound="src: #jazz; autoplay: true; loop: true; positional: false"></a-entity>*/}
+
           </a-scene>
           <div className='fixed top-[5vh] left-[30px] cursor-pointer' onClick={() => handelManualLeave()}>
             <div className='flex rounded-lg bg-brandblack px-4 py-2'>

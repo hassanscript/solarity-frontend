@@ -51,7 +51,94 @@ export const GALLERY: Gallery = {
           endingIn: "12h  43m  27s",
         },
       ],
-    }
+    },
+    // {
+    //   title: "3D Assets",
+    //   items: [
+    //     {
+    //       roomNo: 0,
+    //       title: "Crypto VR Headset",
+    //       collection: "Solana Money Boys",
+    //       imageUrl: "/images/placeholder/marketplace/gallery/tuma.jpg",
+    //       currentBid: 10,
+    //       endingIn: "12h  43m  27s",
+    //     },
+    //     {
+    //       roomNo: 0,
+    //       title: "Jelly Gun",
+    //       collection: "Solana Money Boys",
+    //       imageUrl: "/images/placeholder/marketplace/gallery/raygun.jpeg",
+    //       currentBid: 10,
+    //       endingIn: "12h  43m  27s",
+    //     },
+    //     {
+    //       roomNo: 0,
+    //       title: "MoneyBoy Mansion",
+    //       collection: "Solana Money Boys",
+    //       imageUrl: "/images/placeholder/marketplace/gallery/mansion.jpg",
+    //       currentBid: 10,
+    //       endingIn: "12h  43m  27s",
+    //     },
+    //   ],
+    // },
+    // {
+    //   title: "Collections",
+    //   items: [
+    //     {
+    //       roomNo: 0,
+    //       title: "Money Boys",
+    //       collection: "Solana Money Boys",
+    //       imageUrl: "/images/placeholder/marketplace/gallery/moneymarket.jpg",
+    //       currentBid: 10,
+    //       endingIn: "12h  43m  27s",
+    //     },
+    //     {
+    //       roomNo: 0,
+    //       title: "SolGods",
+    //       collection: "Solana Money Boys",
+    //       imageUrl: "/images/placeholder/marketplace/gallery/marketgods.jpg",
+    //       currentBid: 10,
+    //       endingIn: "12h  43m  27s",
+    //     },
+    //     {
+    //       roomNo: 0,
+    //       title: "DeGods",
+    //       collection: "Solana Money Boys",
+    //       imageUrl: "/images/placeholder/marketplace/gallery/marketdegods.jpg",
+    //       currentBid: 10,
+    //       endingIn: "12h  43m  27s",
+    //     },
+    //   ],
+    // },
+    // {
+    //   title: "Services & Widgets",
+    //   items: [
+    //     {
+    //       roomNo: 0,
+    //       title: "Money Boy Machine",
+    //       collection: "Solana Money Boys",
+    //       imageUrl: "/images/placeholder/marketplace/gallery/ten.png",
+    //       currentBid: 10,
+    //       endingIn: "12h  43m  27s",
+    //     },
+    //     {
+    //       roomNo: 0,
+    //       title: "DyApps",
+    //       collection: "Solana Money Boys",
+    //       imageUrl: "/images/placeholder/marketplace/gallery/eleven.png",
+    //       currentBid: 10,
+    //       endingIn: "12h  43m  27s",
+    //     },
+    //     {
+    //       roomNo: 0,
+    //       title: "Blockchain API",
+    //       collection: "Solana Money Boys",
+    //       imageUrl: "/images/placeholder/marketplace/gallery/twelve.png",
+    //       currentBid: 10,
+    //       endingIn: "12h  43m  27s",
+    //     },
+    //   ],
+    // },
   ],
 };
 

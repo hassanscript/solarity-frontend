@@ -7,7 +7,9 @@ AFRAME.registerComponent('simple-link', {
         target: { default: '_blank' }
     },
     init: function () {
+        console.log("simple-link ok")
         this.el.addEventListener('click', (e) => {
+            console.log("clicked")
             window.open(this.attrValue.href, this.data.target);
         });
     }

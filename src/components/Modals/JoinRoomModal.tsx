@@ -9,6 +9,7 @@ import ErrorMessage from "components/ErrorMessage";
 import { models } from "data/experience";
 import { setName, setRoom } from "redux/slices/chatSlice";
 import ACTIONS from "config/actions";
+import BaseUrl from "config";
 
 const JoinRoomModal: FC<any> = ({
   open,
@@ -78,13 +79,13 @@ const JoinRoomModal: FC<any> = ({
           }
         }
       }
-
+      
       if(type == false && roomNo == 0) {
-        router.push(`/experience/Room?rid=${rooms[selectedIndex].roomId}&roomType=0&no=0`, 'experience/Room');
+        router.push(`/experience/Room?rid=${rooms[selectedIndex].roomId}&roomType=0&no=0`, '/experience/Room');
       } else if(type == false && roomNo == 1) {
-        router.push(`/experience/Room?rid=${rooms[selectedIndex].roomId}&roomType=1&no=0`, 'experience/Room');
+        router.push(`/experience/Room?rid=${rooms[selectedIndex].roomId}&roomType=1&no=0`, '/experience/Room');
       } else if(type == true) {
-        router.push(`/experience/Room?rid=${rooms[selectedIndex].roomId}&roomType=2&no=${rooms[selectedIndex].roomNo + 1}`, 'experience/Room');
+        router.push(`/experience/Room?rid=${rooms[selectedIndex].roomId}&roomType=2&no=${rooms[selectedIndex].roomNo + 1}`, '/experience/Room');
       }
     }
   }

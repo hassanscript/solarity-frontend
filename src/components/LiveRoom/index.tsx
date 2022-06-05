@@ -3,10 +3,10 @@ import Image from "next/image";
 import { useAppDispatch } from "../../redux/hooks";
 import { setRoomIndex } from "redux/slices/chatSlice";
 const index = ({
-  data: { roomName, name, speakers },
+  data: { roomName, name, speakers, avatars },
   index,
 }: {
-  data: { roomName: string, name: string, speakers: string[] };
+  data: { roomName: string, name: string, speakers: string[], avatars: string[] };
   index: number;
 }) => {
   const dispatch = useAppDispatch();
@@ -27,9 +27,10 @@ const index = ({
                     className="-ml-4"
                     key={index}
                   >
-                    <Image
-                      src="/images/icons/sol.png"
+                    <img
+                      src={avatars[index] ? avatars[index]: "/images/placeholder/avatars/avatar.png"}
                       alt={speaker}
+                      className="rounded-full border border-gray-400"
                       height={32}
                       width={32}
                     />
