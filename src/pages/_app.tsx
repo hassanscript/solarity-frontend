@@ -5,6 +5,7 @@ import { ConnectionProvider } from "@solana/wallet-adapter-react";
 import { ToastContainer } from "react-toastify";
 import AppLoader from "../components/AppLoader";
 import "react-toastify/dist/ReactToastify.css";
+import Head from 'next/head'
 
 // For redux
 import {
@@ -76,6 +77,9 @@ function MyApp({ children }: any) {
 function ReduxWrapped({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
+      <Head>
+        <title>Solarity</title>
+      </Head>
       <MyApp>
         <AppLoader />
         <ToastContainer

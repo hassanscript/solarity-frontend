@@ -5,14 +5,18 @@ import { useAppSelector, useAppDispatch } from "redux/hooks";
 import { setActiveRoomNo } from "../../redux/slices/profileSlice";
 import { apiCaller } from "utils/fetcher";
 import { useRouter } from "next/router";
+import NestedToolTip from "components/NestedToolTip";
+import { CopySmall } from "components/Icons";
 
 const RoomItem = ({
+  kind,
   room,
   activeIndex,
   setActiveIndex,
   activeId,
   setActiveId,
 }: {
+    kind: string;
   room: any;
   activeIndex: number;
   setActiveIndex: any;
@@ -31,23 +35,36 @@ const RoomItem = ({
         });
     }
     return (
-        <div className="col-span-1 m-2 w-1/3">
-            <div 
-                className={"cursor-pointer border border-transparent hover:border-gray-400  rounded-2xl " + (room.roomNo == activeIndex ? "border-gray-200 ": " ") + (activeIndex == -1 && room.active == true ? "border-gray-200 ": " ")}
-                onClick={setActive}
-            >
-                <Image 
-                    src={"/assets/images/roomItems/item" + room.roomNo + ".png"}
-                    width="100%" 
-                    height="100%" 
-                    layout="responsive" 
-                    objectFit="contain"
-                />
-            </div>
-            <div className="flex justify-center">
-                <Link href={`/${username}/room${room.roomNo}/${room._id}`} passHref>
-                    <a  target="_blank" className="hover:text-secondary text-sm cursor-pointer mt-2">View Room</a>
-                </Link>
+        <div className="m-1 col-span-1">
+            <div className="w-full">
+                <div 
+                    className={"cursor-pointer border border-transparent hover:border-gray-400  rounded-2xl " + (room.roomNo == activeIndex ? "border-gray-200 ": " ") + (activeIndex == -1 && room.active == true ? "border-gray-200 ": " ")}
+                    onClick={(kind) => {if(kind) setActive()}}
+                >
+                    <Image 
+                        src={"/assets/images/roomItems/item" + room.roomNo + ".png"}
+                        width="100%" 
+                        height="100%" 
+                        layout="responsive" 
+                        objectFit="contain"
+                    />
+                </div>
+                <div className="flex justify-center font-secondary ">
+                    <NestedToolTip 
+                        content={
+                            <span 
+                                className={"flex hover:text-secondary text-sm cursor-pointer mt-2"}
+                            >
+                                Room {room.roomNo} &nbsp;
+                                <span className="pt-1"><CopySmall /></span>
+                            </span>
+                        }
+                        link={
+                            process.env.NODE_ENV === "development" ? 
+                            process.env.NEXT_PUBLIC_LOCAL_FRONTEND_URL + `/${username}/room${room.roomNo}/${room._id}` : 
+                            process.env.NEXT_PUBLIC_FRONTEND_URL + `/${username}/room${room.roomNo}/${room._id}`}
+                    />
+                </div>
             </div>
         </div>
     );

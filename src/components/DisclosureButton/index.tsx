@@ -35,7 +35,7 @@ const DisclosureButton = ({ items }: Iprops) => {
               leaveTo="transform scale-95 opacity-0"
             >
               <Disclosure.Panel className="flex flex-col gap-5 mx-3 mt-4">
-                {items.map(({ link, imageUrl, title }) => (
+                {/* {items.map(({ link, imageUrl, title }) => (
                   <Link href={link} passHref key={link}>
                     <a className="flex items-center gap-3">
                       <Image
@@ -47,7 +47,7 @@ const DisclosureButton = ({ items }: Iprops) => {
                       {title}
                     </a>
                   </Link>
-                ))}
+                ))} */}
 
                 <Link href="/dao/create" passHref>
                   <a className="flex items-center gap-3">

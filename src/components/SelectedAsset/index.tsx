@@ -239,7 +239,7 @@ const SelectedAsset: FC<HeroProps> = ({}) => {
         }
       </div>
       {selectedAsset && (
-        <div className="flex justify-between my-6">
+        <div className="flex justify-between my-2">
           <div className="flex flex-col max-w-4xl ">
             <span className="text-[15px] text-secondary">
               {selectedAsset.title}

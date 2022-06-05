@@ -11,7 +11,7 @@ const Marketplace = () => {
     console.log(tag);
   };
   return (
-    <div className="flex flex-col pb-14">
+    <div className="flex flex-col">
       {/* <div className="flex justify-between">
         <TagsCollection onChange={handleTagChange} tags={TAGS} />
         <div className="flex items-center gap-3">

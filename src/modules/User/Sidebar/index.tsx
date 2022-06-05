@@ -12,7 +12,7 @@ const Sidebar: FC<{ user: any }> = ({ user }) => {
     <>
       {logged && profile._id === user._id && <BalanceView {...user} />}
       <br />
-      <Home />
+      {/* <Home /> */}
     </>
   );
 };

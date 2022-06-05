@@ -14,7 +14,7 @@ const GalleryChat = ({ modelURL, name }) => {
             <a-asset-item id="raccoon-obj" src={modelURL}></a-asset-item>
             <a-asset-item id="navmesh-gltf" src="/assets/models/gallery/navmesh.gltf"></a-asset-item>
             <img id="hub-img" src="/assets/images/hub.png" alt="hub"/>
-            <img id="sky-img" src="/assets/images/sky.jpg" alt="sky"/>
+            <img id="sky-img" src="/assets/images/bluesky.jpg" alt="sky"/>
             <template 
                 id="avatar-template"
                 dangerouslySetInnerHTML={{

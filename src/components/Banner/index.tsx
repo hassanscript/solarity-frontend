@@ -28,7 +28,7 @@ const Banner: FC<BannerProps> = ({ vrprofile, user, vrdao, smallImage }) => {
   const [room, setRoom] = useState<any>({});
 
   useEffect(() => {
-    if (user != {} && !!user.rooms) {
+    if (!!user && !!user.rooms) {
       var roomIndex = -1;
       if (activeRoomId != "") {
         roomIndex = user.rooms.findIndex((s: any) => s._id == activeRoomId);

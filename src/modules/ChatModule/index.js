@@ -51,7 +51,6 @@ const ChatModule = () => {
 
 
   useEffect(async () => {
-    console.log(roomIndex, rooms, rooms[roomIndex])
     if (!!rooms && rooms.length != 0 && rooms[roomIndex] && !!rooms[roomIndex].name) {
       const {
         data: { roomInfoData },
@@ -81,37 +80,15 @@ const ChatModule = () => {
   }
 
   const getUsers = async () => {
-    const {
-      data: { data },
-    } = await apiCaller.get(`/users/getUsers`);
-    var users = data;
-    if (!!rooms && rooms.length != 0) {
-      var roomIndex = rooms.findIndex(s => s.roomId == rid);
-      var userFilter = [];
-      users.map((user, index) => {
-        if (user.username != localStorage.getItem('name')) {
-          if (!!rooms[roomIndex] && !!rooms[roomIndex].speakers) {
-            if (rooms[roomIndex].speakers.findIndex(s => s == user.username) == -1) {
-              let stateIndex = rooms[roomIndex].states.findIndex(s => s == user.username);
-              if (stateIndex > -1) {
-                users[index].state = "Pending";
-                users[index].link = rooms[roomIndex].links[stateIndex];
-              }
-              if (!rooms[roomIndex].guests) {
-                // const guestIndex = rooms[roomIndex].guests.findIndex(s => s.username == user.username);
-                // if (guestIndex == -1) {
-                //   userFilter.push(users[index]);
-                // }
-                // } else {
-                userFilter.push(users[index]);
-              }
-            } else {
-              users[index].state = undefined;
-            }
-          }
+    var roomIndex = rooms.findIndex(s => s.roomId == rid);
+    if(roomIndex != -1) {
+      rooms[roomIndex].speakers.map((speaker, index) => {
+        const user = {
+          username: speaker,
+          link: rooms[roomIndex].links[index],
         }
-      });
-      setUserlist(userFilter);
+      })
+      setUserlist();
     }
   }
 

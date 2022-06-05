@@ -6,7 +6,7 @@ import { BIG_ROOM } from "data/experience";
 
 const Experience = () => {
   return (
-    <div className="flex flex-col pb-14">
+    <div className="flex flex-col pb-14 mt-4">
       <BigRoom {...BIG_ROOM}/>
       <GalleryE />
     </div>

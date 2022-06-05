@@ -3,6 +3,7 @@ import { RootStateOrAny, useSelector } from "react-redux";
 import { build_loadingScreen } from "modules/ChatModule/loadingScreen";
 import {chooseControls, passControls} from 'modules/ChatModule/utils'
 import styles from 'modules/ChatModule/chat.module.css';
+import LockedRoom from "components/Banner/LockedRoom";
 
 export default function FirstEditRoom({
   picNo,
@@ -291,8 +292,8 @@ export default function FirstEditRoom({
     return <div>load...</div>;
   } else {
     return (
-      <div className="pt-20 text-center">
-        {"You don't have any active room."}
+      <div className="w-full h-[400px] rounded-2xl relative" style={{background: "rgba(255, 255, 255, 0.2)"}}>
+        <LockedRoom />
       </div>
     );
   }

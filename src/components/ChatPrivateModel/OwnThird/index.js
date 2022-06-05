@@ -16,7 +16,7 @@ const OwnThird = ({ roomInfo, modelURL, name }) => {
           <a-asset-item id="raccoon-obj" src={modelURL}></a-asset-item>
 
           <img id="hub-img" src="/assets/images/hub.png"/>
-          <img id="sky-img" src="/assets/images/sky.jpg"/>
+          <img id="sky-img" src="/assets/images/bluesky.jpg"/>
 
           <template 
               id="avatar-template"

@@ -44,12 +44,12 @@ const OwnRooms = ({ rooms }: { rooms: any[] }) => {
                 <div className="col-span-4 ml-5 w-2/5">
                     <div className="py-5 pl-2 text-sm flex justify-between">
                         <span>Add ons</span>
-                        <span className="text-secondary cursor-pointer" onClick={editRoom}>Edit Active Room</span>
+                        {/* <span className="text-secondary cursor-pointer" onClick={editRoom}>Edit Active Room</span> */}
                     </div>
                     <div className="flex grid-cols-3">
                         {
                             rooms && rooms.map((room, index) => (
-                                <RoomItem room={room} activeIndex={activeIndex} setActiveIndex={setActiveIndex} activeId={activeId} setActiveId={setActiveId} key={index} />
+                                <RoomItem kind={"false"} room={room} activeIndex={activeIndex} setActiveIndex={setActiveIndex} activeId={activeId} setActiveId={setActiveId} key={index} />
                             ))
                         }
                     </div>
