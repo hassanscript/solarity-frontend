@@ -49,7 +49,7 @@ const OwnRooms = ({ rooms }: { rooms: any[] }) => {
                     <div className="flex grid-cols-3">
                         {
                             rooms && rooms.map((room, index) => (
-                                <RoomItem kind={"false"} room={room} activeIndex={activeIndex} setActiveIndex={setActiveIndex} activeId={activeId} setActiveId={setActiveId} key={index} />
+                                <RoomItem room={room} activeIndex={activeIndex} setActiveIndex={setActiveIndex} activeId={activeId} setActiveId={setActiveId} key={index} />
                             ))
                         }
                     </div>

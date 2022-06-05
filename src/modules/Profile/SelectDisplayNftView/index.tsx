@@ -8,7 +8,7 @@ import { NftCardSelect } from "modules/User/NftCardSelect";
 import { setActiveRoomNo, updateNftCard } from "redux/slices/profileSlice";
 import { useRouter } from "next/router";
 import LockedRoom from "components/Banner/LockedRoom";
-import RoomItem from "components/RoomItem";
+import RealRoomItem from "components/RealRoomItem";
 
 const SelectDisplayNftView = () => {
   const dispatch = useDispatch();
@@ -179,7 +179,7 @@ const SelectDisplayNftView = () => {
             <div className="flex grid-cols-3">
                 {
                     rooms && rooms.map((room, index) => (
-                        <RoomItem kind={"true"} room={room} activeIndex={activeIndex} setActiveIndex={setActiveIndex} activeId={activeId} setActiveId={setActiveId} key={index} />
+                        <RealRoomItem room={room} activeIndex={activeIndex} setActiveIndex={setActiveIndex} activeId={activeId} setActiveId={setActiveId} key={index} />
                     ))
                 }
             </div>

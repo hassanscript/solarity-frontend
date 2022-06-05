@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 import NestedToolTip from "components/NestedToolTip";
 import { CopySmall } from "components/Icons";
 
-const RoomItem = ({
+const RealRoomItem = ({
   room,
   activeIndex,
   setActiveIndex,
@@ -33,39 +33,24 @@ const RoomItem = ({
         });
     }
     return (
-        <div className="m-2 col-span-1 w-1/3">
+        <div className="m-2 col-span-1 w-1/5">
             <div className="w-full">
                 <div 
                     className={"cursor-pointer border border-transparent hover:border-gray-400  rounded-2xl " + (room.roomNo == activeIndex ? "border-gray-200 ": " ") + (activeIndex == -1 && room.active == true ? "border-gray-200 ": " ")}
                     onClick={setActive}
                 >
-                    <Image 
-                        src={"/assets/images/roomItems/item" + room.roomNo + ".png"}
+                    <img 
+                        src={room.imageUrl}
+                        className="rounded-2xl"
                         width="100%" 
-                        height="100%" 
-                        layout="responsive" 
-                        objectFit="contain"
                     />
                 </div>
-                <div className="flex justify-center font-secondary ">
-                    <NestedToolTip 
-                        content={
-                            <span 
-                                className="flex hover:text-secondary text-sm cursor-pointer mt-2"
-                            >
-                                {room.title} &nbsp;
-                                <span className="pt-1"><CopySmall /></span>
-                            </span>
-                        }
-                        link={
-                            process.env.NODE_ENV === "development" ? 
-                            process.env.NEXT_PUBLIC_LOCAL_FRONTEND_URL + `/${username}/room${room.roomNo}/${room._id}` : 
-                            process.env.NEXT_PUBLIC_FRONTEND_URL + `/${username}/room${room.roomNo}/${room._id}`}
-                    />
+                <div className="flex justify-center font-secondary text-sm ">
+                    {room.title}
                 </div>
             </div>
         </div>
     );
 };
 
-export default RoomItem;
+export default RealRoomItem;
