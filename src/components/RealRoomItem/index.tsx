@@ -43,6 +43,7 @@ const RealRoomItem = ({
                         src={room.imageUrl}
                         className="rounded-2xl"
                         width="100%" 
+                        height={100}
                     />
                 </div>
                 <div className="flex justify-center font-secondary text-sm ">
