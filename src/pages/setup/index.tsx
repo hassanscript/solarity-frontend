@@ -14,11 +14,14 @@ const SetupPage = () => {
       checkingSession: state.auth.checkingSession,
     })
   );
+
+  useEffect(() => {
+    dispatch(stopLoadingApp());
+  }, []);
+
   useEffect(() => {
     dispatch(startLoadingApp());
-    if (checkingSession) {
-      return dispatch(stopLoadingApp());
-    }
+    if (checkingSession) return;
     if (!logged || (logged && profileData.visible)) {
       router.push("/");
     } else {
