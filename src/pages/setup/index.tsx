@@ -1,9 +1,7 @@
 import { useEffect } from "react";
-import Layout from "components/Layout";
 import Setup from "modules/Setup";
 import { useRouter } from "next/router";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
-import { ToastContainer } from "react-toastify";
 import { startLoadingApp, stopLoadingApp } from "redux/slices/commonSlice";
 
 const SetupPage = () => {

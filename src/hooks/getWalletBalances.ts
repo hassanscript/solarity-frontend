@@ -80,16 +80,26 @@ export const getWalletBalances = ({
       }
     );
     const balances = (<
-      [{ token: string; image: string; tokenAddress?: string }]
-    >tokenAddresses).map(({ token, image, tokenAddress }, index) => {
-      return {
-        title: token,
-        symbol: token,
-        image,
-        tokenAddress,
-        ...results[index],
-      };
-    });
+      [
+        {
+          token: string;
+          image: string;
+          tokenAddress?: string;
+          showOnZero?: boolean;
+        }
+      ]
+    >tokenAddresses).map(
+      ({ token, image, tokenAddress, showOnZero }, index) => {
+        return {
+          showOnZero,
+          title: token,
+          symbol: token,
+          image,
+          tokenAddress,
+          ...results[index],
+        };
+      }
+    );
     setTokens(balances);
   };
 
@@ -147,6 +157,5 @@ export const getWalletBalances = ({
   useEffect(() => {
     getAllData();
   }, []);
-
   return { tokens, coins, loading, error };
 };

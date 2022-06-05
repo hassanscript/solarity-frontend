@@ -1,9 +1,10 @@
 import { FC } from "react";
 import SearchInput from "components/SearchInput";
-import { Button } from "components/FormComponents";
+import { Button, Stack } from "components/FormComponents";
 import { useDispatch } from "react-redux";
 import { claimDaos } from "redux/slices/profileSlice";
 import { useState } from "react";
+import { BackButton } from "../sharedComponents";
 
 const claimDao = () => {};
 
@@ -87,29 +88,32 @@ const DAOClaimView = () => {
           <NoDaoMessage />
           <FindDAO />
           <div className="flex justify-end py-5">
-            <Button
-              disableOnLoading
-              loading={loading}
-              onClick={() => {
-                setLoading(true);
-                dispatch(
-                  claimDaos({
-                    data: {},
-                    successFunction: () => {
-                      setError(false);
-                    },
-                    errorFunction: () => {
-                      setError(true);
-                    },
-                    finalFunction: () => {
-                      setLoading(false);
-                    },
-                  })
-                );
-              }}
-            >
-              Continue
-            </Button>
+            <Stack direction="row">
+              <BackButton stepName="profilePic" />
+              <Button
+                disableOnLoading
+                loading={loading}
+                onClick={() => {
+                  setLoading(true);
+                  dispatch(
+                    claimDaos({
+                      data: {},
+                      successFunction: () => {
+                        setError(false);
+                      },
+                      errorFunction: () => {
+                        setError(true);
+                      },
+                      finalFunction: () => {
+                        setLoading(false);
+                      },
+                    })
+                  );
+                }}
+              >
+                Continue
+              </Button>
+            </Stack>
           </div>
           {error && <ErrorMessage />}
         </div>

@@ -10,8 +10,13 @@ const Sidebar: FC<{ user: any }> = ({ user }) => {
   }));
   return (
     <>
-      {logged && profile._id === user._id && <BalanceView {...user} />}
-      <br />
+      {logged && profile._id === user._id && (
+        <>
+          <BalanceView {...user} />
+          <br />
+        </>
+      )}
+
       <Home />
     </>
   );

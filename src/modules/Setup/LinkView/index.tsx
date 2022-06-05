@@ -3,6 +3,7 @@ import { Button, Stack } from "components/FormComponents";
 import LinkAccounts from "../../../modules/Profile/LinkAccounts";
 import { setup } from "../../../redux/slices/profileSlice";
 import { useState } from "react";
+import { BackButton } from "../sharedComponents";
 
 const LinkView = () => {
   const dispatch = useDispatch();
@@ -17,27 +18,31 @@ const LinkView = () => {
           <h3 className="pb-4 text-3xl font-semibold">Link your account</h3>
           <LinkAccounts mini resetUrl={() => {}} disabled={loading} />
           <Stack direction="col" className="items-end pt-5">
-            <Button
-              type="submit"
-              loading={loading}
-              variant="secondary"
-              disableOnLoading
-              onClick={() => {
-                setLoading(true);
-                dispatch(
-                  setup({
-                    data: { action: "link" },
-                    successFunction: () => {},
-                    errorFunction: (errorMessage: string) => {},
-                    finalFunction: () => {
-                      setLoading(false);
-                    },
-                  })
-                );
-              }}
-            >
-              Next
-            </Button>
+            <Stack direction="row">
+              <BackButton stepName="info" />
+              <Button
+                type="submit"
+                loading={loading}
+                variant="secondary"
+                disableOnLoading
+                onClick={() => {
+                  setLoading(true);
+                  dispatch(
+                    setup({
+                      data: { action: "link" },
+                      successFunction: () => {},
+                      errorFunction: (errorMessage: string) => {},
+                      finalFunction: () => {
+                        setLoading(false);
+                      },
+                    })
+                  );
+                }}
+              >
+                Next
+              </Button>
+            </Stack>
+
             <span className="mt-3 text-sm">You can link later as well</span>
           </Stack>
         </div>
