@@ -14,7 +14,7 @@ const SetupPage = () => {
       checkingSession: state.auth.checkingSession,
     })
   );
-
+  console.log("checkingSession: ", profileData);
   useEffect(() => {
     if (!checkingSession) dispatch(stopLoadingApp());
   }, [checkingSession]);
@@ -22,6 +22,7 @@ const SetupPage = () => {
   useEffect(() => {
     dispatch(startLoadingApp());
     if (checkingSession) return;
+    console.log("here");
     if (!logged || (logged && profileData.visible)) {
       router.push("/");
     } else {
