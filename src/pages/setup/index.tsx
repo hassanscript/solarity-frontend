@@ -16,7 +16,9 @@ const SetupPage = () => {
   );
   useEffect(() => {
     dispatch(startLoadingApp());
-    if (checkingSession) return;
+    if (checkingSession) {
+      return dispatch(stopLoadingApp());
+    }
     if (!logged || (logged && profileData.visible)) {
       router.push("/");
     } else {
