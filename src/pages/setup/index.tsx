@@ -7,18 +7,22 @@ import { startLoadingApp, stopLoadingApp } from "redux/slices/commonSlice";
 const SetupPage = () => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const { logged, profileData } = useSelector((state: RootStateOrAny) => ({
-    profileData: state.profile.data,
-    logged: state.auth.logged,
-  }));
+  const { logged, profileData, checkingSession } = useSelector(
+    (state: RootStateOrAny) => ({
+      profileData: state.profile.data,
+      logged: state.auth.logged,
+      checkingSession: state.auth.checkingSession,
+    })
+  );
   useEffect(() => {
     dispatch(startLoadingApp());
+    if (checkingSession) return;
     if (!logged || (logged && profileData.visible)) {
       router.push("/");
     } else {
       dispatch(stopLoadingApp());
     }
-  }, [logged, profileData.visible]);
+  }, [logged, profileData.visible, checkingSession]);
 
   if (!logged) return <div></div>;
 
