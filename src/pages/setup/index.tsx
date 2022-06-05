@@ -16,8 +16,8 @@ const SetupPage = () => {
   );
 
   useEffect(() => {
-    dispatch(stopLoadingApp());
-  }, []);
+    if (!checkingSession) dispatch(stopLoadingApp());
+  }, [checkingSession]);
 
   useEffect(() => {
     dispatch(startLoadingApp());
