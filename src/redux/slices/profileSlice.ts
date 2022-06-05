@@ -13,8 +13,32 @@ const initialState = {
   nfts: [],
   nftsLoaded: false,
   activeRoomId: "",
-  activeRoomNo: -1
+  activeRoomNo: -1,
 };
+
+export const undoSetupStep = createAsyncThunk(
+  "profile/setup",
+  async ({
+    stepName,
+    onFinally,
+  }: {
+    stepName: String;
+    onFinally: () => void;
+  }) => {
+    let returnValue = null;
+    try {
+      const {
+        data: { profile },
+      } = await apiCaller.post("/profile/setup/undo", { stepName });
+      returnValue = profile;
+    } catch (err) {
+      showErrorToast("Unable to undo the setup step");
+      returnValue = false;
+    }
+    onFinally();
+    return returnValue;
+  }
+);
 
 export const setup = createAsyncThunk(
   "profile/setup",
@@ -91,16 +115,12 @@ export const getRewardAction = createAsyncThunk(
     finalFunction: () => void;
   }) => {
     let returnValue = null;
-    const {
-      signed,
-      connection,
-      setShowWallets,
-    } = data;
+    const { signed, connection, setShowWallets } = data;
     try {
-
       try {
-        await connection.sendRawTransaction(signed.serialize())
-      } catch (error: any) {alert()
+        await connection.sendRawTransaction(signed.serialize());
+      } catch (error: any) {
+        alert();
         errorFunction(error.message);
         return;
       }

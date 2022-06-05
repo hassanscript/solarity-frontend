@@ -6,6 +6,7 @@ import { FC } from "react";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import { setProfilePic, setup } from "../../../redux/slices/profileSlice";
 import { showErrorToast } from "utils";
+import { BackButton } from "../sharedComponents";
 
 interface NftSelectionProps {
   type?: string;
@@ -113,11 +114,12 @@ const ProfilePicView = () => {
     return (
       <div className="bg-brandblack">
         <div className="container mx-auto flex h-screen w-screen flex-col py-6">
-          <div className="flex w-full pb-5">
-            <h3 className="w-full pb-4 text-3xl font-semibold">
+          <div className="flex w-full justify-between pb-5">
+            <h3 className="pb-4 text-3xl font-semibold">
               Select a profile Pic
             </h3>
             <Stack direction="row">
+              <BackButton stepName="link" />
               <Button
                 variant="info"
                 wrap={false}
@@ -148,7 +150,7 @@ const ProfilePicView = () => {
               </Button>
               <Button
                 wrap={false}
-                disabled={!Boolean(selected) || nftLoading}
+                disabled={!Boolean(Object.keys(selected).length) || nftLoading}
                 outline={!Boolean(selected) || nftLoading}
                 disableOnLoading
                 loading={loading}

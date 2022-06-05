@@ -1,8 +1,15 @@
 import EthereumLogo from "../../assets/images/icons/ethereum.png";
 import SolanaLogo from "../../assets/images/icons/solana.png";
 import Image from "next/image";
-import { useSelector, RootStateOrAny } from "react-redux";
+import { useSelector, RootStateOrAny, useDispatch } from "react-redux";
 import { FC } from "react";
+import { Button } from "components/FormComponents";
+import { MdChevronLeft } from "react-icons/md";
+import { startLoadingApp, stopLoadingApp } from "redux/slices/commonSlice";
+import { apiCaller } from "utils/fetcher";
+import { toast } from "react-toastify";
+import { showErrorToast } from "utils";
+import { undoSetupStep } from "redux/slices/profileSlice";
 
 export const WalletAddressIndicator: FC<{}> = () => {
   const { shortPublicAddress, solanaAddress, ethereumAddress } = useSelector(
@@ -26,5 +33,28 @@ export const WalletAddressIndicator: FC<{}> = () => {
         </div>
       </p>
     </div>
+  );
+};
+
+export const BackButton: FC<{ stepName: String }> = ({ stepName }) => {
+  const dispatch = useDispatch();
+
+  const onBack = async () => {
+    dispatch(startLoadingApp());
+    dispatch(
+      undoSetupStep({
+        stepName,
+        onFinally: () => {
+          dispatch(stopLoadingApp());
+        },
+      })
+    );
+  };
+
+  return (
+    <Button onClick={onBack} variant="info">
+      <MdChevronLeft fontSize="24" />
+      Back
+    </Button>
   );
 };

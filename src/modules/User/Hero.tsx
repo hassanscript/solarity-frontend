@@ -79,6 +79,10 @@ const Hero: FC<HeroProps> = ({ user }) => {
   }
 
   useEffect(() => {
+    setProfile(user as User);
+  }, [user]);
+
+  useEffect(() => {
     if (!showFollowers) return;
   }, [showFollowers]);
   //hide follow if not logged
@@ -119,9 +123,9 @@ const Hero: FC<HeroProps> = ({ user }) => {
       <div className="flex justify-center">
         <span className="text-lg font-bold ">{profile.username}</span>
       </div>
-      <div className="flex justify-center gap-4 mt-4">
+      <div className="mt-4 flex justify-center gap-4">
         <button
-          className="gap-2 text-sm normal-case rounded-full btn btn-primary"
+          className="btn btn-primary gap-2 rounded-full text-sm normal-case"
           onClick={() => setShowFollowers(true)}
         >
           <svg
@@ -141,7 +145,7 @@ const Hero: FC<HeroProps> = ({ user }) => {
         </button>
         {profile.githubUsername && (
           <a
-            className="bg-white btn btn-circle"
+            className="btn btn-circle bg-white"
             target={"__blank"}
             href={`https://github.com/${profile.githubUsername}`}
           >
@@ -150,7 +154,7 @@ const Hero: FC<HeroProps> = ({ user }) => {
         )}
         {profile.twitterUsername && (
           <a
-            className="bg-white btn btn-circle"
+            className="btn btn-circle bg-white"
             target={"__blank"}
             href={`https://twitter.com/${profile.twitterUsername}`}
           >
@@ -159,7 +163,7 @@ const Hero: FC<HeroProps> = ({ user }) => {
         )}
         {profile.discordUsername && (
           <a
-            className="bg-white btn btn-circle"
+            className="btn btn-circle bg-white"
             target={"__blank"}
             href={`https://discord.com/users/${profile.discordUsername}`}
           >
@@ -167,20 +171,20 @@ const Hero: FC<HeroProps> = ({ user }) => {
           </a>
         )}
       </div>
-      <div className="flex justify-center mt-6">
-        <span className="max-w-[750px] text-sm text-center text-gray-950">
+      <div className="mt-6 flex justify-center">
+        <span className="max-w-[750px] text-center text-sm text-gray-950">
           {self ? (
             profile.bio ? (
               profile.bio
             ) : (
-              <div className="badge badge-xl">Your profile is missing bio</div>
+              <div className="badge-xl badge">Your profile is missing bio</div>
             )
           ) : (
             profile.bio
           )}
         </span>
       </div>
-      <div className="flex justify-center gap-8 mt-8">
+      <div className="mt-8 flex justify-center gap-8">
         {MENU_LINKS(profile.username).map(({ link, exact, title }, index) => (
           <Link
             href={link}
