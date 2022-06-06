@@ -119,8 +119,8 @@ export default function FirstEditRoom({
       var frame_imageEL = document.createElement("a-image");
       frameEl.appendChild(frame_imageEL);
       frame_imageEL.setAttribute("src", imageUrl);
-      frame_imageEL.setAttribute("width", 1.1);
-      frame_imageEL.setAttribute("height", 1.1);
+      frame_imageEL.setAttribute("width", 0.880);
+      frame_imageEL.setAttribute("height", 1.370);
       frame_imageEL.setAttribute("position", { x: 0, y: 0, z: 0.01 });
       setChooseFlag(false);
       setPicNo("0");
@@ -248,8 +248,8 @@ export default function FirstEditRoom({
                 class={`frame picno${index + 1} clickable`}
                 cursor-listen={`picno: ${index + 1}`}
                 position={asset.pos}
-                width="1.1"
-                height="1.1"
+                width=".880"
+                height="1.370"
                 rotation={asset.rot}
                 material="shader:standard;"
                 color="#111122"
@@ -263,8 +263,8 @@ export default function FirstEditRoom({
                         <a-image
                           src={nft.link}
                           key={index1}
-                          width="1.1"
-                          height="1.1"
+                          width=".880"
+                          height="1.370"
                           position=""
                           material=""
                           geometry=""
