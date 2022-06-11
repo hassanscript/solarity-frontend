@@ -20,9 +20,10 @@ const GalleryChat = ({ modelURL, name }) => {
                 id="avatar-template"
                 dangerouslySetInnerHTML={{
                     __html: '<a-entity>' +
-                    '<a-entity class="nametag" text="value: ' + name + '; align:center;" position="0 0.6 0" rotation="0 180 0" scale="4 4 4"></a-entity>' +
-                    '<a-gltf-model class = "character-model" rotation="0 180 0" position="0 -0.1 0"scale="1 1 1" src="#raccoon-obj"></a-gltf-model>' +
-                    '<a-gltf-model class = "uv-model" rotation="0 180 0" position="0 -0.1 0"scale="1 1 1" src="#uv"></a-gltf-model>' +
+                    '<a-entity class="nametag" text="value: ' + name + '; align:center;" position="0 0.5 0" rotation="0 180 0" scale="3 3 3"></a-entity>' +
+                    '<a-entity class="nametag" text="value: ' + name + '; align:center;" position="0 0.5 0" rotation="0 0 0" scale="3 3 3"></a-entity>' +
+                    '<a-gltf-model class = "character-model" rotation="0 180 0" position="0 -0.2 0" scale="1.5 1.5 1.5" src="#raccoon-obj"></a-gltf-model>' +
+                    '<a-gltf-model class = "uv-model" rotation="0 180 0" position="0 -0.2 0" scale="1.5 1.5 1.5" src="#uv"></a-gltf-model>' +
                     '</a-entity>'
                 }}
             />
@@ -33,7 +34,7 @@ const GalleryChat = ({ modelURL, name }) => {
           position="0 1.65 0"
           look-controls="pointerLockEnabled: true; reverseMouseDrag: false"
           wasd-controls="acceleration: 20;"
-          simple-navmesh-constraint="navmesh:#navmesh;fall: 5;height:1.65;" 
+          simple-navmesh-constraint="navmesh:#navmesh;fall: 5;height:1.6;" 
           networked="template:#avatar-template;attachTemplateToLocal:false;"
           material="src: /images/placeholder/avatars/degen.png"
         >
