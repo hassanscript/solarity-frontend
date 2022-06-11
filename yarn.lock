@@ -5452,10 +5452,10 @@ multihashes@^0.4.15, multihashes@~0.4.15:
     multibase "^0.7.0"
     varint "^5.0.0"
 
-multiuser-aframe@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/multiuser-aframe/-/multiuser-aframe-0.1.1.tgz#4176a098ce18cf44888acd5965e40401f6623443"
-  integrity sha512-pVGdzWBE25pi5DE0oXKWVC3hF5RRrSzN/6JqMRrTFcl8ObvFqXYgl4JY6mVNQmxhpuuhLW26N2Hmgqx4RbcuQw==
+multiuser-aframe@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/multiuser-aframe/-/multiuser-aframe-0.1.2.tgz#ba2a105c607f326b56dcd1747b065da6f0bac28b"
+  integrity sha512-Pj9/4PuFy/C4qVx8V4KpIyioA14cMpKQBhTKXpSsKSkhXc5fxe8cPIV59tLV+y2ODCN2RH/dpl0fIBxhLUsXnQ==
   dependencies:
     buffered-interpolation "github:Infinitelee/buffered-interpolation"
     express "^4.17.1"

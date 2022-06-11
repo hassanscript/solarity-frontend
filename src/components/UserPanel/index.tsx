@@ -40,6 +40,10 @@ const UserPanel: FC<UserPanelProps> = ({
         }
     }, [rooms[roomIndex]])
 
+    useEffect(() => {
+        console.log('clients: ', clients);
+    }, [clients])
+
     return (
         <div className={"fixed top-[20vh] left-[30px] w-[250px] transition-opacity " + (isUserPanel ? 'opacity-100' : 'opacity-0')}>
             <div className='rounded-lg bg-brandblack px-4 py-2 w-full h-full'>
@@ -69,7 +73,7 @@ const UserPanel: FC<UserPanelProps> = ({
                         {!!clients && clients.map((ele, index) => (
                         <li className={'border-b border-gray-700 py-2 px-1 flex justify-between'} key={index}>
                             <div className='flex'>
-                                <img src={ele.profileImageLink ? ele.profileImageLink: "/images/placeholder/avatars/avatar.png"} className="rounded-full border border-gray-400 mr-3" width={40} height={40} />
+                                <img src={ele.avatarUrl ? ele.avatarUrl: "/images/placeholder/avatars/avatar.png"} className="rounded-full border border-gray-400 mr-3" width={40} height={40} />
                                 <span className='text-white pt-[3px]' key={index}>{ele.name}</span>
                             </div>
                             <div className={"pt-3 cursor-pointer " + (ele.name == userName ? "hidden": "")} onClick={() => toggleVolume(ele.name)}>

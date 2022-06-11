@@ -24,11 +24,13 @@ const BigRoom: FC<BigRoomType> = ({ scene, content }) => {
   }, [rooms, selectedIndex]);
 
   useEffect(() => {
-    if(selectedRoom.type != undefined) {
-      if(selectedRoom.type == false) {
-        setSelectedImageUrl(publicUrls[selectedRoom.roomNo]);
-      } else {
-        setSelectedImageUrl(selectedRoom.imageUrl);
+    if(!!selectedRoom) {
+      if(selectedRoom.type != undefined) {
+        if(selectedRoom.type == false) {
+          setSelectedImageUrl(publicUrls[selectedRoom.roomNo]);
+        } else {
+          setSelectedImageUrl(selectedRoom.imageUrl);
+        }
       }
     }
   }, [selectedRoom]);

@@ -28,7 +28,7 @@ const ChatModule = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { rid, roomType, no } = router.query;
-  const { clients, provideRef, handelMute } = useWebTRTC(rid, { name: userName, profileImageLink: data ? data.profileImageLink: "" });
+  const { clients, provideRef, handelMute } = useWebTRTC(rid, { name: userName, avatarUrl: data ? data.profileImageLink: "" });
   const [sendData, setSendData] = useState('');
   const [roomIndex, setRoomIndex] = useState(-1);
   const [intervalId, setIntervalId] = useState('');
@@ -119,7 +119,8 @@ const ChatModule = () => {
     require('aframe-blink-controls');
     require('./components');
     THREE.Cache.enabled = false;
-    setMounted(true)
+    setMounted(true);
+    localStorage.setItem('modelLoaded', "false");
     require('multiuser-aframe');
   }, [])
 

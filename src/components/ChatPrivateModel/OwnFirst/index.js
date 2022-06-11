@@ -41,6 +41,7 @@ const OwnFirst = ({ roomInfo, modelURL, name }) => {
           <a-asset-item id="vr-gltf" src="/assets/models/own/VR.glb"></a-asset-item>
           <a-asset-item id="navmesh-gltf" src="/assets/models/own/navmesh.gltf"></a-asset-item>
           <a-asset-item id="raccoon-obj" src={modelURL}></a-asset-item>
+          <a-asset-item id="uv" src={"/resource/models/helmet/helmet visor.gltf"}></a-asset-item>
 
           <img id="hub-img" src="/assets/images/hub.png" />
           <img id="sky-img" src="/assets/images/sky.jpg"/>
@@ -54,8 +55,9 @@ const OwnFirst = ({ roomInfo, modelURL, name }) => {
               id="avatar-template"
               dangerouslySetInnerHTML={{
                 __html: '<a-entity>' +
-                '<a-entity class="nametag" text="value: ' + name + '; align:center;" position="0 1 0" rotation="0 180 0" scale="8 8 8"></a-entity>' +
-                '<a-gltf-model class = "model" rotation="0 180 0" src="#raccoon-obj"></a-gltf-model>' +
+                '<a-entity class="nametag" text="value: ' + name + '; align:center;" position="0 0.4 0" rotation="0 180 0" scale="2 2 2"></a-entity>' +
+                '<a-gltf-model class = "character-model" rotation="0 180 0" position="0 -0.1 0"scale="1 1 1" src="#raccoon-obj"></a-gltf-model>' +
+                '<a-gltf-model class = "uv-model" rotation="0 180 0" position="0 -0.1 0"scale="1 1 1" src="#uv"></a-gltf-model>' +
                 '</a-entity>'
               }}
           />
