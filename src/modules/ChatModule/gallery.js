@@ -418,7 +418,7 @@ const GalleryChatModule = () => {
             <a-entity position="0 4 26.5" rotation="-90 0 0"
               light="type: point; intensity:  0.5; distance: 20; decay: 0; color:  #FFFFFF; shadowCameraVisible: false;">
             </a-entity>
-            <a-image width="2.3" height="2.9" class="clickable nocollision" simple-link="href: ../hub/hub.html"
+            <a-image width="2.3" height="2.9" class="clickable nocollision" 
               src="#hub-img" position="6.35 1.6 0" rotation="0 -90 0" material=" shader: liquid-portal">
               <a-box color="white" width="2.5" position="0 -1.5 0" height="0.1" depth="0.1"></a-box>
               <a-box color="white" width="2.5" position="0 1.5 0" height="0.1" depth="0.1"></a-box>

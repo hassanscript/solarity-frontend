@@ -4,7 +4,7 @@ import { Gallery } from "modal/Gallery";
 
 const GalleryComponent: FC<Gallery> = ({ rows }) => {
   return (
-    <div className="flex flex-col gap-6 my-9">
+    <div className="flex flex-col gap-6 my-2">
       {rows.map((row, index) => (
         <GalleryRow key={index} galleryRow={row} tagIndex={index}/>
       ))}

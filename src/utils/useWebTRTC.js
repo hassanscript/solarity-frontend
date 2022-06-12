@@ -61,7 +61,7 @@ export const useWebTRTC = (roomId, user) => {
                             }
                         }
                     });
-                    window.socket.emit(ACTIONS.JOIN, { roomId, user: {name: user.name, roomName: roomName, modelIndex: modelIndex, avatarUrl: user.profileImageLink != "" ? user.profileImageLink: ""} });
+                    window.socket.emit(ACTIONS.JOIN, { roomId, user: {name: user.name, roomName: roomName, modelIndex: modelIndex, avatarUrl: user.avatarUrl != "" ? user.avatarUrl: ""} });
                 });
                 clearInterval(clearIts);
             }
@@ -84,6 +84,7 @@ export const useWebTRTC = (roomId, user) => {
     
     useEffect(() => {
         const handelNewPeer = async ({ peerId, createOffer, user: remoteUser }) => {
+            console.log(remoteUser);
             // is already connected then give warning
             if (peerId in connections.current) {
                 // console.log('u are ALLLREADY CONNECTED', peerId);

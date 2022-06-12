@@ -1,13 +1,12 @@
 import React from "react";
 import Warper from "./Warper";
 import Popup from "reactjs-popup";
-import { Copy } from "components/Icons";
 //
 
-const NestedToolTip = ({link}) => {
+const NestedToolTip = ({link, content}) => {
   return(
   <Popup
-    trigger={<div className="cursor-pointer"><div onClick={() =>navigator.clipboard.writeText(link)}><Copy /></div></div>}
+    trigger={<div className="cursor-pointer"><div onClick={() =>navigator.clipboard.writeText(link)}>{content}</div></div>}
     position="top center"
     closeOnDocumentClick
   >

@@ -19,16 +19,16 @@ const Index: FC<Props> = ({ children, rightSidebar, heroContent }) => {
 
       <main className="mx-auto mt-24 grid max-w-7xl grid-cols-6 grid-rows-1 gap-2 px-5">
         <Sidebar />
-        <div className="mt-4 grid grid-cols-5 gap-1 sm:col-span-7 lg:col-span-5">
-          {heroContent && <div className="col-span-5 mt-4">{heroContent}</div>}
+        <div className="mt-2 grid grid-cols-5 gap-1 sm:col-span-7 lg:col-span-5">
+          {heroContent && <div className="col-span-5 mt-2">{heroContent}</div>}
           <div
-            className={`${rightSidebar ? "col-span-3" : "col-span-5"} mt-4`}
+            className={`${rightSidebar ? "col-span-3" : "col-span-5"} mt-0`}
             id="container"
           >
             {children}
           </div>
           {rightSidebar && (
-            <div className="top-10 col-span-2 mt-4 ml-10 hidden scrollbar-thin scrollbar-thumb-black scrollbar-track-white md:block">
+            <div className="top-10 col-span-2 mt-2 ml-10 hidden scrollbar-thin scrollbar-thumb-black scrollbar-track-white md:block">
               {rightSidebar}
             </div>
           )}

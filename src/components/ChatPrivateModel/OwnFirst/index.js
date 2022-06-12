@@ -41,6 +41,7 @@ const OwnFirst = ({ roomInfo, modelURL, name }) => {
           <a-asset-item id="vr-gltf" src="/assets/models/own/VR.glb"></a-asset-item>
           <a-asset-item id="navmesh-gltf" src="/assets/models/own/navmesh.gltf"></a-asset-item>
           <a-asset-item id="raccoon-obj" src={modelURL}></a-asset-item>
+          <a-asset-item id="uv" src={"/resource/models/helmet/helmet visor.gltf"}></a-asset-item>
 
           <img id="hub-img" src="/assets/images/hub.png" />
           <img id="sky-img" src="/assets/images/sky.jpg"/>
@@ -54,8 +55,10 @@ const OwnFirst = ({ roomInfo, modelURL, name }) => {
               id="avatar-template"
               dangerouslySetInnerHTML={{
                 __html: '<a-entity>' +
-                '<a-entity class="nametag" text="value: ' + name + '; align:center;" position="0 1 0" rotation="0 180 0" scale="8 8 8"></a-entity>' +
-                '<a-gltf-model class = "model" rotation="0 180 0" src="#raccoon-obj"></a-gltf-model>' +
+                '<a-entity class="nametag" text="value: ' + name + '; align:center;" position="0 0.5 0" rotation="0 180 0" scale="3 3 3"></a-entity>' +
+                '<a-entity class="nametag" text="value: ' + name + '; align:center;" position="0 0.5 0" rotation="0 0 0" scale="3 3 3"></a-entity>' +
+                '<a-gltf-model class = "character-model" rotation="0 180 0" position="0 -0.2 0" scale="1.5 1.5 1.5" src="#raccoon-obj"></a-gltf-model>' +
+                '<a-gltf-model class = "uv-model" rotation="0 180 0" position="0 -0.2 0" scale="1.5 1.5 1.5" src="#uv"></a-gltf-model>' +
                 '</a-entity>'
               }}
           />
@@ -158,7 +161,7 @@ const OwnFirst = ({ roomInfo, modelURL, name }) => {
             <a-text align="center" rotation="0 0 0" width="0.9" value="FLOOR PRICE" position="0.5 0.3 0.01"
                     x-offset="0.05" wrap-count="20" color="#FFFFFF"></a-text>
         </a-plane>
-        <a-image width="1.5" height="2" class="clickable nocollision" simple-link="href: ../hub/hub.html"
+        <a-image width="1.5" height="2" class="clickable nocollision"
                 src="#hub-img" position="-1.9 1.1 2.9" rotation="0 0 0" material=" shader: liquid-portal">
             <a-box color="black" width="1.5" position="0 -1 0" height="0.1" depth="0.1"></a-box>
             <a-box color="black" width="1.5" position="0 1 0" height="0.1" depth="0.1"></a-box>

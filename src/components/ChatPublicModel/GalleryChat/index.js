@@ -12,15 +12,18 @@ const GalleryChat = ({ modelURL, name }) => {
             <a-assets timeout="100000">
             <a-asset-item id="gallery-gltf" src="/assets/models/gallery/Gallery room.glb"></a-asset-item>
             <a-asset-item id="raccoon-obj" src={modelURL}></a-asset-item>
+            <a-asset-item id="uv" src={"/resource/models/helmet/helmet visor.gltf"}></a-asset-item>
             <a-asset-item id="navmesh-gltf" src="/assets/models/gallery/navmesh.gltf"></a-asset-item>
             <img id="hub-img" src="/assets/images/hub.png" alt="hub"/>
-            <img id="sky-img" src="/assets/images/sky.jpg" alt="sky"/>
+            <img id="sky-img" src="/assets/images/bluesky.jpg" alt="sky"/>
             <template 
                 id="avatar-template"
                 dangerouslySetInnerHTML={{
                     __html: '<a-entity>' +
-                    '<a-entity class="nametag" text="value: ' + name + '; align:center;" position="0 1 0" rotation="0 180 0" scale="8 8 8"></a-entity>' +
-                    '<a-gltf-model class = "model" rotation="0 180 0" src="#raccoon-obj"></a-gltf-model>' +
+                    '<a-entity class="nametag" text="value: ' + name + '; align:center;" position="0 0.5 0" rotation="0 180 0" scale="3 3 3"></a-entity>' +
+                    '<a-entity class="nametag" text="value: ' + name + '; align:center;" position="0 0.5 0" rotation="0 0 0" scale="3 3 3"></a-entity>' +
+                    '<a-gltf-model class = "character-model" rotation="0 180 0" position="0 -0.2 0" scale="1.5 1.5 1.5" src="#raccoon-obj"></a-gltf-model>' +
+                    '<a-gltf-model class = "uv-model" rotation="0 180 0" position="0 -0.2 0" scale="1.5 1.5 1.5" src="#uv"></a-gltf-model>' +
                     '</a-entity>'
                 }}
             />
@@ -31,8 +34,9 @@ const GalleryChat = ({ modelURL, name }) => {
           position="0 1.65 0"
           look-controls="pointerLockEnabled: true; reverseMouseDrag: false"
           wasd-controls="acceleration: 20;"
-          simple-navmesh-constraint="navmesh:#navmesh;fall: 5;height:1.65;" 
+          simple-navmesh-constraint="navmesh:#navmesh;fall: 5;height:1.6;" 
           networked="template:#avatar-template;attachTemplateToLocal:false;"
+          material="src: /images/placeholder/avatars/degen.png"
         >
           <a-entity 
             id="head" 
@@ -129,7 +133,7 @@ const GalleryChat = ({ modelURL, name }) => {
         <a-entity position="0 4 26.5" rotation="-90 0 0"
           light="type: point; intensity:  0.5; distance: 20; decay: 0; color:  #FFFFFF; shadowCameraVisible: false;">
         </a-entity>
-        <a-image width="2.3" height="2.9" class="clickable nocollision" simple-link="href: ../hub/hub.html"
+        <a-image width="2.3" height="2.9" class="clickable nocollision" 
           src="#hub-img" position="6.35 1.6 0" rotation="0 -90 0" material=" shader: liquid-portal">
           <a-box color="white" width="2.5" position="0 -1.5 0" height="0.1" depth="0.1"></a-box>
           <a-box color="white" width="2.5" position="0 1.5 0" height="0.1" depth="0.1"></a-box>

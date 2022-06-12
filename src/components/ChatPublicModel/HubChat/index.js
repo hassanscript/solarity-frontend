@@ -21,6 +21,7 @@ const HubChat = ({ modelURL, name }) => {
         <a-asset-item id="navmesh-gltf" src="/assets/models/hub/navmesh4.gltf"></a-asset-item>
 
         <a-asset-item id="raccoon-obj" src={modelURL}></a-asset-item>
+        <a-asset-item id="uv" src={"/resource/models/helmet/helmet visor.gltf"}></a-asset-item>
 
         {/* <img id="try-img" src="/assets/images/japan.png" /> */}
         <img id="tweet-img" src="/assets/images/tweet.jpg" />
@@ -38,8 +39,10 @@ const HubChat = ({ modelURL, name }) => {
           id="avatar-template"
           dangerouslySetInnerHTML={{
             __html: '<a-entity>' +
-            '<a-entity class="nametag" text="value: ' + name + '; align:center;" position="0 1 0" rotation="0 180 0" scale="8 8 8"></a-entity>' +
-            '<a-gltf-model class = "model" rotation="0 180 0" src="#raccoon-obj"></a-gltf-model>' +
+            '<a-entity class="nametag" text="value: ' + name + '; align:center;" position="0 0.5 0" rotation="0 180 0" scale="3 3 3"></a-entity>' +
+            '<a-entity class="nametag" text="value: ' + name + '; align:center;" position="0 0.5 0" rotation="0 0 0" scale="3 3 3"></a-entity>' +
+            '<a-gltf-model class = "character-model" rotation="0 180 0" position="0 -0.2 0" scale="1.5 1.5 1.5" src="#raccoon-obj"></a-gltf-model>' +
+            '<a-gltf-model class = "uv-model" rotation="0 180 0" position="0 -0.2 0" scale="1.5 1.5 1.5" src="#uv"></a-gltf-model>' +
             '</a-entity>'
           }}
         />

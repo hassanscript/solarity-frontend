@@ -195,7 +195,7 @@ export default function RoomFullView({user}) {
                 <a-text align="center" rotation="0 0 0" width="0.9" value="FLOOR PRICE" position="0.5 0.3 0.01"
                         x-offset="0.05" wrap-count="20" color="#FFFFFF"></a-text>
             </a-plane>
-            <a-image width="1.5" height="2" class="clickable nocollision" simple-link="href: ../hub/hub.html"
+            <a-image width="1.5" height="2" class="clickable nocollision" 
                     src="#hub-img" position="-1.9 1.1 2.9" rotation="0 0 0" material=" shader: liquid-portal">
                 <a-box color="black" width="1.5" position="0 -1 0" height="0.1" depth="0.1"></a-box>
                 <a-box color="black" width="1.5" position="0 1 0" height="0.1" depth="0.1"></a-box>

@@ -3,6 +3,7 @@ import { RootStateOrAny, useSelector } from "react-redux";
 import { build_loadingScreen } from "modules/ChatModule/loadingScreen";
 import {chooseControls, passControls} from 'modules/ChatModule/utils'
 import styles from 'modules/ChatModule/chat.module.css';
+import LockedRoom from "components/Banner/LockedRoom";
 
 export default function FirstEditRoom({
   picNo,
@@ -118,8 +119,8 @@ export default function FirstEditRoom({
       var frame_imageEL = document.createElement("a-image");
       frameEl.appendChild(frame_imageEL);
       frame_imageEL.setAttribute("src", imageUrl);
-      frame_imageEL.setAttribute("width", 1.1);
-      frame_imageEL.setAttribute("height", 1.1);
+      frame_imageEL.setAttribute("width", 0.880);
+      frame_imageEL.setAttribute("height", 1.370);
       frame_imageEL.setAttribute("position", { x: 0, y: 0, z: 0.01 });
       setChooseFlag(false);
       setPicNo("0");
@@ -247,8 +248,8 @@ export default function FirstEditRoom({
                 class={`frame picno${index + 1} clickable`}
                 cursor-listen={`picno: ${index + 1}`}
                 position={asset.pos}
-                width="1.1"
-                height="1.1"
+                width=".880"
+                height="1.370"
                 rotation={asset.rot}
                 material="shader:standard;"
                 color="#111122"
@@ -262,8 +263,8 @@ export default function FirstEditRoom({
                         <a-image
                           src={nft.link}
                           key={index1}
-                          width="1.1"
-                          height="1.1"
+                          width=".880"
+                          height="1.370"
                           position=""
                           material=""
                           geometry=""
@@ -276,7 +277,7 @@ export default function FirstEditRoom({
                 <a-text align="center" rotation="0 0 0" width="0.9" value="FLOOR PRICE" position="0.5 0.3 0.01"
                     x-offset="0.05" wrap-count="20" color="#FFFFFF"></a-text>
             </a-plane>
-            <a-image width="1.5" height="2" class="clickable nocollision" simple-link="href: ../hub/hub.html"
+            <a-image width="1.5" height="2" class="clickable nocollision" 
                     src="#hub-img" position="-1.9 1.1 2.9" rotation="0 0 0" material=" shader: liquid-portal">
                 <a-box color="black" width="1.5" position="0 -1 0" height="0.1" depth="0.1"></a-box>
                 <a-box color="black" width="1.5" position="0 1 0" height="0.1" depth="0.1"></a-box>
@@ -291,8 +292,8 @@ export default function FirstEditRoom({
     return <div>load...</div>;
   } else {
     return (
-      <div className="pt-20 text-center">
-        {"You don't have any active room."}
+      <div className="w-full h-[400px] rounded-2xl relative" style={{background: "rgba(255, 255, 255, 0.2)"}}>
+        <LockedRoom />
       </div>
     );
   }

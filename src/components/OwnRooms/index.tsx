@@ -32,19 +32,18 @@ const OwnRooms = ({ rooms }: { rooms: any[] }) => {
             <div className="flex grid-cols-10 w-full">
                 <div className="col-span-6 mr-5 w-3/5">
                     <h2 className="py-5 pl-2 m-0">Rooms</h2>
-                    <Image 
+                    <img 
                         src={"/assets/images/rooms/room" + (activeIndex != -1 ? activeIndex : 0) + ".png"}
+                        className="rounded-2xl"
                         alt={"room no-" + (activeIndex != -1 ? activeIndex : 0)}
                         width="100%" 
                         height="50%" 
-                        layout="responsive" 
-                        objectFit="contain"
                     />
                 </div>
                 <div className="col-span-4 ml-5 w-2/5">
                     <div className="py-5 pl-2 text-sm flex justify-between">
                         <span>Add ons</span>
-                        <span className="text-secondary cursor-pointer" onClick={editRoom}>Edit Active Room</span>
+                        {/* <span className="text-secondary cursor-pointer" onClick={editRoom}>Edit Active Room</span> */}
                     </div>
                     <div className="flex grid-cols-3">
                         {

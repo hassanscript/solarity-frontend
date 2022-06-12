@@ -17,7 +17,7 @@ const Sidebar: FC<{ user: any }> = ({ user }) => {
         </>
       )}
 
-      <Home />
+      {/* <Home /> */}
     </>
   );
 };

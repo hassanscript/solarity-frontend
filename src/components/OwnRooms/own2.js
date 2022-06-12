@@ -144,7 +144,7 @@ export default function Index({user, permitionFlag}) {
                   <a-asset-item id="navmesh-gltf" src="/assets/models/own_third/navmesh.glb"></a-asset-item>
 
                   <img id="hub-img" src="/assets/images/hub.png"/>
-                  <img id="sky-img" src="/assets/images/sky.jpg"/>
+                  <img id="sky-img" src="/assets/images/bluesky.jpg"/>
 
                 </a-assets>
 
