@@ -4,7 +4,7 @@ import { NftCard } from "modules/User/Art";
 import { useState } from "react";
 import { FC } from "react";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
-import { setProfilePic, setup } from "../../../redux/slices/profileSlice";
+import { setup } from "../../../redux/slices/profileSlice";
 import { showErrorToast } from "utils";
 import { BackButton } from "../sharedComponents";
 

@@ -51,6 +51,7 @@ function MyApp({ children }: any) {
   useEffect(() => {
     const currentRoute = router.pathname;
     if (currentRoute !== "/setup" && logged && !profileData.visible) {
+      dispatch(startLoadingApp());
       router.push("/setup");
       return;
     }

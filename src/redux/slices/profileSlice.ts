@@ -150,12 +150,7 @@ export const placeBid = createAsyncThunk(
   }) => {
     let returnValue = null;
     try {
-      const {
-        selectedAsset,
-        selectedIndex,
-        signed,
-        connection,
-      } = data;
+      const { selectedAsset, selectedIndex, signed, connection } = data;
 
       const {
         data: { state },
@@ -169,7 +164,7 @@ export const placeBid = createAsyncThunk(
         return;
       }
       try {
-        await connection.sendRawTransaction(signed.serialize())
+        await connection.sendRawTransaction(signed.serialize());
       } catch (error: any) {
         errorFunction(error.message);
         return;
@@ -241,7 +236,7 @@ export const setProfilePic = createAsyncThunk(
     try {
       const {
         data: { profile },
-      } = await apiCaller.post("/profile/setup/setProfilePic", data);
+      } = await apiCaller.post("/profile/profilePic", data);
       successFunction();
       returnValue = profile;
     } catch (err) {
