@@ -9,8 +9,9 @@ import axios from "axios";
 
 export const getNfts = (
   username?: string,
-  solanaAddress?: string
-): [nfts: any[], loading: Boolean, error: Boolean] => {
+  solanaAddress?: string,
+  manual?: boolean
+): [nfts: any[], loading: Boolean, error: Boolean, fetchNfts: () => void] => {
   const [solNfts, setSolNfts] = <any[]>useState([]);
 
   const [ethNfts, setEthNfts] = <any[]>useState([]);
@@ -44,7 +45,7 @@ export const getNfts = (
       image: placeholder.src,
       collectionName: "Loading...",
     }));
-    setSolNfts([...solNfts, ...formattedNfts]);
+    setSolNfts(formattedNfts);
   };
 
   const getEthereumNfts = async () => {
@@ -94,7 +95,9 @@ export const getNfts = (
   };
 
   useEffect(() => {
-    getAllData();
+    if (!manual) {
+      getAllData();
+    }
   }, []);
-  return [[...solNfts, ...ethNfts], loading, error];
+  return [[...solNfts, ...ethNfts], loading, error, getAllData];
 };

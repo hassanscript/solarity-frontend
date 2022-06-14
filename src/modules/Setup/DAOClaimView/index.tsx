@@ -1,10 +1,12 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import SearchInput from "components/SearchInput";
 import { Button, Stack } from "components/FormComponents";
 import { useDispatch } from "react-redux";
 import { claimDaos } from "redux/slices/profileSlice";
 import { useState } from "react";
 import { BackButton } from "../sharedComponents";
+import { apiCaller } from "utils/fetcher";
+import AppLoader from "components/AppLoader";
 
 const claimDao = () => {};
 
@@ -75,8 +77,26 @@ const DAOClaimView = () => {
   // show this only if the user added a solana address
 
   const dispatch = useDispatch();
+  const [daos, setDaos] = useState([]);
   const [loading, setLoading] = useState<Boolean>(false);
   const [error, setError] = useState<Boolean>(false);
+
+  const getDaos = async () => {
+    setError(false);
+    setLoading(true);
+    try {
+      const {
+        data: { data },
+      } = await apiCaller.get("/daos?member=true");
+      setDaos(data);
+    } catch (err) {
+      setError(true);
+    }
+    setLoading(false);
+  };
+  useEffect(() => {
+    getDaos();
+  }, []);
 
   try {
     return (
@@ -85,7 +105,20 @@ const DAOClaimView = () => {
           <h3 className="pb-4 text-3xl font-semibold">
             DAOs you are already in:
           </h3>
-          <NoDaoMessage />
+          {loading && <LoadingMessage />}
+          {!loading && !error && daos.length == 0 && <NoDaoMessage />}
+          {!loading && error && <ErrorMessage />}
+          {!loading && !error && daos.length > 0 && (
+            <div className="flex flex-col items-start space-y-5 pb-4 ">
+              {daos.map(({ name, profileImageLink }) => (
+                <DAOCard
+                  key={`DaosClaim-${name}`}
+                  name={name}
+                  imageLink={profileImageLink}
+                />
+              ))}
+            </div>
+          )}
           <FindDAO />
           <div className="flex justify-end py-5">
             <Stack direction="row">
@@ -130,13 +163,6 @@ const DAOClaimView = () => {
       </div>
     );
   }
-  // <div className="flex flex-col pb-4 items-start space-y-5 ">
-  //   {!loaded && <LoadingMessage />}
-  //   {daos.length == 0 && loaded &&}
-  //   {daos.map(({ image, name }) => (
-  //     <DAOCard name={name} imageLink={image} />
-  //   ))}
-  // </div>
 };
 
 export default DAOClaimView;
