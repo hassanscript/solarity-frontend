@@ -28,7 +28,7 @@ const SearchInput: FC<{
       </span>
       <input
         type="search"
-        className="w-full py-3 pl-12 text-[15px] text-white rounded-full bg-primary focus:outline-none focus:bg-black focus:text-white placeholder:text-gray-950Í"
+        className="w-full py-3 pl-12 pr-3 text-[15px] text-white rounded-full bg-primary focus:outline-none focus:bg-black focus:text-white placeholder:text-gray-950Í"
         placeholder="Search"
         autoComplete="off"
         onChange={onChange}

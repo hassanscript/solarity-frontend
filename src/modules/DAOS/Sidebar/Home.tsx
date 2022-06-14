@@ -18,7 +18,7 @@ const Home: FC<{ dao: any }> = ({ dao }) => {
             <span className="font-semibold ">Staking rewards:</span>
             <span className="text-right">{dao.stackingRewards}% APY</span>
             <span className="font-semibold ">Floor price</span>
-            <span className="text-right">{dao.floorPrice} SOL</span>
+            <span className="text-right">{dao.floorPrice}</span>
           </div>
           <div className="flex gap-4">
             <button className="gap-2 text-xs normal-case rounded-full btn btn-primary">

@@ -8,14 +8,14 @@ import { MY_DAOS } from "data/home";
 const SideBar = () => {
   return (
     <div className="flex sticky top-28 mt-3  flex-col items-start justify-start max-h-[90vh] gap-6 pb-10 overflow-y-auto scrollbar-thin scrollbar-thumb-black scrollbar-track-white">
-      <div>
+      {/* <div>
         <Link href="/dao/popular" passHref>
           <a className="flex items-center gap-2 mx-4 text-lg font-bold">
             <Home />
             Home
           </a>
         </Link>
-      </div>
+      </div> */}
       {/* <Link href="/dao/popular" passHref>
         <a className="flex items-center gap-2 mx-4 text-lg font-bold">
           <Hot />

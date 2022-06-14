@@ -20,10 +20,10 @@ const MenutItems = [
     title: "Experience",
     link: "/experience",
   },
-  // {
-  //   title: "DAOs",
-  //   link: "/daos",
-  // },
+  {
+    title: "DAOs",
+    link: "/daos",
+  },
   // {
   //   title: "Launchpad",
   //   link: "/launchpad",

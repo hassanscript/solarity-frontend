@@ -84,13 +84,12 @@ const YourDaos = () => {
       </>
     );
   }
-
   return (
     <>
       <Header />
       <div className="grid grid-cols-5 gap-3">
         {daos.length > 0 &&
-          daos.map((dao, index) => <DaoCard key={index} {...dao} />)}
+          daos.map((dao: any, index: number) => <DaoCard key={index} {...dao} />)}
       </div>
     </>
   );
@@ -187,7 +186,7 @@ const Yours: FC<{ daos: any }> = ({ daos }) => {
   const logged = useSelector((state: RootStateOrAny) => state.auth.logged);
 
   return (
-    <div className="flex flex-col mb-10 -mt-4 gap-7">
+    <div className="flex flex-col mb-10 gap-7">
       {logged && (
         <>
           <YourDaos />
