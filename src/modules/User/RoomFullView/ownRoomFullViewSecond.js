@@ -12,27 +12,27 @@ export default function RoomFullView({user}) {
   const [room, setRoom] = useState({});
   const assets = [
     {
-      pos: "-4.85 1.876 1.726",
+      pos: "-5.97 1.876 1.82",
       rot: "0 90 0",
     },
     {
-      pos: "-4.85 1.876 0.088",
+      pos: "-5.97 1.876 -0.1",
       rot: "0 90 0",
     },
     {
-      pos: "-4.85 1.876 -1.587",
+      pos: "-5.97 1.876 -2.087",
       rot: "0 90 0",
     },
     {
-      pos: "4.753 1.889 -1.560",
+      pos: "5.2333 1.889 -2.060",
       rot: "0 -90 0",
     },
     {
-      pos: "4.753 1.889 0.079",
+      pos: "5.2333 1.889 -0.079",
       rot: "0 -90 0",
     },
     {
-      pos: "4.753 1.889 1.730",
+      pos: "5.2333 1.889 1.830",
       rot: "0 -90 0",
     },
   ];
@@ -95,7 +95,7 @@ export default function RoomFullView({user}) {
             style={{opacity: 0, position: "absolute", top: "0px", zIndex: 0}}
         >
             <a-assets timeout="100000">
-              <a-asset-item id="room2-gltf" src="/assets/models/own_second/Thomas virtual temple v2.glb"></a-asset-item>
+              <a-asset-item id="room2-gltf" src="/assets/models/own_second/SolGod ancient temple.glb"></a-asset-item>
               <a-asset-item id="navmesh-gltf" src="/assets/models/own_second/navmesh.gltf"></a-asset-item>
 
               <img id="hub-img" src="/assets/images/hub.png"/>
@@ -147,7 +147,7 @@ export default function RoomFullView({user}) {
                 key={index}
                 class={`frame picno${index + 1}`}
                 position={asset.pos}
-                width=".880"
+                width="1.370"
                 height="1.370"
                 rotation={asset.rot}
                 material="shader:standard;"
@@ -161,7 +161,7 @@ export default function RoomFullView({user}) {
                         <a-image
                             src={nft.link}
                             key={index1}
-                            width=".880"
+                            width="1.370"
                             height="1.370"
                             position=""
                             material=""

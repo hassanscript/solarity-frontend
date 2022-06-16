@@ -229,14 +229,14 @@ const SelectedAsset: FC<HeroProps> = ({}) => {
             width={1032}
             height={314}
           ></iframe>
-          ): (
-            <iframe 
-              src={BaseUrl + "frames/ownroom2"}
-              width={1032}
-              height={314}
-            ></iframe>
-          )
-        }
+        ): (
+          <iframe 
+            src={BaseUrl + "frames/ownroom2"}
+            width={1032}
+            height={314}
+          ></iframe>
+        )
+      }
       </div>
       {selectedAsset && (
         <div className="flex justify-between my-2">

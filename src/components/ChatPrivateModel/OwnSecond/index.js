@@ -1,27 +1,27 @@
 const OwnSecond = ({ roomInfo, modelURL, name }) => {
   const assets = [
     {
-      pos: "-4.85 1.876 1.726",
+      pos: "-5.97 1.876 1.82",
       rot: "0 90 0",
     },
     {
-      pos: "-4.85 1.876 0.088",
+      pos: "-5.97 1.876 -0.1",
       rot: "0 90 0",
     },
     {
-      pos: "-4.85 1.876 -1.587",
+      pos: "-5.97 1.876 -2.087",
       rot: "0 90 0",
     },
     {
-      pos: "4.753 1.889 -1.560",
+      pos: "5.2333 1.889 -2.060",
       rot: "0 -90 0",
     },
     {
-      pos: "4.753 1.889 0.079",
+      pos: "5.2333 1.889 -0.079",
       rot: "0 -90 0",
     },
     {
-      pos: "4.753 1.889 1.730",
+      pos: "5.2333 1.889 1.830",
       rot: "0 -90 0",
     },
   ];
@@ -38,7 +38,7 @@ const OwnSecond = ({ roomInfo, modelURL, name }) => {
     debug: true;">
       <a-assets timeout="10000">
 
-        <a-asset-item id="room2-gltf" src="/assets/models/own_second/Thomas virtual temple v2.glb"></a-asset-item>
+        <a-asset-item id="room2-gltf" src="/assets/models/own_second/SolGod ancient temple.glb"></a-asset-item>
         <a-asset-item id="navmesh-gltf" src="/assets/models/own_second/navmesh.gltf"></a-asset-item>
         <a-asset-item id="raccoon-obj" src={modelURL}></a-asset-item>
         <a-asset-item id="uv" src={"/resource/models/helmet/helmet visor.gltf"}></a-asset-item>
@@ -120,7 +120,7 @@ const OwnSecond = ({ roomInfo, modelURL, name }) => {
           key={index}
           class={`frame picno${index + 1}`}
           position={asset.pos}
-          width=".880"
+          width="1.370"
           height="1.370"
           rotation={asset.rot}
           material="shader:standard;"
@@ -133,7 +133,7 @@ const OwnSecond = ({ roomInfo, modelURL, name }) => {
                   <a-image
                     src={nft.link}
                     key={index1}
-                    width=".880"
+                    width="1.370"
                     height="1.370"
                     position=""
                     material=""

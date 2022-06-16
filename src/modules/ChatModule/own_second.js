@@ -318,7 +318,7 @@ useEffect(() => {
               debug: true;">
                 <a-assets timeout="10000">
 
-                  <a-asset-item id="room2-gltf" src="/assets/models/own_second/Thomas virtual temple v2.glb"></a-asset-item>
+                  <a-asset-item id="room2-gltf" src="/assets/models/own_second/SolGod ancient temple.glb"></a-asset-item>
                   <a-asset-item id="navmesh-gltf" src="/assets/models/own_second/navmesh.gltf"></a-asset-item>
                   <a-asset-item id="raccoon-obj" src={models[modelIndex].modelUrl}></a-asset-item>
 
