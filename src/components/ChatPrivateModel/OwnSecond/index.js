@@ -103,12 +103,8 @@ const OwnSecond = ({ roomInfo, modelURL, name }) => {
           raycaster="showLine: true; far: 10; interval: 0; objects: .clickable, a-link;"
           line="color: lawngreen; opacity: 0.5" visible="true"></a-entity>
       </a-entity>
-      {/* "ambient" lights */}
-      <a-entity position="-15 40 40"
-                light="type: point; intensity:  5; distance: 100; decay: 0; color:  #FFFFFF; cast-shadow: false;">
-      </a-entity>
       {/* ambient light */}
-      <a-entity light="type: ambient; intensity: 0.5; color:  #FFFFFF;"></a-entity>
+      <a-entity light="type: ambient; intensity: 2; color:  #FFFFFF;"></a-entity>
       {/* models */}
       <a-gltf-model shadow="cast: true; receive: true" model-info class="model" src="#room2-gltf" position="0 0 0" scale="1 1 1"></a-gltf-model>
       <a-gltf-model id="navmesh" model-info class="model" src="#navmesh-gltf" visible="false">
