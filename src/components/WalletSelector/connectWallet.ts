@@ -7,7 +7,11 @@ import { showErrorToast } from "utils";
 const connectWallet = async (
   walletId: string,
   type: string,
-  onSelect: (data: { address: string; type: string; provider: any }) => void
+  onSelect: (data: {
+    address: string;
+    type: "ethereum" | "solana";
+    provider: any;
+  }) => void
 ) => {
   try {
     let provider = await getProvider(walletId, type);
@@ -25,13 +29,17 @@ const connectWallet = async (
   }
 };
 
-const getProvider = async (walletId: string, type: string) => {
+export const getProvider = async (
+  walletId: string,
+  type: string,
+  detect?: boolean
+) => {
   const errorMessage = (wallet: string) =>
     `${wallet} not installed or available`;
   if (type == "ethereum") {
     if (walletId == "metamask") {
       let provider = await detectEthereumProvider({ mustBeMetaMask: true });
-      if (!provider) {
+      if (!provider && !detect) {
         showErrorToast(errorMessage("Metamask"));
         return false;
       }
