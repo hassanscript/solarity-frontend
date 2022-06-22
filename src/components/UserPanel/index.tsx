@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from "react";
 import VolumeUp from '../../components/Icons/VolumeUp';
 import VolumeOff from '../../components/Icons/VolumeOff';
 import NestedToolTip from 'components/NestedToolTip';
-import { Copy, Join, Minus } from 'components/Icons';
+import { Copy, Minus } from 'components/Icons';
 
 export type UserPanelProps = {
     isUserPanel: Boolean;
@@ -10,7 +10,6 @@ export type UserPanelProps = {
     roomIndex: number;
     userName: String;
     volumes: any[];
-    userlist: any[];
     clients: any[];
     toggleUserPanel: Function;
     toggleVolume: Function;
@@ -25,7 +24,6 @@ const UserPanel: FC<UserPanelProps> = ({
     roomIndex,
     userName,
     volumes,
-    userlist,
     clients,
     toggleUserPanel,
     toggleVolume,
@@ -34,14 +32,20 @@ const UserPanel: FC<UserPanelProps> = ({
     getAvatarImg,
 }) => {
     const [ roomId, setRoomId ] = useState("");
+    const [ userNames, setUserNames ] = useState<any[]>([]);
+    const [ avatars, setAvatars ] = useState<any[]>([]);
     useEffect(() => {
-        if(!!rooms[roomIndex] && !!rooms[roomIndex].invitationHash) {
-            setRoomId(rooms[roomIndex].invitationHash)
+        if(!!rooms[roomIndex]) {  //if current room is exist
+            // if invitation hash is
+            if(!!rooms[roomIndex].invitationHash) {
+                setRoomId(rooms[roomIndex].invitationHash)
+            }
+            setUserNames(rooms[roomIndex].speakers);
+            setAvatars(rooms[roomIndex].avatars);
         }
     }, [rooms[roomIndex]])
-
     useEffect(() => {
-        console.log('clients: ', clients);
+        console.log("clients", clients);
     }, [clients])
 
     return (
@@ -70,28 +74,48 @@ const UserPanel: FC<UserPanelProps> = ({
                 </div>
                 <div className='list overflow-auto h-[55vh]'>
                     <ul className='no-underline'>
-                        {!!clients && clients.map((ele, index) => (
-                        <li className={'border-b border-gray-700 py-2 px-1 flex justify-between'} key={index}>
-                            <div className='flex'>
-                                <img src={ele.avatarUrl ? ele.avatarUrl: "/images/placeholder/avatars/avatar.png"} className="rounded-full border border-gray-400 mr-3" width={40} height={40} />
-                                <span className='text-white pt-[3px]' key={index}>{ele.name}</span>
-                            </div>
-                            <div className={"pt-3 cursor-pointer " + (ele.name == userName ? "hidden": "")} onClick={() => toggleVolume(ele.name)}>
-                                <audio
-                                    volume="0"
-                                    autoPlay
-                                    ref={(instance) => (provideRef(instance, ele.name))}
-                                />
-                                {
-                                    !!volumes[ele.name] ? (
-                                    <VolumeOff />
-                                    ) : (
-                                    <VolumeUp />
-                                    )
-                                }
-                            </div>
-                        </li>
-                        ))}
+                        {userNames.map((name, index) => {
+                            if(name == userName) {
+                                return (
+                                    <li className={'border-b border-gray-700 py-2 px-1 flex justify-between'} key={index}>
+                                        <div className='flex'>
+                                            <img src={avatars[index] ? avatars[index]: "/images/placeholder/avatars/avatar.png"} className="rounded-full border border-gray-400 mr-3" width={40} height={40} />
+                                            <span className='text-white pt-[3px]'>{name}</span>
+                                        </div>
+                                    </li>
+                                )
+                            }
+                        })}
+                        {userNames.map((name, index) => {
+                            if(name != userName) {
+                                var user = clients.find(s => s.name == name);
+                                var avatarUrl = avatars[index];
+                                return (
+                                    <li className={'border-b border-gray-700 py-2 px-1 flex justify-between'} key={index}>
+                                        <div className='flex'>
+                                            <img src={avatarUrl ? avatarUrl: "/images/placeholder/avatars/avatar.png"} className="rounded-full border border-gray-400 mr-3" width={40} height={40} />
+                                            <span className='text-white pt-[3px]'>{name}</span>
+                                        </div>
+                                        {!!user && (
+                                            <div className={"pt-3 cursor-pointer"} onClick={() => toggleVolume(name)}>
+                                                <audio
+                                                    volume="0"
+                                                    autoPlay
+                                                    ref={(instance) => (provideRef(instance, name))}
+                                                />
+                                                {
+                                                    !!volumes[name] ? (
+                                                    <VolumeOff />
+                                                    ) : (
+                                                    <VolumeUp />
+                                                    )
+                                                }
+                                            </div>
+                                        )}
+                                    </li>
+                                );
+                            }
+                        })}
                     </ul>
                 </div>
             </div>

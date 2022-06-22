@@ -37,7 +37,8 @@ export const useWebTRTC = (roomId, user) => {
                 });
             } catch (error) {
                 localMediaStream.current = undefined;
-                toast.error("there is no microphone device, you need to allow to use it", {
+                toast.error("there is no microphone device, you need to allow to use it", 
+                {
                     position: "top-right",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -76,7 +77,6 @@ export const useWebTRTC = (roomId, user) => {
             } catch (error) {
                 console.error(error);
             }
-            // window.socket.emit(ACTIONS.LEAVE, { roomId, user })
         }
 
         // eslint-disable-next-line
@@ -84,10 +84,8 @@ export const useWebTRTC = (roomId, user) => {
     
     useEffect(() => {
         const handelNewPeer = async ({ peerId, createOffer, user: remoteUser }) => {
-            console.log(remoteUser);
-            // is already connected then give warning
+            // is already connected
             if (peerId in connections.current) {
-                // console.log('u are ALLLREADY CONNECTED', peerId);
                 return;
             }
 
@@ -126,7 +124,7 @@ export const useWebTRTC = (roomId, user) => {
                 });
             };
             // add local track to remmote connections
-            if(!!localMediaStream.current && localMediaStream.current != {}) {console.log('1111111111: ', localMediaStream.current, localMediaStream.current != {});
+            if(!!localMediaStream.current && localMediaStream.current != {}) {
                 localMediaStream.current.getTracks().forEach(track => {
                     connections.current[peerId].addTrack(track, localMediaStream.current);
                 });

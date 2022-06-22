@@ -312,7 +312,6 @@ const ChatModule = () => {
             roomIndex={roomIndex}
             userName={userName}
             volumes={volumes}
-            userlist={userlist}
             clients={clients}
             toggleUserPanel={toggleUserPanel}
             toggleVolume={toggleVolume}
