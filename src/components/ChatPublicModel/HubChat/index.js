@@ -23,7 +23,7 @@ const HubChat = ({ modelURL, name }) => {
         <a-asset-item id="raccoon-obj" src={modelURL}></a-asset-item>
         <a-asset-item id="uv" src={"/resource/models/helmet/helmet visor.gltf"}></a-asset-item>
 
-        {/* <img id="try-img" src="/assets/images/japan.png" /> */}
+        <img id="try-img" src="/assets/images/japan.png" />
         <img id="tweet-img" src="/assets/images/tweet.jpg" />
         <img id="sky-img" src="/assets/images/sky.jpg" />
 
