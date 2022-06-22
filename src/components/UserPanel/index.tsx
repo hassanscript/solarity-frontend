@@ -49,7 +49,7 @@ const UserPanel: FC<UserPanelProps> = ({
     }, [clients])
 
     return (
-        <div className={"fixed top-[20vh] left-[30px] w-[250px] transition-opacity " + (isUserPanel ? 'opacity-100' : 'opacity-0')}>
+        <div className={"fixed top-[20vh] left-[30px] w-[250px] " + (isUserPanel ? 'block' : 'hidden')}>
             <div className='rounded-lg bg-brandblack px-4 py-2 w-full h-full'>
                 <div className='text-lg mb-4 flex justify-between pt-4'>
                     <div>User List</div>
