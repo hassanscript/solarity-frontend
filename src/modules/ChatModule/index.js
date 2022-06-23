@@ -117,6 +117,7 @@ const ChatModule = () => {
     require('aframe/dist/aframe-master.js');
     require('aframe-liquid-portal-shader');
     require('aframe-blink-controls');
+    require('aframe-extras');
     require('./components');
     THREE.Cache.enabled = false;
     setMounted(true);
@@ -188,7 +189,7 @@ const ChatModule = () => {
   useEffect(() => {
     const loadInterval = setInterval(() => {
       if (isLoaded || localStorage.getItem('modelLoaded') == "true") {
-        var entity = document.querySelector('#player');
+        var entity = document.querySelector('#rig');
         if (!!entity) {
           window.NAF.schemas.add({
             template: '#avatar-template',

@@ -1224,6 +1224,13 @@ aframe-blink-controls@^0.3.0:
   resolved "https://registry.yarnpkg.com/aframe-blink-controls/-/aframe-blink-controls-0.3.0.tgz#c2445e0ccbb9eea5bf2187e631cf63b234a73485"
   integrity sha512-UYwz+eNRANxTMyBTrFNLq72SRsPpF9M3OhkCq0fL/BdXZaya2pKAen2ZODi3UBp1ciWG2GPVrTXhkXHtTH7yIw==
 
+aframe-extras@^6.1.1:
+  version "6.1.1"
+  resolved "https://registry.yarnpkg.com/aframe-extras/-/aframe-extras-6.1.1.tgz#6f158b6c4da12e77d00fd0b97dfe1c72245327df"
+  integrity sha512-w3o3sKfQG+cwe1ZoKUxvMLehh0D/MlvFZeg2XuyIto+Nrs/kGLPcb/fsI5DXM4jociZ3wVQfqcA1BVF+0Nq45A==
+  dependencies:
+    three-pathfinding "^0.7.0"
+
 aframe-liquid-portal-shader@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/aframe-liquid-portal-shader/-/aframe-liquid-portal-shader-1.0.1.tgz#f9f1c48c80c6a933d6afd9efa19c5bd362400ac4"
@@ -7698,6 +7705,11 @@ three-buffer-vertex-data@dmarcos/three-buffer-vertex-data#69378fc58daf27d3b1d930
   resolved "https://codeload.github.com/dmarcos/three-buffer-vertex-data/tar.gz/69378fc58daf27d3b1d930df9f233473e4a4818c"
   dependencies:
     flatten-vertex-data "^1.0.0"
+
+three-pathfinding@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/three-pathfinding/-/three-pathfinding-0.7.0.tgz#bf64ec409bee6e7d8e19be96c7b40ebd7ef6f10d"
+  integrity sha512-UwWvzgio1UFe81n5jKHNzB4B+AG3wfZ54OKp7bTb1MHuC3cy6RTtr0dbbiPQQoqxzr+DRArR2DUwQSEknw5+nw==
 
 through@2, "through@>=2.2.7 <3", through@~2.3, through@~2.3.1:
   version "2.3.8"

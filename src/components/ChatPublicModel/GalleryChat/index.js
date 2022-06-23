@@ -5,7 +5,7 @@ const GalleryChat = ({ modelURL, name }) => {
       sortObjects: true;
       physicallyCorrectLights: true;
       maxCanvasWidth: 1920;
-      maxCanvasHeight: 1920;" 
+      maxCanvasHeight: 1920;"
       networked-scene="
       room: blocks;
       debug: true;">
@@ -28,20 +28,23 @@ const GalleryChat = ({ modelURL, name }) => {
                 }}
             />
         </a-assets>
-
+        
         <a-entity 
-          id="player"
+          // id="player"
+          id="rig"
           position="0 1.65 0"
+          cursor="fuse: true; fuseTimeout: 500"
           look-controls="pointerLockEnabled: true; reverseMouseDrag: false"
           wasd-controls="acceleration: 20;"
+          movement-controls="speed: 0.1"
           simple-navmesh-constraint="navmesh:#navmesh;fall: 5;height:1.6;" 
           networked="template:#avatar-template;attachTemplateToLocal:false;"
           material="src: /images/placeholder/avatars/degen.png"
         >
           <a-entity 
             id="head" 
+            camera=""
             rotation = "0 0 0"
-            camera="fov: 70; active: true"
           >
             <a-entity 
               id="cursor" 
