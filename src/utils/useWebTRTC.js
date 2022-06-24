@@ -72,7 +72,9 @@ export const useWebTRTC = (roomId, user) => {
             // leaving room
             try {
                 if(!!localMediaStream.current && localMediaStream.current != {}) {
-                    localMediaStream.current.getTracks().forEach((track) => track.stop())
+                    if("getTracks" in localMediaStream.current) {
+                        localMediaStream.current.getTracks().forEach((track) => track.stop())
+                    }
                 }
             } catch (error) {
                 console.error(error);
