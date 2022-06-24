@@ -44,9 +44,6 @@ const UserPanel: FC<UserPanelProps> = ({
             setAvatars(rooms[roomIndex].avatars);
         }
     }, [rooms[roomIndex]])
-    useEffect(() => {
-        console.log("clients", clients);
-    }, [clients])
 
     return (
         <div className={"fixed top-[20vh] left-[30px] w-[250px] " + (isUserPanel ? 'block' : 'hidden')}>

@@ -39,8 +39,10 @@ AFRAME.registerComponent('seat', {
         }
     },
     init: function () {
-        this.simpleNavmeshConstraintBk = this.data.camera.getAttribute("simple-navmesh-constraint");
-        this.wasdControlsBk = this.data.camera.getAttribute("wasd-controls");
+        if(this.data.camera) {
+            this.simpleNavmeshConstraintBk = this.data.camera.getAttribute("simple-navmesh-constraint");
+            this.wasdControlsBk = this.data.camera.getAttribute("wasd-controls");
+        }
         this.directionVec3 = new THREE.Vector3();
     },
     startSittingDown: function () {

@@ -5,7 +5,7 @@ export type ChatPanelProps = {
     isChatPanel: Boolean;
     msgs: any[];
     sendData: any[];
-    toggleChatPanel,Function;
+    toggleChatPanel: Function;
     getAvatarImg: Function;
     handleKeyDown: Function;
     setSendData: Function;
@@ -54,9 +54,9 @@ const ChatPanel: FC<ChatPanelProps> = ({
                     value={sendData}
                     onKeyDown={(e) => handleKeyDown(e)}
                     onChange={(e) => setSendData(e.target.value)}
-                    placeholder="Input a message please."
+                    placeholder="Message"
                     />
-                    <button style={{ marginLeft: "20px" }} onClick={() => sendMsg()} >send</button>
+                    <button className="ml-5 font-light" onClick={() => sendMsg()} >send</button>
                 </div>
             </div>
         </div>

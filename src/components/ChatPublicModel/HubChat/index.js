@@ -59,7 +59,7 @@ const HubChat = ({ modelURL, name }) => {
         <a-entity 
           id="head" 
           rotation = "0 0 0"
-          camera="fov: 70; active: true"
+          camera
         >
           <a-entity 
             id="cursor" 

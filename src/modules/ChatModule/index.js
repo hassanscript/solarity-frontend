@@ -43,6 +43,16 @@ const ChatModule = () => {
 
   const toggleChatPanel = () => {
     setChatPanel(!isChatPanel);
+    if(navigator.userAgentData.mobile) { // if mobile
+      setUserPanel(isChatPanel && isUserPanel);
+    }
+  }
+  
+  const toggleUserPanel = () => {
+    setUserPanel(!isUserPanel);
+    if(navigator.userAgentData.mobile) { // if mobile
+      setChatPanel(isChatPanel && isUserPanel);
+    }
   }
 
   useEffect(() => {
@@ -96,10 +106,6 @@ const ChatModule = () => {
     var userData = userlist.concat([]);
     setUserlist(userData);
     window.socket.emit(ACTIONS.INVITE_FRIEND, { username, invitor: localStorage.getItem('name'), roomId: rid, type: rooms[roomIndex].type, roomNo: rooms[roomIndex].roomNo });
-  }
-
-  const toggleUserPanel = () => {
-    setUserPanel(!isUserPanel);
   }
 
   const toggleVolume = (speaker) => {
@@ -189,7 +195,7 @@ const ChatModule = () => {
   useEffect(() => {
     const loadInterval = setInterval(() => {
       if (isLoaded || localStorage.getItem('modelLoaded') == "true") {
-        var entity = document.querySelector('#rig');
+        var entity = document.querySelector('#player');
         if (!!entity) {
           window.NAF.schemas.add({
             template: '#avatar-template',
