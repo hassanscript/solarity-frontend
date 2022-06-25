@@ -12,7 +12,6 @@ export const getServerSideProps = async (context: any) => {
     const {
       data: { roomInfo },
     } = await apiCaller.get(`/users/getLinkInfo/${link}`);
-    console.log(roomInfo);
     return { props: { roomInfo, success: true } };
   } catch (err) {
     return { props: { success: false } };
