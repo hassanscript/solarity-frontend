@@ -20,7 +20,7 @@ import UserPanel from '../../components/UserPanel';
 import ChatPanel from '../../components/ChatPanel';
 import ChatPublicModel from "components/ChatPublicModel";
 import ChatPrivateModel from "components/ChatPrivateModel";
-
+import { checkBrowser } from 'utils';
 const ChatModule = () => {
   const [mounted, setMounted] = useState(false)
   const { roomName, userName, modelIndex, msgs, peers, rooms } = useAppSelector(state => state.chat);
@@ -43,16 +43,16 @@ const ChatModule = () => {
 
   const toggleChatPanel = () => {
     setChatPanel(!isChatPanel);
-    // if(navigator.userAgentData.mobile) { // if mobile
-    //   setUserPanel(isChatPanel && isUserPanel);
-    // }
+    if(checkBrowser()) { // if mobile
+      setUserPanel(isChatPanel && isUserPanel);
+    }
   }
   
   const toggleUserPanel = () => {
     setUserPanel(!isUserPanel);
-    // if(navigator.userAgentData.mobile) { // if mobile
-    //   setChatPanel(isChatPanel && isUserPanel);
-    // }
+    if(checkBrowser()) { // if mobile
+      setChatPanel(isChatPanel && isUserPanel);
+    }
   }
 
   useEffect(() => {
@@ -279,9 +279,11 @@ const ChatModule = () => {
   if (mounted && models && models[modelIndex] && models[modelIndex].modelUrl) {
     return (
       <div>
-        <video className={styles.background_video} id="background_video" autoPlay loop muted>
-          <source src="/assets/video/loading_video.mp4" type="video/mp4" />
-        </video>
+        {!checkBrowser() && (
+          <video className={styles.background_video} id="background_video" autoPlay loop muted>
+            <source src="/assets/video/loading_video.mp4" type="video/mp4" />
+          </video>
+        )}
         <div id="loadingScreen" className={styles.loadingScreen}>
           <div id="loadingText" className={styles.loadingText}>
           </div>
