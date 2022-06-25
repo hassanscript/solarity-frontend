@@ -195,7 +195,7 @@ const ChatModule = () => {
   useEffect(() => {
     const loadInterval = setInterval(() => {
       if (isLoaded || localStorage.getItem('modelLoaded') == "true") {
-        var entity = document.querySelector('#player');
+        var entity = document.querySelector('#rig');
         if (!!entity) {
           window.NAF.schemas.add({
             template: '#avatar-template',
@@ -279,9 +279,11 @@ const ChatModule = () => {
   if (mounted && models && models[modelIndex] && models[modelIndex].modelUrl) {
     return (
       <div>
-        <video className={styles.background_video} id="background_video" autoPlay loop muted>
-          <source src="/assets/video/loading_video.mp4" type="video/mp4" />
-        </video>
+        {!!navigator.userAgentData.mobile && (
+          <video className={styles.background_video} id="background_video" autoPlay loop muted>
+            <source src="/assets/video/loading_video.mp4" type="video/mp4" />
+          </video>)
+        }
         <div id="loadingScreen" className={styles.loadingScreen}>
           <div id="loadingText" className={styles.loadingText}>
           </div>
