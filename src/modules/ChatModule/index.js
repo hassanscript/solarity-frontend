@@ -128,10 +128,10 @@ const ChatModule = () => {
     require('./components');
     require('./presentation');
     const loadInterval = setInterval(() => {
-      if (localStorage.getItem('modelLoaded') == "true") {alert();
+      if (localStorage.getItem('modelLoaded') == "true") {
         require('multiuser-aframe');
+        clearInterval(loadInterval);
         setTimeout(() => {
-          clearInterval(loadInterval);
           setLoadingFlag(true);
         }, 100);
       }
