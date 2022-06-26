@@ -125,6 +125,7 @@ const ChatModule = () => {
     require('aframe-blink-controls');
     require('aframe-extras');
     require('./components');
+    require('./presentation');
     THREE.Cache.enabled = false;
     setMounted(true);
     localStorage.setItem('modelLoaded', "false");
@@ -295,7 +296,7 @@ const ChatModule = () => {
           </div>
         </div>
         <div id="sceneWrapper" style={{ opacity: "0" }}>
-          {roomType > 1 ? (
+          {roomType > 2 ? (
             <ChatPrivateModel
               modelNo={no}
               roomInfo={roomInfo}

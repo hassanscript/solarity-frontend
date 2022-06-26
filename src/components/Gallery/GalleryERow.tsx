@@ -37,9 +37,17 @@ const GalleryERow = () => {
           imageUrl={"/assets/images/rooms/gallery.png"}
           currentBid={"0"}
         />
+        <GalleryItemE 
+          key={2} 
+          type={false}
+          roomNo={2} 
+          title={"Plaza"}
+          imageUrl={"/assets/images/rooms/plaza.jpg"}
+          currentBid={"0"}
+        />
         {
           sortedRooms && sortedRooms.length != 0 && sortedRooms.map((room: any, index: number) => (
-            <GalleryItemE key={index + 2} type={true} {...room} />
+            <GalleryItemE key={index + 3} type={true} {...room} />
           ))
         }
       </div>

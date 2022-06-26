@@ -84,8 +84,10 @@ const JoinRoomModal: FC<any> = ({
         router.push(`/experience/Room?rid=${rooms[selectedIndex].roomId}&roomType=0&no=0`, '/experience/Room');
       } else if(type == false && roomNo == 1) {
         router.push(`/experience/Room?rid=${rooms[selectedIndex].roomId}&roomType=1&no=0`, '/experience/Room');
+      } else if(type == false && roomNo == 2) {
+        router.push(`/experience/Room?rid=${rooms[selectedIndex].roomId}&roomType=2&no=0`, '/experience/Room');
       } else if(type == true) {
-        router.push(`/experience/Room?rid=${rooms[selectedIndex].roomId}&roomType=2&no=${rooms[selectedIndex].roomNo + 1}`, '/experience/Room');
+        router.push(`/experience/Room?rid=${rooms[selectedIndex].roomId}&roomType=3&no=${rooms[selectedIndex].roomNo + 1}`, '/experience/Room');
       }
     }
   }
