@@ -199,7 +199,7 @@ const ChatModule = () => {
   useEffect(() => {
     const loadInterval = setInterval(() => {
       if (isLoaded || localStorage.getItem('modelLoaded') == "true") {
-        var entity = document.querySelector('#rig');
+        var entity = document.querySelector('#player');
         if (!!entity) {
           window.NAF.schemas.add({
             template: '#avatar-template',
