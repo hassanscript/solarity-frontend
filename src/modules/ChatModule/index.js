@@ -210,7 +210,7 @@ const ChatModule = () => {
   useEffect(() => {
     if(loadingFlag) {
 
-      var entity = document.querySelector('#player');
+      var entity = document.querySelector('#rig');
       if (!!entity) {
         window.NAF.schemas.add({
           template: '#avatar-template',
@@ -247,8 +247,10 @@ const ChatModule = () => {
   }
 
   const sendMsg = () => {
-    window.socket.emit('send-msg', { roomId: rid, data: {sendData, avatarUrl: data ? data.profileImageLink: ""} });
-    setSendData('');
+    if(sendData != "") {
+      window.socket.emit('send-msg', { roomId: rid, data: {sendData, avatarUrl: data ? data.profileImageLink: ""} });
+      setSendData('');
+    }
   }
 
   const handelManualLeave = () => {
