@@ -76,7 +76,7 @@ const PlazaChat = ({ modelURL, name }) => {
             gearvr-controls="hand: left" magicleap-controls="hand: left" oculus-go-controls="hand: left"
             valve-index-controls="hand: left" vive-focus-controls="hand: left"
             generic-tracked-controller-controls="hand: left" raycaster="far: 0; objects: .leftclickable;"
-            blink-controls="cameraRig: #player; teleportOrigin: #camera; button: trigger; curveShootingSpeed: 10; collisionEntities: .collision; landingMaxAngle: 10"
+            blink-controls="cameraRig: #rig; teleportOrigin: #camera; button: trigger; curveShootingSpeed: 10; collisionEntities: .collision; landingMaxAngle: 10"
             visible="true"></a-entity>
           <a-entity id="rightHand" class="rightController controllerOnly"
             hand-controls="hand: right; handModelStyle: lowPoly; color: #15ACCF"
@@ -125,7 +125,7 @@ const PlazaChat = ({ modelURL, name }) => {
             gearvr-controls="hand: left" magicleap-controls="hand: left" oculus-go-controls="hand: left"
             valve-index-controls="hand: left" vive-focus-controls="hand: left"
             generic-tracked-controller-controls="hand: left" raycaster="far: 0; objects: .leftclickable;"
-            blink-controls="cameraRig: #player; teleportOrigin: #camera; button: trigger; curveShootingSpeed: 10; collisionEntities: .collision; landingMaxAngle: 10"
+            blink-controls="cameraRig: #rig; teleportOrigin: #camera; button: trigger; curveShootingSpeed: 10; collisionEntities: .collision; landingMaxAngle: 10"
             visible="true"></a-entity>
           <a-entity id="rightHand" class="rightController controllerOnly"
             hand-controls="hand: right; handModelStyle: lowPoly; color: #15ACCF"

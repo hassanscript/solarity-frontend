@@ -31,12 +31,56 @@ const GalleryChat = ({ modelURL, name }) => {
             />
         </a-assets>
 
+        {checkBrowser() ? (
+          <a-entity 
+            id="rig"
+            position="0 1.65 0" 
+            look-controls="pointerLockEnabled: true; reverseMouseDrag: true"
+            movement-controls="speed: 0.2"
+            simple-navmesh-constraint="navmesh:#navmesh;fall: 5;height:1.65;"
+            networked="template:#avatar-template;attachTemplateToLocal:false;"
+          >
+            <a-entity 
+              id="head" 
+              rotation = "0 0 0"
+              camera="fov: 70; active: true"
+            >
+              <a-entity 
+                id="cursor" 
+                class="mouseOnly" 
+                cursor="" 
+                raycaster="far: 10; objects: .clickable"
+                material="color: white; shader: flat" 
+                position="0 0 -0.3"
+                geometry="primitive: sphere; radius: 0.001"
+              >
+              </a-entity>
+            </a-entity>
+            <a-entity id="leftHand" class="leftController controllerOnly"
+              hand-controls="hand: left; handModelStyle: lowPoly; color: #15ACCF"
+              laser-controls="hand: left" vive-controls="hand: left" oculus-touch-controls="hand: left"
+              windows-motion-controls="hand: left" daydream-controls="hand: left"
+              gearvr-controls="hand: left" magicleap-controls="hand: left" oculus-go-controls="hand: left"
+              valve-index-controls="hand: left" vive-focus-controls="hand: left"
+              generic-tracked-controller-controls="hand: left" raycaster="far: 0; objects: .leftclickable;"
+              blink-controls="cameraRig: #rig; teleportOrigin: #camera; button: trigger; curveShootingSpeed: 10; collisionEntities: .collision; landingMaxAngle: 10"
+              visible="true"></a-entity>
+            <a-entity id="rightHand" class="rightController controllerOnly"
+              hand-controls="hand: right; handModelStyle: lowPoly; color: #15ACCF"
+              laser-controls="hand: right" vive-controls="hand: right" oculus-touch-controls="hand: right"
+              windows-motion-controls="hand: right" daydream-controls="hand: right"
+              gearvr-controls="hand: right" magicleap-controls="hand: right"
+              oculus-go-controls="hand: right" valve-index-controls="hand: right"
+              vive-focus-controls="hand: right" generic-tracked-controller-controls="hand: right"
+              raycaster="showLine: true; far: 10; interval: 0; objects: .clickable, a-link;"
+              line="color: lawngreen; opacity: 0.5" visible="true"></a-entity>
+          </a-entity>
+        ): (
           <a-entity 
             id="rig"
             position="0 1.65 0" 
             look-controls="pointerLockEnabled: true; reverseMouseDrag: false"
             wasd-controls="acceleration: 20;"
-            movement-controls="speed: 0.2"
             simple-navmesh-constraint="navmesh:#navmesh;fall: 5;height:1.65;" 
             networked="template:#avatar-template;attachTemplateToLocal:false;"
           >
@@ -63,7 +107,7 @@ const GalleryChat = ({ modelURL, name }) => {
               gearvr-controls="hand: left" magicleap-controls="hand: left" oculus-go-controls="hand: left"
               valve-index-controls="hand: left" vive-focus-controls="hand: left"
               generic-tracked-controller-controls="hand: left" raycaster="far: 0; objects: .leftclickable;"
-              blink-controls="cameraRig: #player; teleportOrigin: #camera; button: trigger; curveShootingSpeed: 10; collisionEntities: .collision; landingMaxAngle: 10"
+              blink-controls="cameraRig: #rig; teleportOrigin: #camera; button: trigger; curveShootingSpeed: 10; collisionEntities: .collision; landingMaxAngle: 10"
               visible="true"></a-entity>
             <a-entity id="rightHand" class="rightController controllerOnly"
               hand-controls="hand: right; handModelStyle: lowPoly; color: #15ACCF"
@@ -75,6 +119,7 @@ const GalleryChat = ({ modelURL, name }) => {
               raycaster="showLine: true; far: 10; interval: 0; objects: .clickable, a-link;"
               line="color: lawngreen; opacity: 0.5" visible="true"></a-entity>
           </a-entity>
+        )}
         <a-gltf-model shadow="cast: true; receive: true" model-info class="model" src="#gallery-gltf" position="0 0 0"
           scale="1 1 1"></a-gltf-model>
         <a-gltf-model id="navmesh" model-info class="model" src="#navmesh-gltf" visible="false">
