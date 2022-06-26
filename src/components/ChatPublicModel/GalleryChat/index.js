@@ -37,7 +37,6 @@ const GalleryChat = ({ modelURL, name }) => {
             wasd-controls="acceleration: 20;"
             simple-navmesh-constraint="navmesh:#navmesh;fall: 5;height:1.65;" 
             networked="template:#avatar-template;attachTemplateToLocal:false;"
-            material="src: /images/placeholder/avatars/degen.png"
           >
             <a-entity 
               id="head" 
