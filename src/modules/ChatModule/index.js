@@ -128,7 +128,7 @@ const ChatModule = () => {
     require('./components');
     require('./presentation');
     const loadInterval = setInterval(() => {
-      if (isLoaded || localStorage.getItem('modelLoaded') == "true") {
+      if (localStorage.getItem('modelLoaded') == "true") {alert();
         require('multiuser-aframe');
         setTimeout(() => {
           clearInterval(loadInterval);
@@ -138,7 +138,7 @@ const ChatModule = () => {
       setTimeout(() => {
         clearInterval(loadInterval);
         setLoadingFlag(true);
-      }, 10000);
+      }, 100000);
     }, 300);
     THREE.Cache.enabled = false;
     setMounted(true);
