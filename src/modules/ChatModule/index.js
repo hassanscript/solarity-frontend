@@ -130,8 +130,10 @@ const ChatModule = () => {
     const loadInterval = setInterval(() => {
       if (isLoaded || localStorage.getItem('modelLoaded') == "true") {
         require('multiuser-aframe');
-        setLoadingFlag(true);
-        clearInterval(loadInterval);
+        setTimeout(() => {
+          clearInterval(loadInterval);
+          setLoadingFlag(true);
+        }, 100);
       }
       setTimeout(() => {
         clearInterval(loadInterval);
