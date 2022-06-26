@@ -1,3 +1,5 @@
+import { checkBrowser } from "utils";
+
 const OwnThird = ({ roomInfo, modelURL, name }) => {
   return (
     <a-scene renderer="antialias: true;
@@ -33,7 +35,7 @@ const OwnThird = ({ roomInfo, modelURL, name }) => {
 
         </a-assets>
 
-        {navigator.userAgentData.mobile ? (
+        {checkBrowser() ? (
           <a-entity 
             id="rig"
             position="0 1.65 0" 

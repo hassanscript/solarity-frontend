@@ -1,3 +1,5 @@
+import { checkBrowser } from "utils";
+
 const OwnSecond = ({ roomInfo, modelURL, name }) => {
   const assets = [
     {
@@ -60,7 +62,7 @@ const OwnSecond = ({ roomInfo, modelURL, name }) => {
 
       </a-assets>
 
-      {navigator.userAgentData.mobile ? (
+      {checkBrowser() ? (
         <a-entity 
           id="rig"
           position="0 1.65 0" 

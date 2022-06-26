@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { checkBrowser } from "utils";
 
 const PlazaChat = ({ modelURL, name }) => {
   return (
@@ -38,54 +39,105 @@ const PlazaChat = ({ modelURL, name }) => {
 
       </a-assets>
 
-      <a-entity 
-        id="rig"
-        position="25 3.6 0" 
-        look-controls="pointerLockEnabled: true; reverseMouseDrag: false"
-        wasd-controls="acceleration: 20;"
-        simple-navmesh-constraint="navmesh:#navmesh;fall: 5;height:1.65;" 
-        networked="template:#avatar-template;attachTemplateToLocal:false;"
-      >
+      {checkBrowser() ? (
         <a-entity 
-          id="head" 
-          class="mouseOnly" 
-          raycaster="far: 10; objects: .clickable"
-          material="color: white; shader: flat" 
-          position="0 0 -0.3"
-          rotation = "0 0 0"
-          geometry="primitive: sphere; radius: 0.001"
-          camera="fov: 70; active: true"
+          id="rig"
+          position="25 3.6 0" 
+          look-controls="pointerLockEnabled: true; reverseMouseDrag: false"
+          movement-controls="speed: 0.2"
+          simple-navmesh-constraint="navmesh:#navmesh;fall: 5;height:1.65;" 
+          networked="template:#avatar-template;attachTemplateToLocal:false;"
         >
           <a-entity 
-            id="cursor" 
+            id="head" 
             class="mouseOnly" 
-            cursor="" 
             raycaster="far: 10; objects: .clickable"
             material="color: white; shader: flat" 
             position="0 0 -0.3"
+            rotation = "0 0 0"
             geometry="primitive: sphere; radius: 0.001"
+            camera="fov: 70; active: true"
           >
+            <a-entity 
+              id="cursor" 
+              class="mouseOnly" 
+              cursor="" 
+              raycaster="far: 10; objects: .clickable"
+              material="color: white; shader: flat" 
+              position="0 0 -0.3"
+              geometry="primitive: sphere; radius: 0.001"
+            >
+            </a-entity>
           </a-entity>
+          <a-entity id="leftHand" class="leftController controllerOnly"
+            hand-controls="hand: left; handModelStyle: lowPoly; color: #15ACCF"
+            laser-controls="hand: left" vive-controls="hand: left" oculus-touch-controls="hand: left"
+            windows-motion-controls="hand: left" daydream-controls="hand: left"
+            gearvr-controls="hand: left" magicleap-controls="hand: left" oculus-go-controls="hand: left"
+            valve-index-controls="hand: left" vive-focus-controls="hand: left"
+            generic-tracked-controller-controls="hand: left" raycaster="far: 0; objects: .leftclickable;"
+            blink-controls="cameraRig: #player; teleportOrigin: #camera; button: trigger; curveShootingSpeed: 10; collisionEntities: .collision; landingMaxAngle: 10"
+            visible="true"></a-entity>
+          <a-entity id="rightHand" class="rightController controllerOnly"
+            hand-controls="hand: right; handModelStyle: lowPoly; color: #15ACCF"
+            laser-controls="hand: right" vive-controls="hand: right" oculus-touch-controls="hand: right"
+            windows-motion-controls="hand: right" daydream-controls="hand: right"
+            gearvr-controls="hand: right" magicleap-controls="hand: right"
+            oculus-go-controls="hand: right" valve-index-controls="hand: right"
+            vive-focus-controls="hand: right" generic-tracked-controller-controls="hand: right"
+            raycaster="showLine: true; far: 10; interval: 0; objects: .clickable, a-link;"
+            line="color: lawngreen; opacity: 0.5" visible="true"></a-entity>
         </a-entity>
-        <a-entity id="leftHand" class="leftController controllerOnly"
-          hand-controls="hand: left; handModelStyle: lowPoly; color: #15ACCF"
-          laser-controls="hand: left" vive-controls="hand: left" oculus-touch-controls="hand: left"
-          windows-motion-controls="hand: left" daydream-controls="hand: left"
-          gearvr-controls="hand: left" magicleap-controls="hand: left" oculus-go-controls="hand: left"
-          valve-index-controls="hand: left" vive-focus-controls="hand: left"
-          generic-tracked-controller-controls="hand: left" raycaster="far: 0; objects: .leftclickable;"
-          blink-controls="cameraRig: #player; teleportOrigin: #camera; button: trigger; curveShootingSpeed: 10; collisionEntities: .collision; landingMaxAngle: 10"
-          visible="true"></a-entity>
-        <a-entity id="rightHand" class="rightController controllerOnly"
-          hand-controls="hand: right; handModelStyle: lowPoly; color: #15ACCF"
-          laser-controls="hand: right" vive-controls="hand: right" oculus-touch-controls="hand: right"
-          windows-motion-controls="hand: right" daydream-controls="hand: right"
-          gearvr-controls="hand: right" magicleap-controls="hand: right"
-          oculus-go-controls="hand: right" valve-index-controls="hand: right"
-          vive-focus-controls="hand: right" generic-tracked-controller-controls="hand: right"
-          raycaster="showLine: true; far: 10; interval: 0; objects: .clickable, a-link;"
-          line="color: lawngreen; opacity: 0.5" visible="true"></a-entity>
-      </a-entity>
+      ): (
+        <a-entity 
+          id="rig"
+          position="25 3.6 0" 
+          look-controls="pointerLockEnabled: true; reverseMouseDrag: false"
+          wasd-controls="acceleration: 20;"
+          simple-navmesh-constraint="navmesh:#navmesh;fall: 5;height:1.65;" 
+          networked="template:#avatar-template;attachTemplateToLocal:false;"
+        >
+          <a-entity 
+            id="head" 
+            class="mouseOnly" 
+            raycaster="far: 10; objects: .clickable"
+            material="color: white; shader: flat" 
+            position="0 0 -0.3"
+            rotation = "0 0 0"
+            geometry="primitive: sphere; radius: 0.001"
+            camera="fov: 70; active: true"
+          >
+            <a-entity 
+              id="cursor" 
+              class="mouseOnly" 
+              cursor="" 
+              raycaster="far: 10; objects: .clickable"
+              material="color: white; shader: flat" 
+              position="0 0 -0.3"
+              geometry="primitive: sphere; radius: 0.001"
+            >
+            </a-entity>
+          </a-entity>
+          <a-entity id="leftHand" class="leftController controllerOnly"
+            hand-controls="hand: left; handModelStyle: lowPoly; color: #15ACCF"
+            laser-controls="hand: left" vive-controls="hand: left" oculus-touch-controls="hand: left"
+            windows-motion-controls="hand: left" daydream-controls="hand: left"
+            gearvr-controls="hand: left" magicleap-controls="hand: left" oculus-go-controls="hand: left"
+            valve-index-controls="hand: left" vive-focus-controls="hand: left"
+            generic-tracked-controller-controls="hand: left" raycaster="far: 0; objects: .leftclickable;"
+            blink-controls="cameraRig: #player; teleportOrigin: #camera; button: trigger; curveShootingSpeed: 10; collisionEntities: .collision; landingMaxAngle: 10"
+            visible="true"></a-entity>
+          <a-entity id="rightHand" class="rightController controllerOnly"
+            hand-controls="hand: right; handModelStyle: lowPoly; color: #15ACCF"
+            laser-controls="hand: right" vive-controls="hand: right" oculus-touch-controls="hand: right"
+            windows-motion-controls="hand: right" daydream-controls="hand: right"
+            gearvr-controls="hand: right" magicleap-controls="hand: right"
+            oculus-go-controls="hand: right" valve-index-controls="hand: right"
+            vive-focus-controls="hand: right" generic-tracked-controller-controls="hand: right"
+            raycaster="showLine: true; far: 10; interval: 0; objects: .clickable, a-link;"
+            line="color: lawngreen; opacity: 0.5" visible="true"></a-entity>
+        </a-entity>
+      )}
       {/* lights */}
       {/* ambient light */}
       <a-entity light="type: ambient; intensity: 0.5; color:  #FFFFFF; shadowCameraVisible: false;"></a-entity>

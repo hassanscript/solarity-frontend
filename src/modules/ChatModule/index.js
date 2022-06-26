@@ -128,6 +128,9 @@ const ChatModule = () => {
     require('./presentation');
     THREE.Cache.enabled = false;
     setMounted(true);
+    if(checkBrowser()) { // if mobile
+      setUserPanel(false);
+    }
     localStorage.setItem('modelLoaded', "false");
     require('multiuser-aframe');
   }, [])
@@ -280,11 +283,9 @@ const ChatModule = () => {
   if (mounted && models && models[modelIndex] && models[modelIndex].modelUrl) {
     return (
       <div>
-        {!checkBrowser() && (
-          <video className={styles.background_video} id="background_video" autoPlay loop muted>
-            <source src="/assets/video/loading_video.mp4" type="video/mp4" />
-          </video>
-        )}
+        <video className={styles.background_video} id="background_video" autoPlay loop muted>
+          {!checkBrowser() && (<source src="/assets/video/loading_video.mp4" type="video/mp4" />)}
+        </video>
         <div id="loadingScreen" className={styles.loadingScreen}>
           <div id="loadingText" className={styles.loadingText}>
           </div>
