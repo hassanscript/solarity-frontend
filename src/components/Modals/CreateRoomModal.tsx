@@ -68,7 +68,7 @@ const CreateRoomModal: FC<any> = ({
           <div className="flex gap-1 addOns-2d-list">
             {[0,1,2,3,4,5].map((num, index) =>(
               <div className={`addOns-2d-item hover:border border border-transparent hover:border-gray-400 `+ (addOnsIndex == num ? `border-gray-100`: ``)} onClick={() => setAddOnsIndex(num)} key={index}>
-                <img src="images/addOns/addOn.jpg" width={40} height={40} alt="AddOns" />
+                <img src="/images/addOns/addOn.jpg" width={40} height={40} alt="AddOns" />
               </div> 
             ))}
           </div>
