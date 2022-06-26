@@ -32,7 +32,7 @@ const GalleryChat = ({ modelURL, name }) => {
         </a-assets>
 
           <a-entity 
-            id="player"
+            id="rig"
             position="0 1.65 0" 
             look-controls="pointerLockEnabled: true; reverseMouseDrag: false"
             wasd-controls="acceleration: 20;"
