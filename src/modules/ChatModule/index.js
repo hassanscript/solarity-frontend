@@ -40,6 +40,7 @@ const ChatModule = () => {
   const [isUserPanel, setUserPanel] = useState(true);
   const [userlist, setUserlist] = useState([]);
   const [roomInfo, setRoomInfo] = useState({});
+  const [loadingFlag, setLoadingFlag] = useState(false);
 
   const toggleChatPanel = () => {
     setChatPanel(!isChatPanel);
@@ -123,16 +124,26 @@ const ChatModule = () => {
     require('aframe/dist/aframe-master.js');
     require('aframe-liquid-portal-shader');
     require('aframe-blink-controls');
-    // require('aframe-extras');
+    require('aframe-extras');
     require('./components');
-    // require('./presentation');
+    require('./presentation');
+    const loadInterval = setInterval(() => {
+      if (isLoaded || localStorage.getItem('modelLoaded') == "true") {
+        require('multiuser-aframe');
+        setLoadingFlag(true);
+        clearInterval(loadInterval);
+      }
+      setTimeout(() => {
+        clearInterval(loadInterval);
+        setLoadingFlag(true);
+      }, 10000);
+    }, 300);
     THREE.Cache.enabled = false;
     setMounted(true);
     if(checkBrowser()) { // if mobile
       setUserPanel(false);
     }
     localStorage.setItem('modelLoaded', "false");
-    require('multiuser-aframe');
   }, [])
 
   useEffect(() => {
@@ -197,37 +208,33 @@ const ChatModule = () => {
   }
 
   useEffect(() => {
-    const loadInterval = setInterval(() => {
-      if (isLoaded || localStorage.getItem('modelLoaded') == "true") {
-        var entity = document.querySelector('#player');
-        if (!!entity) {
-          window.NAF.schemas.add({
-            template: '#avatar-template',
-            components: [
-              'position',
-              'rotation',
-              {
-                selector: '.nametag',
-                component: 'text',
-                property: 'value'
-              },
-              {
-                selector: '.model',
-                component: 'src',
-              }
-            ]
-          });
-          localStorage.setItem('modelLoaded', "false");
-          window.isReady1 = true;
-          setIntervalId(setInterval(updateVolume, 300));
-          clearInterval(loadInterval);
-        }
+    if(loadingFlag) {
+
+      var entity = document.querySelector('#player');
+      if (!!entity) {
+        window.NAF.schemas.add({
+          template: '#avatar-template',
+          components: [
+            'position',
+            'rotation',
+            {
+              selector: '.nametag',
+              component: 'text',
+              property: 'value'
+            },
+            {
+              selector: '.model',
+              component: 'src',
+            }
+          ]
+        });
+        localStorage.setItem('modelLoaded', "false");
+        window.isReady1 = true;
+        setIntervalId(setInterval(updateVolume, 300));
+        
       }
-      setTimeout(() => {
-        clearInterval(loadInterval);
-      }, 10000);
-    }, 300);
-  }, [])
+    }
+  }, [loadingFlag])
 
   const handelMuteBtnClick = () => {
     setMute((prev) => !prev);
