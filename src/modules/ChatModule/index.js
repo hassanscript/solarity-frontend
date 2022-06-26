@@ -127,13 +127,11 @@ const ChatModule = () => {
     require('aframe-extras');
     require('./components');
     require('./presentation');
+    require('multiuser-aframe');
     const loadInterval = setInterval(() => {
       if (localStorage.getItem('modelLoaded') == "true") {
-        require('multiuser-aframe');
         clearInterval(loadInterval);
-        setTimeout(() => {
-          setLoadingFlag(true);
-        }, 100);
+        setLoadingFlag(true);
       }
       setTimeout(() => {
         clearInterval(loadInterval);
