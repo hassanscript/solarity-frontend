@@ -31,7 +31,7 @@ const GalleryChat = ({ modelURL, name }) => {
             />
         </a-assets>
         <a-entity 
-          id="rig"
+          id="player"
           position="0 1.65 0" 
           look-controls="pointerLockEnabled: true; reverseMouseDrag: true"
           movement-controls="speed: 0.2"
