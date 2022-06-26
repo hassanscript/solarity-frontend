@@ -22,6 +22,14 @@ const GalleryERow = () => {
       <GalleryRowHeader title={"Rooms"} />
       <div className="grid grid-cols-4 gap-3 mt-4">
         <GalleryItemE 
+          key={2} 
+          type={false}
+          roomNo={2} 
+          title={"Plaza"}
+          imageUrl={"/assets/images/rooms/plaza.jpg"}
+          currentBid={"0"}
+        />
+        <GalleryItemE 
           key={0} 
           type={false}
           roomNo={0} 
@@ -35,14 +43,6 @@ const GalleryERow = () => {
           roomNo={1} 
           title={"Gallery"}
           imageUrl={"/assets/images/rooms/gallery.png"}
-          currentBid={"0"}
-        />
-        <GalleryItemE 
-          key={2} 
-          type={false}
-          roomNo={2} 
-          title={"Plaza"}
-          imageUrl={"/assets/images/rooms/plaza.jpg"}
           currentBid={"0"}
         />
         {
