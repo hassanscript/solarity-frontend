@@ -123,9 +123,9 @@ const ChatModule = () => {
     require('aframe/dist/aframe-master.js');
     require('aframe-liquid-portal-shader');
     require('aframe-blink-controls');
-    require('aframe-extras');
+    // require('aframe-extras');
     require('./components');
-    require('./presentation');
+    // require('./presentation');
     THREE.Cache.enabled = false;
     setMounted(true);
     if(checkBrowser()) { // if mobile
