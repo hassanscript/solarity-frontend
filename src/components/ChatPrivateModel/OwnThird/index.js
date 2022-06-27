@@ -38,7 +38,7 @@ const OwnThird = ({ roomInfo, modelURL, name }) => {
         {checkBrowser() ? (
           <a-entity 
             id="rig"
-            position="0 1.65 0" 
+            position="0 1.65 20" 
             look-controls="pointerLockEnabled: true; reverseMouseDrag: true"
             movement-controls="speed: 0.2"
             simple-navmesh-constraint="navmesh:#navmesh;fall: 5;height:1.65;" 
@@ -82,7 +82,7 @@ const OwnThird = ({ roomInfo, modelURL, name }) => {
         ): (
           <a-entity 
             id="rig"
-            position="0 1.65 0" 
+            position="0 1.65 20" 
             look-controls="pointerLockEnabled: true; reverseMouseDrag: false"
             wasd-controls="acceleration: 20;"
             simple-navmesh-constraint="navmesh:#navmesh;fall: 5;height:1.65;" 
