@@ -41,7 +41,7 @@ const GalleryItemComponent: FC<GalleryItemEProps> = ({
       });
       return;
     }
-    // localStorage.setItem('roomBgImg', imageUrl);
+    localStorage.setItem('roomBgImg', imageUrl);
     setCreateModalOpen(!createModalOpen);
   };
 
