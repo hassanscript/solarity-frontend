@@ -67,7 +67,7 @@ const JoinRoomModal: FC<any> = ({
         userName: profileData.username,
       }));
     }
-    localStorage.setItem("roomBgImg", selectedImageUrl);
+    // localStorage.setItem("roomBgImg", selectedImageUrl);
     if(!!window.socket){
       if(person != "") {
         if(!!rooms) {
