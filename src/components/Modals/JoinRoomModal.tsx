@@ -17,6 +17,7 @@ const JoinRoomModal: FC<any> = ({
   roomName,
   type,
   roomNo,
+  selectedImageUrl,
   person,
   creator,
   speakers,
@@ -26,6 +27,7 @@ const JoinRoomModal: FC<any> = ({
   roomName: string;
   type: boolean;
   roomNo: number;
+  selectedImageUrl: string;
   person: string;
   creator: string;
   speakers: string[];
@@ -65,6 +67,7 @@ const JoinRoomModal: FC<any> = ({
         userName: profileData.username,
       }));
     }
+    localStorage.setItem("roomBgImg", selectedImageUrl);
     if(!!window.socket){
       if(person != "") {
         if(!!rooms) {
