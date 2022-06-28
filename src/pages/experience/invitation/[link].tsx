@@ -27,6 +27,8 @@ const ProfileIndex: FC<InvitationPageProps> = ({ roomInfo, success }) => {
   const { rooms } = useAppSelector(state => state.chat);
   const  [joinModalOpen,setJoinModalOpen] = useState(false)
   const [selectedRoomIndex, setSelectedRoomIndex] = useState(-1);
+  const [ selectedImageUrl, setSelectedImageUrl ] = useState("");
+  const publicUrls = ["/assets/images/rooms/hub.jpg", "/assets/images/rooms/gallery.png", "/assets/images/rooms/plaza.jpg"]
   const handleJoinModalToggle = () => {
     if(selectedRoomIndex != -1){
       setJoinModalOpen(!joinModalOpen)
@@ -72,6 +74,14 @@ const ProfileIndex: FC<InvitationPageProps> = ({ roomInfo, success }) => {
   }, []);
 
   useEffect(() => {
+    if(roomInfo.type) {
+      setSelectedImageUrl(roomInfo.imageUrl);
+    } else {
+      setSelectedImageUrl(publicUrls[roomInfo.roomNo]);
+    }
+  }, [])
+
+  useEffect(() => {
     if(rooms && rooms.length != 0) {
       const roomIndex = rooms.findIndex((s: any) => s.roomId == roomInfo.roomId);
       if(roomIndex != -1) {
@@ -114,6 +124,7 @@ const ProfileIndex: FC<InvitationPageProps> = ({ roomInfo, success }) => {
         onClose={handleJoinModalToggle} 
         roomName={roomInfo.roomName}
         type={roomInfo.type}
+        selectedImageUrl={selectedImageUrl}
         roomNo={roomInfo.roomNo}
         creator={(rooms && rooms.length != 0 && rooms[selectedRoomIndex] != undefined) ? rooms[selectedRoomIndex].name : ""}
         person={roomInfo.name}

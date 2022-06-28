@@ -5,7 +5,7 @@ export type ChatPanelProps = {
     isChatPanel: Boolean;
     msgs: any[];
     sendData: any[];
-    toggleChatPanel,Function;
+    toggleChatPanel: Function;
     getAvatarImg: Function;
     handleKeyDown: Function;
     setSendData: Function;
@@ -24,7 +24,7 @@ const ChatPanel: FC<ChatPanelProps> = ({
 }) => {
 
     return (
-        <div className={"fixed top-[5vh] h-[90vh] max-h-[90vh] right-[30px] min-w-[300px] bg-brandblack rounded-lg w-1/4 transition-opacity " + (isChatPanel ? 'opacity-100' : 'opacity-0')}>
+        <div className={"fixed top-[5vh] h-[90vh] max-h-[80vh] right-[30px] min-w-[300px] bg-brandblack rounded-lg w-1/4 " + (isChatPanel ? 'block' : 'hidden')}>
             <div className='w-full p-[30px] h-full flex flex-col gap-2'>
                 <div className='text-lg mb-4 flex justify-between'>
                     <div>Room Chat</div>
@@ -54,9 +54,9 @@ const ChatPanel: FC<ChatPanelProps> = ({
                     value={sendData}
                     onKeyDown={(e) => handleKeyDown(e)}
                     onChange={(e) => setSendData(e.target.value)}
-                    placeholder="Input a message please."
+                    placeholder="Message"
                     />
-                    <button style={{ marginLeft: "20px" }} onClick={() => sendMsg()} >send</button>
+                    <button className="ml-5 font-light" onClick={() => sendMsg()} >send</button>
                 </div>
             </div>
         </div>

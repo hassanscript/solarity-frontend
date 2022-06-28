@@ -1,6 +1,7 @@
 import { Button, Stack } from "components/FormComponents";
 import React, { useEffect, useState } from "react";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
+import { useAppDispatch } from "redux/hooks";
 import FirstEditRoom from "components/EditRoom/FirstEditRoom";
 import SecondEditRoom from "components/EditRoom/SecondEditRoom";
 import { getNfts } from "hooks";
@@ -11,7 +12,7 @@ import LockedRoom from "components/Banner/LockedRoom";
 import RealRoomItem from "components/RealRoomItem";
 
 const SelectDisplayNftView = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { profileData, activeRoomId, activeRoomNo } = useSelector(
     (state: RootStateOrAny) => ({
       profileData: state.profile.data,
@@ -32,6 +33,7 @@ const SelectDisplayNftView = () => {
   const [rooms, setRooms] = useState<any[]>([]);
   const [activeIndex, setActiveIndex] = useState(-1);
   const [activeId, setActiveId] = useState("");
+  const [tempRooms, setTempRooms] = useState<any[]>([]);
 
   useEffect(() => {
     if(!!profileData.rooms) {
@@ -51,7 +53,7 @@ const SelectDisplayNftView = () => {
       tmpRooms.sort((a: any, b: any) => {
           return a.roomNo - b.roomNo;
       })
-      // setRooms(tmpRooms);
+      setTempRooms(tmpRooms);
     }
   }, [rooms])
   
@@ -178,7 +180,7 @@ const SelectDisplayNftView = () => {
           <div className="w-full rounded-xl border border-brandblack">
             <div className="flex grid-cols-3">
                 {
-                    rooms && rooms.map((room, index) => (
+                    tempRooms && tempRooms.map((room, index) => (
                         <RealRoomItem room={room} activeIndex={activeIndex} setActiveIndex={setActiveIndex} activeId={activeId} setActiveId={setActiveId} key={index} />
                     ))
                 }

@@ -116,8 +116,8 @@ const CoinBalances: FC<{ data: any[] }> = ({ data }) => {
       />
       <div className="flex justify-between">
         <div className="space-y-2 divide-y divide-gray-800 rounded-3xl bg-brandblack">
-          {data.map(({ image, balance, title, symbol, usdValue }) => (
-            <div className="flex items-start justify-center px-3 pt-3 first:pt-0">
+          {data.map(({ image, balance, title, symbol, usdValue }, index) => (
+            <div className="flex items-start justify-center px-3 pt-3 first:pt-0" key={index}>
               <img
                 src={image}
                 className="rounded-full"

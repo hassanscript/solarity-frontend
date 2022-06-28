@@ -17,6 +17,7 @@ const JoinRoomModal: FC<any> = ({
   roomName,
   type,
   roomNo,
+  selectedImageUrl,
   person,
   creator,
   speakers,
@@ -26,6 +27,7 @@ const JoinRoomModal: FC<any> = ({
   roomName: string;
   type: boolean;
   roomNo: number;
+  selectedImageUrl: string;
   person: string;
   creator: string;
   speakers: string[];
@@ -65,6 +67,7 @@ const JoinRoomModal: FC<any> = ({
         userName: profileData.username,
       }));
     }
+    // localStorage.setItem("roomBgImg", selectedImageUrl);
     if(!!window.socket){
       if(person != "") {
         if(!!rooms) {
@@ -84,19 +87,41 @@ const JoinRoomModal: FC<any> = ({
         router.push(`/experience/Room?rid=${rooms[selectedIndex].roomId}&roomType=0&no=0`, '/experience/Room');
       } else if(type == false && roomNo == 1) {
         router.push(`/experience/Room?rid=${rooms[selectedIndex].roomId}&roomType=1&no=0`, '/experience/Room');
+      } else if(type == false && roomNo == 2) {
+        router.push(`/experience/Room?rid=${rooms[selectedIndex].roomId}&roomType=2&no=0`, '/experience/Room');
       } else if(type == true) {
-        router.push(`/experience/Room?rid=${rooms[selectedIndex].roomId}&roomType=2&no=${rooms[selectedIndex].roomNo + 1}`, '/experience/Room');
+        router.push(`/experience/Room?rid=${rooms[selectedIndex].roomId}&roomType=3&no=${rooms[selectedIndex].roomNo + 1}`, '/experience/Room');
       }
     }
   }
 
   return (
     <Base open={open} onClose={onClose} title={roomName}>
-      <div className="grid grid-cols-2 gap-8 mt-8 min-h-[250px]">
-        <div className="col-span-1 flex justify-between py-4 px-7 bg-primary min-h-[200px] rounded-xl">
-          <AvatarPanel modelPath={models[modelIndex].modelUrl} position={models[modelIndex].position} rotation={models[modelIndex].rotation} scale={models[modelIndex].scale} />
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mt-8 min-h-[250px]">
+      <div className="col-span-1">
+          <div className="flex justify-between py-4 px-4 bg-primary rounded-xl h-[200px]">
+            <AvatarPanel modelPath={models[modelIndex].modelUrl} position={models[modelIndex].position} rotation={models[modelIndex].rotation} scale={models[modelIndex].scale} />
+          </div>
+          <div className="avatarlist mt-2">
+            <div className="flex gap-1 avatar-2d-list">
+              {!!models && models.length !=0 && models.map((model, index) => (
+                <div className={`avatar-2d-item hover:border border border-transparent hover:border-gray-400 `+ (modelIndex == index ? `border-gray-100`: ``)} onClick={() => setModelIndex(index)} key={index}>
+                  <img src={model.imageUrl} width={50} height={50} alt={model.name} />
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="addOnslist mt-2">
+            <div className="flex gap-1 addOns-2d-list">
+              {[0,1,2,3,4,5].map((num, index) =>(
+                <div className={`addOns-2d-item hover:border border border-transparent hover:border-gray-400 `+ (addOnsIndex == num ? `border-gray-100`: ``)} onClick={() => setAddOnsIndex(num)} key={index}>
+                  <img src="/images/addOns/addOn.jpg" width={40} height={40} alt="AddOns" />
+                </div> 
+              ))}
+            </div>
+          </div>
         </div>
-        <div className="py-4 px-7 rounded-xl">
+        <div className="col-span-1 py-4 px-0 sm:px-7 rounded-xl">
         {
           !!profileData && !!profileData.username ? (
             <div className="gap-2">
@@ -133,28 +158,6 @@ const JoinRoomModal: FC<any> = ({
         <div className="mt-4">
           {errorFlag && (<ErrorMessage errorMessage={errorMsg}/>)}
         </div>
-        </div>
-      </div>
-      <div className="mt-2">
-        <div className="avatarlist">
-          <div className="flex gap-1 avatar-2d-list">
-            {!!models && models.length !=0 && models.map((model, index) => (
-              <div className={`avatar-2d-item hover:border border border-transparent hover:border-gray-400 `+ (modelIndex == index ? `border-gray-100`: ``)} onClick={() => setModelIndex(index)} key={index}>
-                <img src={model.imageUrl} width={50} height={50} alt={model.name} />
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-      <div className="mt-2">
-        <div className="addOnslist">
-          <div className="flex gap-1 addOns-2d-list">
-            {[0,1,2,3,4,5].map((num, index) =>(
-              <div className={`addOns-2d-item hover:border border border-transparent hover:border-gray-400 `+ (addOnsIndex == num ? `border-gray-100`: ``)} onClick={() => setAddOnsIndex(num)} key={index}>
-                <img src="/images/addOns/addOn.jpg" width={40} height={40} alt="AddOns" />
-              </div> 
-            ))}
-          </div>
         </div>
       </div>
       <div className="flex float-right mt-8">

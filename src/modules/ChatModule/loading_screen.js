@@ -76,7 +76,7 @@ export function update_loading_screen(setLoaded) {
     window.moduleLoaded = true;
     if (!!scene_wrapperEl) scene_wrapperEl.removeAttribute("style");
     if (!!loading_screenEl) loading_screenEl.style.display = "none";
-    loading_videoEl.remove();
+    if(!!loading_videoEl) loading_videoEl.remove();
   }
 }
 //checks if model has loaded before building all of the dinamic content

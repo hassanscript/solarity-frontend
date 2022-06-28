@@ -16,7 +16,7 @@ const BigRoom: FC<BigRoomType> = ({ scene, content }) => {
   const  [ joinModalOpen,setJoinModalOpen ] = useState(false)
   const [ selectedImageUrl, setSelectedImageUrl ] = useState(scene.bgImage);
   const [ selectedRoom, setSelectedRoom ] = useState<any>({});
-  const publicUrls = ["/assets/images/rooms/hub.jpg", "/assets/images/rooms/gallery.png"]
+  const publicUrls = ["/assets/images/rooms/hub.jpg", "/assets/images/rooms/gallery.png", "/assets/images/rooms/plaza.jpg"]
   useEffect(() => {
     if(!!rooms && rooms.length !=0 && selectedIndex != -1) {
       setSelectedRoom(rooms[selectedIndex]);
@@ -107,6 +107,7 @@ const BigRoom: FC<BigRoomType> = ({ scene, content }) => {
           open={joinModalOpen} 
           onClose={handleJoinModalToggle} 
           roomName={selectedRoom.roomName}
+          selectedImageUrl={selectedImageUrl}
           type={selectedRoom.type}
           roomNo={selectedRoom.roomNo}
           person={""}

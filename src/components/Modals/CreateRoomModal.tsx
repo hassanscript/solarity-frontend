@@ -50,13 +50,32 @@ const CreateRoomModal: FC<any> = ({
 
   return (
     <Base open={open} onClose={onClose} title={title}>
-      <div className="grid grid-cols-2 gap-8 mt-8">
-        <div className="col-span-1 flex justify-between py-4 px-4 bg-primary rounded-xl">
-          <AvatarPanel modelPath={models[modelIndex].modelUrl} position={models[modelIndex].position} rotation={models[modelIndex].rotation} scale={models[modelIndex].scale} />
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mt-8">
+        <div className="col-span-1">
+          <div className="flex justify-between py-4 px-4 bg-primary rounded-xl h-[200px]">
+            <AvatarPanel modelPath={models[modelIndex].modelUrl} position={models[modelIndex].position} rotation={models[modelIndex].rotation} scale={models[modelIndex].scale} />
+          </div>
+          <div className="avatarlist mt-2">
+            <div className="flex gap-1 avatar-2d-list">
+              {!!models && models.length !=0 && models.map((model, index) => (
+                <div className={`avatar-2d-item hover:border border border-transparent hover:border-gray-400 `+ (modelIndex == index ? `border-gray-100`: ``)} onClick={() => setModelIndex(index)} key={index}>
+                  <img src={model.imageUrl} width={50} height={50} alt={model.name} />
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="addOnslist mt-2">
+          <div className="flex gap-1 addOns-2d-list">
+            {[0,1,2,3,4,5].map((num, index) =>(
+              <div className={`addOns-2d-item hover:border border border-transparent hover:border-gray-400 `+ (addOnsIndex == num ? `border-gray-100`: ``)} onClick={() => setAddOnsIndex(num)} key={index}>
+                <img src="/images/addOns/addOn.jpg" width={40} height={40} alt="AddOns" />
+              </div> 
+            ))}
+          </div>
         </div>
-        <div className="flex justify-between py-4 px-7 rounded-xl">
+        </div>
+        <div className="col-span-1 flex justify-between py-4 px-0 sm:px-7 rounded-xl">
           <div className="gap-2">
-            <h2 className="text-lg font-light">Create a public room.</h2>
             <div className="text-xs text-gray-950 mt-6">Please type a room name.</div>
             <div className="mt-2">
               <div className="relative w-full text-gray-600 focus-within:text-gray-400">
@@ -76,28 +95,6 @@ const CreateRoomModal: FC<any> = ({
                 <h3>{profileData.username}</h3>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div className="mt-2">
-        <div className="avatarlist">
-          <div className="flex gap-1 avatar-2d-list">
-            {!!models && models.length !=0 && models.map((model, index) => (
-              <div className={`avatar-2d-item hover:border border border-transparent hover:border-gray-400 `+ (modelIndex == index ? `border-gray-100`: ``)} onClick={() => setModelIndex(index)} key={index}>
-                <img src={model.imageUrl} width={50} height={50} alt={model.name} />
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-      <div className="mt-2">
-        <div className="addOnslist">
-          <div className="flex gap-1 addOns-2d-list">
-            {[0,1,2,3,4,5].map((num, index) =>(
-              <div className={`addOns-2d-item hover:border border border-transparent hover:border-gray-400 `+ (addOnsIndex == num ? `border-gray-100`: ``)} onClick={() => setAddOnsIndex(num)} key={index}>
-                <img src="images/addOns/addOn.jpg" width={40} height={40} alt="AddOns" />
-              </div> 
-            ))}
           </div>
         </div>
       </div>

@@ -48,8 +48,8 @@ const DisclosureButton = ({ items }: Iprops) => {
                     </a>
                   </Link>
                 ))} */}
-
-                <Link href="/dao/create" passHref>
+                {/* /dao/create */}
+                <Link href="" passHref>
                   <a className="flex items-center gap-3">
                     <button className="bg-white btn btn-sm btn-circle">
                       <Plus />
@@ -57,7 +57,8 @@ const DisclosureButton = ({ items }: Iprops) => {
                     Create DAOs
                   </a>
                 </Link>
-                <Link href="/dao/discover" passHref>
+                {/* /dao/discover */}
+                <Link href="#" passHref>
                   <a className="flex items-center gap-3">
                     <button className="bg-white btn btn-sm btn-circle">
                       <Search />

@@ -39,8 +39,10 @@ AFRAME.registerComponent('seat', {
         }
     },
     init: function () {
-        this.simpleNavmeshConstraintBk = this.data.camera.getAttribute("simple-navmesh-constraint");
-        this.wasdControlsBk = this.data.camera.getAttribute("wasd-controls");
+        if(this.data.camera) {
+            this.simpleNavmeshConstraintBk = this.data.camera.getAttribute("simple-navmesh-constraint");
+            this.wasdControlsBk = this.data.camera.getAttribute("wasd-controls");
+        }
         this.directionVec3 = new THREE.Vector3();
     },
     startSittingDown: function () {
@@ -57,7 +59,9 @@ AFRAME.registerComponent('seat', {
         var data = this.data;
         var directionVec3 = this.directionVec3;
         var currentPosition = new THREE.Vector3();
-        data.camera.object3D.getWorldPosition(currentPosition);
+        if(!!data.camera) {
+            data.camera.object3D.getWorldPosition(currentPosition);
+        }
         // Grab position vectors (THREE.Vector3) from the entities' three.js objects.
         var targetPosition = new THREE.Vector3();
         this.el.object3D.getWorldPosition(targetPosition);
@@ -66,8 +70,10 @@ AFRAME.registerComponent('seat', {
         var distance = distanceVec3.length();
 
         if (data.state == "sittingDown") {
-            data.camera.removeAttribute("simple-navmesh-constraint")
-            data.camera.setAttribute("wasd-controls", "acceleration: 0")
+            if(!!data.camera) {
+                data.camera.removeAttribute("simple-navmesh-constraint")
+                data.camera.setAttribute("wasd-controls", "acceleration: 0")
+            }
             if (distance < 0.5) {
                 directionVec3 = new THREE.Vector3(targetPosition.x - currentPosition.x, targetPosition.y - currentPosition.y + data.height, targetPosition.z - currentPosition.z);
             } else if (true) {
@@ -79,11 +85,13 @@ AFRAME.registerComponent('seat', {
             var dy = directionVec3.y * (timeDelta / 1000) / data.duration;
             var dz = directionVec3.z * (timeDelta / 1000) / data.duration;
             // Translate the entity in the direction towards the target.
-            data.camera.setAttribute('position', {
-                x: currentPosition.x + dx,
-                y: currentPosition.y + dy,
-                z: currentPosition.z + dz
-            });
+            if(!!data.camera) {
+                data.camera.setAttribute('position', {
+                    x: currentPosition.x + dx,
+                    y: currentPosition.y + dy,
+                    z: currentPosition.z + dz
+                });
+            }
             if ((currentPosition.y - targetPosition.y <= (data.height + 0.1))) {
                 data.state = "sitting";
                 return;
@@ -104,11 +112,13 @@ AFRAME.registerComponent('seat', {
             var dy = directionVec3.y * (timeDelta / 1000) / data.duration;
             var dz = directionVec3.z * (timeDelta / 1000) / data.duration;
             // Translate the entity in the direction towards the target.
-            data.camera.setAttribute('position', {
-                x: currentPosition.x + dx,
-                y: currentPosition.y + dy,
-                z: currentPosition.z + dz
-            });
+            if(!!data.camera) {
+                data.camera.setAttribute('position', {
+                    x: currentPosition.x + dx,
+                    y: currentPosition.y + dy,
+                    z: currentPosition.z + dz
+                });
+            }
             if (distance >= new THREE.Vector3(data.standUpPosition.x, 0, data.standUpPosition.z).length()) {
                 data.state = "standing";
                 
@@ -117,8 +127,10 @@ AFRAME.registerComponent('seat', {
                 //data.camera.setAttribute("wasd-controls", this.wasdControlsBk);
 
                 /*make the player able to move again*/
-                data.camera.setAttribute("simple-navmesh-constraint", "navmesh:#navmesh;fall: 5;height:1.65;");
-                data.camera.setAttribute("wasd-controls", "acceleration: 20;");
+                if(!!data.camera) {
+                    data.camera.setAttribute("simple-navmesh-constraint", "navmesh:#navmesh;fall: 5;height:1.65;");
+                    data.camera.setAttribute("wasd-controls", "acceleration: 20;");
+                }
                 return;
             }
 
