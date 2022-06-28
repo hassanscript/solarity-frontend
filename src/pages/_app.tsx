@@ -5,7 +5,7 @@ import { ConnectionProvider } from "@solana/wallet-adapter-react";
 import { ToastContainer } from "react-toastify";
 import AppLoader from "../components/AppLoader";
 import "react-toastify/dist/ReactToastify.css";
-import Head from 'next/head'
+import Head from "next/head";
 
 // For redux
 import {
