@@ -19,7 +19,6 @@ import Base from "components/Modals/Base";
 import { GalleryItem } from "modal/Gallery";
 import { placeBid } from "redux/slices/profileSlice";
 import ErrorMessage from "components/ErrorMessage";
-import { web3 } from "@project-serum/anchor";
 
 const LoadingMessage = () => {
   return (
