@@ -65,6 +65,9 @@ const nextConfig = {
       config.optimization.minimize = false;
     }
     config.plugins.push(new webpack.DefinePlugin(env));
+    config.plugins.push(new webpack.IgnorePlugin({
+      resourceRegExp: /^electron$/
+    }));
     return config;
   },
 };
