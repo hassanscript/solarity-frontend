@@ -24,7 +24,7 @@ const ChatPanel: FC<ChatPanelProps> = ({
 }) => {
 
     return (
-        <div className={"fixed top-[5vh] h-[90vh] max-h-[90vh] right-[30px] min-w-[300px] bg-brandblack rounded-lg w-1/4 " + (isChatPanel ? 'block' : 'hidden')}>
+        <div className={"fixed top-[5vh] bottom-[5vh] max-h-[90vh] right-[30px] min-w-[300px] bg-brandblack rounded-lg w-1/4 " + (isChatPanel ? 'block' : 'hidden')}>
             <div className='w-full p-[30px] h-full flex flex-col gap-2'>
                 <div className='text-lg mb-4 flex justify-between'>
                     <div>Room Chat</div>
