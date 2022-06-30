@@ -60,7 +60,6 @@ export default function RoomFullView() {
             style={{opacity: 0, position: "absolute", top: "0px", zIndex: 0}}
           >
             <a-assets timeout="100000">
-              <a-asset-item id="headd" src="/assets/models/hub/Avatar head LOW POLY.glb"></a-asset-item>
               <a-asset-item id="holo" src="/assets/models/hub/Hologram_sphere.glb"></a-asset-item>
               <a-asset-item id="chair1" src="/assets/models/hub/chair.glb"></a-asset-item>
               <a-asset-item id="table1" src="/assets/models/hub/table.glb"></a-asset-item>

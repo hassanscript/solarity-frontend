@@ -43,7 +43,7 @@ const PlazaChat = ({ modelURL, name }) => {
         <a-entity 
           id="rig"
           position="25 3.6 0" 
-          look-controls="pointerLockEnabled: true; reverseMouseDrag: true"
+          look-controls="pointerLockEnabled: true; reverseMouseDrag: false"
           movement-controls="speed: 0.2"
           simple-navmesh-constraint="navmesh:#navmesh;fall: 5;height:1.65;" 
           networked="template:#avatar-template;attachTemplateToLocal:false;"

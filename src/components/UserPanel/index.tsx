@@ -69,7 +69,7 @@ const UserPanel: FC<UserPanelProps> = ({
                         </div>
                     </div>
                 </div>
-                <div className='list overflow-auto h-[55vh]'>
+                <div className='list overflow-auto h-[50vh]'>
                     <ul className='no-underline'>
                         {userNames.map((name, index) => {
                             if(name == userName) {

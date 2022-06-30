@@ -12,7 +12,7 @@ import AframeComp from "components/AframeComp";
 import AframeComp1 from "components/AframeComp1";
 import AframeComp2 from "components/AframeComp2";
 import AframeComp3 from "components/AframeComp3";
-import AframeComp4 from "components/AframeComp4";
+// import AframeComp4 from "components/AframeComp4";
 import AframeComp5 from "components/AframeComp5";
 import AframeComp6 from "components/AframeComp6";
 import AframeComp7 from "components/AframeComp7";
@@ -280,7 +280,7 @@ const index = ({
             /> */}
               {/* <iframe 
             > */}
-              <AframeComp4 />
+              {/* <AframeComp4 /> */}
               {/* </iframe> */}
               {/*{vr && (
               <button className="absolute gap-3 text-lg font-bold btn rounded-3xl bottom-2 right-2 bg-transparentwhite">

@@ -14,7 +14,6 @@ const HubChat = ({ modelURL, name }) => {
         debug: true;"
     >
       <a-assets timeout="100000">
-        <a-asset-item id="headd" src="/assets/models/hub/Avatar head LOW POLY.glb"></a-asset-item>
         <a-asset-item id="holo" src="/assets/models/hub/Hologram_sphere.glb"></a-asset-item>
         <a-asset-item id="chair1" src="/assets/models/hub/chair.glb"></a-asset-item>
         <a-asset-item id="table1" src="/assets/models/hub/table.glb"></a-asset-item>
@@ -53,7 +52,7 @@ const HubChat = ({ modelURL, name }) => {
         <a-entity 
           id="rig"
           position="0 1.65 0" 
-          look-controls="pointerLockEnabled: true; reverseMouseDrag: true"
+          look-controls="pointerLockEnabled: true; reverseMouseDrag: false"
           movement-controls="speed: 0.2"
           simple-navmesh-constraint="navmesh:#navmesh;fall: 5;height:1.65;"
           networked="template:#avatar-template;attachTemplateToLocal:false;"

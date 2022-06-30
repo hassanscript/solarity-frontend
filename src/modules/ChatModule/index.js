@@ -143,18 +143,10 @@ const ChatModule = () => {
       var loadingBarEl = document.getElementById('loadingBar');
       if (sceneEl && loadingTextEl && loadingBarEl && loadingScreenEl) {
         build_loadingScreen();
-        sceneEl.addEventListener('loaded', start_scene);
       }
       clearInterval(clearLoading);
     }, 300);
   }, [])
-
-  const start_scene = () => {
-    if (roomType == 0)
-      startHub();
-    chooseControls();
-    passControls();
-  }
 
   const updateVolume = () => {
     var positions = {};
@@ -219,6 +211,12 @@ const ChatModule = () => {
           });
           localStorage.setItem('modelLoaded', "false");
           window.isReady1 = true;
+          //scene
+          if (roomType == 0)
+            startHub();
+          chooseControls();
+          passControls();
+          /////////
           setIntervalId(setInterval(updateVolume, 300));
           clearInterval(loadInterval);
         }

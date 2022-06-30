@@ -110,8 +110,8 @@ const ProfileIndex: FC<InvitationPageProps> = ({ roomInfo, success }) => {
     <div className="pt-[10vh]">
       <div className="flex justify-center mb-5"><Logo /></div>
       <div className="flex justify-center mb-10">
-        <p>
-          Please join a room which was created by 
+        <p className="text-center">
+          This room was created by 
           <span className="text-secondary uppercase"> @{(rooms && rooms.length != 0 && rooms[selectedRoomIndex] != undefined) ? rooms[selectedRoomIndex].name : ""}</span>
         </p>
       </div>

@@ -23,7 +23,6 @@ export function build_loading_screen() {
 export function update_loading_screen(setLoaded) {
   models = document.querySelectorAll('[model-info]');
   models_number = models.length;
-  console.log("updating")
   var scene_wrapperEl = document.getElementById("scene_wrapper");
   var loading_textEl = document.getElementById("loading_text");
   var loading_barEl = document.getElementById("loading_bar");
