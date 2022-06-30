@@ -1,7 +1,7 @@
 import axios from "axios";
 import { updateScrollbar, intersected, intersectedCleared } from "./utils";
 
-const urlBase = "https://solarity-server.herokuapp.com/api";
+const urlBase = process.env.NEXT_PUBLIC_BACKEND_URL + "/api";
 const apiCaller = axios.create({
   baseURL: urlBase,
   headers: {

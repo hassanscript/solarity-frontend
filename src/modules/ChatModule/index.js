@@ -154,7 +154,6 @@ const ChatModule = () => {
       var loadingBarEl = document.getElementById('loadingBar');
       if (sceneEl && loadingTextEl && loadingBarEl && loadingScreenEl) {
         build_loadingScreen();
-        sceneEl.addEventListener('loaded', start_scene);
       }
       clearInterval(clearLoading);
     }, 300);
@@ -230,6 +229,7 @@ const ChatModule = () => {
           });
           localStorage.setItem('modelLoaded', "false");
           window.isReady1 = true;
+          start_scene();
           setIntervalId(setInterval(updateVolume, 300));
           clearInterval(loadInterval);
         }
