@@ -40,6 +40,7 @@ const ChatModule = () => {
   const [isUserPanel, setUserPanel] = useState(true);
   const [userlist, setUserlist] = useState([]);
   const [roomInfo, setRoomInfo] = useState({});
+  const [loadingFlag, setLoadingFlag] = useState(false);
 
   const toggleChatPanel = () => {
     setChatPanel(!isChatPanel);
@@ -133,6 +134,16 @@ const ChatModule = () => {
     }
     localStorage.setItem('modelLoaded', "false");
     require('multiuser-aframe');
+    const loadInterval = setInterval(() => {
+      if (localStorage.getItem('modelLoaded') == "true") {
+        clearInterval(loadInterval);
+        setLoadingFlag(true);
+      }
+    }, 300);
+    setTimeout(() => {
+      clearInterval(loadInterval);
+      setLoadingFlag(true);
+    }, 100000);
   }, [])
 
   useEffect(() => {
@@ -143,10 +154,18 @@ const ChatModule = () => {
       var loadingBarEl = document.getElementById('loadingBar');
       if (sceneEl && loadingTextEl && loadingBarEl && loadingScreenEl) {
         build_loadingScreen();
+        sceneEl.addEventListener('loaded', start_scene);
       }
       clearInterval(clearLoading);
     }, 300);
   }, [])
+
+  const start_scene = () => {
+    if (roomType == 0)
+      startHub();
+    chooseControls();
+    passControls();
+  }
 
   const updateVolume = () => {
     var positions = {};
@@ -190,7 +209,7 @@ const ChatModule = () => {
 
   useEffect(() => {
     const loadInterval = setInterval(() => {
-      if (localStorage.getItem('modelLoaded') == "true") {
+      if (loadingFlag) {
         var entity = document.querySelector('#rig');
         if (!!entity) {
           window.NAF.schemas.add({
@@ -211,21 +230,15 @@ const ChatModule = () => {
           });
           localStorage.setItem('modelLoaded', "false");
           window.isReady1 = true;
-          //scene
-          if (roomType == 0)
-            startHub();
-          chooseControls();
-          passControls();
-          /////////
           setIntervalId(setInterval(updateVolume, 300));
           clearInterval(loadInterval);
         }
       }
-      setTimeout(() => {
-        clearInterval(loadInterval);
-      }, 10000);
     }, 300);
-  }, [])
+    setTimeout(() => {
+      clearInterval(loadInterval);
+    }, 10000);
+  }, [loadingFlag])
 
   const handelMuteBtnClick = () => {
     setMute((prev) => !prev);
