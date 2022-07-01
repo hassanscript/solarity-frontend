@@ -62,7 +62,8 @@ export const useWebTRTC = (roomId, user) => {
                             }
                         }
                     });
-                    window.socket.emit(ACTIONS.JOIN, { roomId, user: {name: user.name, roomName: roomName, modelIndex: modelIndex, avatarUrl: user.avatarUrl != "" ? user.avatarUrl: ""} });
+
+                    window.socket.emit(ACTIONS.JOIN, { roomId, user: {name: user.name, roomName: roomName, modelIndex: modelIndex, avatarUrl: user.avatarUrl != "" && user.avatarUrl != undefined  ? user.avatarUrl: ""} });
                 });
                 clearInterval(clearIts);
             }

@@ -28,14 +28,13 @@ const ChatModule = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { rid, roomType, no } = router.query;
-  const { clients, provideRef, handelMute } = useWebTRTC(rid, { name: userName, avatarUrl: data ? data.profileImageLink: "" });
+  const { clients, provideRef, handelMute } = useWebTRTC(rid, { name: userName ? userName: localStorage.getItem('userName'), avatarUrl: data ? data.profileImageLink: "" });
   const [sendData, setSendData] = useState('');
   const [roomIndex, setRoomIndex] = useState(-1);
   const [intervalId, setIntervalId] = useState('');
   const [volumes, setVolumes] = useState({});
   const [isMute, setMute] = useState(false);
   const [iniviteFriendModal, setIniviteFriendModal] = useState(false);
-  const [isLoaded, setLoaded] = useState(false);
   const [isChatPanel, setChatPanel] = useState(true);
   const [isUserPanel, setUserPanel] = useState(true);
   const [userlist, setUserlist] = useState([]);
@@ -252,7 +251,7 @@ const ChatModule = () => {
 
   const sendMsg = () => {
     if(sendData != "") {
-      window.socket.emit('send-msg', { roomId: rid, data: {sendData, avatarUrl: data ? data.profileImageLink: ""} });
+      window.socket.emit('send-msg', { roomId: rid, data: {sendData, avatarUrl: data && data.profileImageLink ? data.profileImageLink: ""} });
       setSendData('');
     }
   }

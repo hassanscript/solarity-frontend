@@ -39,7 +39,7 @@ const Header = ({ sol }: { sol?: boolean }) => {
       <div className="flex justify-between w-full">
         <MenuList items={MenutItems} />
         <div className="flex items-center space-x-3 ml-0">
-          <button className={`gap-3 text-lg font-bold btn rounded-3xl ${sol && 'btn-primary'}`}>
+          {/* <button className={`gap-3 text-lg font-bold btn rounded-3xl ${sol && 'btn-primary'}`}>
             {sol ? (
               <Image
                 src="/images/icons/sol.png"
@@ -52,7 +52,7 @@ const Header = ({ sol }: { sol?: boolean }) => {
             )}
             {sol ? "SOL" : "ETH"}
             <CaretDown />
-          </button>
+          </button> */}
           <WalletButton />
         </div>
       </div>

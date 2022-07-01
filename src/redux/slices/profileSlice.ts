@@ -120,7 +120,6 @@ export const getRewardAction = createAsyncThunk(
       try {
         await connection.sendRawTransaction(signed.serialize());
       } catch (error: any) {
-        alert();
         errorFunction(error.message);
         return;
       }

@@ -11,18 +11,20 @@ interface IProps {
 const MenuList: FC<IProps> = ({ items }) => {
   return (
     <div className="space-x-10 ml-[12vh] pt-3">
-      {items.map(({ title, link,exact }) => (
-        <Link
-          href={link}
-          key={link}
-          exact={exact}
-          className="text-lg hover:py-8 hover:border-secondary"
-          activeClassName="font-bold border-b-2 py-8 border-secondary"
-          defaultClassName=""
-        >
-          {title}
-        </Link>
-      ))}
+      <div className=" hidden sm:block">
+        {items.map(({ title, link,exact }) => (
+          <Link
+            href={link}
+            key={link}
+            exact={exact}
+            className="text-lg hover:py-8 hover:border-secondary"
+            activeClassName="font-bold border-b-2 py-8 border-secondary"
+            defaultClassName=""
+          >
+            {title}
+          </Link>
+        ))}
+      </div>
     </div>
   );
 };
