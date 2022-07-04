@@ -20,7 +20,7 @@ import UserPanel from '../../components/UserPanel';
 import ChatPanel from '../../components/ChatPanel';
 import ChatPublicModel from "components/ChatPublicModel";
 import ChatPrivateModel from "components/ChatPrivateModel";
-import { checkBrowser } from 'utils';
+import { checkBrowser, getWidth } from 'utils';
 const ChatModule = () => {
   const [mounted, setMounted] = useState(false)
   const { roomName, userName, modelIndex, msgs, peers, rooms } = useAppSelector(state => state.chat);
@@ -130,6 +130,9 @@ const ChatModule = () => {
     setMounted(true);
     if(checkBrowser()) { // if mobile
       setUserPanel(false);
+    }
+    if(getWidth() < 640) {
+      setChatPanel(false);
     }
     localStorage.setItem('modelLoaded', "false");
     require('multiuser-aframe');
@@ -279,6 +282,10 @@ const ChatModule = () => {
     window.socket.emit(ACTIONS.LEAVE, { roomId: rid, user: { name: userName } });
     dispatch(setMsg([]));
     dispatch(setPeers([]));
+    if(getWidth() <= 640) {
+      router.push('/iframe/joinModal/plaza');
+      return;
+    }
     router.push('/experience');
   }
 
@@ -337,7 +344,7 @@ const ChatModule = () => {
               name={userName}
             />
           )}
-          <div className='fixed top-[5vh] left-[30px] cursor-pointer' onClick={() => handelManualLeave()}>
+          <div className='hidden sm:block fixed top-[5vh] left-[30px] cursor-pointer' onClick={() => handelManualLeave()}>
             <div className='flex rounded-lg bg-brandblack px-4 py-2'>
               <img src="/images/arrow-left.png" className='mt-1' style={{ marginTop: '7px', height: "15px" }} width={15} height={15} alt="back" srcSet="" />
               <span className='ml-3'>All Rooms</span>

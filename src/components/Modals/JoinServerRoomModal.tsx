@@ -86,12 +86,12 @@ const JoinServerRoomModal: FC<any> = ({
 
   return (
     <Base open={true} onClose={() => {}} title={'Plaza Community'}>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mt-8 min-h-[250px]">
-      <div className="col-span-1">
+      <div className="grid grid-cols-5 sm:grid-cols-5 gap-8 mt-4 min-h-[250px]">
+      <div className="col-span-3">
           <div className="flex justify-between py-4 px-4 bg-primary rounded-xl h-[200px]">
             <AvatarPanel modelPath={models[modelIndex].modelUrl} position={models[modelIndex].position} rotation={models[modelIndex].rotation} scale={models[modelIndex].scale} />
           </div>
-          <div className="avatarlist mt-2">
+          {/* <div className="avatarlist mt-2">
             <div className="flex gap-1 avatar-2d-list">
               {!!models && models.length !=0 && models.map((model, index) => (
                 <div className={`avatar-2d-item hover:border border border-transparent hover:border-gray-400 `+ (modelIndex == index ? `border-gray-100`: ``)} onClick={() => setModelIndex(index)} key={index}>
@@ -99,7 +99,7 @@ const JoinServerRoomModal: FC<any> = ({
                 </div>
               ))}
             </div>
-          </div>
+          </div> */}
           {/* <div className="addOnslist mt-2">
             <div className="flex gap-1 addOns-2d-list">
               {[0,1,2,3,4,5].map((num, index) =>(
@@ -110,7 +110,7 @@ const JoinServerRoomModal: FC<any> = ({
             </div>
           </div> */}
         </div>
-        <div className="col-span-1 py-4 px-0 sm:px-7 rounded-xl">
+        <div className="col-span-2 py-1 px-0 sm:px-7 rounded-xl">
           <div className="gap-2">
             <div className="text-xs text-gray-950 mt-6">Type your name please.</div>
             <div className="mt-2">
@@ -130,12 +130,12 @@ const JoinServerRoomModal: FC<any> = ({
           <div className="mt-4">
             {errorFlag && (<ErrorMessage errorMessage={errorMsg}/>)}
           </div>
+          <div className="flex float-right mt-8">
+            <button className="rounded-full btn btn-sm btn-secondary px-8" onClick={joinRoom}>
+              <Join />&nbsp;<span>Join</span>
+            </button>
+          </div>
         </div>
-      </div>
-      <div className="flex float-right mt-8">
-        <button className="rounded-full btn btn-sm btn-secondary px-8" onClick={joinRoom}>
-          <Join />&nbsp;<span>Join</span>
-        </button>
       </div>
     </Base>
   );

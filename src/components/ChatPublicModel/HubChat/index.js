@@ -218,21 +218,21 @@ const HubChat = ({ modelURL, name }) => {
         <a-image width="1.5" height="1.75" position="0 0 0.01" src="/assets/images/download.png"></a-image>
       </a-plane>
       {/* portals */}
-      <a-image width="1.3" height="1.9" class="clickable nocollision" simple-link="href: /experience"
+      <a-image width="1.3" height="1.9" class="clickable nocollision"
         src="#gallery-img" position="14.2 1.1 2.2" rotation="0 -90 0" material=" shader: liquid-portal">
         <a-box color="black" width="1.5" position="0 -1 0" height="0.1" depth="0.1"></a-box>
         <a-box color="black" width="1.5" position="0 1 0" height="0.1" depth="0.1"></a-box>
         <a-box color="black" width="0.1" position="0.7 0 0" height="1.9" depth="0.1"></a-box>
         <a-box color="black" width="0.1" position="-0.7 0 0" height="1.9" depth="0.1"></a-box>
       </a-image>
-      <a-image width="2.3" height="2.9" class="clickable nocollision" simple-link="href: /experience" src="#try-img"
+      <a-image width="2.3" height="2.9" class="clickable nocollision" src="#try-img"
         position="14.2 1.6 0" rotation="0 -90 0" material=" shader: liquid-portal">
         <a-box color="black" width="2.5" position="0 -1.5 0" height="0.1" depth="0.1"></a-box>
         <a-box color="black" width="2.5" position="0 1.5 0" height="0.1" depth="0.1"></a-box>
         <a-box color="black" width="0.1" position="1.2 0 0" height="2.9" depth="0.1"></a-box>
         <a-box color="black" width="0.1" position="-1.2 0 0" height="2.9" depth="0.1"></a-box>
       </a-image>
-      <a-image width="1.5" height="2" class="clickable nocollision" simple-link="href:  /experience"
+      <a-image width="1.5" height="2" class="clickable nocollision"
         src="#room-img" position="14.2 1.1 -2.2" rotation="0 -90 0" material=" shader: liquid-portal">
         <a-box color="black" width="1.5" position="0 -1 0" height="0.1" depth="0.1"></a-box>
         <a-box color="black" width="1.5" position="0 1 0" height="0.1" depth="0.1"></a-box>

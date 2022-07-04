@@ -1,5 +1,6 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { Minus } from '../../components/Icons';
+import { getWidth } from "utils";
 
 export type ChatPanelProps = {
     isChatPanel: Boolean;
@@ -22,11 +23,10 @@ const ChatPanel: FC<ChatPanelProps> = ({
     setSendData,
     sendMsg,
 }) => {
-
     return (
-        <div className={"fixed top-[5vh] bottom-[5vh] max-h-[90vh] right-[30px] min-w-[300px] bg-brandblack rounded-lg w-1/4 " + (isChatPanel ? 'block' : 'hidden')}>
-            <div className='w-full p-[30px] h-full flex flex-col gap-2'>
-                <div className='text-lg mb-4 flex justify-between'>
+        <div className={"fixed top-[5vh] bottom-[5vh] max-h-[90vh] right-[10px] sm:right-[30px] min-w-[250px] bg-brandblack rounded-lg w-1/4 " + (isChatPanel ? 'block' : 'hidden')}>
+            <div className='w-full p-[20px] sm:p-[30px] h-full flex flex-col gap-2'>
+                <div className='text-md sm:text-lg mb-4 flex justify-between'>
                     <div>Room Chat</div>
                     <div className='cursor-pointer pt-[3px]' onClick={() => toggleChatPanel()}><Minus /></div>
                 </div>
@@ -50,13 +50,13 @@ const ChatPanel: FC<ChatPanelProps> = ({
                 <div className='flex'>
                     <input
                     type="text"
-                    className="w-[80%] py-2 pl-6 text-[15px] font-light text-white border-transparent border rounded-md bg-primary focus:outline-none focus:border-gray-500 focus:border focus:text-white placeholder:text-gray-950Í"
+                    className="w-[100%] sm:w-[80%] py-2 pl-6 text-[15px] font-light text-white border-transparent border rounded-md bg-primary focus:outline-none focus:border-gray-500 focus:border focus:text-white placeholder:text-gray-950Í"
                     value={sendData}
                     onKeyDown={(e) => handleKeyDown(e)}
                     onChange={(e) => setSendData(e.target.value)}
                     placeholder="Message"
                     />
-                    <button className="ml-5 font-light" onClick={() => sendMsg()} >send</button>
+                    <button className="ml-5 font-light hidden sm:block" onClick={() => sendMsg()} >send</button>
                 </div>
             </div>
         </div>

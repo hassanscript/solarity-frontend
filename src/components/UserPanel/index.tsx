@@ -46,7 +46,7 @@ const UserPanel: FC<UserPanelProps> = ({
     }, [rooms[roomIndex]])
 
     return (
-        <div className={"fixed top-[20vh] left-[30px] w-[250px] " + (isUserPanel ? 'block' : 'hidden')}>
+        <div className={"hidden sm:block fixed top-[5vh] sm:top-[20vh] left-[10px] sm:left-[30px] w-[215px] " + (isUserPanel ? 'block' : 'hidden')}>
             <div className='rounded-lg bg-brandblack px-4 py-2 w-full h-full'>
                 <div className='text-lg mb-4 flex justify-between pt-4'>
                     <div>User List</div>
@@ -69,7 +69,7 @@ const UserPanel: FC<UserPanelProps> = ({
                         </div>
                     </div>
                 </div>
-                <div className='list overflow-auto h-[50vh]'>
+                <div className='list overflow-auto h-[calc(65vh-54px)] sm:h-[calc(50vh-54px)]'>
                     <ul className='no-underline'>
                         {userNames.map((name, index) => {
                             if(name == userName) {

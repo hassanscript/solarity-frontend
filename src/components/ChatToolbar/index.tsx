@@ -29,7 +29,7 @@ const ChatToolbar: FC<ChatToolbarProps> = ({
 }) => {
 
   return (
-    <div className='fixed flex bottom-[5vh] left-[30px] rounded-lg bg-brandblack px-4 py-2'>
+    <div className='fixed flex bottom-[5vh] left-[10px] sm:left-[30px] rounded-lg bg-brandblack px-4 py-2'>
         <div className='p-2 border border-gray-600 rounded-lg mx-1 cursor-pointer hover:border-gray-400' onClick={() => handelMuteBtnClick()}>
             <audio
             id="player-audio"
@@ -44,7 +44,7 @@ const ChatToolbar: FC<ChatToolbarProps> = ({
             )
             }
         </div>
-        <div className='p-2 border border-gray-600 rounded-lg mx-1 cursor-pointer hover:border-gray-400' onClick={() => toggleUserPanel()}>
+        <div className='hidden sm:block p-2 border border-gray-600 rounded-lg mx-1 cursor-pointer hover:border-gray-400' onClick={() => toggleUserPanel()}>
             {
             isUserPanel ? (
                 <UserList />
