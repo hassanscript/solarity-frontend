@@ -283,7 +283,7 @@ const ChatModule = () => {
     dispatch(setMsg([]));
     dispatch(setPeers([]));
     if(getWidth() <= 640 && !checkBrowser()) {
-      top.window.open("https://main.d2rg0l816a56cd.amplifyapp.com/experience", "_blank").focus();
+      top.window.location.href="https://main.d2rg0l816a56cd.amplifyapp.com/experience"
       return;
     }
     router.push('/experience');

@@ -5,7 +5,8 @@ import Back from '../../components/Icons/Back';
 import UserList from '../../components/Icons/UserList';
 import ChatOutline from '../../components/Icons/ChatOutline';
 import UserListOutline from '../../components/Icons/UserListOutline';
-import { Chat } from '../../components/Icons';
+import { Chat, FullScreen } from '../../components/Icons';
+import { checkBrowser, getWidth } from "utils";
 export type ChatToolbarProps = {
   isMute: Boolean;
   isUserPanel: Boolean;
@@ -63,7 +64,11 @@ const ChatToolbar: FC<ChatToolbarProps> = ({
             }
         </div>
         <div className='p-2 border border-gray-600 rounded-lg mx-1 cursor-pointer hover:border-gray-400' onClick={() => handelManualLeave()}>
-            <Back />
+            {getWidth() <= 640 && !checkBrowser() ? (
+                <FullScreen />
+            ): (
+                <Back />
+            )}
         </div>
     </div>
   );
