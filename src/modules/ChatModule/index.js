@@ -282,8 +282,8 @@ const ChatModule = () => {
     window.socket.emit(ACTIONS.LEAVE, { roomId: rid, user: { name: userName } });
     dispatch(setMsg([]));
     dispatch(setPeers([]));
-    if(getWidth() <= 640) {
-      router.push('/iframe/joinModal/plaza');
+    if(getWidth() <= 640 && !checkBrowser()) {
+      top.window.open("https://main.d2rg0l816a56cd.amplifyapp.com/experience", "_blank").focus();
       return;
     }
     router.push('/experience');

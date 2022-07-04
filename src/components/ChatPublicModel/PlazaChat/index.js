@@ -1,9 +1,11 @@
 import { useEffect } from "react";
 import { checkBrowser } from "utils";
+import { getWidth } from "utils";
 
 const PlazaChat = ({ modelURL, name }) => {
   return (
-    <a-scene renderer="antialias: true;
+    <a-scene 
+      renderer="antialias: true;
       colorManagement: true;
       sortObjects: true;
       physicallyCorrectLights: true;
