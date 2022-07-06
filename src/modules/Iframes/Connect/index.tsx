@@ -2,8 +2,10 @@ import { useEffect } from "react";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import { setOnIframe } from "redux/slices/commonSlice";
 import LoginView from "./loginView";
+import NoRoomView from "./noRoomView";
 import SetupView from "./setupView";
 import ViewHolder from "./viewHolder";
+import RoomView from "./roomView";
 
 const connect = () => {
   const dispatch = useDispatch();
@@ -16,7 +18,6 @@ const connect = () => {
     logged: state.auth.logged,
     profileData: state.profile.data,
   }));
-
   if (!logged) return <LoginView />;
 
   const accountIsSet = (() => {
@@ -31,7 +32,11 @@ const connect = () => {
 
   if (!accountIsSet) return <SetupView />;
 
-  return <ViewHolder>I am setup and rocking!</ViewHolder>;
+  const roomCount = profileData.rooms.length;
+
+  if (roomCount == 0) return <NoRoomView />;
+
+  return <RoomView />;
 };
 
 export default connect;

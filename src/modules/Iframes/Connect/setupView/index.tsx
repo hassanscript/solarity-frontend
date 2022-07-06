@@ -21,7 +21,7 @@ const SetupView = () => {
   if (!accountsLinked) return <AccountView />;
   if (!profilePicUpdated) return <ProfilePicView />;
 
-  return <ViewHolder>I am the setup view!!!!</ViewHolder>;
+  return <ViewHolder>Loading...</ViewHolder>;
 };
 
 export default SetupView;

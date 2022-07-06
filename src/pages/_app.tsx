@@ -54,7 +54,6 @@ function MyApp({ children }: any) {
     const currentRoute = router.pathname;
 
     const isIframe = currentRoute.substring(1, 7) === "iframe";
-    console.log(isIframe);
     if (!isIframe) {
       if (currentRoute !== "/setup" && logged && !profileData.visible) {
         dispatch(startLoadingApp());

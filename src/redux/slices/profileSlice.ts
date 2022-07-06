@@ -355,6 +355,26 @@ export const unlinkAccounts = createAsyncThunk(
   }
 );
 
+export const setActiveRoom = createAsyncThunk(
+  "profile/setActiveRoom",
+  async ({ data, finalFunction }: { data: any; finalFunction: () => void }) => {
+    let returnValue = null;
+    try {
+      const {
+        data: { profile },
+      } = await apiCaller.post(`/profile/setActiveRoom`, {
+        roomNo: data.roomNo,
+      });
+      returnValue = profile;
+    } catch (err) {
+      showErrorToast(String(extractError(err)));
+      returnValue = false;
+    }
+    finalFunction();
+    return returnValue;
+  }
+);
+
 export const profileSlice = createSlice({
   name: "profile",
   initialState,
@@ -426,6 +446,11 @@ export const profileSlice = createSlice({
       }
     });
     builder.addCase(unlinkAccounts.fulfilled, (state, action) => {
+      if (action.payload) {
+        profileSlice.caseReducers.setProfile(state, action);
+      }
+    });
+    builder.addCase(setActiveRoom.fulfilled, (state, action) => {
       if (action.payload) {
         profileSlice.caseReducers.setProfile(state, action);
       }
