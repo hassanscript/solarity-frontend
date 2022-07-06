@@ -36,27 +36,32 @@ const SelectDisplayNftView = () => {
   const [tempRooms, setTempRooms] = useState<any[]>([]);
 
   useEffect(() => {
-    if(!!profileData.rooms) {
+    if (!!profileData.rooms) {
       setRooms(profileData.rooms);
     }
   }, [profileData.rooms]);
 
   useEffect(() => {
-    if(rooms.length > 0) {
-      const roomIndex = rooms.findIndex(s => s.active == true);
-      if(roomIndex > -1) {
-          setActiveIndex(rooms[roomIndex].roomNo);
-          setActiveId(rooms[roomIndex]._id);
-          dispatch(setActiveRoomNo({activeRoomId: rooms[roomIndex]._id, activeRoomNo: rooms[roomIndex].roomNo}))
+    if (rooms.length > 0) {
+      const roomIndex = rooms.findIndex((s) => s.active == true);
+      if (roomIndex > -1) {
+        setActiveIndex(rooms[roomIndex].roomNo);
+        setActiveId(rooms[roomIndex]._id);
+        dispatch(
+          setActiveRoomNo({
+            activeRoomId: rooms[roomIndex]._id,
+            activeRoomNo: rooms[roomIndex].roomNo,
+          })
+        );
       }
       var tmpRooms = [...rooms];
       tmpRooms.sort((a: any, b: any) => {
-          return a.roomNo - b.roomNo;
-      })
+        return a.roomNo - b.roomNo;
+      });
       setTempRooms(tmpRooms);
     }
-  }, [rooms])
-  
+  }, [rooms]);
+
   var chooseNft = () => {
     dispatch(
       updateNftCard({
@@ -104,14 +109,19 @@ const SelectDisplayNftView = () => {
         imageUrl={imageUrl}
       />
     );
-  // } else if(activeRoomNo == 2){
+    // } else if(activeRoomNo == 2){
   } else {
-    editRoomData = (<div className="w-full h-[240px] rounded-2xl relative" style={{background: "rgba(255, 255, 255, 0.2)"}}>
-      <LockedRoom />
-    </div>);
+    editRoomData = (
+      <div
+        className="w-full h-[240px] rounded-2xl relative"
+        style={{ background: "rgba(255, 255, 255, 0.2)" }}
+      >
+        <LockedRoom />
+      </div>
+    );
   }
 
-  var nftsContent=undefined;
+  var nftsContent = undefined;
   if (nftLoading) {
     nftsContent = (
       <div className="alert alert-warning w-full shadow-lg">
@@ -127,9 +137,7 @@ const SelectDisplayNftView = () => {
   } else if (nfts.length == 0) {
     nftsContent = (
       <div className="alert alert-info w-full shadow-lg">
-        <span>
-          You don't own any NFTs
-        </span>
+        <span>You don't own any NFTs</span>
       </div>
     );
   } else {
@@ -175,15 +183,21 @@ const SelectDisplayNftView = () => {
         {nftsContent}
         <div className="ml-5 w-full">
           <div className="py-5 pl-2 text-sm flex justify-between">
-              <span>Rooms</span>
+            <span>Rooms</span>
           </div>
           <div className="w-full rounded-xl border border-brandblack">
             <div className="flex grid-cols-3">
-                {
-                    tempRooms && tempRooms.map((room, index) => (
-                        <RealRoomItem room={room} activeIndex={activeIndex} setActiveIndex={setActiveIndex} activeId={activeId} setActiveId={setActiveId} key={index} />
-                    ))
-                }
+              {tempRooms &&
+                tempRooms.map((room, index) => (
+                  <RealRoomItem
+                    room={room}
+                    activeIndex={activeIndex}
+                    setActiveIndex={setActiveIndex}
+                    activeId={activeId}
+                    setActiveId={setActiveId}
+                    key={index}
+                  />
+                ))}
             </div>
           </div>
         </div>
