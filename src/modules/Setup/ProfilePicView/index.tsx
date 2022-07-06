@@ -16,6 +16,7 @@ interface NftSelectionProps {
 }
 
 interface NftCardsProps {
+  mini?: boolean;
   nfts: any[];
   loading: Boolean;
   error: Boolean;
@@ -23,7 +24,8 @@ interface NftCardsProps {
   onClick: (data: NftSelectionProps) => void;
 }
 
-const NftCards: FC<NftCardsProps> = ({
+export const NftCards: FC<NftCardsProps> = ({
+  mini,
   nfts,
   loading,
   error,
@@ -54,7 +56,11 @@ const NftCards: FC<NftCardsProps> = ({
     );
   }
   return (
-    <div className="grid grid-cols-1 gap-4 rounded-3xl border border-brandblack  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+    <div
+      className={`grid grid-cols-1 gap-${mini ? 2 : 4} rounded-3xl ${
+        mini ? "" : "border border-brandblack"
+      } sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4`}
+    >
       {nfts.map(
         (
           {
@@ -69,6 +75,7 @@ const NftCards: FC<NftCardsProps> = ({
           index
         ) => (
           <NftCard
+            mini={mini}
             collectionName={collectionName}
             image={image}
             type={type}

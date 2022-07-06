@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   appLoading: true,
+  iframe: false,
 };
 
 export const commonSlice = createSlice({
@@ -11,6 +12,9 @@ export const commonSlice = createSlice({
     startLoadingApp(state) {
       state.appLoading = true;
     },
+    setOnIframe(state) {
+      state.iframe = true;
+    },
     stopLoadingApp(state) {
       state.appLoading = false;
     },
@@ -18,7 +22,7 @@ export const commonSlice = createSlice({
 });
 
 export const {
-  actions: { startLoadingApp, stopLoadingApp },
+  actions: { startLoadingApp, stopLoadingApp, setOnIframe },
 } = commonSlice;
 
 export default commonSlice.reducer;

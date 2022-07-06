@@ -40,25 +40,31 @@ function MyApp({ children }: any) {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const { logged, profileData, checkingSession } = useSelector(
+  const { logged, profileData, checkingSession, iframe } = useSelector(
     (state: RootStateOrAny) => ({
       profileData: state.profile.data,
       logged: state.auth.logged,
       checkingSession: state.auth.checkingSession,
+      iframe: state.common.iframe,
     })
   );
 
   // load on not visibile!!!
   useEffect(() => {
     const currentRoute = router.pathname;
-    if (currentRoute !== "/setup" && logged && !profileData.visible) {
-      dispatch(startLoadingApp());
-      router.push("/setup");
-      return;
-    }
-    if (currentRoute === "/profile" && !logged && !checkingSession) {
-      router.push("/");
-      return;
+
+    const isIframe = currentRoute.substring(1, 7) === "iframe";
+    console.log(isIframe);
+    if (!isIframe) {
+      if (currentRoute !== "/setup" && logged && !profileData.visible) {
+        dispatch(startLoadingApp());
+        router.push("/setup");
+        return;
+      }
+      if (currentRoute === "/profile" && !logged && !checkingSession) {
+        router.push("/");
+        return;
+      }
     }
     dispatch(stopLoadingApp());
   }, [logged, profileData.visible]);

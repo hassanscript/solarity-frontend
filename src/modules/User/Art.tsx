@@ -12,6 +12,7 @@ type ArtProps = {
 };
 
 export type NftCardProps = {
+  mini?: boolean;
   name: string;
   collectionName: string;
   type: string;
@@ -22,6 +23,7 @@ export type NftCardProps = {
 
 export const NftCard: FC<NftCardProps> = ({
   name,
+  mini,
   collectionName,
   type,
   image,
@@ -40,7 +42,10 @@ export const NftCard: FC<NftCardProps> = ({
       } `}
       onClick={() => onClick && onClick()}
     >
-      <img src={icon} className="w-10 object-contain absolute top-5 left-5" />
+      <img
+        src={icon}
+        className={`w-${mini ? 7 : 10} object-contain absolute top-5 left-5`}
+      />
       <div className="flex justify-center rounded-xl overflow-hidden">
         <img
           src={image}
@@ -51,7 +56,7 @@ export const NftCard: FC<NftCardProps> = ({
           className="bg-base-100"
           style={{
             width: "100%",
-            height: "300px",
+            height: mini ? "150px" : "300px",
             objectFit: "cover",
             border: "none",
           }}
@@ -59,11 +64,11 @@ export const NftCard: FC<NftCardProps> = ({
       </div>
       <div className="flex justify-between">
         <div className="flex flex-col">
-          <span>{name}</span>
+          <span className={`${mini ? "text-sm" : ""}`}>{name}</span>
           <span
             className={`flex items-center gap-2 text-${
               selected ? "white" : "secondary"
-            }`}
+            } ${mini ? "text-sm" : ""} `}
           >
             {collectionName}
             <svg

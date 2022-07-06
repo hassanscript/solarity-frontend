@@ -52,7 +52,7 @@ export const BackButton: FC<{ stepName: String }> = ({ stepName }) => {
   };
 
   return (
-    <Button onClick={onBack} variant="info">
+    <Button onClick={onBack} variant="info" outline>
       <MdChevronLeft fontSize="24" />
       Back
     </Button>
