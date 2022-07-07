@@ -1,7 +1,7 @@
 /* global AFRAME, THREE */
-if(!!AFRAME.components["NFT-controls"])
-      delete AFRAME.components["NFT-controls"];
-AFRAME.registerComponent('NFT-controls', {
+if(!!AFRAME.components["page-controls"])
+      delete AFRAME.components["page-controls"];
+AFRAME.registerComponent('page-controls', {
   init: function () {
     var self = this;
     var el = this.el;
