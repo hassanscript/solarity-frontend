@@ -130,7 +130,7 @@ const CoinBalances: FC<{ data: any[] }> = ({ data }) => {
                   <span className="text-2xl font-bold">{balance}</span>
                   <span className="text-sm font-bold"> {symbol}</span>
                 </div>
-                <p className="text-sm text-success">~ {usdValue} USD</p>
+                {/* <p className="text-sm text-success">~ {usdValue} USD</p> */}
               </div>
             </div>
           ))}
