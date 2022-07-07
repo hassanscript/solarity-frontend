@@ -1,4 +1,4 @@
 const BaseUrl = process.env.NODE_ENV === "development"
-  ? "http://localhost:3000/"
-  : "https://solarity-stage.vercel.app/";
+  ? process.env.NEXT_PUBLIC_LOCAL_FRONTEND_URL + "/"
+  : process.env.NEXT_PUBLIC_FRONTEND_URL + "/";
 export default BaseUrl;
