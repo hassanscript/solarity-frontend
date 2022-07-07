@@ -205,7 +205,7 @@ export default function RoomFullView({user}) {
               ))}
               <a-sky src="#sky-img"></a-sky>
             </a-scene>
-            <div className='hidden sm:block fixed top-[5vh] left-[30px] cursor-pointer' onClick={() => toggleNFTsPanel(true)}>
+            <div className='fixed top-[5vh] left-[30px] cursor-pointer' onClick={() => toggleNFTsPanel(true)}>
               <div className='flex rounded-lg bg-brandblack px-4 py-2'>
                 <Desktop />&nbsp;
                 <span className='ml-3'>View Assets</span>
