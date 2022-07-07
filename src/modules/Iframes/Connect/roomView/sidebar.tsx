@@ -2,6 +2,7 @@ import { FC, useState } from "react";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import { setActiveRoom } from "redux/slices/profileSlice";
 import { logout } from "redux/slices/authSlice";
+import { Loader } from "components";
 
 const Rooms: FC<{ setLoading: (loading: boolean) => void }> = ({
   setLoading,
@@ -36,7 +37,7 @@ const Rooms: FC<{ setLoading: (loading: boolean) => void }> = ({
           }`}
         >
           <img src={room.imageUrl} className="w-[130px]" />
-          <div className="relative flex items-center flex-1 p-4 space-y-2">
+          <div className="relative flex items-center flex-1 p-4 space-y-2 z-[10]">
             <h6 className="text-md">{room.title}</h6>
             {room.active && (
               <div className="absolute top-0 left-4">
@@ -61,7 +62,12 @@ const Sidebar: FC<{
   const [roomMode, setRoomMode] = useState(false);
   const dispatch = useDispatch();
   return (
-    <div className="p-3 px-5 border-l h-[100%] border-gray-600 space-y-5 flex flex-col">
+    <div className="relative p-3 px-5 border-l h-[100%] border-gray-600 space-y-5 flex flex-col">
+      {loading && (
+        <div className="absolute top-0 left-0 bg-black/80 w-[100%] h-[100%] z-[100] flex justify-center items-center">
+          <Loader />
+        </div>
+      )}
       <div>
         <h1 className="text-2xl text-center">
           {roomMode ? "Your Rooms" : "Select NFTs"}
