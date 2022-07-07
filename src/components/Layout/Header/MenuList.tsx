@@ -17,7 +17,7 @@ const MenuList: FC<IProps> = ({ items }) => {
             href={link}
             key={link}
             exact={exact}
-            className="text-lg hover:py-8 hover:border-secondary"
+            className="text-lg hover:py-8 hover:border-secondary mr-5"
             activeClassName="font-bold border-b-2 py-8 border-secondary"
             defaultClassName=""
           >
