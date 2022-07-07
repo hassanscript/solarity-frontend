@@ -42,11 +42,6 @@ const plugins = [
   ],
 ];
 
-const env = Object.keys(process.env).reduce(function (o, k) {
-  o["process.env." + k] = JSON.stringify(process.env[k]);
-  return o;
-}, {});
-
 const nextConfig = {
   swcMinify: false,
   typescript: {
@@ -63,7 +58,6 @@ const nextConfig = {
       // minimization brakes Public Key names
       config.optimization.minimize = false;
     }
-    config.plugins.push(new webpack.DefinePlugin(env));
     config.plugins.push(new webpack.IgnorePlugin({
       resourceRegExp: /^electron$/
     }));

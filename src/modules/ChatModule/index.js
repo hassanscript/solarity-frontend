@@ -21,6 +21,9 @@ import ChatPanel from '../../components/ChatPanel';
 import ChatPublicModel from "components/ChatPublicModel";
 import ChatPrivateModel from "components/ChatPrivateModel";
 import { checkBrowser, getWidth } from 'utils';
+import { Close } from 'components/Icons';
+import { useWallet } from '@solana/wallet-adapter-react';
+import { getNfts } from 'hooks';
 const ChatModule = () => {
   const [mounted, setMounted] = useState(false)
   const { roomName, userName, modelIndex, msgs, peers, rooms } = useAppSelector(state => state.chat);
@@ -34,12 +37,16 @@ const ChatModule = () => {
   const [intervalId, setIntervalId] = useState('');
   const [volumes, setVolumes] = useState({});
   const [isMute, setMute] = useState(false);
-  const [iniviteFriendModal, setIniviteFriendModal] = useState(false);
+  const [iniviteFriendModal, setIniviteFriendModal] = useState(true);
   const [isChatPanel, setChatPanel] = useState(true);
   const [isUserPanel, setUserPanel] = useState(true);
   const [userlist, setUserlist] = useState([]);
   const [roomInfo, setRoomInfo] = useState({});
   const [loadingFlag, setLoadingFlag] = useState(false);
+  const [nftspanel, toggleNFTsPanel] = useState(false);
+
+  const { publicKey } = useWallet();
+  const [nfts, loading, error] = getNfts(userName, publicKey);
 
   const toggleChatPanel = () => {
     setChatPanel(!isChatPanel);
@@ -126,6 +133,7 @@ const ChatModule = () => {
     require('aframe-extras');
     require('./components');
     require('./presentation');
+    require('./page-controls');
     THREE.Cache.enabled = false;
     setMounted(true);
     if(checkBrowser()) { // if mobile
@@ -283,7 +291,7 @@ const ChatModule = () => {
     dispatch(setMsg([]));
     dispatch(setPeers([]));
     if(getWidth() <= 640 && !checkBrowser()) {
-      top.window.location.href="https://main.d2rg0l816a56cd.amplifyapp.com/experience"
+      top.window.location.href = process.env.NEXT_PUBLIC_FRONTEND_URL + "/experience";
       return;
     }
     router.push('/experience');
@@ -302,92 +310,113 @@ const ChatModule = () => {
   if (mounted && models && models[modelIndex] && models[modelIndex].modelUrl) {
     return (
       <div>
-        <div id="loadingScreen" className="fixed top-0 left-0 right-0 bottom-0">
-          <div className='relative h-full w-full'>
-            <img src={!!localStorage.getItem("roomBgImg") ? localStorage.getItem("roomBgImg"): ""} width="100%" height="100%" className='absolute top-0 right-0 bottom-0 left-0 z-0'/>
-            <div className="relative h-full w-full bg-[rgba(12,12,14,0.7)] backdrop-blur-lg pt-[calc(50vh-104px)] sm:pt-[calc(50vh-165px)] z-10">
-              <div className="w-[210px] h-[210px] sm:w-[330px] sm:h-[330px] m-auto">
-                <div className="text-white items-center flex h-full">
-                  <div className="text-center m-auto h-full w-full">
-                    <div className="progress relative h-full w-full">
-                      <svg className="circle-loading-bar hidden sm:block w-full h-full">
-                        <circle cx="165" cy="165" r="160"></circle>
-                        <circle cx="165" cy="165" r="160" style={{"--percent": 0}}></circle>
-                      </svg>
-                      <svg className="circle-loading-bar block sm:hidden w-full h-full">
-                        <circle cx="104" cy="104" r="100"></circle>
-                        <circle cx="104" cy="104" r="100" style={{"--percent": 0}}></circle>
-                      </svg>
-                      <div className="absolute left-[65px] top-[60px] sm:top-[90px] sm:left-[105px]">
-                        <h2 className="loading-status text-[40px] sm:text-[70px] font-bold font-['Outfit'] mb-2 sm:mb-5">0</h2>
-                        <span className="text-xs sm:text-lg">loading models</span>
+        {!nftspanel ? (
+          <div>
+            <div id="loadingScreen" className="fixed top-0 left-0 right-0 bottom-0">
+              <div className='relative h-full w-full'>
+                <img src={!!localStorage.getItem("roomBgImg") ? localStorage.getItem("roomBgImg"): ""} width="100%" height="100%" className='absolute top-0 right-0 bottom-0 left-0 z-0'/>
+                <div className="relative h-full w-full bg-[rgba(12,12,14,0.7)] backdrop-blur-lg pt-[calc(50vh-104px)] sm:pt-[calc(50vh-165px)] z-10">
+                  <div className="w-[210px] h-[210px] sm:w-[330px] sm:h-[330px] m-auto">
+                    <div className="text-white items-center flex h-full">
+                      <div className="text-center m-auto h-full w-full">
+                        <div className="progress relative h-full w-full">
+                          <svg className="circle-loading-bar hidden sm:block w-full h-full">
+                            <circle cx="165" cy="165" r="160"></circle>
+                            <circle cx="165" cy="165" r="160" style={{"--percent": 0}}></circle>
+                          </svg>
+                          <svg className="circle-loading-bar block sm:hidden w-full h-full">
+                            <circle cx="104" cy="104" r="100"></circle>
+                            <circle cx="104" cy="104" r="100" style={{"--percent": 0}}></circle>
+                          </svg>
+                          <div className="absolute left-[65px] top-[60px] sm:top-[90px] sm:left-[105px]">
+                            <h2 className="loading-status text-[40px] sm:text-[70px] font-bold font-['Outfit'] mb-2 sm:mb-5">0</h2>
+                            <span className="text-xs sm:text-lg">loading models</span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-        <div id="sceneWrapper" style={{ opacity: "0" }}>
-          {roomType > 2 ? (
-            <ChatPrivateModel
-              modelNo={no}
-              roomInfo={roomInfo}
-              modelURL={models[modelIndex].modelUrl}
-              name={userName}
-            />
-          ) : (
-            <ChatPublicModel
-              roomType={roomType}
-              modelURL={models[modelIndex].modelUrl}
-              name={userName}
-            />
-          )}
-          <div className='hidden sm:block fixed top-[5vh] left-[30px] cursor-pointer' onClick={() => handelManualLeave()}>
-            <div className='flex rounded-lg bg-brandblack px-4 py-2'>
-              <img src="/images/arrow-left.png" className='mt-1' style={{ marginTop: '7px', height: "15px" }} width={15} height={15} alt="back" srcSet="" />
-              <span className='ml-3'>All Rooms</span>
+            <div id="sceneWrapper" style={{ opacity: "0" }}>
+              {roomType > 2 ? (
+                <ChatPrivateModel
+                  modelNo={no}
+                  roomInfo={roomInfo}
+                  modelURL={models[modelIndex].modelUrl}
+                  name={userName}
+                />
+              ) : (
+                <ChatPublicModel
+                  roomType={roomType}
+                  modelURL={models[modelIndex].modelUrl}
+                  name={userName}
+                />
+              )}
+              <div className='hidden sm:block fixed top-[5vh] left-[30px] cursor-pointer' onClick={() => handelManualLeave()}>
+                <div className='flex rounded-lg bg-brandblack px-4 py-2'>
+                  <img src="/images/arrow-left.png" className='mt-1' style={{ marginTop: '7px', height: "15px" }} width={15} height={15} alt="back" srcSet="" />
+                  <span className='ml-3'>All Rooms</span>
+                </div>
+              </div>
+              <UserPanel
+                isUserPanel={isUserPanel}
+                rooms={rooms}
+                roomIndex={roomIndex}
+                userName={userName}
+                volumes={volumes}
+                clients={clients}
+                toggleUserPanel={toggleUserPanel}
+                toggleVolume={toggleVolume}
+                provideRef={provideRef}
+                inviteFriend={inviteFriend}
+                getAvatarImg={getAvatarImg}
+              />
+              <ChatToolbar
+                isMute={isMute}
+                isUserPanel={isUserPanel}
+                isChatPanel={isChatPanel}
+                provideRef={provideRef}
+                handelMuteBtnClick={handelMuteBtnClick}
+                toggleUserPanel={toggleUserPanel}
+                toggleChatPanel={toggleChatPanel}
+                handelManualLeave={handelManualLeave}
+                toggleNFTsPanel={toggleNFTsPanel}
+              />
+              <ChatPanel
+                isChatPanel={isChatPanel}
+                msgs={msgs}
+                sendData={sendData}
+                toggleChatPanel={toggleChatPanel}
+                getAvatarImg={getAvatarImg}
+                handleKeyDown={handleKeyDown}
+                setSendData={setSendData}
+                sendMsg={sendMsg}
+              />
             </div>
           </div>
-          <UserPanel
-            isUserPanel={isUserPanel}
-            rooms={rooms}
-            roomIndex={roomIndex}
-            userName={userName}
-            volumes={volumes}
-            clients={clients}
-            toggleUserPanel={toggleUserPanel}
-            toggleVolume={toggleVolume}
-            provideRef={provideRef}
-            inviteFriend={inviteFriend}
-            getAvatarImg={getAvatarImg}
-          />
-          <ChatToolbar
-            isMute={isMute}
-            isUserPanel={isUserPanel}
-            isChatPanel={isChatPanel}
-            provideRef={provideRef}
-            handelMuteBtnClick={handelMuteBtnClick}
-            toggleUserPanel={toggleUserPanel}
-            toggleChatPanel={toggleChatPanel}
-            handelManualLeave={handelManualLeave}
-          />
-          <ChatPanel
-            isChatPanel={isChatPanel}
-            msgs={msgs}
-            sendData={sendData}
-            toggleChatPanel={toggleChatPanel}
-            getAvatarImg={getAvatarImg}
-            handleKeyDown={handleKeyDown}
-            setSendData={setSendData}
-            sendMsg={sendMsg}
-          />
-        </div>
-        <InviteFriendModal
-          open={iniviteFriendModal}
-          onClose={handleInviteFriendToggle}
-        />
+        ) : (
+          <div>
+            <a-scene
+              background="color: #d471aa"
+            >
+              <a-assets>
+                {nfts && nfts.map((nft, index) => (
+                  <img id={`page${index + 1}`} crossOrigin="anonymous" src={nft.image} key={index} />
+                ))}
+              </a-assets>
+              {nfts && (
+                <a-entity layer="src: #page1; height: 2; width: 2"></a-entity>
+              )}
+              <a-entity oculus-touch-controls="hand: left" page-controls></a-entity>
+              <a-entity oculus-touch-controls="hand: right" page-controls></a-entity>
+            </a-scene>
+            <div className='absolute top-[20px] right-[30px] cursor-pointer hover:text-teal-300' onClick={() => toggleNFTsPanel(false)}>
+              <Close />
+            </div>
+          </div>
+        )}
       </div>
     );
   }

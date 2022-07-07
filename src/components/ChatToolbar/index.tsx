@@ -5,7 +5,7 @@ import Back from '../../components/Icons/Back';
 import UserList from '../../components/Icons/UserList';
 import ChatOutline from '../../components/Icons/ChatOutline';
 import UserListOutline from '../../components/Icons/UserListOutline';
-import { Chat, FullScreen } from '../../components/Icons';
+import { Chat, Desktop, FullScreen } from '../../components/Icons';
 import { checkBrowser, getWidth } from "utils";
 export type ChatToolbarProps = {
   isMute: Boolean;
@@ -16,6 +16,7 @@ export type ChatToolbarProps = {
   toggleUserPanel: Function;
   toggleChatPanel: Function;
   handelManualLeave: Function;
+  toggleNFTsPanel: Function;
 };
 
 const ChatToolbar: FC<ChatToolbarProps> = ({  
@@ -27,6 +28,7 @@ const ChatToolbar: FC<ChatToolbarProps> = ({
     toggleUserPanel,
     toggleChatPanel,
     handelManualLeave,
+    toggleNFTsPanel,
 }) => {
 
   return (
@@ -62,6 +64,9 @@ const ChatToolbar: FC<ChatToolbarProps> = ({
                 <ChatOutline />
             )
             }
+        </div>
+        <div className='p-2 border border-gray-600 rounded-lg mx-1 cursor-pointer hover:border-gray-400' onClick={() => toggleNFTsPanel(true)}>
+            <Desktop />
         </div>
         <div className='p-2 border border-gray-600 rounded-lg mx-1 cursor-pointer hover:border-gray-400' onClick={() => handelManualLeave()}>
             {getWidth() <= 640 && !checkBrowser() ? (
