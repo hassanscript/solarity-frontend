@@ -1,4 +1,6 @@
 /* global AFRAME, THREE */
+if(!!AFRAME.components["NFT-controls"])
+      delete AFRAME.components["NFT-controls"];
 AFRAME.registerComponent('NFT-controls', {
   init: function () {
     var self = this;
@@ -9,24 +11,20 @@ AFRAME.registerComponent('NFT-controls', {
     this.pageIndex = 0;
     this.pages = [
       {
-        page: 'NFT1',
+        page: 'page1',
         color: '#494949'
       },
       {
-        page: 'NFT2',
+        page: 'page2',
         color: '#d471aa'
       },
       {
-        page: 'NFT3',
+        page: 'page3',
         color: '#794782'
       },
       {
-        page: 'NFT4',
+        page: 'page4',
         color: '#7d0147'
-      },
-      {
-        page: 'NFT5',
-        color: '#b06c85'
       }];
 
     this.velocity = new THREE.Vector3();

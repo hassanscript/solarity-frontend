@@ -291,7 +291,7 @@ const ChatModule = () => {
     dispatch(setMsg([]));
     dispatch(setPeers([]));
     if(getWidth() <= 640 && !checkBrowser()) {
-      top.window.location.href="https://main.d2rg0l816a56cd.amplifyapp.com/experience"
+      top.window.location.href = process.env.NEXT_PUBLIC_FRONTEND_URL + "/experience";
       return;
     }
     router.push('/experience');
@@ -403,11 +403,11 @@ const ChatModule = () => {
             >
               <a-assets>
                 {nfts && nfts.map((nft, index) => (
-                  <img id={`NFT${index + 1}`} crossOrigin="anonymous" src={nft.image} />
+                  <img id={`page${index + 1}`} crossOrigin="anonymous" src={nft.image} key={index} />
                 ))}
               </a-assets>
               {nfts && (
-                <a-entity layer="src: #NFT1; height: 2; width: 2"></a-entity>
+                <a-entity layer="src: #page1; height: 2; width: 2"></a-entity>
               )}
               <a-entity oculus-touch-controls="hand: left" page-controls></a-entity>
               <a-entity oculus-touch-controls="hand: right" page-controls></a-entity>
