@@ -1,5 +1,5 @@
 /* global AFRAME, THREE */
-AFRAME.registerComponent('page-controls', {
+AFRAME.registerComponent('NFT-controls', {
   init: function () {
     var self = this;
     var el = this.el;
@@ -9,23 +9,23 @@ AFRAME.registerComponent('page-controls', {
     this.pageIndex = 0;
     this.pages = [
       {
-        page: 'page1',
+        page: 'NFT1',
         color: '#494949'
       },
       {
-        page: 'page2',
+        page: 'NFT2',
         color: '#d471aa'
       },
       {
-        page: 'page3',
+        page: 'NFT3',
         color: '#794782'
       },
       {
-        page: 'page4',
+        page: 'NFT4',
         color: '#7d0147'
       },
       {
-        page: 'page5',
+        page: 'NFT5',
         color: '#b06c85'
       }];
 

@@ -403,7 +403,7 @@ const ChatModule = () => {
             >
               <a-assets>
                 {nfts && nfts.map((nft, index) => (
-                  <img id="NFT1" crossOrigin="anonymous" src={nft.image} />
+                  <img id={`NFT${index + 1}`} crossOrigin="anonymous" src={nft.image} />
                 ))}
               </a-assets>
               {nfts && (
