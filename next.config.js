@@ -48,7 +48,6 @@ const env = Object.keys(process.env).reduce(function (o, k) {
 }, {});
 
 const nextConfig = {
-  distDir: "build",
   swcMinify: false,
   typescript: {
     ignoreBuildErrors: true,
