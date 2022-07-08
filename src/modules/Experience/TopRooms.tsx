@@ -11,9 +11,9 @@ const TopRooms = () => {
           <GalleryRowHeader title={"Top Rooms"} />
           <div className="grid grid-cols-4 gap-3 mt-4">
             <GalleryItemEr 
-              title="SolGods Room owned by SUPER" 
+              title="SolGods Room owned by TMETA" 
               imageUrl="/images/placeholder/marketplace/rooms/1.png"
-              roomUrl={BaseUrl + "/super/room1/626ec9f8406e8d1c4083103e"}
+              roomUrl={BaseUrl + "/tmeta/room1/62aff459f09100fd752dbfc0"}
             />
             <GalleryItemEr 
               title="Money Room owned by TMETA" 
@@ -21,9 +21,9 @@ const TopRooms = () => {
               roomUrl={BaseUrl + "/tmeta/room1/62aff473f09100fd752dbfc7"}
             />
             <GalleryItemEr 
-              title="SolGods Room owned by TMETA" 
+              title="SolGods Room owned by Super" 
               imageUrl="/images/placeholder/marketplace/rooms/1.png"
-              roomUrl={BaseUrl + "/tmeta/room1/62aff459f09100fd752dbfc0"}
+              roomUrl={BaseUrl + "/super/room1/626ec9f8406e8d1c4083103e"}
             />
           </div>
         </div>

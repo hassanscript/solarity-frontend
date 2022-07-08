@@ -228,14 +228,14 @@ export default function RoomFullView({user}) {
                 ))}
               </div>
             </div>
-            <div className='col-span-1 border-[2px] rounded-r-xl border-secondary mr-5 p-5'>
+            <div className='col-span-2 sm:col-span-1 border-[2px] rounded-r-xl border-secondary mr-5 p-5'>
               {nfts[selectedCardIndex] && (
                 <div>
-                  <h3 className='text-xl mb-5'>{nfts[selectedCardIndex].name}</h3>
-                  <div>
+                  <h3 className='text-lg sm:text-xl mb-5'>{nfts[selectedCardIndex].name}</h3>
+                  <div className='text-sm sm:text-lg'>
                     <div>Collection Name: </div><div>{nfts[selectedCardIndex].collectionName}</div>
                   </div><br />
-                  <div>
+                  <div className='text-sm sm:text-lg'>
                     <div>Mint Address: </div>
                     <div>{minifyAddress(nfts[selectedCardIndex].mintAddress, 8)}</div>
                   </div><br />

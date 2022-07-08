@@ -24,9 +24,9 @@ const ChatPanel: FC<ChatPanelProps> = ({
     sendMsg,
 }) => {
     return (
-        <div className={"fixed top-[5vh] bottom-[5vh] max-h-[90vh] right-[10px] sm:right-[30px] min-w-[250px] bg-brandblack rounded-lg w-1/4 " + (isChatPanel ? 'block' : 'hidden')}>
-            <div className='w-full p-[20px] sm:p-[30px] h-full flex flex-col gap-2'>
-                <div className='text-md sm:text-lg mb-4 flex justify-between'>
+        <div className={"fixed top-[1vh] sm:top-[5vh] bottom-[1vh] sm:bottom-[5vh] max-h-[98vh] right-[10px] sm:right-[30px] min-w-[250px] bg-brandblack rounded-lg w-1/4 " + (isChatPanel ? 'block' : 'hidden')}>
+            <div className='w-full p-[15px] sm:p-[30px] h-full flex flex-col gap-2'>
+                <div className='text-md sm:text-lg mb-1 sm:mb-4 flex justify-between'>
                     <div>Room Chat</div>
                     <div className='cursor-pointer pt-[3px]' onClick={() => toggleChatPanel()}><Minus /></div>
                 </div>

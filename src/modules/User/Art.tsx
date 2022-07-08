@@ -37,7 +37,7 @@ export const NftCard: FC<NftCardProps> = ({
     <a
       className={`relative flex flex-col gap-2 p-4 ${
         selected ? "bg-secondary" : "bg-brandblack"
-      } rounded-3xl ${!selected && "hover:bg-black"} ${
+      } rounded-3xl ${!selected && "hover:bg-secondary"} ${
         clickable && "cursor-pointer"
       } `}
       onClick={() => onClick && onClick()}
