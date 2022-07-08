@@ -13,6 +13,18 @@ export default function RoomFullView() {
     require('aframe-blink-controls');
     require('modules/ChatModule/components');
     setMounted(true);
+    localStorage.setItem('modelLoaded', "false");
+    require('multiuser-aframe');
+    const loadInterval = setInterval(() => {
+      if (localStorage.getItem('modelLoaded') == "true") {
+        clearInterval(loadInterval);
+        startHub();
+      }
+    }, 300);
+    setTimeout(() => {
+      clearInterval(loadInterval);
+      startHub();
+    }, 100000);
   }, []);
 
   useEffect(() => {
@@ -66,7 +78,6 @@ export default function RoomFullView() {
             </div>
           </div>
           <a-scene
-            embedded
             renderer="antialias: true;
             colorManagement: true;
             sortObjects: true;

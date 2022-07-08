@@ -44,7 +44,7 @@ export const NftCard: FC<NftCardProps> = ({
     >
       <img
         src={icon}
-        className={`w-${mini ? 7 : 10} object-contain absolute top-5 left-5`}
+        className={`w-${mini ? 5 : 10} object-contain absolute top-5 left-5`}
       />
       <div className="flex justify-center rounded-xl overflow-hidden">
         <img

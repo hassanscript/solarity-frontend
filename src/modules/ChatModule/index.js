@@ -293,7 +293,7 @@ const ChatModule = () => {
     dispatch(setMsg([]));
     dispatch(setPeers([]));
     if(getWidth() <= 640 && !checkBrowser()) {
-      top.window.location.href = process.env.NEXT_PUBLIC_FRONTEND_URL + "/experience";
+      window.open(process.env.NEXT_PUBLIC_FRONTEND_URL + "/experience", "_blank");
       return;
     }
     router.push('/experience');
@@ -409,15 +409,15 @@ const ChatModule = () => {
                 <Close />
               </div>
             </div>
-            <div className="grid grid-cols-5 sm:grid-cols-4 mb-4">
+            <div className="grid grid-cols-3 sm:grid-cols-4 mb-4">
               <div className="col-span-3 mx-5 p-5 pr-2 border-[2px] rounded-l-xl border-secondary">
-                <div className='w-full h-[42vw] sm:h-[calc(100vh-148px)] overflow-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 pr-3'>
+                <div className='w-full h-[42vw] sm:h-[calc(100vh-148px)] overflow-auto grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-3 pr-3'>
                   {nfts && nfts.map((data, index) => (
-                    <NftCard key={"nftCard-" + index} selected={index == selectedCardIndex} {...data} onClick={() => selectCard(index)} />
+                    <NftCard key={"nftCard-" + index} selected={index == selectedCardIndex} mini={getWidth() < 640 ? true: false} {...data} onClick={() => selectCard(index)} />
                   ))}
                 </div>
               </div>
-              <div className='col-span-2 sm:col-span-1 border-[2px] rounded-r-xl border-secondary mr-5 p-5'>
+              <div className='hidden sm:block col-span-2 sm:col-span-1 border-[2px] rounded-r-xl border-secondary mr-5 p-5'>
                 {nfts[selectedCardIndex] && (
                   <div>
                     <h3 className='text-lg sm:text-xl mb-5'>{nfts[selectedCardIndex].name}</h3>
