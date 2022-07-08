@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import ViewHolder from "../viewHolder";
 import RoomUpdateView from "./roomUpdateView";
 import RoomCustomizeView from "./roomCustomizeView";
@@ -12,7 +12,7 @@ import { getNfts } from "hooks";
 import { NftCardSelect } from "modules/User/NftCardSelect";
 import { updateNftCard } from "redux/slices/profileSlice";
 
-const RoomView = () => {
+const RoomView: FC<{ onNext: () => void }> = ({ onNext }) => {
   const dispatch = useDispatch();
   const [roomUpdateView, setRoomUpdateView] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -96,6 +96,7 @@ const RoomView = () => {
           loading={loading}
           setNFTdisabled={picNo == "0"}
           onNFTSet={chooseNft}
+          onNext={onNext}
         >
           <div className="flex flex-wrap">
             {nfts.map(({ mintAddress: mint, name, uri }, index) => (

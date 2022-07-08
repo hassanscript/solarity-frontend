@@ -10,8 +10,8 @@ const Rooms: FC<{ setLoading: (loading: boolean) => void }> = ({
   const rooms = useSelector(
     (state: RootStateOrAny) => state.profile.data.rooms
   );
+  const roomIsActive = rooms.find(({ active }: any) => active);
   const dispatch = useDispatch();
-
   const updateActiveRoom = (room: any) => {
     const { active, roomNo } = room;
     if (active) return;
@@ -58,9 +58,13 @@ const Sidebar: FC<{
   setLoading: (loading: boolean) => void;
   setNFTdisabled: boolean;
   onNFTSet: (data: any) => void;
-}> = ({ loading, setLoading, children, setNFTdisabled, onNFTSet }) => {
+  onNext: () => void;
+}> = ({ loading, setLoading, children, setNFTdisabled, onNFTSet, onNext }) => {
   const [roomMode, setRoomMode] = useState(false);
-  const dispatch = useDispatch();
+  const rooms = useSelector(
+    (state: RootStateOrAny) => state.profile.data.rooms
+  );
+  const roomIsActive = rooms.find(({ active }: any) => active);
   return (
     <div className="relative p-3 px-5 border-l h-[100%] border-gray-600 space-y-5 flex flex-col">
       {loading && (
@@ -99,12 +103,11 @@ const Sidebar: FC<{
             {roomMode ? "CUSTOMIZE ROOM" : "CHANGE ROOM"}
           </div>
           <button
-            className="btn btn-error btn-sm"
-            onClick={() => {
-              dispatch(logout());
-            }}
+            className="btn btn-success btn-sm"
+            disabled={!roomIsActive || loading}
+            onClick={onNext}
           >
-            LOGOUT
+            NEXT
           </button>
         </div>
       </div>
