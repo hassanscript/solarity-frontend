@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { Close, Desktop } from "components/Icons";
 import { getNfts } from "hooks";
 import { NftCard } from "../Art";
-import { minifyAddress } from "utils";
+import { minifyAddress, getWidth } from "utils";
 
 export default function RoomFullView({user}) {
   const [mounted, setMounted] = useState(false);
