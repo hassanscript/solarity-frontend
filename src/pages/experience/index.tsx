@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import { toast } from "react-toastify";
 import Layout from "components/Layout";
 import Experience from "modules/Experience";
+import TopRooms from "modules/Experience/TopRooms";
 
 import ACTIONS from '../../config/actions';
 
@@ -72,6 +73,7 @@ const Index = () => {
   return (
     <Layout>
       <Experience />
+      <TopRooms />
     </Layout>
   );
 };

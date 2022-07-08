@@ -21,14 +21,14 @@ const GalleryRowHeader = ({
               {detail}
         </span>
       </div>
-      <div className="flex gap-2">
+      {/* <div className="flex gap-2">
         <button className="btn btn-circle btn-sm">
           <CaretLeft />
         </button>
         <button className="rotate-180 btn btn-circle btn-sm btn-secondary transfrom">
           <CaretLeft />
         </button>
-      </div>
+      </div> */}
     </div>
   );
 };

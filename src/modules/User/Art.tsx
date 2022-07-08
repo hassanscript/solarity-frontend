@@ -56,7 +56,6 @@ export const NftCard: FC<NftCardProps> = ({
           className="bg-base-100"
           style={{
             width: "100%",
-            height: mini ? "150px" : "300px",
             objectFit: "cover",
             border: "none",
           }}

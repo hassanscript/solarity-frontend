@@ -22,11 +22,13 @@ import ChatPublicModel from "components/ChatPublicModel";
 import ChatPrivateModel from "components/ChatPrivateModel";
 import { checkBrowser, getWidth } from 'utils';
 import { Close } from 'components/Icons';
-import { useWallet } from '@solana/wallet-adapter-react';
 import { getNfts } from 'hooks';
+import { NftCard } from '../User/Art';
+import { minifyAddress } from 'utils';
+
 const ChatModule = () => {
   const [mounted, setMounted] = useState(false)
-  const { roomName, userName, modelIndex, msgs, peers, rooms } = useAppSelector(state => state.chat);
+  const { roomName, userName, modelIndex, msgs, peers, rooms, selectedIndex } = useAppSelector(state => state.chat);
   const { data } = useAppSelector(state => state.profile);
   const router = useRouter();
   const dispatch = useAppDispatch();
@@ -44,9 +46,9 @@ const ChatModule = () => {
   const [roomInfo, setRoomInfo] = useState({});
   const [loadingFlag, setLoadingFlag] = useState(false);
   const [nftspanel, toggleNFTsPanel] = useState(false);
-
-  const { publicKey } = useWallet();
-  const [nfts, loading, error] = getNfts(userName, publicKey);
+  const [selectedCardIndex, setSelectedCardIndex] = useState(0);
+  
+  const [nfts, loading, error] = getNfts(selectedIndex == -1 ? userName: rooms[selectedIndex].name, selectedIndex == -1 ? data.solanaAddress : rooms[selectedIndex].solanaAddress);
 
   const toggleChatPanel = () => {
     setChatPanel(!isChatPanel);
@@ -307,11 +309,14 @@ const ChatModule = () => {
     setIniviteFriendModal(!iniviteFriendModal);
   }
 
+  const selectCard = (index) => {
+    setSelectedCardIndex(index);
+  }
+
   if (mounted && models && models[modelIndex] && models[modelIndex].modelUrl) {
     return (
       <div>
-        {!nftspanel ? (
-          <div>
+          <div className={nftspanel ? "hidden": "block"}>
             <div id="loadingScreen" className="fixed top-0 left-0 right-0 bottom-0">
               <div className='relative h-full w-full'>
                 <img src={!!localStorage.getItem("roomBgImg") ? localStorage.getItem("roomBgImg"): ""} width="100%" height="100%" className='absolute top-0 right-0 bottom-0 left-0 z-0'/>
@@ -396,27 +401,37 @@ const ChatModule = () => {
               />
             </div>
           </div>
-        ) : (
-          <div>
-            <a-scene
-              background="color: #d471aa"
-            >
-              <a-assets>
-                {nfts && nfts.map((nft, index) => (
-                  <img id={`page${index + 1}`} crossOrigin="anonymous" src={nft.image} key={index} />
-                ))}
-              </a-assets>
-              {nfts && (
-                <a-entity layer="src: #page1; height: 2; width: 2"></a-entity>
-              )}
-              <a-entity oculus-touch-controls="hand: left" page-controls></a-entity>
-              <a-entity oculus-touch-controls="hand: right" page-controls></a-entity>
-            </a-scene>
-            <div className='absolute top-[20px] right-[30px] cursor-pointer hover:text-teal-300' onClick={() => toggleNFTsPanel(false)}>
-              <Close />
+          <div className={(nftspanel ? "block": "hidden") + " transition-all h-[100vh] overflow-auto"}> 
+            <div className='m-5 py-2 flex justify-between'>
+              <h2 className='text-2xl'>NFT Gallery</h2>
+              <div className='cursor-pointer hover:text-teal-300' onClick={() => toggleNFTsPanel(false)}>
+                <Close />
+              </div>
+            </div>
+            <div className="grid grid-cols-4 mb-4">
+              <div className="col-span-3 mx-5 p-5 pr-2 border-[2px] rounded-l-xl border-secondary">
+                <div className='w-full h-[calc(100vh-148px)] overflow-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 pr-3'>
+                  {nfts && nfts.map((data, index) => (
+                    <NftCard key={"nftCard-" + index} selected={index == selectedCardIndex} {...data} onClick={() => selectCard(index)} />
+                  ))}
+                </div>
+              </div>
+              <div className='col-span-1 border-[2px] rounded-r-xl border-secondary mr-5 p-5'>
+                {nfts[selectedCardIndex] && (
+                  <div>
+                    <h3 className='text-xl mb-5'>{nfts[selectedCardIndex].name}</h3>
+                    <div>
+                      <div>Collection Name: </div><div>{nfts[selectedCardIndex].collectionName}</div>
+                    </div><br />
+                    <div>
+                      <div>Mint Address: </div>
+                      <div>{minifyAddress(nfts[selectedCardIndex].mintAddress, 8)}</div>
+                    </div><br />
+                  </div>
+                )}
+              </div>
             </div>
           </div>
-        )}
       </div>
     );
   }
