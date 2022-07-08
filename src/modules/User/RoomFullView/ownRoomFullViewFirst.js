@@ -250,7 +250,7 @@ export default function RoomFullView({user}) {
               <Close />
             </div>
           </div>
-          <div className="grid grid-cols-4 mb-4">
+          <div className="grid grid-cols-5 sm:grid-cols-4 mb-4">
             <div className="col-span-3 mx-5 p-5 pr-2 border-[2px] rounded-l-xl border-secondary">
               <div className='w-full h-[calc(100vh-148px)] overflow-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 pr-3'>
                 {nfts && nfts.map((data, index) => (
