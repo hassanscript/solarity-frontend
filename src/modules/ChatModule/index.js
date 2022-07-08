@@ -411,7 +411,7 @@ const ChatModule = () => {
             </div>
             <div className="grid grid-cols-3 sm:grid-cols-4 mb-4">
               <div className="col-span-3 mx-5 p-5 pr-2 border-[2px] rounded-l-xl border-secondary">
-                <div className='w-full h-[42vw] sm:h-[calc(100vh-148px)] overflow-auto grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-3 pr-3'>
+                <div className='w-full h-[42vw] sm:h-[calc(100vh-148px)] overflow-auto grid grid-cols-3 sm:grid-cols-2 md:grid-cols-3 gap-3 pr-3'>
                   {nfts && nfts.map((data, index) => (
                     <NftCard key={"nftCard-" + index} selected={index == selectedCardIndex} mini={getWidth() < 640 ? true: false} {...data} onClick={() => selectCard(index)} />
                   ))}

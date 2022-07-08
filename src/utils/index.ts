@@ -6,6 +6,14 @@ export const minifyNumber = (num: number): number | string => {
   return newNum.substring(0, newNum.length - 3) + "K";
 };
 
+export const minifyString = (str: string, len: number): string | string => {
+  if(str.length > len) {
+    return str.substring(0, len) + "...";
+  } else {
+    return str;
+  }
+};
+
 export const minifyAddress = (address: string, rate?: number): string => {
   if (address == null) return "";
   if (address.length <= 5) return address;

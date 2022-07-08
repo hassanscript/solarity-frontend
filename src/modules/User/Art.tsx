@@ -5,6 +5,7 @@ import { Loader } from "../../components/Loader";
 import placeholder from "../../assets/images/placeholder/avatar.png";
 import solanaIcon from "../../assets/images/icons/solana.png";
 import ethereumIcon from "../../assets/images/icons/ethereum.png";
+import { minifyString } from "utils";
 
 type ArtProps = {
   solanaAddress: string;
@@ -69,7 +70,7 @@ export const NftCard: FC<NftCardProps> = ({
               selected ? "white" : "secondary"
             } ${mini ? "text-sm" : ""} `}
           >
-            {collectionName}
+            {minifyString(collectionName, 6)}
             <svg
               width="20"
               height="20"
