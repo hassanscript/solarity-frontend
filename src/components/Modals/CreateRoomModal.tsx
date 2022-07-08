@@ -1,12 +1,12 @@
 import React, { FC, useState } from "react";
-import { useDispatch, useSelector, RootStateOrAny } from 'react-redux';
-import { toast } from 'react-toastify';
+import { useDispatch, useSelector, RootStateOrAny } from "react-redux";
+import { toast } from "react-toastify";
 
 import Base from "components/Modals/Base";
 import AvatarPanel from "components/AvatarPanel";
 import { PlusFill } from "components/Icons";
 
-import { createRoom } from '../../redux/slices/chatSlice';
+import { createRoom } from "../../redux/slices/chatSlice";
 import { models } from "data/experience";
 
 const CreateRoomModal: FC<any> = ({
@@ -14,7 +14,7 @@ const CreateRoomModal: FC<any> = ({
   title,
   type,
   roomNo,
-  onClose
+  onClose,
 }: {
   open: boolean;
   title: string;
@@ -27,13 +27,13 @@ const CreateRoomModal: FC<any> = ({
     profileData: state.profile.data,
   }));
 
-  const [roomName, setRoomName] = useState('');
+  const [roomName, setRoomName] = useState("");
   const [modelIndex, setModelIndex] = useState(0);
   const [addOnsIndex, setAddOnsIndex] = useState(0);
 
   const createRoomFunc = () => {
-    if(!roomName) {
-      toast.error('The name of room is required.', {
+    if (!roomName) {
+      toast.error("The name of room is required.", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -44,7 +44,17 @@ const CreateRoomModal: FC<any> = ({
       });
       return;
     }
-    dispatch(createRoom({title, type, roomNo, roomName, userName: profileData.username, modelIndex, avatarUrl: profileData.profileImageLink || ""}));
+    dispatch(
+      createRoom({
+        title,
+        type,
+        roomNo,
+        roomName,
+        userName: profileData.username,
+        modelIndex,
+        avatarUrl: profileData.profileImageLink || "",
+      })
+    );
     onClose();
   };
 
@@ -53,30 +63,63 @@ const CreateRoomModal: FC<any> = ({
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mt-8">
         <div className="col-span-1">
           <div className="flex justify-between py-4 px-4 bg-primary rounded-xl h-[200px]">
-            <AvatarPanel modelPath={models[modelIndex].modelUrl} position={models[modelIndex].position} rotation={models[modelIndex].rotation} scale={models[modelIndex].scale} />
+            <AvatarPanel
+              modelPath={models[modelIndex].modelUrl}
+              position={models[modelIndex].position}
+              rotation={models[modelIndex].rotation}
+              scale={models[modelIndex].scale}
+            />
           </div>
           <div className="avatarlist mt-2">
             <div className="flex gap-1 avatar-2d-list">
-              {!!models && models.length !=0 && models.map((model, index) => (
-                <div className={`avatar-2d-item hover:border border border-transparent hover:border-gray-400 `+ (modelIndex == index ? `border-gray-100`: ``)} onClick={() => setModelIndex(index)} key={index}>
-                  <img src={model.imageUrl} width={50} height={50} alt={model.name} />
+              {!!models &&
+                models.length != 0 &&
+                models.map((model, index) => (
+                  <div
+                    className={
+                      `avatar-2d-item hover:border border border-transparent hover:border-gray-400 ` +
+                      (modelIndex == index ? `border-gray-100` : ``)
+                    }
+                    onClick={() => setModelIndex(index)}
+                    key={index}
+                  >
+                    <img
+                      src={model.imageUrl}
+                      width={50}
+                      height={50}
+                      alt={model.name}
+                    />
+                  </div>
+                ))}
+            </div>
+          </div>
+          <div className="addOnslist mt-2">
+            <div className="flex gap-1 addOns-2d-list">
+              {[0, 1, 2, 3, 4, 5].map((num, index) => (
+                <div
+                  className={
+                    `addOns-2d-item hover:border border border-transparent hover:border-gray-400 ` +
+                    (addOnsIndex == num ? `border-gray-100` : ``)
+                  }
+                  onClick={() => setAddOnsIndex(num)}
+                  key={index}
+                >
+                  <img
+                    src="/images/addOns/addOn.jpg"
+                    width={40}
+                    height={40}
+                    alt="AddOns"
+                  />
                 </div>
               ))}
             </div>
           </div>
-          <div className="addOnslist mt-2">
-          <div className="flex gap-1 addOns-2d-list">
-            {[0,1,2,3,4,5].map((num, index) =>(
-              <div className={`addOns-2d-item hover:border border border-transparent hover:border-gray-400 `+ (addOnsIndex == num ? `border-gray-100`: ``)} onClick={() => setAddOnsIndex(num)} key={index}>
-                <img src="/images/addOns/addOn.jpg" width={40} height={40} alt="AddOns" />
-              </div> 
-            ))}
-          </div>
-        </div>
         </div>
         <div className="col-span-1 flex justify-between py-4 px-0 sm:px-7 rounded-xl">
           <div className="gap-2">
-            <div className="text-xs text-gray-950 mt-6">Please type a room name.</div>
+            <div className="text-xs text-gray-950 mt-6">
+              Please type a room name.
+            </div>
             <div className="mt-2">
               <div className="relative w-full text-gray-600 focus-within:text-gray-400">
                 <input
@@ -99,8 +142,12 @@ const CreateRoomModal: FC<any> = ({
         </div>
       </div>
       <div className="mt-7">
-        <button className="rounded-full btn btn-sm btn-secondary float-right px-8" onClick={createRoomFunc}>
-          <PlusFill />&nbsp;<span>Create</span>
+        <button
+          className="rounded-full btn btn-sm btn-secondary float-right px-8"
+          onClick={createRoomFunc}
+        >
+          <PlusFill />
+          &nbsp;<span>Create</span>
         </button>
       </div>
     </Base>

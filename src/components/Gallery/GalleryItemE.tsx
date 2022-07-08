@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FC } from "react";
-import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
+import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import Image from "next/image";
 import { toast } from "react-toastify";
 import { TickCircle, Bid, GridAdd } from "components/Icons";
@@ -16,11 +16,11 @@ export type GalleryItemEProps = {
 };
 
 const GalleryItemComponent: FC<GalleryItemEProps> = ({
-    type,
-    roomNo,
-    title,
-    imageUrl,
-    currentBid,
+  type,
+  roomNo,
+  title,
+  imageUrl,
+  currentBid,
 }) => {
   const dispatch = useDispatch();
   const [createModalOpen, setCreateModalOpen] = useState(false);
@@ -29,8 +29,8 @@ const GalleryItemComponent: FC<GalleryItemEProps> = ({
   }));
 
   const handleCreateModalToggle = () => {
-    if(!profileData.username) {
-      toast.warning('Please login to continue a game', {
+    if (!profileData.username) {
+      toast.warning("Please login to continue a game", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -41,7 +41,7 @@ const GalleryItemComponent: FC<GalleryItemEProps> = ({
       });
       return;
     }
-    localStorage.setItem('roomBgImg', imageUrl);
+    localStorage.setItem("roomBgImg", imageUrl);
     setCreateModalOpen(!createModalOpen);
   };
 
@@ -57,11 +57,9 @@ const GalleryItemComponent: FC<GalleryItemEProps> = ({
             className="rounded-3xl"
           />
           <button className="z-10 gap-1 normal-case bg-white rounded-full opacity-0 btn btn-sm btn-accent group-hover:opacity-100 hover:bg-accent text-secondary">
-            <div 
-            className="flex" 
-            onClick={handleCreateModalToggle}
-            >
-            <GridAdd />&nbsp;<span className="pt-[3px]">Create</span>
+            <div className="flex" onClick={handleCreateModalToggle}>
+              <GridAdd />
+              &nbsp;<span className="pt-[3px]">Create</span>
             </div>
           </button>
         </div>

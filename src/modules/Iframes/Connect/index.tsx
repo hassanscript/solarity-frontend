@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import { setOnIframe } from "redux/slices/commonSlice";
 import LoginView from "./loginView";
@@ -6,9 +6,12 @@ import NoRoomView from "./noRoomView";
 import SetupView from "./setupView";
 import ViewHolder from "./viewHolder";
 import RoomView from "./roomView";
+import RoomCreationView from "./roomCreationView";
 
 const connect = () => {
   const dispatch = useDispatch();
+
+  const [roomViewStep, setRoomViewStep] = useState(0);
 
   useEffect(() => {
     dispatch(setOnIframe());
@@ -35,8 +38,9 @@ const connect = () => {
   const roomCount = profileData.rooms.length;
 
   if (roomCount == 0) return <NoRoomView />;
-
-  return <RoomView />;
+  if (roomViewStep == 0) return <RoomView onNext={() => setRoomViewStep(1)} />;
+  if (roomViewStep == 1)
+    return <RoomCreationView onBack={() => setRoomViewStep(0)} />;
 };
 
 export default connect;
