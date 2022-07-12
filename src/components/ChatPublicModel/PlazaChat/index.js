@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { checkBrowser } from "utils";
 import { getWidth } from "utils";
 
-const PlazaChat = ({ modelURL, name }) => {
+const PlazaChat = ({ modelURL, name, slideUrls }) => {
   return (
     <a-scene 
       renderer="antialias: true;
@@ -25,7 +25,10 @@ const PlazaChat = ({ modelURL, name }) => {
         <a-asset-item id="uv" src={"/resource/models/helmet/helmet visor.gltf"}></a-asset-item>
 
         <img id="sky-img" src="/assets/images/bluesky.jpg" />
-        <img id="try-img" src="/assets/images/try.png" />
+        
+        {slideUrls.map((slideUrl, index) => (
+            <img key={index} id={"slide" + slideUrl.no} src={slideUrl.url} />)
+        )}
 
         <template
           id="avatar-template"
@@ -143,18 +146,15 @@ const PlazaChat = ({ modelURL, name }) => {
       {/* lights */}
       {/* ambient light */}
       <a-entity light="type: ambient; intensity: 0.5; color:  #FFFFFF; shadowCameraVisible: false;"></a-entity>
-      {/* slider 
-      <a-entity rotation="0 -90 0" id="slider" position="40.2 3.85 0.95"
+      {/* slider */}
+      <a-entity rotation="0 -90 0" id="slider" position="40.215 3.83 0.94"
         slideshow="forwardTrigger: #next_image; backwardTrigger: #previous_image; offset: 4.4 0 0; duration: 0.1"
       >
-        <a-image id="big_screen_img" src="#try-img" rotation="0 -180 0" width="4.3" height="2.3"
-                  position="0 0 0.01"></a-image>
-        <a-image id="big_screen_img" src="#sky-img" rotation="0 -180 0" width="4.3" height="2.3"
-                  position="0 0 0.01"></a-image>
-        <a-image id="big_screen_img" src="#try-img" rotation="0 -180 0" width="4.3" height="2.3"
-                  position="0 0 0.01"></a-image>
-      </a-entity>*/}
-      {/* arrows 
+        {slideUrls.map((slideUrl, index) => (
+          <a-image src={"#slide" + slideUrl.no} key={index} rotation="0 -180 0" width="4.41" height="2.5" position="0 0 0.01"></a-image>
+        ))}
+      </a-entity>
+      {/* arrows */}
       <a-entity rotation="0 -90 0" position="40.2 3.8 1" id="slider_commands" width="4" height="3">
         <a-plane text="value: >>; wrap-count: 6; align: center" width=".2" height=".2" id="next_image"
                   class="clickable nocollision" material="shader: flat;" color="#44AABB" position="2 -1.2 0">
@@ -162,7 +162,7 @@ const PlazaChat = ({ modelURL, name }) => {
         <a-plane text="value: <<; wrap-count: 6; align: center" width=".2" height=".2" id="previous_image"
                   class="clickable nocollision" material="shader: flat;" color="#44AABB" position="1.8 -1.2 0">
         </a-plane>
-      </a-entity>*/}
+      </a-entity>
       {/* models */}
       <a-gltf-model model-info class="model" src="#structure" position="0 0 0" scale="1 1 1"> </a-gltf-model>
       {/* nav-mesh: protecting us from running thru walls */}

@@ -36,8 +36,9 @@ export const chatSlice = createSlice({
       localStorage.setItem('userName', action.payload.userName);
       localStorage.setItem('name', action.payload.userName);
       localStorage.setItem('modelIndex', action.payload.modelIndex);
-      if(!!window.socket)
-        window.socket.emit(ACTIONS.JOIN, {roomId: -1, user: { name: state.userName, title: action.payload.title, type: action.payload.type, roomNo: action.payload.roomNo, roomName: state.roomName, modelIndex: state.modelIndex}});
+      if(!!window.socket){
+        window.socket.emit(ACTIONS.JOIN, {roomId: -1, user: { name: state.userName, title: action.payload.title, type: action.payload.type, roomNo: action.payload.roomNo, roomName: state.roomName, slideUrls: action.payload.slideUrls, modelIndex: state.modelIndex}});
+      }
     },
     setRoom: (state, action: PayloadAction<any>) => {
       state.roomName = action.payload.roomName;

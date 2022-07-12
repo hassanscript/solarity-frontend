@@ -11,7 +11,7 @@ import styles from './chat.module.css';
 import { build_loadingScreen } from './loadingScreen'
 import { startHub } from './hubUtils'
 // import {start_screens} from './screens'
-import { chooseControls, passControls } from './utils'
+import { chooseControls, intersected, intersectedCleared, passControls } from './utils'
 import InviteFriendModal from "components/Modals/InviteFriendModal";
 import { models } from "data/experience";
 import freeObjectFromMemory from '../../utils/clearObject';
@@ -71,6 +71,7 @@ const ChatModule = () => {
 
   useEffect(async () => {
     if (!!rooms && rooms.length != 0 && rooms[roomIndex] && !!rooms[roomIndex].name) {
+      console.log(rooms[roomIndex]);
       const {
         data: { roomInfoData },
       } = await apiCaller.get(`/users/getRoomInfo/${rooms[roomIndex].name}/${rooms[roomIndex].roomNo}`);
@@ -99,12 +100,12 @@ const ChatModule = () => {
   }
 
   const getUsers = async () => {
-    var roomIndex = rooms.findIndex(s => s.roomId == rid);
-    if(roomIndex != -1) {
-      rooms[roomIndex].speakers.map((speaker, index) => {
+    var roomIndex1 = rooms.findIndex(s => s.roomId == rid);
+    if(roomIndex1 != -1) {
+      rooms[roomIndex1].speakers.map((speaker, index) => {
         const user = {
           username: speaker,
-          link: rooms[roomIndex].links[index],
+          link: rooms[roomIndex1].links[index],
         }
       })
       setUserlist();
@@ -135,7 +136,6 @@ const ChatModule = () => {
     require('aframe-extras');
     require('./components');
     require('./presentation');
-    require('./page-controls');
     THREE.Cache.enabled = false;
     setMounted(true);
     if(checkBrowser()) { // if mobile
@@ -174,6 +174,12 @@ const ChatModule = () => {
   const start_scene = () => {
     if (roomType == 0)
       startHub();
+    if (roomType == 2) {
+        document.getElementById('next_image').addEventListener('raycaster-intersected', intersected, false);
+        document.getElementById('next_image').addEventListener('raycaster-intersected-cleared', intersectedCleared, false);
+        document.getElementById('previous_image').addEventListener('raycaster-intersected', intersected, false);
+        document.getElementById('previous_image').addEventListener('raycaster-intersected-cleared', intersectedCleared, false);
+    }
     chooseControls();
     passControls();
   }
@@ -313,29 +319,31 @@ const ChatModule = () => {
     setSelectedCardIndex(index);
   }
 
-  if (mounted && models && models[modelIndex] && models[modelIndex].modelUrl) {
-    return (
-      <div>
-          <div className={nftspanel ? "hidden": "block"}>
-            <div id="loadingScreen" className="fixed top-0 left-0 right-0 bottom-0">
-              <div className='relative h-full w-full'>
-                <img src={!!localStorage.getItem("roomBgImg") ? localStorage.getItem("roomBgImg"): ""} width="100%" height="100%" className='absolute top-0 right-0 bottom-0 left-0 z-0'/>
-                <div className="relative h-full w-full bg-[rgba(12,12,14,0.7)] backdrop-blur-lg pt-[calc(50vh-104px)] sm:pt-[calc(50vh-165px)] z-10">
-                  <div className="w-[210px] h-[210px] sm:w-[330px] sm:h-[330px] m-auto">
-                    <div className="text-white items-center flex h-full">
-                      <div className="text-center m-auto h-full w-full">
-                        <div className="progress relative h-full w-full">
-                          <svg className="circle-loading-bar hidden sm:block w-full h-full">
-                            <circle cx="165" cy="165" r="160"></circle>
-                            <circle cx="165" cy="165" r="160" style={{"--percent": 0}}></circle>
-                          </svg>
-                          <svg className="circle-loading-bar block sm:hidden w-full h-full">
-                            <circle cx="104" cy="104" r="100"></circle>
-                            <circle cx="104" cy="104" r="100" style={{"--percent": 0}}></circle>
-                          </svg>
-                          <div className="absolute left-[65px] top-[60px] sm:top-[90px] sm:left-[105px]">
-                            <h2 className="loading-status text-[40px] sm:text-[70px] font-bold font-['Outfit'] mb-2 sm:mb-5">0</h2>
-                            <span className="text-xs sm:text-lg">loading models</span>
+  return (
+    <div>
+      {mounted && models && models[modelIndex] && models[modelIndex].modelUrl && roomIndex != -1 ? (
+        <div>
+            <div className={nftspanel ? "hidden": "block"}>
+              <div id="loadingScreen" className="fixed top-0 left-0 right-0 bottom-0">
+                <div className='relative h-full w-full'>
+                  <img src={!!localStorage.getItem("roomBgImg") ? localStorage.getItem("roomBgImg"): ""} width="100%" height="100%" className='absolute top-0 right-0 bottom-0 left-0 z-0'/>
+                  <div className="relative h-full w-full bg-[rgba(12,12,14,0.7)] backdrop-blur-lg pt-[calc(50vh-104px)] sm:pt-[calc(50vh-165px)] z-10">
+                    <div className="w-[210px] h-[210px] sm:w-[330px] sm:h-[330px] m-auto">
+                      <div className="text-white items-center flex h-full">
+                        <div className="text-center m-auto h-full w-full">
+                          <div className="progress relative h-full w-full">
+                            <svg className="circle-loading-bar hidden sm:block w-full h-full">
+                              <circle cx="165" cy="165" r="160"></circle>
+                              <circle cx="165" cy="165" r="160" style={{"--percent": 0}}></circle>
+                            </svg>
+                            <svg className="circle-loading-bar block sm:hidden w-full h-full">
+                              <circle cx="104" cy="104" r="100"></circle>
+                              <circle cx="104" cy="104" r="100" style={{"--percent": 0}}></circle>
+                            </svg>
+                            <div className="absolute left-[65px] top-[60px] sm:top-[90px] sm:left-[105px]">
+                              <h2 className="loading-status text-[40px] sm:text-[70px] font-bold font-['Outfit'] mb-2 sm:mb-5">0</h2>
+                              <span className="text-xs sm:text-lg">loading models</span>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -343,104 +351,104 @@ const ChatModule = () => {
                   </div>
                 </div>
               </div>
-            </div>
-            <div id="sceneWrapper" style={{ opacity: "0" }}>
-              {roomType > 2 ? (
-                <ChatPrivateModel
-                  modelNo={no}
-                  roomInfo={roomInfo}
-                  modelURL={models[modelIndex].modelUrl}
-                  name={userName}
-                />
-              ) : (
-                <ChatPublicModel
-                  roomType={roomType}
-                  modelURL={models[modelIndex].modelUrl}
-                  name={userName}
-                />
-              )}
-              <div className='hidden sm:block fixed top-[5vh] left-[30px] cursor-pointer' onClick={() => handelManualLeave()}>
-                <div className='flex rounded-lg bg-brandblack px-4 py-2'>
-                  <img src="/images/arrow-left.png" className='mt-1' style={{ marginTop: '7px', height: "15px" }} width={15} height={15} alt="back" srcSet="" />
-                  <span className='ml-3'>All Rooms</span>
-                </div>
-              </div>
-              <UserPanel
-                isUserPanel={isUserPanel}
-                rooms={rooms}
-                roomIndex={roomIndex}
-                userName={userName}
-                volumes={volumes}
-                clients={clients}
-                toggleUserPanel={toggleUserPanel}
-                toggleVolume={toggleVolume}
-                provideRef={provideRef}
-                inviteFriend={inviteFriend}
-                getAvatarImg={getAvatarImg}
-              />
-              <ChatToolbar
-                isMute={isMute}
-                roomType={roomType}
-                isUserPanel={isUserPanel}
-                isChatPanel={isChatPanel}
-                provideRef={provideRef}
-                handelMuteBtnClick={handelMuteBtnClick}
-                toggleUserPanel={toggleUserPanel}
-                toggleChatPanel={toggleChatPanel}
-                handelManualLeave={handelManualLeave}
-                toggleNFTsPanel={toggleNFTsPanel}
-              />
-              <ChatPanel
-                isChatPanel={isChatPanel}
-                msgs={msgs}
-                sendData={sendData}
-                toggleChatPanel={toggleChatPanel}
-                getAvatarImg={getAvatarImg}
-                handleKeyDown={handleKeyDown}
-                setSendData={setSendData}
-                sendMsg={sendMsg}
-              />
-            </div>
-          </div>
-          <div className={(nftspanel ? "block": "hidden") + " transition-all h-[100vh] overflow-auto"}> 
-            <div className='m-5 py-2 flex justify-between'>
-              <h2 className='text-2xl'>NFT Gallery</h2>
-              <div className='cursor-pointer hover:text-teal-300' onClick={() => toggleNFTsPanel(false)}>
-                <Close />
-              </div>
-            </div>
-            <div className="grid grid-cols-3 sm:grid-cols-4 mb-4">
-              <div className="col-span-3 mx-5 p-5 pr-2 border-[2px] rounded-l-xl border-secondary">
-                <div className='w-full h-[42vw] sm:h-[calc(100vh-148px)] overflow-auto grid grid-cols-3 sm:grid-cols-2 md:grid-cols-3 gap-3 pr-3'>
-                  {nfts && nfts.map((data, index) => (
-                    <NftCard key={"nftCard-" + index} selected={index == selectedCardIndex} mini={getWidth() < 640 ? true: false} {...data} onClick={() => selectCard(index)} />
-                  ))}
-                </div>
-              </div>
-              <div className='hidden sm:block col-span-2 sm:col-span-1 border-[2px] rounded-r-xl border-secondary mr-5 p-5'>
-                {nfts[selectedCardIndex] && (
-                  <div>
-                    <h3 className='text-lg sm:text-xl mb-5'>{nfts[selectedCardIndex].name}</h3>
-                    <div className='text-sm sm:text-lg'>
-                      <div>Collection Name: </div><div>{nfts[selectedCardIndex].collectionName}</div>
-                    </div><br />
-                    <div className='text-sm sm:text-lg'>
-                      <div>Mint Address: </div>
-                      <div>{minifyAddress(nfts[selectedCardIndex].mintAddress, 8)}</div>
-                    </div><br />
-                  </div>
+              <div id="sceneWrapper" style={{ opacity: "0" }}>
+                {roomType > 2 ? (
+                  <ChatPrivateModel
+                    modelNo={no}
+                    roomInfo={roomInfo}
+                    modelURL={models[modelIndex].modelUrl}
+                    name={userName}
+                  />
+                ) : (
+                  <ChatPublicModel
+                    roomType={roomType}
+                    modelURL={models[modelIndex].modelUrl}
+                    name={userName}
+                    slideUrls={!rooms || roomIndex == -1 ? []: rooms[roomIndex].slideUrls}
+                  />
                 )}
+                <div className='hidden sm:block fixed top-[5vh] left-[30px] cursor-pointer' onClick={() => handelManualLeave()}>
+                  <div className='flex rounded-lg bg-brandblack px-4 py-2'>
+                    <img src="/images/arrow-left.png" className='mt-1' style={{ marginTop: '7px', height: "15px" }} width={15} height={15} alt="back" srcSet="" />
+                    <span className='ml-3'>All Rooms</span>
+                  </div>
+                </div>
+                <UserPanel
+                  isUserPanel={isUserPanel}
+                  rooms={rooms}
+                  roomIndex={roomIndex}
+                  userName={userName}
+                  volumes={volumes}
+                  clients={clients}
+                  toggleUserPanel={toggleUserPanel}
+                  toggleVolume={toggleVolume}
+                  provideRef={provideRef}
+                  inviteFriend={inviteFriend}
+                  getAvatarImg={getAvatarImg}
+                />
+                <ChatToolbar
+                  isMute={isMute}
+                  roomType={roomType}
+                  isUserPanel={isUserPanel}
+                  isChatPanel={isChatPanel}
+                  provideRef={provideRef}
+                  handelMuteBtnClick={handelMuteBtnClick}
+                  toggleUserPanel={toggleUserPanel}
+                  toggleChatPanel={toggleChatPanel}
+                  handelManualLeave={handelManualLeave}
+                  toggleNFTsPanel={toggleNFTsPanel}
+                />
+                <ChatPanel
+                  isChatPanel={isChatPanel}
+                  msgs={msgs}
+                  sendData={sendData}
+                  toggleChatPanel={toggleChatPanel}
+                  getAvatarImg={getAvatarImg}
+                  handleKeyDown={handleKeyDown}
+                  setSendData={setSendData}
+                  sendMsg={sendMsg}
+                />
               </div>
             </div>
-          </div>
-      </div>
-    );
-  }
-  return (
-    <div id="loadingScreen">
-      ...Load
+            <div className={(nftspanel ? "block": "hidden") + " transition-all h-[100vh] overflow-auto"}> 
+              <div className='m-5 py-2 flex justify-between'>
+                <h2 className='text-2xl'>NFT Gallery</h2>
+                <div className='cursor-pointer hover:text-teal-300' onClick={() => toggleNFTsPanel(false)}>
+                  <Close />
+                </div>
+              </div>
+              <div className="grid grid-cols-3 sm:grid-cols-4 mb-4">
+                <div className="col-span-3 mx-5 p-5 pr-2 border-[2px] rounded-l-xl border-secondary">
+                  <div className='w-full h-[42vw] sm:h-[calc(100vh-148px)] overflow-auto grid grid-cols-3 sm:grid-cols-2 md:grid-cols-3 gap-3 pr-3'>
+                    {nfts && nfts.map((data, index) => (
+                      <NftCard key={"nftCard-" + index} selected={index == selectedCardIndex} mini={getWidth() < 640 ? true: false} {...data} onClick={() => selectCard(index)} />
+                    ))}
+                  </div>
+                </div>
+                <div className='hidden sm:block col-span-2 sm:col-span-1 border-[2px] rounded-r-xl border-secondary mr-5 p-5'>
+                  {nfts[selectedCardIndex] && (
+                    <div>
+                      <h3 className='text-lg sm:text-xl mb-5'>{nfts[selectedCardIndex].name}</h3>
+                      <div className='text-sm sm:text-lg'>
+                        <div>Collection Name: </div><div>{nfts[selectedCardIndex].collectionName}</div>
+                      </div><br />
+                      <div className='text-sm sm:text-lg'>
+                        <div>Mint Address: </div>
+                        <div>{minifyAddress(nfts[selectedCardIndex].mintAddress, 8)}</div>
+                      </div><br />
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+        </div>
+      ): (
+        <div id="loadingScreen">
+          ...Load
+        </div>
+      )}
     </div>
-  )
+  );
 };
 
 export default ChatModule;

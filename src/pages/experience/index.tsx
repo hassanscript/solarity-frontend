@@ -45,6 +45,7 @@ const Index = () => {
       })
 
       window.socket.on(ACTIONS.ROOM_READY, (data: any) => {
+        window.socket.emit(ACTIONS.ROOM_LIST, {});
         if(data.type == false && data.roomNo == 0) {
           router.push(`/experience/Room?rid=${data.roomId}&roomType=0&no=0`, '/experience/Room');
         } else if(data.type == false && data.roomNo == 1) {

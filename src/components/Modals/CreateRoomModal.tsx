@@ -1,13 +1,25 @@
 import React, { FC, useState } from "react";
+import Image from "next/image";
 import { useDispatch, useSelector, RootStateOrAny } from "react-redux";
 import { toast } from "react-toastify";
 
 import Base from "components/Modals/Base";
 import AvatarPanel from "components/AvatarPanel";
 import { PlusFill } from "components/Icons";
+import Dropzone from 'react-dropzone'
+import GalleryImg from "../../assets/images/auth/gallery.png";
+import ImagePanel from "components/ImagePanel";
+import cloudinary from "cloudinary/lib/cloudinary";
+import axios from "axios";
 
 import { createRoom } from "../../redux/slices/chatSlice";
 import { models } from "data/experience";
+
+cloudinary.config({
+  cloud_name: process.env.NEXT_PUBLIC_CLOUD_NAME,
+  api_key: process.env.NEXT_PUBLIC_API_KEY,
+  api_secret: process.env.NEXT_PUBLIC_API_SECRET
+});
 
 const CreateRoomModal: FC<any> = ({
   open,
@@ -31,8 +43,80 @@ const CreateRoomModal: FC<any> = ({
   const [modelIndex, setModelIndex] = useState(0);
   const [addOnsIndex, setAddOnsIndex] = useState(0);
 
+  ///////////////////////////////////////-Load and Upload-////////////////////////////////////
+
+  const [step, setStep] = useState<Number>(0);
+  const [files, setFiles] = useState<File[]>([]);
+  const [loadedFiles, setLoadedFiles] = useState<any[]>([]);
+  const [imageUrls, setImageUrls] = useState<any[]>([]);
+  var imageCnt = 0;
+  var tmpImageUrls: any[] = [];
+
+  const onLoadAvatar = async (files: any) => {
+    setFiles(files);
+    tmpImageUrls = [...imageUrls];
+    for(let file of files) {
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        if (reader.readyState === 2) {
+          let listFiles = loadedFiles;
+          listFiles.push({ no: listFiles.length, file: reader.result });
+          setLoadedFiles([...listFiles]);
+        }
+      };
+
+      uploadImage(file, imageCnt);
+      reader.readAsDataURL(file);
+      imageCnt ++;
+    }
+
+  }
+
+  const uploadImage = async (img: any, index: number) => {
+    const data = new FormData();
+    data.append("file", img);
+    data.append("upload_preset", process.env.NEXT_PUBLIC_PRESET_NAME + "");
+    data.append("cloud_name", process.env.NEXT_PUBLIC_CLOUD_NAME + "" );
+    data.append("folder", "assets/presentation");
+    try {
+      const resp = await axios.post(`https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUD_NAME}/image/upload`, data);  
+      tmpImageUrls.push({ no: index, url: resp.data.url, public_id: resp.data.public_id });
+      setImageUrls([...tmpImageUrls]);
+    } catch(err) {
+      console.log("errr : ", err);
+    }
+  }
+
+  const deleteImage = async (index: number) => {
+    // choose imageUrl for removing from cloud storage
+    const imageUrlIndex = imageUrls.findIndex(s => s.no == index);
+    if(imageUrlIndex == -1) {
+      alert("there is no image for presentation.");
+      return;
+    }
+    
+    try {
+      await cloudinary.v2.uploader.destroy(imageUrls[imageUrlIndex].public_id, (error: any,result: any) => {})
+      tmpImageUrls = [...imageUrls];
+      tmpImageUrls.splice(imageUrlIndex, 1);
+      setImageUrls([...tmpImageUrls]);
+  
+      // remove loadingImages array
+      var loadingImages = [...loadedFiles];
+      var selectedIndex = loadingImages.findIndex(s => s.no == index);
+      loadingImages.splice(selectedIndex, 1);
+      setLoadedFiles(loadingImages);
+      
+    } catch (error) {
+      console.error("Something went wrong, please try again later.")
+    }
+  }
+
+  ///////////////////////////////////////////////////////////////////////////////////////////////
+
   const createRoomFunc = () => {
-    if (!roomName) {
+    if (!roomName || (title == "Plaza" && imageUrls.length == 0)) {
       toast.error("The name of room is required.", {
         position: "top-right",
         autoClose: 5000,
@@ -51,6 +135,7 @@ const CreateRoomModal: FC<any> = ({
         roomNo,
         roomName,
         userName: profileData.username,
+        slideUrls: imageUrls,
         modelIndex,
         avatarUrl: profileData.profileImageLink || "",
       })
@@ -93,7 +178,7 @@ const CreateRoomModal: FC<any> = ({
                 ))}
             </div>
           </div>
-          <div className="addOnslist mt-2">
+          {/* <div className="addOnslist mt-2">
             <div className="flex gap-1 addOns-2d-list">
               {[0, 1, 2, 3, 4, 5].map((num, index) => (
                 <div
@@ -113,7 +198,7 @@ const CreateRoomModal: FC<any> = ({
                 </div>
               ))}
             </div>
-          </div>
+          </div> */}
         </div>
         <div className="col-span-1 flex justify-between py-4 px-0 sm:px-7 rounded-xl">
           <div className="gap-2">
@@ -141,6 +226,44 @@ const CreateRoomModal: FC<any> = ({
           </div>
         </div>
       </div>
+      {title == "Plaza" && (
+        <div className="mt-7">
+          <h2>Prepare Images for Presentation</h2>
+          <div className="relative p-[2px] lg:pt-2 flex-auto">
+            <div className="mb-10">
+              <Dropzone onDrop={(acceptedFiles: any) => { onLoadAvatar(acceptedFiles);}}>
+                {({getRootProps, getInputProps}) => (
+                  <div {...getRootProps()}>
+                    <input {...getInputProps()} />
+                    <label
+                        className="flex w-full h-24 px-4 transition bg-transparent border-2 border-white/20 border-dashed rounded-md appearance-none cursor-pointer hover:border-white/30 focus:outline-none">
+                        <span className="flex items-center space-x-2 mr-3">
+                          <Image src={GalleryImg} />
+                        </span>
+                        <span className="flex items-center space-x-2">
+                            {files?<span className="font-medium text-[#f3f3f3]">
+                                <label className="text-primary">{files.length}</label> file&#40;s&#41; selected
+                                <br></br>
+                                <label className="text-[14px] text-white/30">Supports&#58; JPEG, JPEG2000, PNG</label>
+                            </span>:<span className="font-medium text-[#f3f3f3]">
+                                Drop image here or&nbsp;<label className="text-primary">browse</label>
+                                <br></br>
+                                <label className="text-[14px] text-white/30">Supports&#58; JPEG, JPEG2000, PNG</label>
+                            </span>}
+                        </span>
+                    </label>
+                  </div>
+                )}
+              </Dropzone>
+            </div>
+            <div className="grid grid-cols-2 xl:grid-cols-3 mt-5 max-h-[35vh] overflow-auto">
+              {imageUrls.map((imageUrl, index1) => {
+                return (<div className="p-2" key={imageUrl.no}><ImagePanel imageSrc={imageUrl.url} title="RESSURECTION..." onClick={() => deleteImage(imageUrl.no)} /></div>)
+              })}
+            </div>  
+          </div>
+        </div>
+      )}
       <div className="mt-7">
         <button
           className="rounded-full btn btn-sm btn-secondary float-right px-8"

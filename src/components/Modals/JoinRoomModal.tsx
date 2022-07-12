@@ -111,7 +111,7 @@ const JoinRoomModal: FC<any> = ({
               ))}
             </div>
           </div>
-          <div className="addOnslist mt-2">
+          {/* <div className="addOnslist mt-2">
             <div className="flex gap-1 addOns-2d-list">
               {[0,1,2,3,4,5].map((num, index) =>(
                 <div className={`addOns-2d-item hover:border border border-transparent hover:border-gray-400 `+ (addOnsIndex == num ? `border-gray-100`: ``)} onClick={() => setAddOnsIndex(num)} key={index}>
@@ -119,7 +119,7 @@ const JoinRoomModal: FC<any> = ({
                 </div> 
               ))}
             </div>
-          </div>
+          </div> */}
         </div>
         <div className="col-span-1 py-4 px-0 sm:px-7 rounded-xl">
         {

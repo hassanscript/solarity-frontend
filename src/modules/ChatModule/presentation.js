@@ -1,4 +1,6 @@
 //slideshow component
+if(!!AFRAME.components["slideshow"])
+      delete AFRAME.components["slideshow"];
 AFRAME.registerComponent('slideshow', {
     //schema of the component
     schema: {
