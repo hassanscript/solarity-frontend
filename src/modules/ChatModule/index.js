@@ -175,10 +175,12 @@ const ChatModule = () => {
     if (roomType == 0)
       startHub();
     if (roomType == 2) {
+      if(document.getElementById('next_image') && document.getElementById('previous_image')) {
         document.getElementById('next_image').addEventListener('raycaster-intersected', intersected, false);
         document.getElementById('next_image').addEventListener('raycaster-intersected-cleared', intersectedCleared, false);
         document.getElementById('previous_image').addEventListener('raycaster-intersected', intersected, false);
         document.getElementById('previous_image').addEventListener('raycaster-intersected-cleared', intersectedCleared, false);
+      }
     }
     chooseControls();
     passControls();
