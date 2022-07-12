@@ -2,7 +2,7 @@ import HubChat from "./HubChat";
 import GalleryChat from "./GalleryChat";
 import PlazaChat from "./PlazaChat";
 
-const ChatPublicModel = ({roomType, modelURL, name, slideUrls}) => {
+const ChatPublicModel = ({roomType, modelURL, name, creator, slideUrls}) => {
   return (
     <div>
       {roomType == 0 && (
@@ -12,7 +12,7 @@ const ChatPublicModel = ({roomType, modelURL, name, slideUrls}) => {
         <GalleryChat modelURL={modelURL} name={name} />
       )}
       {roomType == 2 && (
-        <PlazaChat modelURL={modelURL} name={name} slideUrls={slideUrls} />
+        <PlazaChat modelURL={modelURL} name={name} creator={creator} slideUrls={slideUrls} />
       )}
     </div>
   );

@@ -364,6 +364,7 @@ const ChatModule = () => {
                     roomType={roomType}
                     modelURL={models[modelIndex].modelUrl}
                     name={userName}
+                    creator={!rooms || roomIndex == -1 ? "nick": rooms[roomIndex].name}
                     slideUrls={!rooms || roomIndex == -1 ? []: rooms[roomIndex].slideUrls}
                   />
                 )}
