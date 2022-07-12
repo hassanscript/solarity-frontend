@@ -7,6 +7,7 @@ import SetupView from "./setupView";
 import ViewHolder from "./viewHolder";
 import RoomView from "./roomView";
 import RoomCreationView from "./roomCreationView";
+import ModeSelectionView from "./modeSelectionView";
 
 const connect = () => {
   const dispatch = useDispatch();
@@ -40,7 +41,9 @@ const connect = () => {
   if (roomCount == 0) return <NoRoomView />;
   if (roomViewStep == 0) return <RoomView onNext={() => setRoomViewStep(1)} />;
   if (roomViewStep == 1)
-    return <RoomCreationView onBack={() => setRoomViewStep(0)} />;
+    return <ModeSelectionView onNext={() => setRoomViewStep(2)} />;
+  if (roomViewStep == 2)
+    return <RoomCreationView onBack={() => setRoomViewStep(1)} />;
 };
 
 export default connect;
