@@ -1,8 +1,26 @@
+import ACTIONS from "config/actions";
 import { useEffect } from "react";
 import { checkBrowser } from "utils";
 import { getWidth } from "utils";
 
-const PlazaChat = ({ modelURL, name, slideUrls }) => {
+const PlazaChat = ({ modelURL, name, creator, slideUrls }) => {
+  useEffect(() => {
+    if(!window.socket || localStorage.getItem('name') == creator) {
+      return;
+    }
+    if(!window.presentation) {
+      window.socket.on(ACTIONS.CHANGE_SLIDE, ({action}) => {
+        console.log('action: ', action, document.querySelector('#next_image'));
+        if(action == "forward") {
+          document.querySelector('#next_image').click();
+        } else {
+          document.querySelector('#previous_image').click();
+        }
+      })
+      window.presentation = true;
+    }
+
+  }, [])
   return (
     <a-scene 
       renderer="antialias: true;
@@ -27,8 +45,8 @@ const PlazaChat = ({ modelURL, name, slideUrls }) => {
         <img id="sky-img" src="/assets/images/bluesky.jpg" />
         
         {slideUrls.map((slideUrl, index) => (
-            <img key={index} id={"slide" + slideUrl.no} src={slideUrl.url} />)
-        )}
+            <img key={index} id={"slide" + slideUrl.no} src={slideUrl.url} />
+        ))}
 
         <template
           id="avatar-template"
@@ -155,7 +173,7 @@ const PlazaChat = ({ modelURL, name, slideUrls }) => {
         ))}
       </a-entity>
       {/* arrows */}
-      <a-entity rotation="0 -90 0" position="40.2 3.8 1" id="slider_commands" width="4" height="3">
+      <a-entity rotation="0 -90 0" position={localStorage.getItem('name') == creator ? "40.2 3.8 1": "40.2 3 1"} id="slider_commands" width="4" height="3">
         <a-plane text="value: >>; wrap-count: 6; align: center" width=".2" height=".2" id="next_image"
                   class="clickable nocollision" material="shader: flat;" color="#44AABB" position="2 -1.2 0">
         </a-plane>

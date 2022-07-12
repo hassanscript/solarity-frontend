@@ -1,3 +1,5 @@
+import ACTIONS from "config/actions";
+
 //slideshow component
 if(!!AFRAME.components["slideshow"])
       delete AFRAME.components["slideshow"];
@@ -81,7 +83,7 @@ AFRAME.registerComponent('slideshow', {
         var slideEl_collection_length = this.slideEl_collection_length;
 
         //generating the "slides" according to the distanceVector
-        for (let i = 0; i < slideEl_collection_length; i++) {
+        for (var i = 0; i < slideEl_collection_length; i++) {
             var slideEl = slideEl_collection[i];
             slideEl.index = i;
             slideEl.object3D.position.set(nextPosition.x, nextPosition.y, nextPosition.z);
@@ -96,15 +98,19 @@ AFRAME.registerComponent('slideshow', {
         var data = this.data;
         var el = this.el;
 
-        if (data.state == "still")
+        if (data.state == "still") {
+            window.socket.emit(ACTIONS.CHANGE_SLIDE, {action: "forward"});
             this.el.emit("slideForward")
+        }
     },
     triggerSlideBackward: function () {
         var data = this.data;
         var el = this.el;
 
-        if (data.state == "still")
+        if (data.state == "still") {
+            window.socket.emit(ACTIONS.CHANGE_SLIDE, {action: "backward"});
             this.el.emit("slideBackward")
+        }
     },
     startSlidingForward: function () {
         var data = this.data;
@@ -113,7 +119,7 @@ AFRAME.registerComponent('slideshow', {
         var distanceVector = this.distanceVector;
 
         //update index
-        for (i = 0; i < slideEl_collection_length; i++) {
+        for (var i = 0; i < slideEl_collection_length; i++) {
             slideEl_collection[i].index++;
             //the element goes outside the limit
             if (slideEl_collection[i].index == slideEl_collection_length) {
@@ -132,7 +138,7 @@ AFRAME.registerComponent('slideshow', {
         var slideEl_collection_length = this.slideEl_collection_length;
         var distanceVector = this.distanceVector;
 
-        for (i = 0; i < slideEl_collection_length; i++) {
+        for (var i = 0; i < slideEl_collection_length; i++) {
             //the element goes outside the limit
             if (slideEl_collection[i].index == data.toShow) {
                 slideEl_collection[i].setAttribute("visible", "true");
@@ -173,7 +179,7 @@ AFRAME.registerComponent('slideshow', {
         var slideEl_collection = this.slideEl_collection;
         var slideEl_collection_length = this.slideEl_collection_length;
 
-        for (i = 0; i < slideEl_collection_length; i++) {
+        for (var i = 0; i < slideEl_collection_length; i++) {
             if (slideEl_collection[i].index < data.toShow) {
                 slideEl_collection[i].setAttribute("visible", "true");
             }
@@ -188,7 +194,7 @@ AFRAME.registerComponent('slideshow', {
         var slideEl_collection_length = this.slideEl_collection_length;
         var distanceVector = this.distanceVector;
 
-        for (i = 0; i < slideEl_collection_length; i++) {
+        for (var i = 0; i < slideEl_collection_length; i++) {
             slideEl_collection[i].object3D.position.set(slideEl_collection[i].index * distanceVector.x, slideEl_collection[i].index * distanceVector.y, slideEl_collection[i].index * distanceVector.z);
         }
         //update visibility of elements according to index
@@ -199,7 +205,7 @@ AFRAME.registerComponent('slideshow', {
         var slideEl_collection_length = this.slideEl_collection_length;
         var distanceVector = this.distanceVector;
 
-        for (i = 0; i < slideEl_collection_length; i++) {
+        for (var i = 0; i < slideEl_collection_length; i++) {
             slideEl_collection[i].index--;
             //the element goes outside the limit
             if (slideEl_collection[i].index == -1) {
@@ -215,7 +221,7 @@ AFRAME.registerComponent('slideshow', {
         var slideEl_collection_length = this.slideEl_collection_length;
         var slideElCurrentPosition;
 
-        for (let i = 0; i < slideEl_collection_length; i++) {
+        for (var i = 0; i < slideEl_collection_length; i++) {
             // Grab position vectors (THREE.Vector3) from the entities' three.js objects.
             slideElCurrentPosition = slideEl_collection[i].object3D.position;
             // Translate the entity in the direction along the direction.
@@ -227,7 +233,7 @@ AFRAME.registerComponent('slideshow', {
         var slideEl_collection_length = this.slideEl_collection_length;
         var slideElCurrentPosition;
 
-        for (let i = 0; i < slideEl_collection_length; i++) {
+        for (var i = 0; i < slideEl_collection_length; i++) {
             // Grab position vectors (THREE.Vector3) from the entities' three.js objects.
             slideElCurrentPosition = slideEl_collection[i].object3D.position;
             // Translate the entity in the direction along the opposite of the direction.
