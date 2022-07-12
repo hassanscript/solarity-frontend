@@ -16,9 +16,9 @@ import { ChevronLeftIcon } from "@heroicons/react/solid";
 const RoomView: FC<{
   onNext: () => void;
   editMode?: boolean;
-  onBack: () => void;
-  onCopy: () => void;
-  onLive: () => void;
+  onBack?: () => void;
+  onCopy?: () => void;
+  onLive?: () => void;
 }> = ({ onNext, editMode, onBack, onCopy, onLive }) => {
   const dispatch = useDispatch();
   const [roomUpdateView, setRoomUpdateView] = useState(false);
