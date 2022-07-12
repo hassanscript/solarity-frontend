@@ -55,11 +55,20 @@ const Rooms: FC<{ setLoading: (loading: boolean) => void }> = ({
 
 const Sidebar: FC<{
   loading: boolean;
+  editMode?: boolean;
   setLoading: (loading: boolean) => void;
   setNFTdisabled: boolean;
   onNFTSet: (data: any) => void;
   onNext: () => void;
-}> = ({ loading, setLoading, children, setNFTdisabled, onNFTSet, onNext }) => {
+}> = ({
+  loading,
+  setLoading,
+  children,
+  setNFTdisabled,
+  onNFTSet,
+  onNext,
+  editMode,
+}) => {
   const [roomMode, setRoomMode] = useState(false);
   const rooms = useSelector(
     (state: RootStateOrAny) => state.profile.data.rooms
@@ -95,21 +104,23 @@ const Sidebar: FC<{
             SET NFT
           </button>
         )}
-        <div className="flex space-x-2">
-          <div
-            className="btn btn-outline flex-1 btn-sm"
-            onClick={() => setRoomMode(!roomMode)}
-          >
-            {roomMode ? "CUSTOMIZE ROOM" : "CHANGE ROOM"}
+        {!editMode && (
+          <div className="flex space-x-2">
+            <div
+              className="btn btn-outline flex-1 btn-sm"
+              onClick={() => setRoomMode(!roomMode)}
+            >
+              {roomMode ? "CUSTOMIZE ROOM" : "CHANGE ROOM"}
+            </div>
+            <button
+              className="btn btn-success btn-sm"
+              disabled={!roomIsActive || loading}
+              onClick={onNext}
+            >
+              NEXT
+            </button>
           </div>
-          <button
-            className="btn btn-success btn-sm"
-            disabled={!roomIsActive || loading}
-            onClick={onNext}
-          >
-            NEXT
-          </button>
-        </div>
+        )}
       </div>
     </div>
   );
