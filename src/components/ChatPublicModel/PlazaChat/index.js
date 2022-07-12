@@ -1,12 +1,17 @@
+import ACTIONS from "config/actions";
 import { useEffect } from "react";
 import { checkBrowser } from "utils";
 import { getWidth } from "utils";
 
 const PlazaChat = ({ modelURL, name, creator, slideUrls }) => {
   useEffect(() => {
-    setInterval(() => {
-      document.querySelector('#next_image').click();
-    }, 1000)
+    window.socket.on(ACTIONS.CHANGE_SLIDE, data => {
+      console.log(data);
+      alert();
+    })
+    // setInterval(() => {
+    //   document.querySelector('#next_image').click();
+    // }, 1000)
   }, [])
   return (
     <a-scene 

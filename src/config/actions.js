@@ -1,4 +1,5 @@
 const ACTIONS = {
+    CHANGE_SLIDE: "CHANGE_SLIDE",
     DUPLICATION_INVITATION: 'duplication-invitation',
     GET_INVITATIONS: 'get-invitations',
     DENY_INVITATION: 'deny-invitation',

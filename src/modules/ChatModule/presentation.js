@@ -1,3 +1,5 @@
+import ACTIONS from "config/actions";
+
 //slideshow component
 if(!!AFRAME.components["slideshow"])
       delete AFRAME.components["slideshow"];
@@ -96,15 +98,19 @@ AFRAME.registerComponent('slideshow', {
         var data = this.data;
         var el = this.el;
 
-        if (data.state == "still")
+        if (data.state == "still") {
+            window.socket.emit(ACTIONS.CHANGE_SLIDE, {action: "forward"});
             this.el.emit("slideForward")
+        }
     },
     triggerSlideBackward: function () {
         var data = this.data;
         var el = this.el;
 
-        if (data.state == "still")
+        if (data.state == "still") {
+            window.socket.emit(ACTIONS.CHANGE_SLIDE, {action: "backward"});
             this.el.emit("slideBackward")
+        }
     },
     startSlidingForward: function () {
         var data = this.data;
