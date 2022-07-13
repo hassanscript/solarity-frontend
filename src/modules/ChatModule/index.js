@@ -390,8 +390,7 @@ const ChatModule = () => {
       {mounted &&
       models &&
       models[modelIndex] &&
-      models[modelIndex].modelUrl &&
-      roomIndex != -1 ? (
+      models[modelIndex].modelUrl ? (
         <div>
           <div className={nftspanel ? "hidden" : "block"}>
             <div
