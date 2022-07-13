@@ -10,7 +10,6 @@ const PlazaChat = ({ modelURL, name, creator, slideUrls }) => {
     }
     if(!window.presentation) {
       window.socket.on(ACTIONS.CHANGE_SLIDE, ({action}) => {
-        console.log('action: ', action, document.querySelector('#next_image'));
         if(action == "forward") {
           document.querySelector('#next_image').click();
         } else {
@@ -21,6 +20,14 @@ const PlazaChat = ({ modelURL, name, creator, slideUrls }) => {
     }
 
   }, [])
+
+  useEffect(() => {
+    var tmpSlideUrls = [...slideUrls];
+    tmpSlideUrls.sort((a, b) => {
+      return a.no - b.no;
+    })
+  }, [slideUrls])
+
   return (
     <a-scene 
       renderer="antialias: true;
