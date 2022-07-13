@@ -11,8 +11,15 @@ import LockedRoom from "components/Banner/LockedRoom";
 import { getNfts } from "hooks";
 import { NftCardSelect } from "modules/User/NftCardSelect";
 import { updateNftCard } from "redux/slices/profileSlice";
+import { ChevronLeftIcon } from "@heroicons/react/solid";
 
-const RoomView: FC<{ onNext: () => void }> = ({ onNext }) => {
+const RoomView: FC<{
+  onNext: () => void;
+  editMode?: boolean;
+  onBack?: () => void;
+  onCopy?: () => void;
+  onLive?: () => void;
+}> = ({ onNext, editMode, onBack, onCopy, onLive }) => {
   const dispatch = useDispatch();
   const [roomUpdateView, setRoomUpdateView] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -89,6 +96,30 @@ const RoomView: FC<{ onNext: () => void }> = ({ onNext }) => {
 
   return (
     <div className="flex h-[100vh] w-[100vw]">
+      {editMode && (
+        <div className="fixed top-5 left-5 w-[300px] z-[10000] bg-black/80 p-5 py-7 rounded-md">
+          <h3 className="text-xl font-bold">EDIT MODE</h3>
+          <span className="text-sm block text-gray-400 pt-1">
+            You are customizing the room with your NFTs
+          </span>
+          <div className="pt-5 space-y-3">
+            <button onClick={onCopy} className="btn btn-secondary block btn-sm">
+              Switch to Copy mode
+            </button>
+            <button onClick={onLive} className="btn btn-success block btn-sm">
+              Go Live
+            </button>
+            <button
+              onClick={onBack}
+              className="btn btn-outline block btn-sm flex items-center justify-center"
+            >
+              <ChevronLeftIcon className="w-5 inline" />
+              BACK
+            </button>
+          </div>
+        </div>
+      )}
+
       <div className="flex-1 relative">{roomView}</div>
       <div className="w-[25%] min-w-[200px] max-w-[400px] h-[100%]">
         <Sidebar
@@ -97,6 +128,7 @@ const RoomView: FC<{ onNext: () => void }> = ({ onNext }) => {
           setNFTdisabled={picNo == "0"}
           onNFTSet={chooseNft}
           onNext={onNext}
+          editMode={editMode}
         >
           <div className="flex flex-wrap">
             {nfts.map(({ mintAddress: mint, name, uri }, index) => (

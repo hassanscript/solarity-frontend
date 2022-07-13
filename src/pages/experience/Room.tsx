@@ -1,9 +1,7 @@
 import ChatModule from "modules/ChatModule";
 
 const GalleryRoom = () => {
-  return (
-      <ChatModule />
-  );
+  return <ChatModule />;
 };
 
 export default GalleryRoom;
