@@ -22,10 +22,12 @@ const PlazaChat = ({ modelURL, name, creator, slideUrls }) => {
   }, [])
 
   useEffect(() => {
-    var tmpSlideUrls = [...slideUrls];
-    tmpSlideUrls.sort((a, b) => {
-      return a.no - b.no;
-    })
+    if(!!slideUrls) {
+      var tmpSlideUrls = [...slideUrls];
+      tmpSlideUrls.sort((a, b) => {
+        return a.no - b.no;
+      })
+    }
   }, [slideUrls])
 
   return (
