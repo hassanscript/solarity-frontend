@@ -10,7 +10,6 @@ const PlazaChat = ({ modelURL, name, creator, slideUrls }) => {
     }
     if(!window.presentation) {
       window.socket.on(ACTIONS.CHANGE_SLIDE, ({action}) => {
-        console.log('action: ', action, document.querySelector('#next_image'));
         if(action == "forward") {
           document.querySelector('#next_image').click();
         } else {
@@ -21,6 +20,16 @@ const PlazaChat = ({ modelURL, name, creator, slideUrls }) => {
     }
 
   }, [])
+
+  useEffect(() => {
+    if(!!slideUrls) {
+      var tmpSlideUrls = [...slideUrls];
+      tmpSlideUrls.sort((a, b) => {
+        return a.no - b.no;
+      })
+    }
+  }, [slideUrls])
+
   return (
     <a-scene 
       renderer="antialias: true;
@@ -44,7 +53,7 @@ const PlazaChat = ({ modelURL, name, creator, slideUrls }) => {
 
         <img id="sky-img" src="/assets/images/bluesky.jpg" />
         
-        {slideUrls.map((slideUrl, index) => (
+        {!!slideUrls && slideUrls.map((slideUrl, index) => (
             <img key={index} id={"slide" + slideUrl.no} src={slideUrl.url} />
         ))}
 
@@ -168,7 +177,7 @@ const PlazaChat = ({ modelURL, name, creator, slideUrls }) => {
       <a-entity rotation="0 -90 0" id="slider" position="40.215 3.83 0.94"
         slideshow="forwardTrigger: #next_image; backwardTrigger: #previous_image; offset: 4.4 0 0; duration: 0.1"
       >
-        {slideUrls.map((slideUrl, index) => (
+        {!!slideUrls && slideUrls.map((slideUrl, index) => (
           <a-image src={"#slide" + slideUrl.no} key={index} rotation="0 -180 0" width="4.41" height="2.5" position="0 0 0.01"></a-image>
         ))}
       </a-entity>

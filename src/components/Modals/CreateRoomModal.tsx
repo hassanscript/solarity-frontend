@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState, useCallback  } from "react";
 import Image from "next/image";
 import { useDispatch, useSelector, RootStateOrAny } from "react-redux";
 import { toast } from "react-toastify";
@@ -49,13 +49,13 @@ const CreateRoomModal: FC<any> = ({
   const [files, setFiles] = useState<File[]>([]);
   const [loadedFiles, setLoadedFiles] = useState<any[]>([]);
   const [imageUrls, setImageUrls] = useState<any[]>([]);
-  var imageCnt = 0;
+  const [imageIndex, setImageIndex] = useState<number>(0);
   var tmpImageUrls: any[] = [];
-
+  
   const onLoadAvatar = async (files: any) => {
     setFiles(files);
     tmpImageUrls = [...imageUrls];
-    for(let file of files) {
+    for(let i = 0; i < files.length; i ++) {
       const reader = new FileReader();
 
       reader.onload = () => {
@@ -66,11 +66,10 @@ const CreateRoomModal: FC<any> = ({
         }
       };
 
-      uploadImage(file, imageCnt);
-      reader.readAsDataURL(file);
-      imageCnt ++;
+      uploadImage(files[i], imageIndex + i);
+      reader.readAsDataURL(files[i]);
     }
-
+    setImageIndex(imageIndex + files.length);
   }
 
   const uploadImage = async (img: any, index: number) => {
@@ -82,6 +81,10 @@ const CreateRoomModal: FC<any> = ({
     try {
       const resp = await axios.post(`https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUD_NAME}/image/upload`, data);  
       tmpImageUrls.push({ no: index, url: resp.data.url, public_id: resp.data.public_id });
+      tmpImageUrls.sort((a, b) => {
+        return a.no - b.no;
+      })
+      console.log(tmpImageUrls);
       setImageUrls([...tmpImageUrls]);
     } catch(err) {
       console.log("errr : ", err);
@@ -97,7 +100,7 @@ const CreateRoomModal: FC<any> = ({
     }
     
     try {
-      await cloudinary.v2.uploader.destroy(imageUrls[imageUrlIndex].public_id, (error: any,result: any) => {})
+      await cloudinary.v2.uploader.destroy(imageUrls[imageUrlIndex].public_id, (error: any, result: any) => {})
       tmpImageUrls = [...imageUrls];
       tmpImageUrls.splice(imageUrlIndex, 1);
       setImageUrls([...tmpImageUrls]);
@@ -112,6 +115,21 @@ const CreateRoomModal: FC<any> = ({
       console.error("Something went wrong, please try again later.")
     }
   }
+
+  const moveUrlListItem = useCallback(
+    (dragIndex, hoverIndex) => {
+        const dragItem = imageUrls[dragIndex]
+        const hoverItem = imageUrls[hoverIndex]
+        // Swap places of dragItem and hoverItem in the pets array
+        setImageUrls((urls: any[]) => {
+            const updatedUrls = [...urls]
+            updatedUrls[dragIndex] = hoverItem
+            updatedUrls[hoverIndex] = dragItem
+            return updatedUrls
+        })
+    },
+    [imageUrls],
+  )
 
   ///////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -128,6 +146,7 @@ const CreateRoomModal: FC<any> = ({
       });
       return;
     }
+    console.log('create room: ', imageUrls);
     dispatch(
       createRoom({
         title,
@@ -242,7 +261,7 @@ const CreateRoomModal: FC<any> = ({
                         </span>
                         <span className="flex items-center space-x-2">
                             {files?<span className="font-medium text-[#f3f3f3]">
-                                <label className="text-primary">{files.length}</label> file&#40;s&#41; selected
+                                <label className="text-primary">{files.length}</label> Please select files
                                 <br></br>
                                 <label className="text-[14px] text-white/30">Supports&#58; JPEG, JPEG2000, PNG</label>
                             </span>:<span className="font-medium text-[#f3f3f3]">
@@ -258,7 +277,16 @@ const CreateRoomModal: FC<any> = ({
             </div>
             <div className="grid grid-cols-2 xl:grid-cols-3 mt-5 max-h-[35vh] overflow-auto">
               {imageUrls.map((imageUrl, index1) => {
-                return (<div className="p-2" key={imageUrl.no}><ImagePanel imageSrc={imageUrl.url} title="RESSURECTION..." onClick={() => deleteImage(imageUrl.no)} /></div>)
+                return (
+                  <ImagePanel 
+                    key={imageUrl.no}
+                    index={index1}
+                    imageSrc={imageUrl.url} 
+                    title="RESSURECTION..." 
+                    moveListItem={moveUrlListItem}
+                    onClick={() => deleteImage(imageUrl.no)} 
+                  />
+                )
               })}
             </div>  
           </div>

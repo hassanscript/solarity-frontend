@@ -6,6 +6,9 @@ import { ToastContainer } from "react-toastify";
 import AppLoader from "../components/AppLoader";
 import "react-toastify/dist/ReactToastify.css";
 import Head from "next/head";
+// for Drag and Drop
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
 
 // For redux
 import {
@@ -100,7 +103,9 @@ function ReduxWrapped({ Component, pageProps }: AppProps) {
           pauseOnHover
           theme="dark"
         />
-        <Component {...pageProps} />
+        <DndProvider backend={HTML5Backend}>
+          <Component {...pageProps} />
+        </DndProvider>
       </MyApp>
     </Provider>
   );
