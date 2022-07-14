@@ -13,9 +13,9 @@ export interface CounterState {
 }
 
 const initialState: CounterState = {
-  roomName: '',
-  userName: '',
-  modelIndex: '',
+  roomName: "",
+  userName: "",
+  modelIndex: "",
   socket: {},
   peers: [],
   rooms: [],
@@ -32,25 +32,36 @@ export const chatSlice = createSlice({
       state.roomName = action.payload.roomName;
       state.userName = action.payload.userName;
       state.modelIndex = action.payload.modelIndex;
-      localStorage.setItem('roomName', action.payload.roomName);
-      localStorage.setItem('userName', action.payload.userName);
-      localStorage.setItem('name', action.payload.userName);
-      localStorage.setItem('modelIndex', action.payload.modelIndex);
-      if(!!window.socket){
-        window.socket.emit(ACTIONS.JOIN, {roomId: -1, user: { name: state.userName, title: action.payload.title, type: action.payload.type, roomNo: action.payload.roomNo, roomName: state.roomName, slideUrls: action.payload.slideUrls, modelIndex: state.modelIndex}});
+      localStorage.setItem("roomName", action.payload.roomName);
+      localStorage.setItem("userName", action.payload.userName);
+      localStorage.setItem("name", action.payload.userName);
+      localStorage.setItem("modelIndex", action.payload.modelIndex);
+      if (!!window.socket) {
+        window.socket.emit(ACTIONS.JOIN, {
+          roomId: -1,
+          user: {
+            name: state.userName,
+            title: action.payload.title,
+            type: action.payload.type,
+            roomNo: action.payload.roomNo,
+            roomName: state.roomName,
+            slideUrls: action.payload.slideUrls,
+            modelIndex: state.modelIndex,
+          },
+        });
       }
     },
     setRoom: (state, action: PayloadAction<any>) => {
       state.roomName = action.payload.roomName;
       state.userName = action.payload.userName;
       state.modelIndex = action.payload.modelIndex;
-      localStorage.setItem('roomName', action.payload.roomName);
-      localStorage.setItem('userName', action.payload.userName);
-      localStorage.setItem('name', action.payload.userName);
-      localStorage.setItem('modelIndex', action.payload.modelIndex);
+      localStorage.setItem("roomName", action.payload.roomName);
+      localStorage.setItem("userName", action.payload.userName);
+      localStorage.setItem("name", action.payload.userName);
+      localStorage.setItem("modelIndex", action.payload.modelIndex);
     },
     setName(state, action: PayloadAction<any>) {
-      localStorage.setItem('name', action.payload);
+      localStorage.setItem("name", action.payload);
       state.userName = action.payload;
     },
     setSocket(state, action: PayloadAction<any>) {
@@ -69,9 +80,10 @@ export const chatSlice = createSlice({
       state.msgs.push(action.payload);
     },
     removePeer(state, action: PayloadAction<any>) {
-      var peerindex = state.peers.findIndex((s: any) => s.name === action.payload.name);
-      if(peerindex !== -1)
-        state.peers.splice(peerindex, 1);
+      var peerindex = state.peers.findIndex(
+        (s: any) => s.name === action.payload.name
+      );
+      if (peerindex !== -1) state.peers.splice(peerindex, 1);
     },
     setMsg(state, action: PayloadAction<any>) {
       state.msgs = action.payload;
@@ -88,6 +100,20 @@ export const chatSlice = createSlice({
   },
 });
 
-export const { createRoom, setName, setSocket, addPeer, addRoom, setRooms, addMsg, removePeer, setMsg, setRoomIndex, setModel, setPeers, setRoom } = chatSlice.actions;
+export const {
+  createRoom,
+  setName,
+  setSocket,
+  addPeer,
+  addRoom,
+  setRooms,
+  addMsg,
+  removePeer,
+  setMsg,
+  setRoomIndex,
+  setModel,
+  setPeers,
+  setRoom,
+} = chatSlice.actions;
 
 export default chatSlice.reducer;

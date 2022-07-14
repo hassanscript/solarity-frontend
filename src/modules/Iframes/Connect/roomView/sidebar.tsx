@@ -60,6 +60,8 @@ const Sidebar: FC<{
   setNFTdisabled: boolean;
   onNFTSet: (data: any) => void;
   onNext: () => void;
+  onLive: () => void;
+  onCopy: () => void;
 }> = ({
   loading,
   setLoading,
@@ -68,6 +70,8 @@ const Sidebar: FC<{
   onNFTSet,
   onNext,
   editMode,
+  onLive,
+  onCopy,
 }) => {
   const [roomMode, setRoomMode] = useState(false);
   const rooms = useSelector(
@@ -103,6 +107,19 @@ const Sidebar: FC<{
           >
             SET NFT
           </button>
+        )}
+        {editMode && (
+          <>
+            <button
+              className="btn btn-secondary w-full btn-sm"
+              onClick={onCopy}
+            >
+              COPY
+            </button>
+            <button className="btn btn-success w-full btn-sm" onClick={onLive}>
+              GO LIVE
+            </button>
+          </>
         )}
         {!editMode && (
           <div className="flex space-x-2">

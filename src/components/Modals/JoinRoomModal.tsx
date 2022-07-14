@@ -1,8 +1,8 @@
 import React, { FC, useState } from "react";
-import { useDispatch, useSelector, RootStateOrAny } from 'react-redux';
+import { useDispatch, useSelector, RootStateOrAny } from "react-redux";
 import Base from "components/Modals/Base";
 import AvatarPanel from "components/AvatarPanel";
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
 import { setModel } from "redux/slices/chatSlice";
 import { Join } from "components/Icons";
 import ErrorMessage from "components/ErrorMessage";
@@ -37,78 +37,117 @@ const JoinRoomModal: FC<any> = ({
   const [addOnsIndex, setAddOnsIndex] = useState(0);
   const [errorFlag, setErrorFlag] = useState<Boolean>(false);
   const [errorMsg, setErrorMessage] = useState("");
-  const { profileData, selectedIndex, rooms } = useSelector((state: RootStateOrAny) => ({
-    profileData: state.profile.data,
-    selectedIndex: state.chat.selectedIndex,
-    rooms: state.chat.rooms,
-  }));
+  const { profileData, selectedIndex, rooms } = useSelector(
+    (state: RootStateOrAny) => ({
+      profileData: state.profile.data,
+      selectedIndex: state.chat.selectedIndex,
+      rooms: state.chat.rooms,
+    })
+  );
   const dispatch = useDispatch();
   const router = useRouter();
 
   const joinRoom = () => {
     var type1 = false;
-    if(!profileData || !profileData.username) {
-      if(!username) {
-        setErrorMessage('The name is required.');
+    if (!profileData || !profileData.username) {
+      if (!username) {
+        setErrorMessage("The name is required.");
         setErrorFlag(true);
         return;
       }
-      dispatch(setRoom({
-        modelIndex,
-        roomName,
-        userName: username,
-      }));
+      dispatch(
+        setRoom({
+          modelIndex,
+          roomName,
+          userName: username,
+        })
+      );
       type1 = true;
       setErrorFlag(false);
     } else {
-      dispatch(setRoom({
-        modelIndex,
-        roomName,
-        userName: profileData.username,
-      }));
+      dispatch(
+        setRoom({
+          modelIndex,
+          roomName,
+          userName: profileData.username,
+        })
+      );
     }
     localStorage.setItem("roomBgImg", selectedImageUrl);
-    if(!!window.socket){
-      if(person != "") {
-        if(!!rooms) {
+    if (!!window.socket) {
+      if (person != "") {
+        if (!!rooms) {
           const roomIndex = rooms.findIndex((s: any) => s.roomName == roomName);
-          if(roomIndex != -1) {
+          if (roomIndex != -1) {
             window.socket.emit(ACTIONS.ACEEPT_INVITATION, {
               roomId: rooms[roomIndex].roomId,
               username: person,
-              guestname: type1 ? username: '',
+              guestname: type1 ? username : "",
               type1: type1,
             });
           }
         }
       }
-      
-      if(type == false && roomNo == 0) {
-        router.push(`/experience/Room?rid=${rooms[selectedIndex].roomId}&roomType=0&no=0`, '/experience/Room');
-      } else if(type == false && roomNo == 1) {
-        router.push(`/experience/Room?rid=${rooms[selectedIndex].roomId}&roomType=1&no=0`, '/experience/Room');
-      } else if(type == false && roomNo == 2) {
-        router.push(`/experience/Room?rid=${rooms[selectedIndex].roomId}&roomType=2&no=0`, '/experience/Room');
-      } else if(type == true) {
-        router.push(`/experience/Room?rid=${rooms[selectedIndex].roomId}&roomType=3&no=${rooms[selectedIndex].roomNo + 1}`, '/experience/Room');
+
+      if (type == false && roomNo == 0) {
+        router.push(
+          `/experience/Room?rid=${rooms[selectedIndex].roomId}&roomType=0&no=0`,
+          "/experience/Room"
+        );
+      } else if (type == false && roomNo == 1) {
+        router.push(
+          `/experience/Room?rid=${rooms[selectedIndex].roomId}&roomType=1&no=0`,
+          "/experience/Room"
+        );
+      } else if (type == false && roomNo == 2) {
+        router.push(
+          `/experience/Room?rid=${rooms[selectedIndex].roomId}&roomType=2&no=0`,
+          "/experience/Room"
+        );
+      } else if (type == true) {
+        router.push(
+          `/experience/Room?rid=${rooms[selectedIndex].roomId}&roomType=3&no=${
+            rooms[selectedIndex].roomNo + 1
+          }`,
+          "/experience/Room"
+        );
       }
     }
-  }
+  };
 
   return (
     <Base open={open} onClose={onClose} title={roomName}>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mt-8 min-h-[250px]">
-      <div className="col-span-1">
+        <div className="col-span-1">
           <div className="flex justify-between py-4 px-4 bg-primary rounded-xl h-[200px]">
-            <AvatarPanel modelPath={models[modelIndex].modelUrl} position={models[modelIndex].position} rotation={models[modelIndex].rotation} scale={models[modelIndex].scale} />
+            <AvatarPanel
+              modelPath={models[modelIndex].modelUrl}
+              position={models[modelIndex].position}
+              rotation={models[modelIndex].rotation}
+              scale={models[modelIndex].scale}
+            />
           </div>
           <div className="avatarlist mt-2">
             <div className="flex gap-1 avatar-2d-list">
-              {!!models && models.length !=0 && models.map((model, index) => (
-                <div className={`avatar-2d-item hover:border border border-transparent hover:border-gray-400 `+ (modelIndex == index ? `border-gray-100`: ``)} onClick={() => setModelIndex(index)} key={index}>
-                  <img src={model.imageUrl} width={50} height={50} alt={model.name} />
-                </div>
-              ))}
+              {!!models &&
+                models.length != 0 &&
+                models.map((model, index) => (
+                  <div
+                    className={
+                      `avatar-2d-item hover:border border border-transparent hover:border-gray-400 ` +
+                      (modelIndex == index ? `border-gray-100` : ``)
+                    }
+                    onClick={() => setModelIndex(index)}
+                    key={index}
+                  >
+                    <img
+                      src={model.imageUrl}
+                      width={50}
+                      height={50}
+                      alt={model.name}
+                    />
+                  </div>
+                ))}
             </div>
           </div>
           {/* <div className="addOnslist mt-2">
@@ -122,12 +161,17 @@ const JoinRoomModal: FC<any> = ({
           </div> */}
         </div>
         <div className="col-span-1 py-4 px-0 sm:px-7 rounded-xl">
-        {
-          !!profileData && !!profileData.username ? (
+          {!!profileData && !!profileData.username ? (
             <div className="gap-2">
               <h2 className="text-lg font-light">Plaza</h2>
-              <span className="text-md text-gray-950">Created by {creator}</span><br/>
-              <span className="text-md text-gray-950">Members {!!speakers ? speakers.length: 0}</span><br />
+              <span className="text-md text-gray-950">
+                Created by {creator}
+              </span>
+              <br />
+              <span className="text-md text-gray-950">
+                Members {!!speakers ? speakers.length : 0}
+              </span>
+              <br />
               <div className="text-xs text-gray-950 mt-6">your name.</div>
               <div className="mt-2">
                 <div className="relative w-full text-gray-100 focus-within:text-gray-400">
@@ -137,9 +181,20 @@ const JoinRoomModal: FC<any> = ({
             </div>
           ) : (
             <div className="gap-2">
-              <span className="text-md text-gray-950">Created by <span className="text-white">{creator}</span></span><br/>
-              <span className="text-md text-gray-950">Number of member: <span className="text-white">{!!speakers ? speakers.length: 0}</span></span><br />
-              <div className="text-xs text-gray-950 mt-6">Type your name please.</div>
+              <span className="text-md text-gray-950">
+                Created by <span className="text-white">{creator}</span>
+              </span>
+              <br />
+              <span className="text-md text-gray-950">
+                Number of member:{" "}
+                <span className="text-white">
+                  {!!speakers ? speakers.length : 0}
+                </span>
+              </span>
+              <br />
+              <div className="text-xs text-gray-950 mt-6">
+                Type your name please.
+              </div>
               <div className="mt-2">
                 <div className="relative w-full text-gray-600 focus-within:text-gray-400">
                   <input
@@ -149,20 +204,23 @@ const JoinRoomModal: FC<any> = ({
                     className="w-full py-2 pl-6 text-[15px] font-light text-white border-transparent border rounded-md bg-primary focus:outline-none focus:border-gray-500 focus:border focus:text-white placeholder:text-gray-950Í"
                     placeholder="Your Name"
                     autoComplete="off"
-                    />
+                  />
                 </div>
               </div>
             </div>
-          )
-        }
-        <div className="mt-4">
-          {errorFlag && (<ErrorMessage errorMessage={errorMsg}/>)}
-        </div>
+          )}
+          <div className="mt-4">
+            {errorFlag && <ErrorMessage errorMessage={errorMsg} />}
+          </div>
         </div>
       </div>
       <div className="flex float-right mt-8">
-        <button className="rounded-full btn btn-sm btn-secondary px-8" onClick={joinRoom}>
-          <Join />&nbsp;<span>Join</span>
+        <button
+          className="rounded-full btn btn-sm btn-secondary px-8"
+          onClick={joinRoom}
+        >
+          <Join />
+          &nbsp;<span>Join</span>
         </button>
       </div>
     </Base>

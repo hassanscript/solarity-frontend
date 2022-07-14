@@ -29,7 +29,7 @@ const LoginView = () => {
           );
         }}
       />
-      <ViewHolder>
+      <ViewHolder center>
         <div>
           <Image src={logo} className="w-10 h-10" />
         </div>

@@ -38,11 +38,6 @@ const RoomCreationView: FC<{ onBack: () => void }> = ({ onBack }) => {
         avatarUrl: profileData.profileImageLink || "",
       })
     );
-
-    router.push(
-      `/experience/Room?rid=${activeRoom._id}&roomType=3&no=${roomNo + 1}`,
-      "/experience/Room"
-    );
   };
 
   return (
@@ -60,15 +55,15 @@ const RoomCreationView: FC<{ onBack: () => void }> = ({ onBack }) => {
             }
           />
         </div>
-        <div className="flex justify-between py-4 px-4 bg-primary rounded-xl h-[200px]">
+        {/* <div className="flex justify-between py-4 px-4 bg-primary rounded-xl h-[150px]">
           <AvatarPanel
             modelPath={models[avatar].modelUrl}
             position={models[avatar].position}
             rotation={models[avatar].rotation}
             scale={models[avatar].scale}
           />
-        </div>
-        <div className="avatarlist mt-2">
+        </div> */}
+        {/* <div className="avatarlist mt-2">
           <div className="flex gap-1 avatar-2d-list">
             {!!models &&
               models.length != 0 &&
@@ -90,8 +85,8 @@ const RoomCreationView: FC<{ onBack: () => void }> = ({ onBack }) => {
                 </div>
               ))}
           </div>
-        </div>
-        <div className="flex gap-1 addOns-2d-list">
+        </div> */}
+        {/* <div className="flex gap-1 addOns-2d-list">
           {[0, 1, 2, 3, 4, 5].map((num, index) => (
             <div
               className={
@@ -109,18 +104,21 @@ const RoomCreationView: FC<{ onBack: () => void }> = ({ onBack }) => {
               />
             </div>
           ))}
-        </div>
+        </div> */}
       </div>
-      <div className="flex space-x-4 w-[100%]">
-        <button className="btn btn-primary" onClick={onBack}>
-          BACK
-        </button>
+      <div className="space-y-4 w-[100%]">
         <button
-          className="btn btn-secondary flex-1"
+          className="btn btn-secondary btn-block width-[100%]"
           onClick={onCreateRoom}
           disabled={Boolean(roomName == "")}
         >
           CREATE ROOM
+        </button>
+        <button
+          className="btn block btn-primary btn-sm btn-block width-[100%]"
+          onClick={onBack}
+        >
+          BACK
         </button>
       </div>
     </ViewHolder>

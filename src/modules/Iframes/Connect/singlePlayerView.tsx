@@ -33,7 +33,7 @@ const SinglePlayerView: FC<{
       <SecondEditRoom
         chooseFlag={false}
         setChooseFlag={() => {}}
-        picNo={0}
+        picNo={1}
         setPicNo={() => {}}
         setRoom_id={() => {}}
         imageUrl={null}
@@ -52,25 +52,31 @@ const SinglePlayerView: FC<{
 
   return (
     <div>
-      <div className="fixed top-5 left-5 w-[300px] z-[10000] bg-black/80 p-5 py-7 rounded-md">
-        <h3 className="text-xl font-bold">COPY MODE</h3>
+      <div className="fixed bottom-5 right-5 w-[300px] z-[10000] bg-black/80 p-5 py-7 rounded-md">
+        {/* <h3 className="text-xl font-bold">COPY MODE</h3>
         <span className="text-sm block text-gray-400 pt-1">
           You are viewing your room in single-player mode
-        </span>
-        <div className="pt-5 space-y-3">
-          <button onClick={onEdit} className="btn btn-secondary block btn-sm">
-            Switch to Edit mode
-          </button>
-          <button onClick={onLive} className="btn btn-success block btn-sm">
-            Go Live
+        </span> */}
+        <div className="space-y-3">
+          <button
+            onClick={onEdit}
+            className="btn btn-secondary block btn-sm w-[100%]"
+          >
+            Edit
           </button>
           <button
+            onClick={onLive}
+            className="btn btn-success block btn-sm w-[100%]"
+          >
+            Go Live
+          </button>
+          {/* <button
             onClick={onBack}
             className="btn btn-outline block btn-sm flex items-center justify-center"
           >
             <ChevronLeftIcon className="w-5 inline" />
             BACK
-          </button>
+          </button> */}
         </div>
       </div>
       {editRoomData}
